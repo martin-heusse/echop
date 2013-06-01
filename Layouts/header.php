@@ -37,8 +37,10 @@ $( document ).ready(function() {
 </script>
 
 <div id="banniere">
+    <!--
     <a href="<?php echo root ?>/index.php">
     <img id="logo" src="<?php echo root ?>/Layouts/images/banniere.png" alt="<?php echo $titre_page ?>"/></a>
+    -->
 </div><!-- id="banniere" -->
 
 <?php include($this->root().'/Layouts/menu.php') ?>
