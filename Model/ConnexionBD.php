@@ -1,7 +1,7 @@
 <?php
    // Connexion à la BD
    function connexion_bd() {
-      $connect = mysql_connect('localhost', 'tranphi', 'toto');
+      $connect = mysql_connect('localhost', 'bellasa', 'tata');
       if (!$connect) {
          die("Erreur de connexion au serveur");
       }
