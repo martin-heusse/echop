@@ -1,0 +1,199 @@
+html {
+    background-color: #191c4a;
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+    color #444444;
+    background-color: #f0f0f0;
+    width: 1000px;
+    margin: 10px auto;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 0px;
+    font-family: arial;
+    -webkit-box-shadow: 0px 0px 10px 0px #000000;
+    -moz-box-shadow: 0px 0px 10px 0px #000000;
+    box-shadow: 0px 0px 10px 0px #000000;
+}
+
+a {
+    color: #444444;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: #aaaaaa;
+    text-decoration: underline;
+}
+
+
+/* ========================================================================== */
+
+#banniere {
+    background-color: #cccccc;
+    background-image: url(banniere.png);
+    background-repeat: no-repeat;
+    background-position: right;
+    height: 120px;
+}
+
+#logo {
+    display: inline-block;
+    margin-top: 15px;
+    margin-left: 20px;
+}
+
+#titre_banniere {
+    color: #666666;
+    font-family: arial;
+    font-size: 34px;
+    display: inline-block;
+    margin-top: 220px;
+    margin-left: 50px;
+}
+
+
+#menu {
+    padding-top: 20px;
+    float: left;
+    background-color: #444444;
+    color: #aaaaaa;
+    width: 200px;
+    min-height: 700px;
+}
+
+#menu .titre_menu {
+    margin-left: -5px;
+    text-align: center;
+}
+
+#menu ul {
+    list-style-type: none;
+    margin-left: -20px;
+}
+
+#menu ul a {
+    color: #aaaaaa;
+    text-decoration: none;
+}
+
+#menu ul a:hover {
+    text-decoration: underline;
+}
+
+#bonjour {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+#contenu {
+    float: left;
+    width: 760px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+/* ========================================================================== */
+/* Tableau */
+
+.ligne_article0 {
+    background-color: #dddddd;
+}
+
+.ligne_article1 {
+    background-color: #f0f0f0;
+}
+
+.ligne_article0:hover, .ligne_article1:hover {
+    background-color: #cccccc;
+    cursor: pointer;
+}
+
+/* Formulaire */
+
+.form_connexion {
+    margin: 10px auto;
+    width: 500px;
+}
+
+form .form_col, .form_col {
+    text-align: left;
+    display: inline-block;
+    margin-right: 15px;
+    width: 160px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+}
+table, th, td {
+    border: 1px solid black;
+}
+
+th {
+    color: #cccccc;
+    background-color: #666666;
+}
+
+
+/* ========================================================================== */
+/* Regroupement par bloc dans "Ajouter" et "Modifier" un article */
+
+#article_bloc_gauche {
+    width: 370px;
+    float: left;
+}
+
+#article_bloc_droit {
+    width: 300px;
+    float: right;
+}
+
+.article_groupe {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+/* ========================================================================== */
+
+/* Pour que les flottants ne dépassent pas de leur conteneur */
+.clear {
+    clear: both;
+    height: 0;
+    overflow: hidden; /* Précaution pour IE 7 */
+}
+
+.center {
+    text-align: center;
+}
+
+.nombre {
+    text-align: right;
+}
+
+#erreur{
+    width: 600px;
+    border: medium red solid;
+    margin: 10px auto;
+    padding: 20px;
+}
+
+#erreur h2{
+    color:   red;
+}
+
+.titre_menu {
+    font-size: 18px;
+    font-weight: bold;
+}
