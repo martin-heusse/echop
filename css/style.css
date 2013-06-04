@@ -2,7 +2,7 @@ html {
     /*
     background-color: #c6a771;
     */
-    background-image: url(../Layouts/images/paille.png);
+    background-image: url(../Layouts/images/papaille.png);
     height: 100%;
 }
 
@@ -35,7 +35,7 @@ a:hover {
 /* ========================================================================== */
 
 #banniere {
-    background-color: #b08e51;
+    background-color: #d6b781;
     background-repeat: no-repeat;
     background-position: right;
     height: 120px;
@@ -60,7 +60,8 @@ a:hover {
 #menu {
     padding-top: 20px;
     float: left;
-    background-color: #603e01;
+    background-color: #b08e51;
+    background-color: #967741;
     color: #aaaaaa;
     width: 200px;
     min-height: 700px;
