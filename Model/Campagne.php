@@ -1,0 +1,132 @@
+<?php
+class Campagne {
+
+    /* Creaters */
+
+    public static function create($s_dateDebut, $b_etat, $i_idAdministrateur) {
+        $sql_query = "insert into campagne(date_debut, etat, id_administrateur) 
+            values('$s_dateDebut', '$b_etat', '$i_idAdministrateur')";
+        mysql_query($sql_query);
+        $i_result = mysql_insert_id();
+        return $i_result;
+    }
+
+    /* Getters */
+
+    public static function getAllObjects() {
+        $sql_query = "select * from campagne";
+        $sql_tmp = mysql_query($sql_query);
+        $to_result = array();
+        while ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité */
+            foreach ($o_row as &$column) {
+                $column = htmlentities($column);
+            }
+            /* Création du résultat */
+            $to_result[] = $o_row;
+        }
+        return $to_result;
+    }
+
+    public static function getObjectsByIdAdminisrateur($i_idAdministrateur) {
+        $sql_query = "select * from campagne where id_administrateur=$i_idAdministrateur";
+        $sql_tmp = mysql_query($sql_query);
+        $to_result = array();
+        while ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité */
+            foreach ($o_row as &$column) {
+                $column = htmlentities($column);
+            }
+            /* Création du résultat */
+            $to_result[] = $o_row;
+        }
+        return $to_result;
+    }
+
+    public static function getObject($i_id) {
+        $sql_query = "select * from campagne where id=$i_id";
+        $sql_tmp = mysql_query($sql_query);
+        $o_result = null;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité */
+            foreach ($o_row as &$column) {
+                $column = htmlentities($column);
+            }
+            /* Création du résultat */
+            $o_result = $o_row;
+        }
+        return $o_result;
+    }
+
+    public static function getDateDebut($i_id) {
+        $sql_query = "select date_debut from campagne where id=$i_id";
+        $sql_tmp = mysql_query($sql_query);
+        $s_result = null;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité et création du résultat */
+            $s_result = htmlentities($o_row['date_debut']);
+        }
+        return $s_result;
+    }
+
+    public static function getEtat($i_id) {
+        $sql_query = "select etat from campagne where id=$i_id";
+        $sql_tmp = mysql_query($sql_query);
+        $s_result = null;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité et création du résultat */
+            $s_result = htmlentities($o_row['etat']);
+        }
+        return $s_result;
+    }
+
+    public static function getIdAdministrateur($i_id) {
+        $sql_query = "select id_administrateur from campagne where id=$i_id";
+        $sql_tmp = mysql_query($sql_query);
+        $s_result = null;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité et création du résultat */
+            $s_result = htmlentities($o_row['id_administrateur']);
+        }
+        return $s_result;
+    }
+
+    /* Setters */
+
+    public static function set($i_id, $s_dateDebut, $b_etat, $i_idAdministrateur) {
+        $sql_query = "update campagne set date_debut='$s_dateDebut', etat='$b_etat', id_administrateur='$i_idAdministrateur' 
+            where id=$i_id";
+        $b_result =  mysql_query($sql_query);
+        return $b_result;
+    }
+
+    public static function setDateDebut($i_id, $s_dateDebut) {
+        $sql_query = "update campagne set date_debut='$s_dateDebut' 
+            where id=$i_id";
+        $b_result =  mysql_query($sql_query);
+        return $b_result;
+    }
+
+    public static function setEtat($i_id, $b_etat) {
+        $sql_query = "update campagne set etat='$b_etat' 
+            where id=$i_id";
+        $b_result =  mysql_query($sql_query);
+        return $b_result;
+    }
+
+    public static function setIdAdministrateur($i_id, $i_idAdministrateur) {
+        $sql_query = "update campagne set id_administrateur='$i_idAdministrateur' 
+            where id=$i_id";
+        $b_result =  mysql_query($sql_query);
+        return $b_result;
+    }
+
+    /* Deleters */
+
+    public static function delete($i_id) {
+        $sql_query = "delete from camapgne where id=$i_id";
+        $b_result =  mysql_query($sql_query);
+        return $b_result;
+    }
+}
+?>
