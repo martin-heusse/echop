@@ -1,27 +1,36 @@
+DROP DATABASE IF EXISTS BdEchoppe;
 CREATE DATABASE IF NOT EXISTS BdEchoppe;
 use BdEchoppe;
 
 DROP TABLE IF EXISTS utilisateur;
+DROP TABLE IF EXISTS administrateur;
+DROP TABLE IF EXISTS campagne;
+DROP TABLE IF EXISTS rayon;
+DROP TABLE IF EXISTS article;
+DROP TABLE IF EXISTS fournisseur;
+DROP TABLE IF EXISTS tva;
+DROP TABLE IF EXISTS article_fournisseur;
+DROP TABLE IF EXISTS article_campagne;
+DROP TABLE IF EXISTS campagne_rayon;
+DROP TABLE IF EXISTS commande;
+
 CREATE TABLE utilisateur (
     id integer not null auto_increment,
 	login varchar(255),
 	mot_de_passe varchar(255),
 	email varchar(255),
 	constraint pk_utilisateur primary key (id)
-) ENGINE = InnoDB;
+);
 
-DROP TABLE IF EXISTS administrateur;
 CREATE TABLE administrateur (
     id integer not null auto_increment,
     id_utilisateur integer not null,
 
     constraint pk_administrateur primary key (id),
-    constraint foreign key id_utilisateur 
+    constraint fk_id_utilisateur foreign key (id_utilisateur)
     references utilisateur(id) on delete cascade
-) ENGINE = InnoDB;
+);
 
-
-DROP TABLE IF EXISTS campagne;
 CREATE TABLE campagne (
    id integer not null auto_increment,
    id_administrateur integer not null,
@@ -29,18 +38,16 @@ CREATE TABLE campagne (
    etat boolean,
 
    constraint pk_campagne primary key (id),
-   constraint foreign key id_administrateur
+   constraint fk_id_administrateur foreign key (id_administrateur)
    references administrateur(id) on delete cascade
-) ENGINE = InnoDB;
+);
 
-DROP TABLE IF EXISTS rayon;
 CREATE TABLE rayon (
    id integer not null auto_increment,
    nom varchar(255),
    constraint pk_rayon primary key (id)
-) ENGINE = InnoDB;
+);
 
-DROP TABLE IF EXISTS article;
 CREATE TABLE article (
    id integer not null auto_increment,
    id_rayon integer not null,
@@ -53,30 +60,25 @@ CREATE TABLE article (
    description_longue varchar(255),
 
    constraint pk_article primary key (id),
-   constraint foreign key id_rayon 
+   constraint fk_id_rayon foreign key (id_rayon) 
    references rayon(id) on delete cascade
-) ENGINE = InnoDB;
+);
 
 
-DROP TABLE IF EXISTS fournisseur;
 CREATE TABLE fournisseur (
    id integer not null auto_increment,
-   nom vrachar(255),
+   nom varchar(255),
 
    constraint pk_fournisseur primary key (id)
-) ENGINE = InnoDB;
+);
 
-DROP TABLE IF EXISTS tva;
 CREATE TABLE tva (
        id integer not null auto_increment,
        valeur float,
        
        constraint pk_tva primary key (id)
-) ENGINE = InnoDB;
+);
 
-
-
-DROP TABLE IF EXISTS article_fournisseur;
 CREATE TABLE article_fournisseur (
    id integer not null auto_increment,
    id_article integer not null,
@@ -84,13 +86,12 @@ CREATE TABLE article_fournisseur (
    prix_article float,
 
    constraint pk_article_fournisseur primary key (id),
-   constraint foreign key id_article 
+   constraint fk_id_article foreign key (id_article)
    references article(id) on delete cascade,
-   foreign key id_fournisseur 
+   constraint fk_id_fournisseur foreign key (id_fournisseur) 
    references fournisseur(id) on delete cascade
-) ENGINE = InnoDB;
+);
 
-DROP TABLE IF EXISTS article_campagne;
 CREATE TABLE article_campagne (
    id integer not null auto_increment,
    id_article integer not null,
@@ -101,40 +102,38 @@ CREATE TABLE article_campagne (
    seuil_max float,
    prix_ttc float,
    constraint pk_article_campagne primary key (id),
-   constraint foreign key id_article 
+   constraint fk_id_article foreign key (id_article) 
    references article(id) on delete cascade,
-   constraint foreign key id_campagne 
+   constraint fk_id_campagne foreign key (id_campagne) 
    references campagne(id) on delete cascade,
-   constraint foreign key id_tva 
+   constraint fk_id_tva foreign key (id_tva) 
    references tva(id) on delete cascade
-) ENGINE = InnoDB;
+);
 
-DROP TABLE IF EXISTS campagne_rayon;
-CREATE TABLE campagne_rayon (
-   id integer not null auto_increment,
-   id_campagne integer not null,
-   id_rayon integer not null,
+-- CREATE TABLE campagne_rayon (
+   -- id integer not null auto_increment,
+   -- id_campagne integer not null,
+   -- id_rayon integer not null,
+-- 
+   -- constraint pk_campagne_rayon primary key (id)
+   -- constraint fk_id_campagne foreign key (id_campagne) 
+   -- references campagne(id) on delete cascade,
+   -- constraint fk_id_rayon foreign key (id_rayon) 
+   -- references rayon(id) on delete cascade
+-- );
 
-   constraint pk_campagne_rayon primary key (id)
-   constraint foreign key id_campagne 
-   references campagne(id) on delete cascade,
-   constraint foreign key id_rayon 
-   references rayon(id) on delete cascade
-) ENGINE = InnoDB;
-
-DROP TABLE IF EXISTS commande;
-CREATE TABLE commande (
-  id integer not null auto_increment,
-  id_article integer not null,
-  id_campagne integer not null,
-  id_utilisateur integer not null,
-  quantite integer,
-
-  constraint pk_commande primary key (id),
-  constraint foreign key id_article 
-  references article(id) on delete cascade,
-  constraint foreign key id_campagne 
-  references campagne(id) on delete cascade, 
-  constraint foreign key id_utilisateur 
-  references utilisateur(id) on delete cascade
-) ENGINE = InnoDB;
+-- CREATE TABLE commande (
+  -- id integer not null auto_increment,
+  -- id_article integer not null,
+  -- id_campagne integer not null,
+  -- id_utilisateur integer not null,
+  -- quantite integer,
+-- 
+  -- constraint pk_commande primary key (id),
+  -- constraint fk_id_article foreign key (id_article) 
+  -- references article(id) on delete cascade,
+  -- constraint fk_id_campagne foreign key (id_campagne) 
+  -- references campagne(id) on delete cascade, 
+  -- constraint fk_id_utilisateur foreign key (id_utilisateur) 
+  -- references utilisateur(id) on delete cascade
+-- );

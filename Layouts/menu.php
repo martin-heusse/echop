@@ -1,12 +1,12 @@
 <?php
-require_once("Model/Admin.php");
-require_once('Model/Categorie.php');
+require_once("Model/Administrateur.php");
+require_once("Model/Utilisateur.php");
 ?>
 <div id="menu">
 <?php
-if (Admin::isLogged()) {
+if (Utilisateur::isLogged()) {
 ?>
-    <span id="bonjour">Bonjour <?php echo $_SESSION['nom'] ?>,</span>
+    <span id="bonjour">Bonjour <?php echo $_SESSION['login'] ?>,</span>
     <ul>
         <li><a href="<?php echo root ?>/index.php">Accueil</a></li>
         <li><a href="<?php echo root ?>/connexion.php/deconnexion">Se déconnecter</a></li>
@@ -20,23 +20,11 @@ if (Admin::isLogged()) {
     </ul>
 <?php
 }
+if(Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
 ?>
-
-<?php
-if(Admin::isLogged()) {
-?>
-    <h1 class="titre_menu">Catégories</h1>
-    <ul>
-<?php
-    $to_allCategories = Categorie::getAllObjects();
-    foreach ($to_allCategories as $row) {
-?>
-    <li><a href="<?php echo root ?>/article.php/afficher?idcat=<?php echo $row['id'] ?>"><?php echo $row['nom'] ?></a></li>
-<?php
-    }
-?>
-    </ul>
+    <p>Vous êtes administrateur.</p>
 <?php
 }
 ?>
+
 </div><!-- id="menu" -->
