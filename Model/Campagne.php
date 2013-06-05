@@ -28,6 +28,36 @@ class Campagne {
         return $to_result;
     }
 
+    public static function getObjectsByDateDebut($s_dateDebut) {
+        $sql_query = "select * from campagne where date_debut=$s_dateDebut";
+        $sql_tmp = mysql_query($sql_query);
+        $to_result = array();
+        while ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité */
+            foreach ($o_row as &$column) {
+                $column = htmlentities($column);
+            }
+            /* Création du résultat */
+            $to_result[] = $o_row;
+        }
+        return $to_result;
+    }
+
+    public static function getObjectsByEtat($b_etat) {
+        $sql_query = "select * from campagne where etat=$b_etat";
+        $sql_tmp = mysql_query($sql_query);
+        $to_result = array();
+        while ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité */
+            foreach ($o_row as &$column) {
+                $column = htmlentities($column);
+            }
+            /* Création du résultat */
+            $to_result[] = $o_row;
+        }
+        return $to_result;
+    }
+
     public static function getObjectsByIdAdminisrateur($i_idAdministrateur) {
         $sql_query = "select * from campagne where id_administrateur=$i_idAdministrateur";
         $sql_tmp = mysql_query($sql_query);
@@ -72,23 +102,23 @@ class Campagne {
     public static function getEtat($i_id) {
         $sql_query = "select etat from campagne where id=$i_id";
         $sql_tmp = mysql_query($sql_query);
-        $s_result = null;
+        $b_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $s_result = htmlentities($o_row['etat']);
+            $b_result = htmlentities($o_row['etat']);
         }
-        return $s_result;
+        return $b_result;
     }
 
     public static function getIdAdministrateur($i_id) {
         $sql_query = "select id_administrateur from campagne where id=$i_id";
         $sql_tmp = mysql_query($sql_query);
-        $s_result = null;
+        $i_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $s_result = htmlentities($o_row['id_administrateur']);
+            $i_result = htmlentities($o_row['id_administrateur']);
         }
-        return $s_result;
+        return $i_result;
     }
 
     /* Setters */
