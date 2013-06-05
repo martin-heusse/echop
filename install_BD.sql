@@ -1,8 +1,6 @@
 CREATE DATABASE IF NOT EXISTS BdEchoppe;
 use BdEchoppe;
 
-DROP TABLE IF EXISTS RESERVATIONCATEGORIE;
-
 DROP TABLE IF EXISTS utilisateur;
 CREATE TABLE utilisateur (
     id integer not null auto_increment,
@@ -15,131 +13,128 @@ CREATE TABLE utilisateur (
 DROP TABLE IF EXISTS administrateur;
 CREATE TABLE administrateur (
     id integer not null auto_increment,
-	login varchar(255),
-	mot_de_passe varchar(255),
-	email varchar(255),
-	constraint pk_utilisateur primary key (id)
+    id_utilisateur integer not null,
+
+    constraint pk_administrateur primary key (id),
+    constraint foreign key id_utilisateur 
+    references utilisateur(id) on delete cascade
+) ENGINE = InnoDB;
+
+
+DROP TABLE IF EXISTS campagne;
+CREATE TABLE campagne (
+   id integer not null auto_increment,
+   id_administrateur integer not null,
+   date_debut date,
+   etat boolean,
+
+   constraint pk_campagne primary key (id),
+   constraint foreign key id_administrateur
+   references administrateur(id) on delete cascade
+) ENGINE = InnoDB;
+
+DROP TABLE IF EXISTS rayon;
+CREATE TABLE rayon (
+   id integer not null auto_increment,
+   nom varchar(255),
+   constraint pk_rayon primary key (id)
+) ENGINE = InnoDB;
+
+DROP TABLE IF EXISTS article;
+CREATE TABLE article (
+   id integer not null auto_increment,
+   id_rayon integer not null,
+   nom varchar(255),
+   code varchar(255),
+   poids_paquet_fournisseur varchar(255),
+   unite varchar(255),
+   nb_paquet_colis varchar(255),
+   description_courte varchar(255),
+   description_longue varchar(255),
+
+   constraint pk_article primary key (id),
+   constraint foreign key id_rayon 
+   references rayon(id) on delete cascade
+) ENGINE = InnoDB;
+
+
+DROP TABLE IF EXISTS fournisseur;
+CREATE TABLE fournisseur (
+   id integer not null auto_increment,
+   nom vrachar(255),
+
+   constraint pk_fournisseur primary key (id)
+) ENGINE = InnoDB;
+
+DROP TABLE IF EXISTS tva;
+CREATE TABLE tva (
+       id integer not null auto_increment,
+       valeur float,
+       
+       constraint pk_tva primary key (id)
 ) ENGINE = InnoDB;
 
 
 
+DROP TABLE IF EXISTS article_fournisseur;
+CREATE TABLE article_fournisseur (
+   id integer not null auto_increment,
+   id_article integer not null,
+   id_fournisseur integer not null,
+   prix_article float,
 
+   constraint pk_article_fournisseur primary key (id),
+   constraint foreign key id_article 
+   references article(id) on delete cascade,
+   foreign key id_fournisseur 
+   references fournisseur(id) on delete cascade
+) ENGINE = InnoDB;
 
+DROP TABLE IF EXISTS article_campagne;
+CREATE TABLE article_campagne (
+   id integer not null auto_increment,
+   id_article integer not null,
+   id_campagne integer not null,
+   id_tva integer not null,
+   poids_paquet_client float,
+   seuil_min float,
+   seuil_max float,
+   prix_ttc float,
+   constraint pk_article_campagne primary key (id),
+   constraint foreign key id_article 
+   references article(id) on delete cascade,
+   constraint foreign key id_campagne 
+   references campagne(id) on delete cascade,
+   constraint foreign key id_tva 
+   references tva(id) on delete cascade
+) ENGINE = InnoDB;
 
-CREATE TABLE CLIENT (
-	LOGIN VARCHAR(30),
-	CONSTRAINT PK_CLIENT PRIMARY KEY (LOGIN), 
-	CONSTRAINT FK_UTILISATEUR_CLIENT FOREIGN KEY (LOGIN) REFERENCES UTILISATEUR(LOGIN) ON DELETE CASCADE
-) ENGINE = InnoDB; 
+DROP TABLE IF EXISTS campagne_rayon;
+CREATE TABLE campagne_rayon (
+   id integer not null auto_increment,
+   id_campagne integer not null,
+   id_rayon integer not null,
 
-CREATE TABLE RESPONSABLEPROG (
-	LOGIN VARCHAR(30),
-	CONSTRAINT PK_RESPONSABLEPROG PRIMARY KEY (LOGIN),
-	CONSTRAINT FK_UTILISATEUR_RESPONSABLEPROG FOREIGN KEY (LOGIN) REFERENCES UTILISATEUR(LOGIN) ON DELETE CASCADE
-) ENGINE = InnoDB; 
+   constraint pk_campagne_rayon primary key (id)
+   constraint foreign key id_campagne 
+   references campagne(id) on delete cascade,
+   constraint foreign key id_rayon 
+   references rayon(id) on delete cascade
+) ENGINE = InnoDB;
 
-CREATE TABLE ADMINISTRATEUR (
-	LOGIN VARCHAR(30),
-	CONSTRAINT PK_ADMINISTRATEUR PRIMARY KEY (LOGIN),
-	CONSTRAINT FK_RESPONSABLEPROG_ADMINISTRATEUR FOREIGN KEY (LOGIN) REFERENCES RESPONSABLEPROG(LOGIN) ON DELETE CASCADE
-) ENGINE = InnoDB; 
+DROP TABLE IF EXISTS commande;
+CREATE TABLE commande (
+  id integer not null auto_increment,
+  id_article integer not null,
+  id_campagne integer not null,
+  id_utilisateur integer not null,
+  quantite integer,
 
-CREATE TABLE SALLE (
-	IDSALLE INTEGER NOT NULL AUTO_INCREMENT,
-	NOMSALLE VARCHAR(30),
-	CONSTRAINT PK_SALLE PRIMARY KEY (IDSALLE)
-) ENGINE = InnoDB; 
-
-CREATE TABLE CATEGORIE (
-	IDCATEGORIE INTEGER NOT NULL AUTO_INCREMENT,
-	NOMCATEGORIE VARCHAR(30) UNIQUE,
-	PRIX INTEGER NOT NULL CHECK (PRIX >= 0),
-	CONSTRAINT PK_CATEGORIE PRIMARY KEY (IDCATEGORIE) 
-) ENGINE = InnoDB; 
-
-CREATE TABLE ZONE (
-	IDZONE INTEGER NOT NULL,
-	IDSALLE INTEGER NOT NULL,
-	IDCATEGORIE INTEGER NOT NULL,
-	CONSTRAINT PK_ZONE PRIMARY KEY (IDZONE, IDSALLE),
-	CONSTRAINT FK_ZONE_SALLE FOREIGN KEY (IDSALLE) REFERENCES SALLE(IDSALLE) ON DELETE CASCADE,
-	CONSTRAINT FK_ZONE_CATEGORIE FOREIGN KEY (IDCATEGORIE) REFERENCES CATEGORIE(IDCATEGORIE) ON DELETE CASCADE,
-	CONSTRAINT UNIQUE_SALLECATEGORIE UNIQUE (IDSALLE, IDCATEGORIE)
-) ENGINE = InnoDB; 
-
-CREATE TABLE RANG (
-	IDRANG VARCHAR(2),
-	IDZONE INTEGER NOT NULL,
-	IDSALLE INTEGER NOT NULL,
-	CONSTRAINT PK_RANG PRIMARY KEY (IDRANG, IDZONE, IDSALLE),
-	CONSTRAINT FK_RANG_ZONE FOREIGN KEY (IDZONE, IDSALLE) REFERENCES ZONE(IDZONE, IDSALLE) ON DELETE CASCADE
-) ENGINE = InnoDB; 
-
-CREATE TABLE PLACE (
-	IDPLACE INTEGER NOT NULL,
-	IDRANG VARCHAR(2) NOT NULL,
-	IDZONE INTEGER NOT NULL,
-	IDSALLE INTEGER NOT NULL,
-	CONSTRAINT PK_PLACE PRIMARY KEY (IDPLACE, IDRANG, IDZONE, IDSALLE),
-	CONSTRAINT FK_PLACE_RANG FOREIGN KEY (IDRANG, IDZONE, IDSALLE) REFERENCES RANG(IDRANG, IDZONE, IDSALLE) ON DELETE CASCADE
-) ENGINE = InnoDB; 
-
-CREATE TABLE SPECTACLE (
-	IDSPECTACLE INTEGER NOT NULL AUTO_INCREMENT,
-	NOMSPECTACLE VARCHAR(300) NOT NULL,
-	CONSTRAINT PK_SPECTACLE PRIMARY KEY (IDSPECTACLE) 
-) ENGINE = InnoDB; 
-
-CREATE TABLE REPRESENTATION (
-	HEURE DATETIME,
-	IDSALLE INTEGER NOT NULL,
-	IDSPECTACLE INTEGER NOT NULL,
-	CONSTRAINT PK_REPRESENTATION PRIMARY KEY (HEURE, IDSALLE, IDSPECTACLE),
-	CONSTRAINT FK_REPRESENTATION_SALLE FOREIGN KEY (IDSALLE) REFERENCES SALLE(IDSALLE) ON DELETE CASCADE,
-	CONSTRAINT FK_REPRESENTATION_SPECTACLE FOREIGN KEY (IDSPECTACLE) REFERENCES SPECTACLE(IDSPECTACLE) ON DELETE CASCADE
-) ENGINE = InnoDB; 
-
-CREATE TABLE DOSSIER (
-	IDDOSSIER INTEGER NOT NULL AUTO_INCREMENT,
-	LOGIN VARCHAR(30) NOT NULL,
-	HEURE DATETIME NOT NULL,
-	IDSPECTACLE INTEGER NOT NULL,
-	IDSALLE INTEGER NOT NULL,
-	CONSTRAINT PK_DOSSIER PRIMARY KEY (IDDOSSIER),
-	CONSTRAINT FK_DOSSIER_CLIENT FOREIGN KEY (LOGIN) REFERENCES CLIENT(LOGIN) ON DELETE CASCADE,
-	CONSTRAINT FK_DOSSIER_REPRESENTATION FOREIGN KEY (HEURE, IDSALLE, IDSPECTACLE) REFERENCES REPRESENTATION(HEURE, IDSALLE, IDSPECTACLE) ON DELETE CASCADE
-) ENGINE = InnoDB; 
-
-CREATE TABLE TICKET (
-	IDTICKET INTEGER NOT NULL AUTO_INCREMENT,
-	DATETRANSACTION DATE NOT NULL,
-	IDDOSSIER INTEGER NOT NULL,
-	IDPLACE INTEGER NOT NULL,
-	IDRANG VARCHAR(2) NOT NULL,
-	IDZONE INTEGER NOT NULL,
-	IDSALLE INTEGER NOT NULL,
-	CONSTRAINT PK_TICKET PRIMARY KEY (IDTICKET), 
-	CONSTRAINT FK_TICKET_DOSSIER FOREIGN KEY (IDDOSSIER) REFERENCES DOSSIER(IDDOSSIER) ON DELETE CASCADE,
-	CONSTRAINT FK_TICKET_PLACE FOREIGN KEY (IDPLACE, IDRANG, IDZONE, IDSALLE) REFERENCES PLACE(IDPLACE, IDRANG, IDZONE, IDSALLE) ON DELETE CASCADE
-) ENGINE = InnoDB; 
-
-CREATE TABLE RESERVATION (
-	IDRESERVATION INTEGER NOT NULL AUTO_INCREMENT,
-	LOGIN VARCHAR(30) NOT NULL,
-	HEURE DATETIME NOT NULL,
-	IDSALLE INTEGER NOT NULL,
-	IDSPECTACLE INTEGER NOT NULL,
-	CONSTRAINT UNIQUE_RESERVATION UNIQUE (LOGIN, HEURE, IDSALLE, IDSPECTACLE),
-	CONSTRAINT PK_RESERVATION PRIMARY KEY (IDRESERVATION),
-	CONSTRAINT FK_RESERVATION_CLIENT FOREIGN KEY (LOGIN) REFERENCES CLIENT(LOGIN) ON DELETE CASCADE,
-	CONSTRAINT FK_RESERVATION_REPRESENTATION FOREIGN KEY (HEURE, IDSALLE, IDSPECTACLE) REFERENCES REPRESENTATION(HEURE, IDSALLE, IDSPECTACLE) ON DELETE CASCADE
-) ENGINE = InnoDB; 
-
-CREATE TABLE RESERVATIONCATEGORIE (
-	IDRESERVATION INTEGER NOT NULL,
-	IDCATEGORIE INTEGER NOT NULL,
-	NBPLACES INTEGER NOT NULL CHECK (NBPLACES >= 0),
-	CONSTRAINT PK_RESERVATIONCATEGORIE PRIMARY KEY (IDRESERVATION, IDCATEGORIE),
-	CONSTRAINT FK_RESERVATIONCATEGORIE_RESERVATION FOREIGN KEY (IDRESERVATION) REFERENCES RESERVATION(IDRESERVATION) ON DELETE CASCADE,
-	CONSTRAINT FK_RESERVATIONCATEGORIE_CATEGORIE FOREIGN KEY (IDCATEGORIE) REFERENCES CATEGORIE(IDCATEGORIE) ON DELETE CASCADE
+  constraint pk_commande primary key (id),
+  constraint foreign key id_article 
+  references article(id) on delete cascade,
+  constraint foreign key id_campagne 
+  references campagne(id) on delete cascade, 
+  constraint foreign key id_utilisateur 
+  references utilisateur(id) on delete cascade
 ) ENGINE = InnoDB;
