@@ -46,9 +46,9 @@ CREATE TABLE article (
    id_rayon integer not null,
    nom varchar(255),
    code varchar(255),
-   poids_paquet_fournisseur varchar(255),
+   poids_paquet_fournisseur integer,
    unite varchar(255),
-   nb_paquet_colis varchar(255),
+   nb_paquet_colis integer,
    description_courte varchar(255),
    description_longue varchar(255),
 

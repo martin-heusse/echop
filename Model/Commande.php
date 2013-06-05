@@ -1,0 +1,190 @@
+<?php
+class Commande {
+
+    /* Creaters */
+
+    public static function create($i_id, $i_id_article, $i_id_campagne,
+				  $i_id_utilisateur, $i_quantite) {
+        $sql_query = "insert into commande(id, id_article, id_campagne, 
+                      id_utilisateur, quantite) 
+            values('$i_id','$i_id_article', '$i_id_campagne', '$i_id_utilisateur', '$i_quantite')";
+        mysql_query($sql_query);
+        $i_result = mysql_insert_id();
+        return $i_result;
+    }
+
+    /* Getters */
+
+    public static function getAllObjects() {
+        $sql_query = "select * from commande";
+        $sql_tmp = mysql_query($sql_query);
+        $to_result = array();
+        while ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité */
+            foreach ($o_row as &$column) {
+                $column = htmlentities($column);
+            }
+            /* Création du résultat */
+            $to_result[] = $o_row;
+        }
+        return $to_result;
+    }
+
+    public static function getObjectsByIdArticle($i_id_article) {
+        $sql_query = "select * from commande where id_article=$i_id_article";
+        $sql_tmp = mysql_query($sql_query);
+        $to_result = array();
+        while ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité */
+            foreach ($o_row as &$column) {
+                $column = htmlentities($column);
+            }
+            /* Création du résultat */
+            $to_result[] = $o_row;
+        }
+        return $to_result;
+    }
+
+
+    public static function getObjectsByIdCampagne($i_id_campagne) {
+        $sql_query = "select * from commande where id_campagne=$i_id_campagne";
+        $sql_tmp = mysql_query($sql_query);
+        $to_result = array();
+        while ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité */
+            foreach ($o_row as &$column) {
+                $column = htmlentities($column);
+            }
+            /* Création du résultat */
+            $to_result[] = $o_row;
+        }
+        return $to_result;
+    }
+
+    public static function getObjectsByIdUtilisateur($i_id_utilisateur) {
+        $sql_query = "select * from commande where id_utilisateur=$i_id_utilisateur";
+        $sql_tmp = mysql_query($sql_query);
+        $to_result = array();
+        while ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité */
+            foreach ($o_row as &$column) {
+                $column = htmlentities($column);
+            }
+            /* Création du résultat */
+            $to_result[] = $o_row;
+        }
+        return $to_result;
+    }
+
+    public static function getObject($i_id) {
+        $sql_query = "select * from commande where id=$i_id";
+        $sql_tmp = mysql_query($sql_query);
+        $o_result = null;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité */
+            foreach ($o_row as &$column) {
+                $column = htmlentities($column);
+            }
+            /* Création du résultat */
+            $o_result = $o_row;
+        }
+        return $o_result;
+    }
+
+    public static function getIdArticle($i_id) {
+        $sql_query = "select id_article from commande where id=$i_id";
+        $sql_tmp = mysql_query($sql_query);
+        $i_result = 0;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité et création du résultat */
+            $i_result = htmlentities($o_row['id_article']);
+        }
+        return $i_result;
+    }
+
+
+    public static function getIdCampagne($i_id) {
+        $sql_query = "select id_campagne from commande where id=$i_id";
+        $sql_tmp = mysql_query($sql_query);
+        $s_result = 0;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité et création du résultat */
+            $i_result = htmlentities($o_row['id_campagne']);
+        }
+        return $i_result;
+    }
+
+    public static function getIdUtilisateur($i_id) {
+        $sql_query = "select id_utilisateur from commande where id=$i_id";
+        $sql_tmp = mysql_query($sql_query);
+        $i_result = 0;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité et création du résultat */
+            $i_result = htmlentities($o_row['id_utilisateur']);
+        }
+        return $i_result;
+    }
+
+    public static function getQuantite($i_id) {
+        $sql_query = "select quantite from commande where id=$i_id";
+        $sql_tmp = mysql_query($sql_query);
+        $i_result = 0;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité et création du résultat */
+            $i_result = htmlentities($o_row['id_quantite']);
+        }
+        return $i_result;
+    }
+
+
+
+    /* Setters */
+
+    public static function set($i_id,$i_id_article,
+			       $i_id_campagne, $i_id_utilisateur, $i_quantite) {
+      $sql_query = "update commande set id_campagne = '$i_id_campagne',
+      id_utilisateur='$i_id_utilisateur', where id=$i_id";
+      $b_result =  mysql_query($sql_query);
+      return $b_result;
+    }
+
+    public static function setIdArticle($i_id, $i_id_article) {
+        $sql_query = "update commande set id_article='$i_id_article' 
+            where id=$i_id";
+        $b_result =  mysql_query($sql_query);
+        return $b_result;
+    }
+
+    public static function setIdCampagne($i_id, $i_id_campagne) {
+        $sql_query = "update commande set id_campagne='$i_id_campagne' 
+            where id=$i_id";
+        $b_result =  mysql_query($sql_query);
+        return $b_result;
+    }
+
+
+    public static function setIdUtilisateur($i_id, $i_id_utilisateur) {
+        $sql_query = "update commande set id_utilisateur='$i_id_utilisateur' 
+            where id=$i_id";
+        $b_result =  mysql_query($sql_query);
+        return $b_result;
+    }
+
+
+    public static function setQuantite($i_id, $i_quantite) {
+        $sql_query = "update commande set quantite='$i_quantite' 
+            where id=$i_id";
+        $b_result =  mysql_query($sql_query);
+        return $b_result;
+    }
+
+
+    /* Deleters */
+
+    public static function delete($i_id) {
+        $sql_query = "delete from commande where id=$i_id";
+        $b_result =  mysql_query($sql_query);
+        return $b_result;
+    }
+}
+?>
