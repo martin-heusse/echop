@@ -1,5 +1,5 @@
 <?php
-class Utilisateur {
+class CommandeRayon {
 
     /* Creaters */
 
@@ -76,23 +76,23 @@ class Utilisateur {
     public static function getIdCampagne($i_id) {
         $sql_query = "select id_campagne from campagne_rayon where id=$i_id";
         $sql_tmp = mysql_query($sql_query);
-        $s_result = null;
+        $i_result = 0;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $s_result = htmlentities($o_row['login']);
+            $i_result = htmlentities($o_row['id_campagne']);
         }
-        return $s_result;
+        return $i_result;
     }
 
     public static function getIdRayon($i_id) {
         $sql_query = "select id_rayon from campagne_rayon where id=$i_id";
         $sql_tmp = mysql_query($sql_query);
-        $s_result = null;
+        $i_result = 0;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $s_result = htmlentities($o_row['mot_de_passe']);
+            $i_result = htmlentities($o_row['id_rayon']);
         }
-        return $s_result;
+        return $i_result;
     }
 
     /* Setters */
@@ -111,7 +111,7 @@ class Utilisateur {
         return $b_result;
     }
 
-    public static function setIdCampagne($i_id, $i_id_rayon) {
+    public static function setIdRayon($i_id, $i_id_rayon) {
         $sql_query = "update campagne_rayon set id_rayon='$i_id_rayon' 
             where id=$i_id";
         $b_result =  mysql_query($sql_query);
@@ -122,7 +122,7 @@ class Utilisateur {
     /* Deleters */
 
     public static function delete($i_id) {
-        $sql_query = "delete from utilisateur where id=$i_id";
+        $sql_query = "delete from campagne_rayon where id=$i_id";
         $b_result =  mysql_query($sql_query);
         return $b_result;
     }
