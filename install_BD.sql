@@ -3,7 +3,7 @@ use BdEchoppe;
 
 DROP TABLE IF EXISTS utilisateur;
 CREATE TABLE utilisateur (
-        id integer not null auto_increment,
+    id integer not null auto_increment,
 	login varchar(255),
 	mot_de_passe varchar(255),
 	email varchar(255),
@@ -24,12 +24,12 @@ CREATE TABLE administrateur (
 DROP TABLE IF EXISTS campagne;
 CREATE TABLE campagne (
    id integer not null auto_increment,
-   id_admin integer not null,
+   id_administrateur integer not null,
    date_debut date,
    etat boolean,
 
    constraint pk_campagne primary key (id),
-   constraint foreign key id_admin 
+   constraint foreign key id_administrateur
    references administrateur(id) on delete cascade
 ) ENGINE = InnoDB;
 
@@ -69,7 +69,7 @@ CREATE TABLE fournisseur (
 DROP TABLE IF EXISTS tva;
 CREATE TABLE tva (
        id integer not null auto_increment,
-       valeur integer,
+       valeur float,
        
        constraint pk_tva primary key (id)
 ) ENGINE = InnoDB;
@@ -138,6 +138,3 @@ CREATE TABLE commande (
   constraint foreign key id_utilisateur 
   references utilisateur(id) on delete cascade
 ) ENGINE = InnoDB;
-
-
-
