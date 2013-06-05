@@ -50,7 +50,7 @@ class Rayon {
         $s_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $s_result = htmlentities($o_row['login']);
+            $s_result = htmlentities($o_row['nom']);
         }
         return $s_result;
     }
