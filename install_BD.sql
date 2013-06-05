@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS utilisateur;
 DROP TABLE IF EXISTS administrateur;
 DROP TABLE IF EXISTS campagne;
 DROP TABLE IF EXISTS rayon;
+DROP TABLE IF EXISTS unite;
 DROP TABLE IF EXISTS article;
 DROP TABLE IF EXISTS fournisseur;
 DROP TABLE IF EXISTS tva;
@@ -52,13 +53,20 @@ CREATE TABLE rayon (
    constraint pk_rayon primary key(id)
 );
 
+CREATE TABLE unite (
+   id integer not null auto_increment,
+   valeur varchar(255),
+   
+   constraint pk_tva primary key(id)
+);
+
 CREATE TABLE article (
    id integer not null auto_increment,
    id_rayon integer not null,
+   id_unite integer not null,
    nom varchar(255),
    code varchar(255),
    poids_paquet_fournisseur integer,
-   unite varchar(255),
    nb_paquet_colis integer,
    description_courte varchar(255),
    description_longue varchar(255),
@@ -66,7 +74,10 @@ CREATE TABLE article (
    constraint pk_article primary key(id),
 
    constraint fk_article_1 foreign key(id_rayon) 
-   references rayon(id) on delete cascade
+   references rayon(id) on delete cascade,
+
+   constraint fk_article_2 foreign key(id_unite) 
+   references unite(id) on delete cascade
 );
 
 
@@ -78,10 +89,10 @@ CREATE TABLE fournisseur (
 );
 
 CREATE TABLE tva (
-       id integer not null auto_increment,
-       valeur float,
+   id integer not null auto_increment,
+   valeur float,
        
-       constraint pk_tva primary key(id)
+   constraint pk_tva primary key(id)
 );
 
 CREATE TABLE article_fournisseur (
@@ -153,3 +164,37 @@ CREATE TABLE commande (
   constraint fk_commande_3 foreign key(id_utilisateur) 
   references utilisateur(id) on delete cascade
 );
+
+-- Peuplement
+
+insert into utilisateur(login, mot_de_passe, email) values('a', 'a', 'a@example.com');
+insert into utilisateur(login, mot_de_passe, email) values('b', 'b', 'b@example.com');
+insert into utilisateur(login, mot_de_passe, email) values('c', 'c', 'c@example.com');
+insert into utilisateur(login, mot_de_passe, email) values('d', 'd', 'd@example.com');
+
+insert into administrateur(id_utilisateur) values(1);
+insert into administrateur(id_utilisateur) values(2);
+
+insert into campagne(date_debut, id_administrateur, etat) values('2013-06-05', 1, true);
+insert into campagne(date_debut, id_administrateur, etat) values('2013-06-06', 2, true);
+insert into campagne(date_debut, id_administrateur, etat) values('2013-06-07', 2, false);
+
+insert into rayon(nom) values('Épicerie');
+insert into rayon(nom) values('Jardins de Gaïa');
+insert into rayon(nom) values('Oranges et amandes en coques');
+insert into rayon(nom) values('Jean Hervé');
+insert into rayon(nom) values('Chataigne');
+insert into rayon(nom) values('Fée des champs');
+
+insert into unite(valeur) values('kg');
+insert into unite(valeur) values('g');
+insert into unite(valeur) values('L');
+insert into unite(valeur) values('Pack');
+
+insert into article(id_rayon, nom, code, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue) values(1, 'Jambon HERTA 4 tranches', 'HERTA', 300, 2, 5, 'Un délicieux jambon.', 'Un jambon pas comme les autres.');
+
+insert into fournisseur(nom) values('fournisseur 1');
+insert into fournisseur(nom) values('fournisseur 2');
+insert into fournisseur(nom) values('fournisseur 3');
+
+insert into tva(valeur) values(19.60);
