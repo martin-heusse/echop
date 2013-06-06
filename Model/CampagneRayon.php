@@ -3,9 +3,9 @@ class CommandeRayon {
 
     /* Creaters */
 
-    public static function create($i_id, $i_id_campagne,$i_id_rayon) {
-        $sql_query = "insert into campagne_rayon(id, id_campagne, id_rayon) 
-            values('$i_id', '$i_id_campagne', '$i_id_rayon')";
+    public static function create($i_idCampagne,$i_idRayon) {
+        $sql_query = "insert into campagne_rayon(id_campagne, id_rayon) 
+            values('$i_idCampagne', '$i_idRayon')";
         mysql_query($sql_query);
         $i_result = mysql_insert_id();
         return $i_result;
@@ -28,8 +28,8 @@ class CommandeRayon {
         return $to_result;
     }
 
-    public static function getObjectsByIdCampagne($i_id_campagne) {
-        $sql_query = "select * from campagne_rayon where id_campagne=$i_id_campagne";
+    public static function getObjectsByIdCampagne($i_idCampagne) {
+        $sql_query = "select * from campagne_rayon where id_campagne=$i_idCampagne";
         $sql_tmp = mysql_query($sql_query);
         $to_result = array();
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
@@ -43,8 +43,8 @@ class CommandeRayon {
         return $to_result;
     }
 
-    public static function getObjectsByIdRayon($i_id_rayon) {
-        $sql_query = "select * from campagne_rayon where id_rayon=$i_id_rayon";
+    public static function getObjectsByIdRayon($i_idRayon) {
+        $sql_query = "select * from campagne_rayon where id_rayon=$i_idRayon";
         $sql_tmp = mysql_query($sql_query);
         $to_result = array();
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
@@ -95,24 +95,25 @@ class CommandeRayon {
         return $i_result;
     }
 
+
     /* Setters */
 
-    public static function set($i_id, $i_id_campagne, $i_id_rayon) {
-      $sql_query = "update campagne_rayon set id_campagne = '$i_id_campagne',
-      id_rayon='$i_id_rayon', where id=$i_id";
+    public static function set($i_id, $i_idCampagne, $i_idRayon) {
+      $sql_query = "update campagne_rayon set id_campagne = '$i_idCampagne',
+      id_rayon='$i_idRayon', where id=$i_id";
       $b_result =  mysql_query($sql_query);
       return $b_result;
     }
 
-    public static function setIdCampagne($i_id, $i_id_campagne) {
-        $sql_query = "update campagne_rayon set id_campagne='$i_id_campagne' 
+    public static function setIdCampagne($i_id, $i_idCampagne) {
+        $sql_query = "update campagne_rayon set id_campagne='$i_idCampagne' 
             where id=$i_id";
         $b_result =  mysql_query($sql_query);
         return $b_result;
     }
 
-    public static function setIdRayon($i_id, $i_id_rayon) {
-        $sql_query = "update campagne_rayon set id_rayon='$i_id_rayon' 
+    public static function setIdRayon($i_id, $i_idRayon) {
+        $sql_query = "update campagne_rayon set id_rayon='$i_idRayon' 
             where id=$i_id";
         $b_result =  mysql_query($sql_query);
         return $b_result;
