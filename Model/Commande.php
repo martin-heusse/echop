@@ -3,11 +3,11 @@ class Commande {
 
     /* Creaters */
 
-    public static function create($i_id, $i_id_article, $i_id_campagne,
+    public static function create($i_id_article, $i_id_campagne,
 				  $i_id_utilisateur, $i_quantite) {
         $sql_query = "insert into commande(id, id_article, id_campagne, 
                       id_utilisateur, quantite) 
-            values('$i_id','$i_id_article', '$i_id_campagne', '$i_id_utilisateur', '$i_quantite')";
+            values('$i_id_article', '$i_id_campagne', '$i_id_utilisateur', '$i_quantite')";
         mysql_query($sql_query);
         $i_result = mysql_insert_id();
         return $i_result;

@@ -3,9 +3,9 @@ class CommandeRayon {
 
     /* Creaters */
 
-    public static function create($i_id, $i_id_campagne,$i_id_rayon) {
-        $sql_query = "insert into campagne_rayon(id, id_campagne, id_rayon) 
-            values('$i_id', '$i_id_campagne', '$i_id_rayon')";
+    public static function create($i_id_campagne,$i_id_rayon) {
+        $sql_query = "insert into campagne_rayon(id_campagne, id_rayon) 
+            values('$i_id_campagne', '$i_id_rayon')";
         mysql_query($sql_query);
         $i_result = mysql_insert_id();
         return $i_result;
@@ -94,6 +94,7 @@ class CommandeRayon {
         }
         return $i_result;
     }
+
 
     /* Setters */
 
