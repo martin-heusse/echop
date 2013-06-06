@@ -3,11 +3,11 @@ class Article {
 
     /* Creaters */
 
-    public static function create($i_id_rayon, $s_nom, $s_code, $f_poids_paquet_fournisseur,
-				  $i_idUnite, $i_nb_paquet_colis, $s_description_courte, $s_description_longue) {
+    public static function create($i_idRayon, $s_nom, $s_code, $f_poidsPaquetFournisseur,
+				  $i_idUnite, $i_nbPaquetColis, $s_descriptionCourte, $s_descriptionLongue) {
         $sql_query = "insert into article(id,id_rayon,nom,code,poids_paquet_fournisseur,id_unite,nb_paquet,colis,description_courte,description_longue) 
-            values('$i_id', '$i_id_rayon', '$s_nom','$s_code', '$f_poids_paquet_fournisseur',
-		   '$i_IdUnite', '$i_nb_paquet_colis', '$s_description_courte', '$s_description_longue')";
+            values('$i_id', '$i_idRayon', '$s_nom','$s_code', '$f_poidsPaquetFournisseur',
+		   '$i_IdUnite', '$i_nbPaquetColis', '$s_descriptionCourte', '$s_descriptionLongue')";
         mysql_query($sql_query);
         $i_result = mysql_insert_id();
         return $i_result;
@@ -54,8 +54,8 @@ class Article {
         return $o_result;
     }
 
-    public static function getObjectsByIdRayon($i_id_rayon) {
-      $sql_query = "select * from article where id_rayon=$i_id_rayon";
+    public static function getObjectsByIdRayon($i_idRayon) {
+      $sql_query = "select * from article where id_rayon=$i_idRayon";
       $sql_tmp = mysql_query($sql_query);
       $to_result = array();
       while ($o_row = mysql_fetch_assoc($sql_tmp)) {
@@ -167,10 +167,10 @@ class Article {
 
     /* Setters */
 
-    public static function set($i_id, $i_id_rayon, $s_nom, $s_code, $f_poids_paquet_fournisseur,
-				  $i_idUnite, $i_nb_paquet_colis, $s_description_courte, $s_description_longue) {
-      $sql_query = "update article set id_rayon = '$i_id_rayon',
-      nom ='$s_nom', code = '$s_code', poids_paquet_fournisseur = '$f_poids_paquet_fournisseur', id_unite = '$i_idUnite', nb_paquet_colis = '$i_nb_paquet_colis', description_courte = '$s_description_courte', description_longue = '$s_description_longue' where id=$i_id";
+    public static function set($i_id, $i_idRayon, $s_nom, $s_code, $f_poidsPaquetFournisseur,
+				  $i_idUnite, $i_nbPaquetColis, $s_descriptionCourte, $s_descriptionLongue) {
+      $sql_query = "update article set id_rayon = '$i_idRayon',
+      nom ='$s_nom', code = '$s_code', poids_paquet_fournisseur = '$f_poidsPaquetFournisseur', id_unite = '$i_idUnite', nb_paquet_colis = '$i_nbPaquetColis', description_courte = '$s_descriptionCourte', description_longue = '$s_descriptionLongue' where id=$i_id";
       $b_result =  mysql_query($sql_query);
       return $b_result;
     }
@@ -234,8 +234,8 @@ class Article {
 
     /* Deleters */
 
-    public static function delete($i_id, $i_id_rayon, $s_nom, $s_code, $f_poids_paquet_fournisseur,
-				  $i_idUnite, $i_nb_paquet_colis, $s_description_courte, $s_description_longue) {
+    public static function delete($i_id, $i_idRayon, $s_nom, $s_code, $f_poidsPaquetFournisseur,
+				  $i_idUnite, $i_nbPaquetColis, $s_descriptionCourte, $s_descriptionLongue) {
         $sql_query = "delete from article where id=$i_id";
         $b_result =  mysql_query($sql_query);
         return $b_result;
