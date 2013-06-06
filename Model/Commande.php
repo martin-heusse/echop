@@ -45,7 +45,6 @@ class Commande {
         return $to_result;
     }
 
-
     public static function getObjectsByIdCampagne($i_id_campagne) {
         $sql_query = "select * from commande where id_campagne=$i_id_campagne";
         $sql_tmp = mysql_query($sql_query);
@@ -102,7 +101,6 @@ class Commande {
         return $i_result;
     }
 
-
     public static function getIdCampagne($i_id) {
         $sql_query = "select id_campagne from commande where id=$i_id";
         $sql_tmp = mysql_query($sql_query);
@@ -135,8 +133,6 @@ class Commande {
         }
         return $i_result;
     }
-
-
 
     /* Setters */
 
@@ -177,7 +173,6 @@ class Commande {
         $b_result =  mysql_query($sql_query);
         return $b_result;
     }
-
 
     /* Deleters */
 
