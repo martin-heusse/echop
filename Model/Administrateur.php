@@ -4,7 +4,7 @@ class Administrateur {
     public static function isAdministrateur($i_idUtilisateur) {
         $sql_query = "select id from administrateur where id_utilisateur='$i_idUtilisateur'";
         $sql_tmp = mysql_query($sql_query);
-        $i_result = false;
+        $b_result = false;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             // $i_result = $o_row['id'];
             $b_result = true;

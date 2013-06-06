@@ -11,7 +11,7 @@ if (Utilisateur::isLogged()) {
         <li><a href="<?php echo root ?>/index.php">Accueil</a></li>
         <li><a href="<?php echo root ?>/connexion.php/deconnexion">Se déconnecter</a></li>
     </ul>
-<?
+<?php
 } else {
 ?>
     <ul>

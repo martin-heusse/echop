@@ -3,7 +3,7 @@ require_once('def.php');
 require_once('Model/Administrateur.php');
 require_once('Model/Utilisateur.php');
 
-class connexionController extends Controller {
+class ConnexionController extends Controller {
 
     public function __construct() {
         parent::__construct();
@@ -11,9 +11,9 @@ class connexionController extends Controller {
 
     function connexion() {
         /* L'utilisateur doit être déconnecté */
-        // if (Utilisateur::isLogged()) {
-            // header('Location: '.root.'/index.php');
-        // }
+        if (Utilisateur::isLogged()) {
+            header('Location: '.root.'/index.php');
+        }
         /* Connexion */
         if (isset($_POST['login']) && $_POST['login'] != ""
             && isset($_POST['motDePasse']) && $_POST['motDePasse'] != "") {
@@ -22,8 +22,7 @@ class connexionController extends Controller {
             /* Authentification réussie */
             if ($i_id = Utilisateur::authentication($s_login, $s_motDePasse)) {
                 /* Initialisation des variables de session */
-                $_SESSION['id_utilisateur']   = $i_id;
-                echo "toto";return;
+                $_SESSION['idUtilisateur']   = $i_id;
                 $_SESSION['login']            = Utilisateur::getLogin($i_id);
                 $_SESSION['email']            = Utilisateur::getEmail($i_id);
                 $_SESSION['isAdministrateur'] = Administrateur::isAdministrateur($i_id);
@@ -44,7 +43,7 @@ class connexionController extends Controller {
 
     public function deconnexion() {
         /* Authentication required */
-        if (!Admin::isLogged()) {
+        if (!Utilisateur::isLogged()) {
             $this->render('authenticationRequired');
             return;
         }
@@ -57,5 +56,5 @@ class connexionController extends Controller {
         header('Location: '.root.'/connexion.php/connexion');
     }
 }
-new connexionController();
+new ConnexionController();
 ?>
