@@ -11,9 +11,9 @@ class connexionController extends Controller {
 
     function connexion() {
         /* L'utilisateur doit être déconnecté */
-        if (Utilisateur::isLogged()) {
-            header('Location: '.root.'/index.php');
-        }
+        // if (Utilisateur::isLogged()) {
+            // header('Location: '.root.'/index.php');
+        // }
         /* Connexion */
         if (isset($_POST['login']) && $_POST['login'] != ""
             && isset($_POST['motDePasse']) && $_POST['motDePasse'] != "") {
@@ -22,7 +22,8 @@ class connexionController extends Controller {
             /* Authentification réussie */
             if ($i_id = Utilisateur::authentication($s_login, $s_motDePasse)) {
                 /* Initialisation des variables de session */
-                $_SESSION['id_utilisateur']   = Utilisateur::getIdUtilisateur($i_id);
+                $_SESSION['id_utilisateur']   = $i_id;
+                echo "toto";return;
                 $_SESSION['login']            = Utilisateur::getLogin($i_id);
                 $_SESSION['email']            = Utilisateur::getEmail($i_id);
                 $_SESSION['isAdministrateur'] = Administrateur::isAdministrateur($i_id);
