@@ -3,11 +3,11 @@ class Commande {
 
     /* Creaters */
 
-    public static function create($i_id_article, $i_id_campagne,
-				  $i_id_utilisateur, $i_quantite) {
+    public static function create($i_idArticle, $i_idCampagne,
+				  $i_idUtilisateur, $i_quantite) {
         $sql_query = "insert into commande(id, id_article, id_campagne, 
                       id_utilisateur, quantite) 
-            values('$i_id_article', '$i_id_campagne', '$i_id_utilisateur', '$i_quantite')";
+            values('$i_idArticle', '$i_idCampagne', '$i_idUtilisateur', '$i_quantite')";
         mysql_query($sql_query);
         $i_result = mysql_insert_id();
         return $i_result;
@@ -30,8 +30,8 @@ class Commande {
         return $to_result;
     }
 
-    public static function getObjectsByIdArticle($i_id_article) {
-        $sql_query = "select * from commande where id_article=$i_id_article";
+    public static function getObjectsByIdArticle($i_idArticle) {
+        $sql_query = "select * from commande where id_article=$i_idArticle";
         $sql_tmp = mysql_query($sql_query);
         $to_result = array();
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
@@ -45,8 +45,8 @@ class Commande {
         return $to_result;
     }
 
-    public static function getObjectsByIdCampagne($i_id_campagne) {
-        $sql_query = "select * from commande where id_campagne=$i_id_campagne";
+    public static function getObjectsByIdCampagne($i_idCampagne) {
+        $sql_query = "select * from commande where id_campagne=$i_idCampagne";
         $sql_tmp = mysql_query($sql_query);
         $to_result = array();
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
@@ -60,8 +60,8 @@ class Commande {
         return $to_result;
     }
 
-    public static function getObjectsByIdUtilisateur($i_id_utilisateur) {
-        $sql_query = "select * from commande where id_utilisateur=$i_id_utilisateur";
+    public static function getObjectsByIdUtilisateur($i_idUtilisateur) {
+        $sql_query = "select * from commande where id_utilisateur=$i_idUtilisateur";
         $sql_tmp = mysql_query($sql_query);
         $to_result = array();
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
@@ -136,10 +136,10 @@ class Commande {
 
     /* Setters */
 
-    public static function set($i_id,$i_id_article,
-			       $i_id_campagne, $i_id_utilisateur, $i_quantite) {
-      $sql_query = "update commande set id_campagne = '$i_id_campagne',
-      id_utilisateur='$i_id_utilisateur', where id=$i_id";
+    public static function set($i_id,$i_idArticle,
+			       $i_idCampagne, $i_idUtilisateur, $i_quantite) {
+      $sql_query = "update commande set id_campagne = '$i_idCampagne',
+      id_utilisateur='$i_idUtilisateur',  where id=$i_id";
       $b_result =  mysql_query($sql_query);
       return $b_result;
     }
