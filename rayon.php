@@ -12,6 +12,10 @@ class RayonController extends Controller {
 
     /* Code Gilou */
 
+    public function gererRayon() {
+
+    }
+
     /* */
 
     public function defaultAction() {

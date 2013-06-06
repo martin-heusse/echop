@@ -9,7 +9,7 @@ class ConnexionController extends Controller {
         parent::__construct();
     }
 
-    function connexion() {
+    public function connexion() {
         /* L'utilisateur doit être déconnecté */
         if (Utilisateur::isLogged()) {
             header('Location: '.root.'/index.php');

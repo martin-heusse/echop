@@ -12,9 +12,17 @@ class CommandeController extends Controller {
 
     /* Code Aurore */
 
+    public function mesCommandes() {
+
+    }
+
     /* */
 
     /* Code Johann */
+
+    public function commanderArticle() {
+
+    }
 
     /* */
 
