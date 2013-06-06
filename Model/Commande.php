@@ -5,7 +5,7 @@ class Commande {
 
     public static function create($i_idArticle, $i_idCampagne,
 				  $i_idUtilisateur, $i_quantite) {
-        $sql_query = "insert into commande(id, id_article, id_campagne, 
+        $sql_query = "insert into commande(id_article, id_campagne, 
                       id_utilisateur, quantite) 
             values('$i_idArticle', '$i_idCampagne', '$i_idUtilisateur', '$i_quantite')";
         mysql_query($sql_query);
