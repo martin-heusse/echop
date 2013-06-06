@@ -138,8 +138,8 @@ class Commande {
 
     public static function set($i_id,$i_idArticle,
 			       $i_idCampagne, $i_idUtilisateur, $i_quantite) {
-      $sql_query = "update commande set id_campagne = '$i_idCampagne',
-      id_utilisateur='$i_idUtilisateur', where id=$i_id";
+      $sql_query = "update commande set id_article = '$i_idArticle', id_campagne = '$i_idCampagne',
+      id_utilisateur='$i_idUtilisateur', quantite ='$i_quantite' where id=$i_id";
       $b_result =  mysql_query($sql_query);
       return $b_result;
     }
