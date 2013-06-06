@@ -66,7 +66,7 @@ CREATE TABLE article (
    id_unite integer not null,
    nom varchar(255),
    code varchar(255),
-   poids_paquet_fournisseur integer,
+   poids_paquet_fournisseur float,
    nb_paquet_colis integer,
    description_courte varchar(255),
    description_longue varchar(255),
