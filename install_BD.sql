@@ -1,96 +1,115 @@
+DROP DATABASE IF EXISTS BdEchoppe;
 CREATE DATABASE IF NOT EXISTS BdEchoppe;
 use BdEchoppe;
 
 DROP TABLE IF EXISTS utilisateur;
+DROP TABLE IF EXISTS administrateur;
+DROP TABLE IF EXISTS campagne;
+DROP TABLE IF EXISTS rayon;
+DROP TABLE IF EXISTS unite;
+DROP TABLE IF EXISTS article;
+DROP TABLE IF EXISTS fournisseur;
+DROP TABLE IF EXISTS tva;
+DROP TABLE IF EXISTS article_fournisseur;
+DROP TABLE IF EXISTS article_campagne;
+DROP TABLE IF EXISTS campagne_rayon;
+DROP TABLE IF EXISTS commande;
+
 CREATE TABLE utilisateur (
     id integer not null auto_increment,
 	login varchar(255),
 	mot_de_passe varchar(255),
 	email varchar(255),
-	constraint pk_utilisateur primary key (id)
-) ENGINE = InnoDB;
 
-DROP TABLE IF EXISTS administrateur;
+	constraint pk_utilisateur primary key(id)
+);
+
 CREATE TABLE administrateur (
     id integer not null auto_increment,
     id_utilisateur integer not null,
 
-    constraint pk_administrateur primary key (id),
-    constraint foreign key id_utilisateur 
+    constraint pk_administrateur primary key(id),
+
+    constraint fk_administrateur_1 foreign key(id_utilisateur)
     references utilisateur(id) on delete cascade
-) ENGINE = InnoDB;
+);
 
-
-DROP TABLE IF EXISTS campagne;
 CREATE TABLE campagne (
    id integer not null auto_increment,
    id_administrateur integer not null,
    date_debut date,
    etat boolean,
 
-   constraint pk_campagne primary key (id),
-   constraint foreign key id_administrateur
-   references administrateur(id) on delete cascade
-) ENGINE = InnoDB;
+   constraint pk_campagne primary key(id),
 
-DROP TABLE IF EXISTS rayon;
+   constraint fk_campagne_1 foreign key(id_administrateur)
+   references administrateur(id) on delete cascade
+);
+
 CREATE TABLE rayon (
    id integer not null auto_increment,
    nom varchar(255),
-   constraint pk_rayon primary key (id)
-) ENGINE = InnoDB;
 
-DROP TABLE IF EXISTS article;
+   constraint pk_rayon primary key(id)
+);
+
+CREATE TABLE unite (
+   id integer not null auto_increment,
+   valeur varchar(255),
+   
+   constraint pk_tva primary key(id)
+);
+
 CREATE TABLE article (
    id integer not null auto_increment,
    id_rayon integer not null,
+   id_unite integer not null,
    nom varchar(255),
    code varchar(255),
    poids_paquet_fournisseur integer,
-   unite varchar(255),
    nb_paquet_colis integer,
    description_courte varchar(255),
    description_longue varchar(255),
 
-   constraint pk_article primary key (id),
-   constraint foreign key id_rayon 
-   references rayon(id) on delete cascade
-) ENGINE = InnoDB;
+   constraint pk_article primary key(id),
+
+   constraint fk_article_1 foreign key(id_rayon) 
+   references rayon(id) on delete cascade,
+
+   constraint fk_article_2 foreign key(id_unite) 
+   references unite(id) on delete cascade
+);
 
 
-DROP TABLE IF EXISTS fournisseur;
 CREATE TABLE fournisseur (
    id integer not null auto_increment,
-   nom vrachar(255),
+   nom varchar(255),
 
-   constraint pk_fournisseur primary key (id)
-) ENGINE = InnoDB;
+   constraint pk_fournisseur primary key(id)
+);
 
-DROP TABLE IF EXISTS tva;
 CREATE TABLE tva (
-       id integer not null auto_increment,
-       valeur float,
+   id integer not null auto_increment,
+   valeur float,
        
-       constraint pk_tva primary key (id)
-) ENGINE = InnoDB;
+   constraint pk_tva primary key(id)
+);
 
-
-
-DROP TABLE IF EXISTS article_fournisseur;
 CREATE TABLE article_fournisseur (
    id integer not null auto_increment,
    id_article integer not null,
    id_fournisseur integer not null,
    prix_article float,
 
-   constraint pk_article_fournisseur primary key (id),
-   constraint foreign key id_article 
-   references article(id) on delete cascade,
-   foreign key id_fournisseur 
-   references fournisseur(id) on delete cascade
-) ENGINE = InnoDB;
+   constraint pk_article_fournisseur primary key(id),
 
-DROP TABLE IF EXISTS article_campagne;
+   constraint fk_article_fournisseur_1 foreign key(id_article)
+   references article(id) on delete cascade,
+
+   constraint fk_article_fournisseur_2 foreign key(id_fournisseur) 
+   references fournisseur(id) on delete cascade
+);
+
 CREATE TABLE article_campagne (
    id integer not null auto_increment,
    id_article integer not null,
@@ -100,29 +119,33 @@ CREATE TABLE article_campagne (
    seuil_min float,
    seuil_max float,
    prix_ttc float,
-   constraint pk_article_campagne primary key (id),
-   constraint foreign key id_article 
-   references article(id) on delete cascade,
-   constraint foreign key id_campagne 
-   references campagne(id) on delete cascade,
-   constraint foreign key id_tva 
-   references tva(id) on delete cascade
-) ENGINE = InnoDB;
 
-DROP TABLE IF EXISTS campagne_rayon;
+   constraint pk_article_campagne primary key(id),
+
+   constraint fk_article_campagne_1 foreign key(id_article) 
+   references article(id) on delete cascade,
+
+   constraint fk_article_campagne_2 foreign key(id_campagne) 
+   references campagne(id) on delete cascade,
+
+   constraint fk_article_campagne_3 foreign key(id_tva) 
+   references tva(id) on delete cascade
+);
+
 CREATE TABLE campagne_rayon (
    id integer not null auto_increment,
    id_campagne integer not null,
    id_rayon integer not null,
 
-   constraint pk_campagne_rayon primary key (id)
-   constraint foreign key id_campagne 
-   references campagne(id) on delete cascade,
-   constraint foreign key id_rayon 
-   references rayon(id) on delete cascade
-) ENGINE = InnoDB;
+   constraint pk_campagne_rayon primary key(id),
 
-DROP TABLE IF EXISTS commande;
+   constraint fk_campagne_rayon_1 foreign key(id_campagne) 
+   references campagne(id) on delete cascade,
+
+   constraint fk_campagne_rayon_2 foreign key(id_rayon) 
+   references rayon(id) on delete cascade
+);
+
 CREATE TABLE commande (
   id integer not null auto_increment,
   id_article integer not null,
@@ -130,11 +153,48 @@ CREATE TABLE commande (
   id_utilisateur integer not null,
   quantite integer,
 
-  constraint pk_commande primary key (id),
-  constraint foreign key id_article 
+  constraint pk_commande primary key(id),
+
+  constraint fk_commande_1 foreign key(id_article) 
   references article(id) on delete cascade,
-  constraint foreign key id_campagne 
+
+  constraint fk_commande_2 foreign key(id_campagne) 
   references campagne(id) on delete cascade, 
-  constraint foreign key id_utilisateur 
+
+  constraint fk_commande_3 foreign key(id_utilisateur) 
   references utilisateur(id) on delete cascade
-) ENGINE = InnoDB;
+);
+
+-- Peuplement
+
+insert into utilisateur(login, mot_de_passe, email) values('a', 'a', 'a@example.com');
+insert into utilisateur(login, mot_de_passe, email) values('b', 'b', 'b@example.com');
+insert into utilisateur(login, mot_de_passe, email) values('c', 'c', 'c@example.com');
+insert into utilisateur(login, mot_de_passe, email) values('d', 'd', 'd@example.com');
+
+insert into administrateur(id_utilisateur) values(1);
+insert into administrateur(id_utilisateur) values(2);
+
+insert into campagne(date_debut, id_administrateur, etat) values('2013-06-05', 1, true);
+insert into campagne(date_debut, id_administrateur, etat) values('2013-06-06', 2, true);
+insert into campagne(date_debut, id_administrateur, etat) values('2013-06-07', 2, false);
+
+insert into rayon(nom) values('Épicerie');
+insert into rayon(nom) values('Jardins de Gaïa');
+insert into rayon(nom) values('Oranges et amandes en coques');
+insert into rayon(nom) values('Jean Hervé');
+insert into rayon(nom) values('Chataigne');
+insert into rayon(nom) values('Fée des champs');
+
+insert into unite(valeur) values('kg');
+insert into unite(valeur) values('g');
+insert into unite(valeur) values('L');
+insert into unite(valeur) values('Pack');
+
+insert into article(id_rayon, nom, code, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue) values(1, 'Jambon HERTA 4 tranches', 'HERTA', 300, 2, 5, 'Un délicieux jambon.', 'Un jambon pas comme les autres.');
+
+insert into fournisseur(nom) values('fournisseur 1');
+insert into fournisseur(nom) values('fournisseur 2');
+insert into fournisseur(nom) values('fournisseur 3');
+
+insert into tva(valeur) values(19.60);

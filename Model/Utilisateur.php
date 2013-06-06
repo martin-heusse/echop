@@ -1,6 +1,21 @@
 <?php
 class Utilisateur {
 
+    public static function authentication($s_login, $s_motDePasse) {
+        $sql_query = "select id from utilisateur where lower(login)=lower('$s_login') and mot_de_passe='$s_motDePasse'";
+        $sql_tmp = mysql_query($sql_query);
+        $i_result = false;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            $i_result = $o_row['id'];
+        }
+        return $i_result;
+    }
+
+    public static function isLogged() {
+        $b_result = (isset($_SESSION['login']));
+        return $b_result;
+    }
+
     /* Creaters */
 
     public static function create($s_login, $s_motDePasse, $s_email) {

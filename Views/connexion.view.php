@@ -5,6 +5,6 @@ action="<?php echo root ?>/connexion.php/connexion"
 enctype="multipart/form-data"
 method="post">
     <p><span class="form_col"><label>Login</label></span><input type="text" name="login"/></p>
-    <p><span class="form_col"><label>Mot de passe</label></span><input type="password" name="password"/></p>
+    <p><span class="form_col"><label>Mot de passe</label></span><input type="password" name="motDePasse"/></p>
     <input type="submit" value="Se connecter"/>
 </form>

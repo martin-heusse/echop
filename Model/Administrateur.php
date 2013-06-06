@@ -1,21 +1,16 @@
 <?php
 class Administrateur {
 
-    public static function authentication($s_login, $s_motDePasse) {
-        $sql_query = "select id from administrateur where lower(login)=lower('$s_login') and mot_de_passe='$s_motDePasse'";
+    public static function isAdministrateur($i_idUtilisateur) {
+        $sql_query = "select id from administrateur where id_utilisateur='$i_idUtilisateur'";
         $sql_tmp = mysql_query($sql_query);
         $i_result = false;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
-            $i_result = $o_row['id'];
+            // $i_result = $o_row['id'];
+            $b_result = true;
         }
-        return $i_result;
-    }
-
-    public static function isLogged() {
-        $b_result = (isset($_SESSION['login']));
         return $b_result;
     }
-
     /* Getters */
 
     public static function getAllObjects() {
