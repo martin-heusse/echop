@@ -13,7 +13,8 @@ class CommandeController extends Controller {
     /* Code Aurore */
 
     public function mesCommandes() {
-
+    	   $to_commande = Commande::getObject($_SESSION['idUtilisateur']);
+	   this->render('mesCommandes', compact('to_commande'));
     }
 
     /* */
