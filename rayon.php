@@ -13,7 +13,7 @@ class RayonController extends Controller {
     /* Code Gilou */
 
     public function gererRayon() {
-        $this->render('commanderArticle');
+        $this->render('gererRayon');
     }
 
     /* */
