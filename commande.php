@@ -4,6 +4,8 @@ require_once('Model/Commande.php');
 require_once('Model/Administrateur.php');
 require_once('Model/Utilisateur.php');
 require_once('Model/Article.php');
+require_once('Model/Unite.php');
+require_once('Model/ArticleCampagne.php');
 
 class CommandeController extends Controller {
 
@@ -24,11 +26,24 @@ class CommandeController extends Controller {
             $i_idArticle = $o_article['id_article'];
             $o_article['nom'] = Article::getNom($i_idArticle);
             $o_article['poids_paquet_fournisseur'] = Article::getPoidsPaquetFournisseur($i_idArticle);
-	   // $i_idUnite = Article::getUnite($i_idArticle);
-	   // $o_article['unite'] = Unite::getUnite($i_idUnite);
+	    $i_idUnite = Article::getIdUnite($i_idArticle);
+	    $o_article['unite'] = Unite::getUnite($i_idUnite);
             $o_article['nb_paquet_colis'] = Article::getNbPaquetColis($i_idArticle);
             $o_article['description_courte'] = Article::getDescriptionCourte($i_idArticle);
             $o_article['description_longue'] = Article::getDescriptionLongue($i_idArticle);
+	    // prix ttc
+	    $i_idCampagne = $o_article['id_campagne'];
+	    $o_article_campagne = ArticleCampagne::getObjectsByIdCampagneIdArticle($i_idCampagne, $i_idArticle);
+	    $o_article['prix_ttc'] = $o_article_campagne['prix_ttc'];
+	    // poids paquet client
+	    $o_article['poids_paquet_client'] = $o_article_campagne['poids_paquet_client'];
+	    //calcul poids unitaire
+	    $o_article['prix_unitaire']=$o_article['prix_ttc']/$o_article['poids_paquet_fournisseur'];
+	    //calcul quantite totale
+	    $o_article['quantite_totale']=$o_article['quantite']*$o_article['poids_paquet_client'];
+	    // calcul total ttc
+	    $o_article['total_ttc']=$o_article['quantite_totale']*$o_article['prix_ttc']/$o_article['poids_paquet_fournisseur'];
+	    
         }
 	    $this->render('mesCommandes', compact('to_commande'));
     }
