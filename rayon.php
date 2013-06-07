@@ -13,7 +13,8 @@ class RayonController extends Controller {
     /* Code Gilou */
 
     public function gererRayon() {
-        $this->render('gererRayon');
+        $to_rayon = Rayon::getAllObjects();
+        $this->render('gererRayon', compact('to_rayon'));
     }
 
     /* */
