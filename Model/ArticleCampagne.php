@@ -75,6 +75,25 @@ class ArticleCampagne {
         return $to_result;
     }
 
+    public static function getObjectsByIdCampagneIdArticle($i_idCampagne, $i_idArticle) {
+        $sql_query = "select * from article_campagne where id_campagne=$i_idCampagne and id_article=$i_idArticle";
+        $sql_tmp = mysql_query($sql_query);
+        $o_result = null;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+	    /* Formattage des nombres */
+            $o_row['poids_paquet_client']    = number_format($o_row['poids_paquet_client']   , 2, '.', ' ');
+            $o_row['prix_ttc']    = number_format($o_row['prix_ttc']   , 2, '.', ' '); 
+            /* Sécurité */
+            foreach ($o_row as &$column) {
+                $column = htmlentities($column);
+            }
+            /* Création du résultat */
+            $o_result = $o_row;
+        }
+        return $o_result;
+    }
+
+  
 
     public static function getObjectsByPoidsPaquetClient($f_poidsPaquetClient) {
         $sql_query = "select * from article_campagne where poids_paquet_client=$f_poidsPaquetClient";
