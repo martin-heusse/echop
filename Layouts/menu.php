@@ -6,8 +6,14 @@ require_once("Model/Utilisateur.php");
 <?php
 if (Utilisateur::isLogged()) {
 ?>
+<?php
+    $bonjour = $_SESSION['login'];
+    if(Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
+        $bonjour .= " (admin)";
+    }
+?>
     <!-- Commun à tous les utilisateurs -->
-    <span id="bonjour">Bonjour <?php echo $_SESSION['login'] ?>,</span>
+    <span id="bonjour">Bonjour <?php echo $bonjour ?>,</span>
     <ul>
         <li><a href="<?php echo root ?>/index.php">Accueil</a></li>
         <li><a href="<?php echo root ?>/connexion.php/deconnexion">Se déconnecter</a></li>
