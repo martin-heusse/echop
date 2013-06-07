@@ -5,7 +5,7 @@ class Article {
 
     public static function create($i_idRayon, $s_nom, $s_code, $f_poidsPaquetFournisseur,
 				  $i_idUnite, $i_nbPaquetColis, $s_descriptionCourte, $s_descriptionLongue) {
-        $sql_query = "insert into article(id,id_rayon,nom,code,poids_paquet_fournisseur,id_unite,nb_paquet,colis,description_courte,description_longue) 
+        $sql_query = "insert into article(id_rayon,nom,code,poids_paquet_fournisseur,id_unite,nb_paquet,colis,description_courte,description_longue) 
             values('$i_id', '$i_idRayon', '$s_nom','$s_code', '$f_poidsPaquetFournisseur',
 		   '$i_IdUnite', '$i_nbPaquetColis', '$s_descriptionCourte', '$s_descriptionLongue')";
         mysql_query($sql_query);

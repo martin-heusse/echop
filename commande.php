@@ -24,13 +24,13 @@ class CommandeController extends Controller {
             $i_idArticle = $o_article['id_article'];
             $o_article['nom'] = Article::getNom($i_idArticle);
             $o_article['poids_paquet_fournisseur'] = Article::getPoidsPaquetFournisseur($i_idArticle);
-	   // $i_idUnite = Article::getUnite($i_idArticle);
-	   // $o_article['unite'] = Unite::getUnite($i_idUnite);
+            // $i_idUnite = Article::getUnite($i_idArticle);
+            // $o_article['unite'] = Unite::getUnite($i_idUnite);
             $o_article['nb_paquet_colis'] = Article::getNbPaquetColis($i_idArticle);
             $o_article['description_courte'] = Article::getDescriptionCourte($i_idArticle);
             $o_article['description_longue'] = Article::getDescriptionLongue($i_idArticle);
         }
-	    $this->render('mesCommandes', compact('to_commande'));
+        $this->render('mesCommandes', compact('to_commande'));
     }
 
     /* */
@@ -38,13 +38,42 @@ class CommandeController extends Controller {
     /* Code Johann <3 */
 
     public function commanderArticle() {
-    }
+        $implemented = 0;
+        $i_idRayon = 1;
+        
+        /* Sélection d'un rayon pour une commande */
+        if (!isset($_POST['commande'])) {
+            $to_article = Article::getObjectsByIdRayon($i_idRayon);   
+            $this->render('commanderArticle',compact('$to_article'));
+        } else {
+            /* Saisie de quantités dans un rayon */
 
-    /* */
+            foreach ($_POST['commande'] as $i_idArticle => $i_qte) {
+                $to_commande = Commande::getObjectsbyIdArticleIdCampagne($i_idArticle, $i_idCampagne);   
+                
+                foreach ($to_commande as $o_row) {
+                    $i_idCommande = o_row['id'];     
+                }
+                
+                $i_oldQte = Commande::getQuantite($i_idCommande);
+                $i_newQte = $i_qte;
+                    
+                if ($i_oldQte == 0) {
+                    if ($i_newQte > 0) {
+                        Commande::create(),
+                } else {
+                    if ($i_newQte > 0) {
+                        Commande::setQuantite();
+                    } else {
+                        Commande::delete();
+                    }
+                }
+            }
+            /* */
 
-    public function defaultAction() {
-        header('Location: '.root.'/commande.php/mesCommandes');
-    }
-}
-new CommandeController();
+            public function defaultAction() {
+                header('Location: '.root.'/commande.php/mesCommandes');
+            }
+        }
+        new CommandeController();
 ?>
