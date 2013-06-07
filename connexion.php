@@ -26,8 +26,11 @@ class ConnexionController extends Controller {
                 $_SESSION['login']            = Utilisateur::getLogin($i_id);
                 $_SESSION['email']            = Utilisateur::getEmail($i_id);
                 $_SESSION['isAdministrateur'] = Administrateur::isAdministrateur($i_id);
-                /* Redirection vers la page d'index */
-                header('Location: '.root.'/index.php');
+                /* Redirection vers les pages associées */
+                if($_SESSION['isAdministrateur'])
+                    header('Location: '.root.'/rayon.php/gererRayon');
+                else
+                    header('Location: '.root.'/article.php/commanderArticle');
             }
             /* Échec lors de l'authentification */
             else {

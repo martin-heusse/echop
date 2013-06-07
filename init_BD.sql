@@ -1,10 +1,10 @@
 -- Peuplement
 
-insert into utilisateur(login, mot_de_passe, email) values('root', 'root', 'd@example.com');
-insert into utilisateur(login, mot_de_passe, email) values('Aurore', 'root', 'aurore@email.com');
-insert into utilisateur(login, mot_de_passe, email) values('Gilles', 'root', 'gilles@email.com');
-insert into utilisateur(login, mot_de_passe, email) values('Philippe', 'toto', 'philippe@email.com');
-insert into utilisateur(login, mot_de_passe, email) values('Johann', 'root', 'd@example.com');
+insert into utilisateur(login, mot_de_passe, email) values('root', 'root', 'root@email.com');
+insert into utilisateur(login, mot_de_passe, email) values('aurore', 'root', 'aurore@email.com');
+insert into utilisateur(login, mot_de_passe, email) values('gilles', 'gilles', 'gilles@email.com');
+insert into utilisateur(login, mot_de_passe, email) values('philippe', 'toto', 'philippe@email.com');
+insert into utilisateur(login, mot_de_passe, email) values('johann', 'root', 'johann@email.com');
 
 insert into administrateur(id_utilisateur) values(1);
 
