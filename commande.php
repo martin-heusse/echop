@@ -34,7 +34,7 @@ class CommandeController extends Controller {
 
     /* */
 
-    /* Code Johann */
+    /* Code Johann <3 */
 
     public function commanderArticle() {
     }
