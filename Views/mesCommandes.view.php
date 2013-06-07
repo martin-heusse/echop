@@ -1,4 +1,7 @@
 <h1>Mes Commandes</h1>
+<?php
+if ($to_commande != null) {
+?>
 <table>
 <tr>
     <th>Nom</th>
@@ -25,3 +28,10 @@ foreach($to_commande as $o_produit) {
 }
 ?>
 </table>
+<?php
+} else {
+?>
+<p> Vous n'avez pas de commande en cours </p>
+<?php
+}
+?>
