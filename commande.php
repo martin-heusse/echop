@@ -24,7 +24,8 @@ class CommandeController extends Controller {
             $i_idArticle = $o_article['id_article'];
             $o_article['nom'] = Article::getNom($i_idArticle);
             $o_article['poids_paquet_fournisseur'] = Article::getPoidsPaquetFournisseur($i_idArticle);
-            // $o_article['unite'] = Article::getUnite($i_idArticle);
+	   // $i_idUnite = Article::getUnite($i_idArticle);
+	   // $o_article['unite'] = Unite::getUnite($i_idUnite);
             $o_article['nb_paquet_colis'] = Article::getNbPaquetColis($i_idArticle);
             $o_article['description_courte'] = Article::getDescriptionCourte($i_idArticle);
             $o_article['description_longue'] = Article::getDescriptionLongue($i_idArticle);
