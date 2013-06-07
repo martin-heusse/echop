@@ -78,7 +78,7 @@ a:hover {
 }
 
 #menu ul a {
-    color: #aaaaaa;
+    color: #d6b781;
     text-decoration: none;
 }
 
@@ -87,6 +87,7 @@ a:hover {
 }
 
 #bonjour {
+    color: #d6b781;
     display: inline-block;
     margin-left: 20px;
 }
