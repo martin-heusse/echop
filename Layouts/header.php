@@ -1,6 +1,6 @@
 <?php
 if (!isset($titre_page)) {
-    $titre_page = "Interface de gestion (oriental-import.com)";
+    $titre_page = "L'Échoppe d'ici et d'ailleurs";
 }
 ?>
 <?php // <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> ?>
@@ -40,6 +40,7 @@ $( document ).ready(function() {
     <!--
     <a href="<?php echo root ?>/index.php">
     <img id="logo" src="<?php echo root ?>/Layouts/images/banniere.png" alt="<?php echo $titre_page ?>"/></a>
+    <p>L'Échoppe d'ici et d'ailleurs</p>
     -->
 </div><!-- id="banniere" -->
 
