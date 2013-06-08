@@ -52,12 +52,7 @@ class CommandeController extends Controller {
 
     /* Code Johann <3 */
 
-<<<<<<< HEAD
     public function commanderArticle() {
-=======
-      public function commanderArticle() {
-        $implemented = 0;
->>>>>>> 9b8f453a3332e2f84388b9b95936c1047be58c8a
         $i_idRayon = 1;
         
         /* Sélection d'un rayon pour une commande */
