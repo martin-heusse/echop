@@ -75,7 +75,7 @@ class ArticleCampagne {
         return $to_result;
     }
 
-    public static function getObjectByIdCampagneIdArticle($i_idCampagne, $i_idArticle) {
+    public static function getObjectByIdArticleIdCampagne($i_idArticle, $i_idCampagne) {
         $sql_query = "select * from article_campagne where id_campagne=$i_idCampagne and id_article=$i_idArticle";
         $sql_tmp = mysql_query($sql_query);
         $o_result = null;
