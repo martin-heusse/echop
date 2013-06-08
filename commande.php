@@ -26,24 +26,24 @@ class CommandeController extends Controller {
             $i_idArticle = $o_article['id_article'];
             $o_article['nom'] = Article::getNom($i_idArticle);
             $o_article['poids_paquet_fournisseur'] = Article::getPoidsPaquetFournisseur($i_idArticle);
-	        $i_idUnite = Article::getIdUnite($i_idArticle);
-	        $o_article['unite'] = Unite::getUnite($i_idUnite);
+            $i_idUnite = Article::getIdUnite($i_idArticle);
+            $o_article['unite'] = Unite::getUnite($i_idUnite);
             $o_article['nb_paquet_colis'] = Article::getNbPaquetColis($i_idArticle);
             $o_article['description_courte'] = Article::getDescriptionCourte($i_idArticle);
             $o_article['description_longue'] = Article::getDescriptionLongue($i_idArticle);
-	    // prix ttc
-	    $i_idCampagne = $o_article['id_campagne'];
-	    $o_article_campagne = ArticleCampagne::getObjectByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
-	    $o_article['prix_ttc'] = $o_article_campagne['prix_ttc'];
-	    // poids paquet client
-	    $o_article['poids_paquet_client'] = $o_article_campagne['poids_paquet_client'];
-	    //calcul poids unitaire
-	    $o_article['prix_unitaire']=$o_article['prix_ttc']/$o_article['poids_paquet_fournisseur'];
-	    //calcul quantite totale
-	    $o_article['quantite_totale']=$o_article['quantite']*$o_article['poids_paquet_client'];
-	    // calcul total ttc
-	    $o_article['total_ttc']=$o_article['quantite_totale']*$o_article['prix_ttc']/$o_article['poids_paquet_fournisseur'];
-	    
+            // prix ttc
+            $i_idCampagne = $o_article['id_campagne'];
+            $o_article_campagne = ArticleCampagne::getObjectByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+            $o_article['prix_ttc'] = $o_article_campagne['prix_ttc'];
+            // poids paquet client
+            $o_article['poids_paquet_client'] = $o_article_campagne['poids_paquet_client'];
+            //calcul poids unitaire
+            $o_article['prix_unitaire']=$o_article['prix_ttc']/$o_article['poids_paquet_fournisseur'];
+            //calcul quantite totale
+            $o_article['quantite_totale']=$o_article['quantite']*$o_article['poids_paquet_client'];
+            // calcul total ttc
+            $o_article['total_ttc']=$o_article['quantite_totale']*$o_article['prix_ttc']/$o_article['poids_paquet_fournisseur'];
+
         }
         $this->render('mesCommandes', compact('to_commande'));
     }
@@ -54,7 +54,7 @@ class CommandeController extends Controller {
 
     public function commanderArticle() {
         $i_idRayon = 1;
-        
+
         /* Sélection d'un rayon pour une commande */
         if (!isset($_POST['commande'])) {
             $to_article = Article::getObjectsByIdRayon($i_idRayon);   
@@ -62,9 +62,9 @@ class CommandeController extends Controller {
         } else {
 
             /* Saisie de quantités dans un rayon */
-           foreach ($_POST['commande'] as $i_idArticle => $i_qte) {
+            foreach ($_POST['commande'] as $i_idArticle => $i_qte) {
                 $o_commande = Commande::getObjectsbyIdArticleIdCampagne($i_idArticle, $i_idCampagne);   
-                
+
                 $i_idCommande = $o_commande['id'];     
                 $i_idUtilisateur = $o_commande['utilisateur'];
 
@@ -75,23 +75,25 @@ class CommandeController extends Controller {
                 $i_idUtilisateur = $o_Utilisateur['id'];
 
                 /* Insertion, MAJ ou Suppression de la BDD */
-		/* if ($i_oldQte == 0) {
-                    if ($i_newQte > 0) {
-                        Commande::create($i_idArticle, $i_idCampagne,
-                                         $i_idUtilisateur, $i_newQte);
-                } else {
-                    if ($i_newQte > 0) {
-                        Commande::setQuantite();
-                    } else {
-                        Commande::delete();
-                    }
-		    }*/
+        /* if ($i_oldQte == 0) {
+            if ($i_newQte > 0) {
+            Commande::create($i_idArticle, $i_idCampagne,
+                     $i_idUtilisateur, $i_newQte);
+        } else {
+            if ($i_newQte > 0) {
+            Commande::setQuantite();
+            } else {
+            Commande::delete();
             }
-            /* */
-
-            public function defaultAction() {
-                header('Location: '.root.'/commande.php/mesCommandes');
+        }*/
             }
         }
-        new CommandeController();
+    }
+    /* */
+
+    public function defaultAction() {
+        header('Location: '.root.'/commande.php/mesCommandes');
+    }
+}
+new CommandeController();
 ?>
