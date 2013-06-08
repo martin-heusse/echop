@@ -52,12 +52,7 @@ class CommandeController extends Controller {
 
     /* Code Johann <3 */
 
-<<<<<<< HEAD
-    public function commanderArticle() {
-=======
       public function commanderArticle() {
-        $implemented = 0;
->>>>>>> 9b8f453a3332e2f84388b9b95936c1047be58c8a
         $i_idRayon = 1;
         
         /* Sélection d'un rayon pour une commande */
@@ -70,8 +65,8 @@ class CommandeController extends Controller {
            foreach ($_POST['commande'] as $i_idArticle => $i_qte) {
                 $o_commande = Commande::getObjectsbyIdArticleIdCampagne($i_idArticle, $i_idCampagne);   
                 
-                $i_idCommande = o_row['id'];     
-                $i_idUtilisateur = o_row['utilisateur'];
+                $i_idCommande = $o_commande['id'];     
+                $i_idUtilisateur = $o_commande['utilisateur'];
 
                 /* Détermination des paramètes pour la requete SQL */
                 $i_oldQte = Commande::getQuantite($i_idCommande);
@@ -86,9 +81,9 @@ class CommandeController extends Controller {
                                          $i_idUtilisateur, $i_newQte);
                 } else {
                     if ($i_newQte > 0) {
-                        Commande::setQuantite();
+                        Commande::setQuantite($i_idCommande, $i_newQte);
                     } else {
-                        Commande::delete();
+                        Commande::delete($i_idCommande);
                     }
                 }
             }
