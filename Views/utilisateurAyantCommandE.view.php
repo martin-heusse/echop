@@ -1,5 +1,5 @@
-<h1>Liste de tous les utilisateurs</h1>
-
+<h1>Commande de l'utilisateur AJOUTER LOGIN </h1>
+<!--
  <p>
 
 <?php
@@ -24,4 +24,4 @@ if ($to_utilisateur != null) {
 <?php
 }
 ?>
-
+-->
