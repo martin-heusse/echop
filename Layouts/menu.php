@@ -22,10 +22,14 @@ if (Utilisateur::isLogged()) {
     if(Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
 ?>
     <!-- Menu administrateur -->
+    <!--<h1 class="titre_menu">Administration</h1>-->
     <ul>
         <li><a href="<?php echo root ?>/rayon.php/gererRayon">Gérer les rayon</a></li>
-        <li><a href="<?php echo root ?>/commande.php/articlesCommandEs">Voir les articles commandés</a></li>
-        <li><a href="<?php echo root ?>/commande.php/clientsAyantCommandE">voir les Clients ayant commandés</a></li>
+        <li><a href="<?php echo root ?>/commande.php/articlesCommandEs">Articles commandés</a></li>
+        <li><a href="<?php echo root ?>/commande.php/clientsAyantCommandE">Clients ayant commandés</a></li>
+        <li><a href="<?php echo root ?>/commande.php/fournisseursChoisis">Fournisseurs choisis</a></li>
+        <li><a href="<?php echo root ?>/fournisseur.php/tousLesFournisseurs">Tous les fournisseurs</a></li>
+        <li><a href="<?php echo root ?>/utilisateur.php/tousLesUtilisateurs">Tous les utilisateurs</a></li>
     </ul>
 <?php
     }
