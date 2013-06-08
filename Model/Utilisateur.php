@@ -58,6 +58,24 @@ class Utilisateur {
         return $to_result;
     }
 
+    public static function getObjectByLogin($s_login) {
+        $sql_query = "select * from utilisateur where login =$s_login";
+        $sql_temp = mysql_query($sql_query);
+        $o_result = null;
+
+        if ($o_row = mysql_fetch_assoc($sql_temp)) {
+            
+            /* Sécurité */
+            foreach ($o_row as &$column) {
+                $column = htmlentities($column);
+            }
+
+            /* Création du résultat */
+            $o_result = $o_row;
+        }
+        return $o_result;
+    }
+
     public static function getObject($i_id) {
         $sql_query = "select * from utilisateur where id=$i_id";
         $sql_tmp = mysql_query($sql_query);

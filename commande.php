@@ -53,7 +53,6 @@ class CommandeController extends Controller {
     /* Code Johann <3 */
 
     public function commanderArticle() {
-        $implemented = 0;
         $i_idRayon = 1;
         
         /* Sélection d'un rayon pour une commande */
@@ -61,21 +60,25 @@ class CommandeController extends Controller {
             $to_article = Article::getObjectsByIdRayon($i_idRayon);   
             $this->render('commanderArticle',compact('$to_article'));
         } else {
-            /* Saisie de quantités dans un rayon */
 
-            foreach ($_POST['commande'] as $i_idArticle => $i_qte) {
-                $to_commande = Commande::getObjectsbyIdArticleIdCampagne($i_idArticle, $i_idCampagne);   
+            /* Saisie de quantités dans un rayon */
+           foreach ($_POST['commande'] as $i_idArticle => $i_qte) {
+                $o_commande = Commande::getObjectsbyIdArticleIdCampagne($i_idArticle, $i_idCampagne);   
                 
-                foreach ($to_commande as $o_row) {
-                    $i_idCommande = o_row['id'];     
-                }
-                
+                $i_idCommande = o_row['id'];     
+                $i_idUtilisateur = o_row['utilisateur'];
+
+                /* Détermination des paramètes pour la requete SQL */
                 $i_oldQte = Commande::getQuantite($i_idCommande);
                 $i_newQte = $i_qte;
-                    
+                $o_Utilisateur = getOBjectByLogin($S_SESSION['login']);
+                $i_idUtilisateur = $o_Utilisateur['id'];
+
+                /* Insertion, MAJ ou Suppression de la BDD */
                 if ($i_oldQte == 0) {
                     if ($i_newQte > 0) {
-                        Commande::create(),
+                        Commande::create($i_idArticle, $i_idCampagne,
+                                         $i_idUtilisateur, $i_newQte);
                 } else {
                     if ($i_newQte > 0) {
                         Commande::setQuantite();
