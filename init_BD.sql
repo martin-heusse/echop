@@ -5,12 +5,14 @@ insert into utilisateur(login, mot_de_passe, email) values('aurore', 'root', 'au
 insert into utilisateur(login, mot_de_passe, email) values('gilles', 'gilles', 'gilles@email.com');
 insert into utilisateur(login, mot_de_passe, email) values('philippe', 'toto', 'philippe@email.com');
 insert into utilisateur(login, mot_de_passe, email) values('johann', 'root', 'johann@email.com');
+insert into utilisateur(login, mot_de_passe, email) values('a', 'a', 'a@example.com');
 
 insert into administrateur(id_utilisateur) values(1);
+insert into administrateur(id_utilisateur) values(6);
 
-insert into campagne(date_debut, id_administrateur, etat) values('2013-06-05', 1, true);
-insert into campagne(date_debut, id_administrateur, etat) values('2013-06-06', 2, true);
-insert into campagne(date_debut, id_administrateur, etat) values('2013-06-07', 2, false);
+insert into campagne(date_debut, etat) values('2013-06-05', true);
+insert into campagne(date_debut, etat) values('2013-06-06', true);
+insert into campagne(date_debut, etat) values('2013-06-07', false);
 
 insert into rayon(nom) values('Épicerie');
 insert into rayon(nom) values('Jardins de Gaïa');

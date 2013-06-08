@@ -130,7 +130,7 @@ CREATE TABLE article_campagne (
    references campagne(id) on delete cascade,
 
    constraint fk_article_campagne_3 foreign key(id_tva) 
-   references tva(id) on delete cascade
+   references tva(id) on delete cascade,
 
    constraint fk_article_campagne_4 foreign key(id_fournisseur) 
    references fournisseur(id) on delete cascade
