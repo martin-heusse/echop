@@ -28,8 +28,8 @@ if (Utilisateur::isLogged()) {
         <li><a href="<?php echo root ?>/commande.php/articlesCommandEs">Articles commandés</a></li>
         <li><a href="<?php echo root ?>/commande.php/clientsAyantCommandE">Clients ayant commandés</a></li>
         <li><a href="<?php echo root ?>/commande.php/fournisseursChoisis">Fournisseurs choisis</a></li>
-        <li><a href="<?php echo root ?>/fournisseur.php/tousLesFournisseurs">Tous les fournisseurs</a></li>
-        <li><a href="<?php echo root ?>/utilisateur.php/tousLesUtilisateurs">Tous les utilisateurs</a></li>
+        <li><a href="<?php echo root ?>/fournisseur.php/tousLesFournisseurs">Liste des fournisseurs</a></li>
+        <li><a href="<?php echo root ?>/utilisateur.php/listeUtilisateur">Liste des utilisateurs</a></li>
     </ul>
 <?php
     }

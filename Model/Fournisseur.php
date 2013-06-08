@@ -53,14 +53,21 @@ class Fournisseur {
 
     /* Setters */
 
-    public static function set($i_id, $s_nom) {
+    public static function set($i_id, $s_nom, $s_code) {
+        $sql_query = "update fournisseur set nom='$s_nom', code='$s_code'
+            where id=$i_id";
+        $b_result =  mysql_query($sql_query);
+        return $b_result;
+    }
+
+    public static function setNom($i_id, $s_nom) {
         $sql_query = "update fournisseur set nom='$s_nom' 
             where id=$i_id";
         $b_result =  mysql_query($sql_query);
         return $b_result;
     }
 
-    public static function set($i_id, $s_code) {
+    public static function setCode($i_id, $s_code) {
         $sql_query = "update fournisseur set code='$s_code' 
             where id=$i_id";
         $b_result =  mysql_query($sql_query);
