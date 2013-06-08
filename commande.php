@@ -92,6 +92,40 @@ class CommandeController extends Controller {
     }
     /* */
 
+
+    public function articlesCommandEs() {
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        $i_idCampagne = 1; // TODO
+        $to_article = Commande::getObjectsByIdCampagne($i_idCampagne);
+        foreach ($to_article as &$o_row) {
+            $o_row['nom'] = Article::getNom($o_row['id_article']);
+        }
+        $this->render('articlesCommandEs', compact('to_article'));
+    }
+
+    public function utilisateursAyantCommandECetArticle() {
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        if(!isset($_GET['idArticle'])) {
+            header('Location: '.root.'/commande.php/articlesCommandEs');
+            return;
+        }
+        $i_idCampagne = 1; // TODO
+        $i_idArticle = $_GET['idArticle'];
+        $to_utilisateur = Commande::getIdUtilisateurByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+        foreach ($to_utilisateur as &$o_row) {
+            $o_row['login'] = Utilisateur::getLogin($o_row['id_utilisateur']);
+        }
+        $this->render('utilisateursAyantCommandECetArticle', compact('to_utilisateur'));
+    }
+
     public function defaultAction() {
         header('Location: '.root.'/commande.php/mesCommandes');
     }
