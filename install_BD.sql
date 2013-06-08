@@ -39,7 +39,7 @@ CREATE TABLE campagne (
    date_debut date,
    etat boolean,
 
-   constraint pk_campagne primary key(id),
+   constraint pk_campagne primary key(id)
 );
 
 CREATE TABLE rayon (
