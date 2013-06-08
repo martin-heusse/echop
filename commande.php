@@ -21,6 +21,7 @@ class CommandeController extends Controller {
             $this->render('authenticationRequired');
             return;
         }
+	// A MODIFIER QD ON AURA CREER LES CAMPAGNES -> REMPLACER PAR IdCampagneIdUtilisateur à CREER
         $to_commande = Commande::getObjectsByIdUtilisateur($_SESSION['idUtilisateur']);
         foreach($to_commande as &$o_article) {
             $i_idArticle = $o_article['id_article'];
@@ -32,7 +33,7 @@ class CommandeController extends Controller {
             $o_article['description_courte'] = Article::getDescriptionCourte($i_idArticle);
             $o_article['description_longue'] = Article::getDescriptionLongue($i_idArticle);
             // prix ttc
-            $i_idCampagne = $o_article['id_campagne'];
+            $i_idCampagne = 1;
             $o_article_campagne = ArticleCampagne::getObjectByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
             $o_article['prix_ttc'] = $o_article_campagne['prix_ttc'];
             // poids paquet client
@@ -90,6 +91,24 @@ class CommandeController extends Controller {
             }
         }
     }
+
+    public function utilisateurAyantCommandE(){
+        // MEME RMQ PR LE NUMERO DE CAMPAGNE QUE L'ON FIXE A 1
+        $i_idCampagne = 1;
+        $to_commande = Commande::getIdUtilisateurUniqueByIdCampagne($i_idCampagne);
+	foreach($to_commande as &$o_article) {
+	  $i_idUtilisateur = $o_article['id_utilisateur'];
+	  $o_article['login_utilisateur'] = Utilisateur::getLogin($i_idUtilisateur);
+	}
+        $this->render('utilisateurAyantCommandE', compact('to_commande'));	
+    }
+
+
+    public function commandeUtilisateur(){
+        
+    }
+
+
     /* */
 
     public function defaultAction() {

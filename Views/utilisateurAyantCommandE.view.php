@@ -1,17 +1,17 @@
 <h1>Commande de l'utilisateur AJOUTER LOGIN </h1>
-<!--
+
  <p>
 
 <?php
-if ($to_utilisateur != null) {
+if ($to_commande != null) {
    ?> 
 <ul>
 <?php
-   foreach($to_utilisateur as $o_utilisateur) {
+   foreach($to_commande as $o_utilisateur) {
     ?>
 <li>
   <?php
-  echo $o_utilisateur['login']?>
+  echo $o_utilisateur['login_utilisateur']?>
   </li>
 <?php
      }
@@ -20,8 +20,8 @@ if ($to_utilisateur != null) {
 <?php
 } else {
 ?>
-<p> Il n'y a aucun utilisateur inscrit</p>
+<p> Aucun utilisateur n'a fait de commande</p>
 <?php
 }
 ?>
--->
+
