@@ -6,6 +6,7 @@ require_once('Model/Utilisateur.php');
 require_once('Model/Article.php');
 require_once('Model/Unite.php');
 require_once('Model/ArticleCampagne.php');
+require_once('Model/Rayon.php');
 
 class CommandeController extends Controller {
 
@@ -59,7 +60,7 @@ class CommandeController extends Controller {
         /* Sélection d'un rayon pour une commande */
         if (!isset($_POST['commande'])) {
             $to_rayon = Rayon::getAllObjects();
-            $this->render('commanderArticle',compact('$to_rayon'));
+            $this->render('commanderArticle',compact('to_rayon'));
             
             /* Saisie des quantités dans un rayon */
             foreach ($_POST['commande'] as $i_idArticle => $i_qte) {
