@@ -24,6 +24,8 @@ if (Utilisateur::isLogged()) {
     <!-- Menu administrateur -->
     <ul>
         <li><a href="<?php echo root ?>/rayon.php/gererRayon">Gérer les rayon</a></li>
+        <li><a href="<?php echo root ?>/commande.php/articlesCommandEs">Voir les articles commandés</a></li>
+        <li><a href="<?php echo root ?>/commande.php/clientsAyantCommandE">voir les Clients ayant commandés</a></li>
     </ul>
 <?php
     }
