@@ -65,8 +65,8 @@ class CommandeController extends Controller {
            foreach ($_POST['commande'] as $i_idArticle => $i_qte) {
                 $o_commande = Commande::getObjectsbyIdArticleIdCampagne($i_idArticle, $i_idCampagne);   
                 
-                $i_idCommande = o_row['id'];     
-                $i_idUtilisateur = o_row['utilisateur'];
+                $i_idCommande = $o_commande['id'];     
+                $i_idUtilisateur = $o_commande['utilisateur'];
 
                 /* Détermination des paramètes pour la requete SQL */
                 $i_oldQte = Commande::getQuantite($i_idCommande);
@@ -75,7 +75,7 @@ class CommandeController extends Controller {
                 $i_idUtilisateur = $o_Utilisateur['id'];
 
                 /* Insertion, MAJ ou Suppression de la BDD */
-                if ($i_oldQte == 0) {
+		/* if ($i_oldQte == 0) {
                     if ($i_newQte > 0) {
                         Commande::create($i_idArticle, $i_idCampagne,
                                          $i_idUtilisateur, $i_newQte);
@@ -85,7 +85,7 @@ class CommandeController extends Controller {
                     } else {
                         Commande::delete();
                     }
-                }
+		    }*/
             }
             /* */
 
