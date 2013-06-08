@@ -55,6 +55,17 @@ class Rayon {
         return $s_result;
     }
 
+    public static function getIdByNom($s_nom) {
+        $sql_query = "select id from rayon where nom=$s_nom"
+        $sql_tmp = mysql_query($sql_query);
+        $i_result = 0;
+
+        if ($o_row = mysql_fetch_assoc($sql_temp)) {
+            /* Sécurité et création du résultat */
+            $i_result = htmlentities($o_row['id']);
+        }
+        return $i_result;
+    }
 
     /* Setters */
 
