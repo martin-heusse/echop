@@ -3,10 +3,10 @@ class Article {
 
     /* Creaters */
 
-    public static function create($i_idRayon, $s_nom, $s_code, $f_poidsPaquetFournisseur,
+    public static function create($i_idRayon, $s_nom, $f_poidsPaquetFournisseur,
 				  $i_idUnite, $i_nbPaquetColis, $s_descriptionCourte, $s_descriptionLongue) {
-        $sql_query = "insert into article(id_rayon,nom,code,poids_paquet_fournisseur,id_unite,nb_paquet,colis,description_courte,description_longue) 
-            values('$i_id', '$i_idRayon', '$s_nom','$s_code', '$f_poidsPaquetFournisseur',
+        $sql_query = "insert into article(id_rayon,nom,poids_paquet_fournisseur,id_unite,nb_paquet,colis,description_courte,description_longue) 
+            values('$i_id', '$i_idRayon', '$s_nom', '$f_poidsPaquetFournisseur',
 		   '$i_IdUnite', '$i_nbPaquetColis', '$s_descriptionCourte', '$s_descriptionLongue')";
         mysql_query($sql_query);
         $i_result = mysql_insert_id();
@@ -84,18 +84,6 @@ class Article {
         return $s_result;
     }
 
-
-    public static function getCode($i_id) {
-        $sql_query = "select code from article where id=$i_id";
-        $sql_tmp = mysql_query($sql_query);
-        $s_result = null;
-        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
-            /* Sécurité et création du résultat */
-            $s_result = htmlentities($o_row['code']);
-        }
-        return $s_result;
-    }
-
     public static function getIdRayon($i_id) {
         $sql_query = "select id_rayon from article where id=$i_id";
         $sql_tmp = mysql_query($sql_query);
@@ -167,10 +155,10 @@ class Article {
 
     /* Setters */
 
-    public static function set($i_id, $i_idRayon, $s_nom, $s_code, $f_poidsPaquetFournisseur,
+    public static function set($i_id, $i_idRayon, $s_nom, $f_poidsPaquetFournisseur,
 				  $i_idUnite, $i_nbPaquetColis, $s_descriptionCourte, $s_descriptionLongue) {
       $sql_query = "update article set id_rayon = '$i_idRayon',
-      nom ='$s_nom', code = '$s_code', poids_paquet_fournisseur = '$f_poidsPaquetFournisseur', id_unite = '$i_idUnite', nb_paquet_colis = '$i_nbPaquetColis', description_courte = '$s_descriptionCourte', description_longue = '$s_descriptionLongue' where id=$i_id";
+      nom ='$s_nom', poids_paquet_fournisseur = '$f_poidsPaquetFournisseur', id_unite = '$i_idUnite', nb_paquet_colis = '$i_nbPaquetColis', description_courte = '$s_descriptionCourte', description_longue = '$s_descriptionLongue' where id=$i_id";
       $b_result =  mysql_query($sql_query);
       return $b_result;
     }
@@ -191,13 +179,6 @@ class Article {
 
     public static function setNom($i_id, $s_nom) {
         $sql_query = "update article set nom ='$s_nom' 
-            where id=$i_id";
-        $b_result =  mysql_query($sql_query);
-        return $b_result;
-    }
-
-    public static function setCode($i_id, $s_code) {
-        $sql_query = "update article set code ='$s_code' 
             where id=$i_id";
         $b_result =  mysql_query($sql_query);
         return $b_result;
@@ -234,7 +215,7 @@ class Article {
 
     /* Deleters */
 
-    public static function delete($i_id, $i_idRayon, $s_nom, $s_code, $f_poidsPaquetFournisseur,
+    public static function delete($i_id, $i_idRayon, $s_nom, $f_poidsPaquetFournisseur,
 				  $i_idUnite, $i_nbPaquetColis, $s_descriptionCourte, $s_descriptionLongue) {
         $sql_query = "delete from article where id=$i_id";
         $b_result =  mysql_query($sql_query);
