@@ -1,3 +1,6 @@
+/* ========================================================================== */
+/* Corps */
+
 html {
     /*
     background-color: #c6a771;
@@ -21,6 +24,9 @@ body {
     box-shadow: 0px 0px 10px 0px #000000;
 }
 
+/* ========================================================================== */
+/* Général */
+
 a {
     color: #444444;
     text-decoration: underline;
@@ -31,8 +37,8 @@ a:hover {
     text-decoration: underline;
 }
 
-
 /* ========================================================================== */
+/* Header */
 
 #banniere {
     background-color: #d6b781;
@@ -56,6 +62,8 @@ a:hover {
     margin-left: 50px;
 }
 
+/* ========================================================================== */
+/* Menu */
 
 #menu {
     padding-top: 20px;
@@ -92,6 +100,14 @@ a:hover {
     margin-left: 20px;
 }
 
+.titre_menu {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* ========================================================================== */
+/* Contenu */
+
 #contenu {
     float: left;
     width: 760px;
@@ -108,31 +124,20 @@ h1 {
 /* ========================================================================== */
 /* Tableau */
 
+/* Lignes paires */
 .ligne_article0 {
     background-color: #dddddd;
 }
 
+/* Lignes impaires */
 .ligne_article1 {
     background-color: #f0f0f0;
 }
 
+/* Surligne au survol */
 .ligne_article0:hover, .ligne_article1:hover {
     background-color: #cccccc;
     cursor: pointer;
-}
-
-/* Formulaire */
-
-.form_connexion {
-    margin: 10px auto;
-    width: 500px;
-}
-
-form .form_col, .form_col {
-    text-align: left;
-    display: inline-block;
-    margin-right: 15px;
-    width: 160px;
 }
 
 table {
@@ -141,6 +146,7 @@ table {
     margin-left: auto;
     margin-right: auto;
 }
+
 table, th, td {
     border: 1px solid black;
 }
@@ -150,26 +156,24 @@ th {
     background-color: #666666;
 }
 
-
 /* ========================================================================== */
-/* Regroupement par bloc dans "Ajouter" et "Modifier" un article */
+/* Formulaire */
 
-#article_bloc_gauche {
-    width: 370px;
-    float: left;
+.form_connexion {
+    margin: 10px auto;
+    width: 500px;
 }
 
-#article_bloc_droit {
-    width: 300px;
-    float: right;
-}
-
-.article_groupe {
-    width: 100%;
-    margin-bottom: 20px;
+/* Alignement du texte à gauche */
+form .form_col, .form_col {
+    text-align: left;
+    display: inline-block;
+    margin-right: 15px;
+    width: 160px;
 }
 
 /* ========================================================================== */
+/* Autre */
 
 /* Pour que les flottants ne dépassent pas de leur conteneur */
 .clear {
@@ -178,26 +182,7 @@ th {
     overflow: hidden; /* Précaution pour IE 7 */
 }
 
-.center {
-    text-align: center;
-}
-
+/* Aligne les nombres à droite */
 .nombre {
     text-align: right;
-}
-
-#erreur{
-    width: 600px;
-    border: medium red solid;
-    margin: 10px auto;
-    padding: 20px;
-}
-
-#erreur h2{
-    color:   red;
-}
-
-.titre_menu {
-    font-size: 18px;
-    font-weight: bold;
 }

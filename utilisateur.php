@@ -1,26 +1,25 @@
 <?php
 require_once('def.php');
-require_once('Model/Rayon.php');
-require_once('Model/Administrateur.php');
 require_once('Model/Utilisateur.php');
 
-class RayonController extends Controller {
+class UtilisateurController extends Controller {
 
     public function __construct() {
         parent::__construct();
     }
 
-    /* Code Gilou */
 
-    public function gererRayon() {
-        $this->render('gererRayon');
+    public function listeUtilisateur() {
+        // on stocke tous les infos sur un utilisateur
+	$to_utilisateur = Utilisateur::getAllObjects();
+	
+	$this->render('listeUtilisateur', compact('to_utilisateur'));
     }
 
-    /* */
 
     public function defaultAction() {
-        header('Location: '.root.'/connexion.php/connexion');
+        header('Location: '.root.'/utilisateur.php/listeUtilisateur');
     }
 }
-new RayonController();
+new UtilisateurController();
 ?>
