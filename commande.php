@@ -57,10 +57,9 @@ class CommandeController extends Controller {
 
         /* Sélection d'un rayon pour une commande */
         if (!isset($_POST['commande'])) {
-            $to_article = Article::getObjectsByIdRayon($i_idRayon);   
-            $this->render('commanderArticle',compact('$to_article'));
-        } else {
-
+            $to_rayon = Rayon::getAllObjects();
+            $this->render('commanderArticle',compact('$to_rayon'));
+            
             /* Saisie des quantités dans un rayon */
             foreach ($_POST['commande'] as $i_idArticle => $i_qte) {
                 $o_commande = Commande::getObjectsbyIdArticleIdCampagne($i_idArticle, $i_idCampagne);   
