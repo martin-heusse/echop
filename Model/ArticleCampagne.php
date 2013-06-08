@@ -3,9 +3,9 @@ class ArticleCampagne {
 
     /* Creaters */
 
-    public static function create($i_idArticle, $i_idCampagne, $i_idFournisseur, $f_poidsPaquetClient, $i_idTva, $i_seuilMin, $f_prixHt $f_prixTtc) {
-        $sql_query = "insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ht, prix_ttc) 
-            values('$i_idArticle', '$i_idCampagne', '$i_idFournisseur', '$f_poidsPaquetClient', '$i_idTva', '$i_seuilMin', '$f_prixHt', '$f_prixTtc')";
+    public static function create($i_idArticle, $i_idCampagne, $i_idFournisseur, $i_idTva, $f_poidsPaquetClient, $i_seuilMin, $f_prixHt, $f_prixTtc) {
+        $sql_query = "insert into article_campagne(id_article, id_campagne, id_fournisseur, id_tva, poids_paquet_client, seuil_min, prix_ht, prix_ttc) 
+            values('$i_idArticle', '$i_idCampagne', '$i_idFournisseur', '$i_idTva', '$f_poidsPaquetClient', '$i_seuilMin', '$f_prixHt', '$f_prixTtc')";
         mysql_query($sql_query);
         $i_result = mysql_insert_id();
         return $i_result;
@@ -348,8 +348,8 @@ class ArticleCampagne {
 
     /* Setters */
 
-    public static function set($i_id, $i_idArticle, $i_idCampagne, $i_idFournisseur, $f_poidsPaquetClient, $i_idTva, $i_seuilMin, $f_prixHt, $f_prixTtc) {
-        $sql_query = "update article_campagne set id_article='$i_idArticle', id_campagne='$i_idCampagne', id_fournisseur='$i_idFournisseur', poids_paquet_colis='$f_poidsPaquetColis', id_tva='$i_idTva', seuil_min='$i_seuilMin', prix_ht='$f_prixHt', prix_ttc='$f_prixTtc' 
+    public static function set($i_id, $i_idArticle, $i_idCampagne, $i_idFournisseur, $i_idTva, $f_poidsPaquetClient, $i_seuilMin, $f_prixHt, $f_prixTtc) {
+        $sql_query = "update article_campagne set id_article='$i_idArticle', id_campagne='$i_idCampagne', id_fournisseur='$i_idFournisseur', id_tva='$i_idTva', poids_paquet_colis='$f_poidsPaquetColis', seuil_min='$i_seuilMin', prix_ht='$f_prixHt', prix_ttc='$f_prixTtc' 
             where id=$i_id";
         $b_result =  mysql_query($sql_query);
         return $b_result;
