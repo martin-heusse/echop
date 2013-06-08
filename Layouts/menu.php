@@ -31,7 +31,7 @@ if (Utilisateur::isLogged()) {
     <!-- Menu utilisateur -->
     <ul>
         <li><a href="<?php echo root ?>/article.php/commanderArticle">Commander des articles</a></li>
-        <li><a href="<?php echo root ?>/commande.php/maCommande">Ma commande</a></li>
+        <li><a href="<?php echo root ?>/commande.php/mesCommandes">Ma commande</a></li>
     </ul>
 <?php
 } else {
