@@ -36,14 +36,10 @@ CREATE TABLE administrateur (
 
 CREATE TABLE campagne (
    id integer not null auto_increment,
-   id_administrateur integer not null,
    date_debut date,
    etat boolean,
 
-   constraint pk_campagne primary key(id),
-
-   constraint fk_campagne_1 foreign key(id_administrateur)
-   references administrateur(id) on delete cascade
+   constraint pk_campagne primary key(id)
 );
 
 CREATE TABLE rayon (
@@ -130,7 +126,7 @@ CREATE TABLE article_campagne (
    references campagne(id) on delete cascade,
 
    constraint fk_article_campagne_3 foreign key(id_tva) 
-   references tva(id) on delete cascade
+   references tva(id) on delete cascade,
 
    constraint fk_article_campagne_4 foreign key(id_fournisseur) 
    references fournisseur(id) on delete cascade
