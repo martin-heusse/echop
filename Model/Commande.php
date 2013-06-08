@@ -105,6 +105,21 @@ class Commande {
         return $o_result;
     }
 
+    public static function getIdUtilisateurUniqueByIdCampagne($i_idCampagne) {
+        $sql_query = "select distinct id_utilisateur from commande where id_campagne=$i_idCampagne";
+        $sql_tmp = mysql_query($sql_query);
+        $to_result = array();
+        while ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité */
+            foreach ($o_row as &$column) {
+                $column = htmlentities($column);
+            }
+            /* Création du résultat */
+            $to_result[] = $o_row;
+        }
+        return $to_result;
+    }
+
     public static function getIdArticle($i_id) {
         $sql_query = "select id_article from commande where id=$i_id";
         $sql_tmp = mysql_query($sql_query);
