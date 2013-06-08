@@ -55,7 +55,6 @@ class Rayon {
         return $s_result;
     }
 
-
     /* Setters */
 
     public static function setNom($i_id, $s_nom) {

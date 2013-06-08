@@ -92,7 +92,7 @@ class Article {
             /* Sécurité et création du résultat */
             $i_result = htmlentities($o_row['id_rayon']);
         }
-        return $s_result;
+        return $i_result;
     }
 
     public static function getPoidsPaquetFournisseur($i_id) {
