@@ -33,7 +33,7 @@ class CommandeController extends Controller {
             $o_article['description_longue'] = Article::getDescriptionLongue($i_idArticle);
 	    // prix ttc
 	    $i_idCampagne = $o_article['id_campagne'];
-	    $o_article_campagne = ArticleCampagne::getObjectsByIdCampagneIdArticle($i_idCampagne, $i_idArticle);
+	    $o_article_campagne = ArticleCampagne::getObjectByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
 	    $o_article['prix_ttc'] = $o_article_campagne['prix_ttc'];
 	    // poids paquet client
 	    $o_article['poids_paquet_client'] = $o_article_campagne['poids_paquet_client'];
@@ -52,7 +52,12 @@ class CommandeController extends Controller {
 
     /* Code Johann <3 */
 
+<<<<<<< HEAD
     public function commanderArticle() {
+=======
+      public function commanderArticle() {
+        $implemented = 0;
+>>>>>>> 9b8f453a3332e2f84388b9b95936c1047be58c8a
         $i_idRayon = 1;
         
         /* Sélection d'un rayon pour une commande */
