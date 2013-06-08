@@ -5,12 +5,14 @@ insert into utilisateur(login, mot_de_passe, email) values('aurore', 'root', 'au
 insert into utilisateur(login, mot_de_passe, email) values('gilles', 'gilles', 'gilles@email.com');
 insert into utilisateur(login, mot_de_passe, email) values('philippe', 'toto', 'philippe@email.com');
 insert into utilisateur(login, mot_de_passe, email) values('johann', 'root', 'johann@email.com');
+insert into utilisateur(login, mot_de_passe, email) values('a', 'a', 'a@example.com');
 
 insert into administrateur(id_utilisateur) values(1);
+insert into administrateur(id_utilisateur) values(6);
 
-insert into campagne(date_debut, id_administrateur, etat) values('2013-06-05', 1, true);
-insert into campagne(date_debut, id_administrateur, etat) values('2013-06-06', 2, true);
-insert into campagne(date_debut, id_administrateur, etat) values('2013-06-07', 2, false);
+insert into campagne(date_debut, etat) values('2013-06-05', true);
+insert into campagne(date_debut, etat) values('2013-06-06', true);
+insert into campagne(date_debut, etat) values('2013-06-07', false);
 
 insert into rayon(nom) values('Épicerie');
 insert into rayon(nom) values('Jardins de Gaïa');
@@ -24,20 +26,20 @@ insert into unite(valeur) values('g');
 insert into unite(valeur) values('L');
 insert into unite(valeur) values('Pack');
 
-insert into article(id_rayon, nom, code, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue) 
-	values(1, 'SUCRE DE CANNE COMPLET Rapadura', 'BEGHIN SAY', 10, 1, 1, 'Sucre en poudre', 'Sucre de canne d\'origine française de qualité supérieure');
-insert into article(id_rayon, nom, code, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-	values(1, 'SUCRE INTEGRAL "SUCANAT"', 'VAHINE', 25,1,1,'Sucre cristallisé', '');
-insert into article(id_rayon, nom, code, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-	values(2, 'THE DARJEELING','DARJEELING',75,2,12,'','');	  
+insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue) 
+	values(1, 'SUCRE DE CANNE COMPLET Rapadura', 10, 1, 1, 'Sucre en poudre BEGHIN SAY', 'Sucre de canne d origine française de qualité supérieure');
+insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+	values(1, 'SUCRE INTEGRAL "SUCANAT"', 25,1,1,'Sucre cristallisé VAHINE', '');
+insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+	values(2, 'THE DARJEELING',75,2,12,'DARJEELING','');	  
 
-insert into fournisseur(nom) values('RAPUNZEL');
-insert into fournisseur(nom) values('PICHARD');
-insert into fournisseur(nom) values('SIMON LEVE');
+insert into fournisseur(nom, code) values('RAPUNZEL', 12224);
+insert into fournisseur(nom, code) values('PICHARD', 54463);
+insert into fournisseur(nom, code) values('SIMON LEVE', 87564);
 
 insert into tva(valeur) values(19.60);
 
-insert into article_fournisseur(id_article,id_fournisseur,prix_article)
+insert into article_fournisseur(id_article,id_fournisseur, prix_article)
 	values(1,1, 30.5);
 insert into article_fournisseur(id_article,id_fournisseur,prix_article)
 	values(2,1, 22);
@@ -46,10 +48,10 @@ insert into article_fournisseur(id_article,id_fournisseur,prix_article)
 insert into article_fournisseur(id_article,id_fournisseur,prix_article)
 	values(3,3,5);
 
-insert into article_campagne(id_article,id_campagne,poids_paquet_client,id_tva,seuil_min,seuil_max,prix_ttc)
-	values (1,1,5,1,0,10,15);
-insert into article_campagne(id_article,id_campagne,poids_paquet_client,id_tva,seuil_min,seuil_max,prix_ttc)
-	values (2,1,24.1,1,5,17,20);
+insert into article_campagne(id_article,id_campagne,id_fournisseur, poids_paquet_client,id_tva,seuil_min,prix_ht, prix_ttc)
+	values (1,1,2,5,1,0,14,15);
+insert into article_campagne(id_article,id_campagne, id_fournisseur, poids_paquet_client,id_tva,seuil_min,prix_ht, prix_ttc)
+	values (2,1,2,24.1,1,5,17,20);
 
 insert into campagne_rayon(id_campagne,id_rayon) values (1,1);
 insert into campagne_rayon(id_campagne,id_rayon) values (1,2);

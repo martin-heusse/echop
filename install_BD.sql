@@ -36,14 +36,10 @@ CREATE TABLE administrateur (
 
 CREATE TABLE campagne (
    id integer not null auto_increment,
-   id_administrateur integer not null,
    date_debut date,
    etat boolean,
 
-   constraint pk_campagne primary key(id),
-
-   constraint fk_campagne_1 foreign key(id_administrateur)
-   references administrateur(id) on delete cascade
+   constraint pk_campagne primary key(id)
 );
 
 CREATE TABLE rayon (
@@ -65,7 +61,6 @@ CREATE TABLE article (
    id_rayon integer not null,
    id_unite integer not null,
    nom varchar(255),
-   code varchar(255),
    poids_paquet_fournisseur float,
    nb_paquet_colis integer,
    description_courte varchar(255),
@@ -84,6 +79,7 @@ CREATE TABLE article (
 CREATE TABLE fournisseur (
    id integer not null auto_increment,
    nom varchar(255),
+   code varchar(255),
 
    constraint pk_fournisseur primary key(id)
 );
@@ -114,10 +110,11 @@ CREATE TABLE article_campagne (
    id integer not null auto_increment,
    id_article integer not null,
    id_campagne integer not null,
+   id_fournisseur integer not null,
    id_tva integer not null,
    poids_paquet_client float,
    seuil_min float,
-   seuil_max float,
+   prix_ht float,
    prix_ttc float,
 
    constraint pk_article_campagne primary key(id),
@@ -129,7 +126,10 @@ CREATE TABLE article_campagne (
    references campagne(id) on delete cascade,
 
    constraint fk_article_campagne_3 foreign key(id_tva) 
-   references tva(id) on delete cascade
+   references tva(id) on delete cascade,
+
+   constraint fk_article_campagne_4 foreign key(id_fournisseur) 
+   references fournisseur(id) on delete cascade
 );
 
 CREATE TABLE campagne_rayon (
