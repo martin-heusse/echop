@@ -1,11 +1,13 @@
 <?php
 require_once('def.php');
 require_once('Model/Commande.php');
+require_once('Model/Campagne.php');
 require_once('Model/Administrateur.php');
 require_once('Model/Utilisateur.php');
 require_once('Model/Article.php');
 require_once('Model/Unite.php');
 require_once('Model/ArticleCampagne.php');
+require_once('Model/Rayon.php');
 
 class CommandeController extends Controller {
 
@@ -60,7 +62,7 @@ class CommandeController extends Controller {
         /* Sélection d'un rayon pour une commande */
         if (!isset($_POST['commande'])) {
             $to_rayon = Rayon::getAllObjects();
-            $this->render('commanderArticle',compact('$to_rayon'));
+            $this->render('commanderArticle',compact('to_rayon'));
             
             /* Saisie des quantités dans un rayon */
             foreach ($_POST['commande'] as $i_idArticle => $i_qte) {
@@ -138,6 +140,42 @@ class CommandeController extends Controller {
 
 
     /* */
+
+
+    public function articlesCommandEs() {
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        $o_campagne = Campagne::getCampagneCourante();
+        $i_idCampagne = $o_campagne['id'];
+        $to_article = Commande::getIdArticleByIdCampagne($i_idCampagne);
+        foreach ($to_article as &$o_row) {
+            $o_row['nom'] = Article::getNom($o_row['id_article']);
+        }
+        $this->render('articlesCommandEs', compact('to_article'));
+    }
+
+    public function utilisateursAyantCommandECetArticle() {
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        if(!isset($_GET['idArticle'])) {
+            header('Location: '.root.'/commande.php/articlesCommandEs');
+            return;
+        }
+        $o_campagne = Campagne::getCampagneCourante();
+        $i_idCampagne = $o_campagne['id'];
+        $i_idArticle = $_GET['idArticle'];
+        $to_utilisateur = Commande::getIdUtilisateurByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+        foreach ($to_utilisateur as &$o_row) {
+            $o_row['login'] = Utilisateur::getLogin($o_row['id_utilisateur']);
+        }
+        $this->render('utilisateursAyantCommandECetArticle', compact('to_utilisateur'));
+    }
 
     public function defaultAction() {
         header('Location: '.root.'/commande.php/mesCommandes');

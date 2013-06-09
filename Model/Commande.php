@@ -75,7 +75,26 @@ class Commande {
         return $to_result;
     }
 
-    public static function getObjectsByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur) {
+    public static function getIdUtilisateurByIdArticleIdCampagne($i_idArticle, $i_idCampagne) {
+        $sql_query = "select distinct id_utilisateur from commande where id_article=$i_idArticle and id_campagne=$i_idCampagne";
+        $sql_tmp = mysql_query($sql_query);
+        $to_result = array();
+        while ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité */
+            foreach ($o_row as &$column) {
+                $column = htmlentities($column);
+            }
+            /* Création du résultat */
+            $to_result[] = $o_row;
+        }
+        return $to_result;
+    }
+
+    public static function getIdArticleByIdCampagne($i_idCampagne) {
+        $sql_query = "select distinct id_article from commande where id_campagne=$i_idCampagne";
+
+    
+public static function getObjectsByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur) {
         $sql_query = "select * from commande where id_campagne=$i_idCampagne and id_utilisateur=$i_idUtilisateur";
         $sql_tmp = mysql_query($sql_query);
         $to_result = array();

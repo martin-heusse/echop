@@ -1,6 +1,21 @@
 <?php
 class Campagne {
 
+    public static function getCampagneCourante() {
+        $sql_query = "select * from campagne where etat=1";
+        $sql_tmp = mysql_query($sql_query);
+        $o_result = null;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité */
+            foreach ($o_row as &$column) {
+                $column = htmlentities($column);
+            }
+            /* Création du résultat */
+            $o_result = $o_row;
+        }
+        return $o_result;
+    }
+
     /* Creaters */
 
     public static function create($s_dateDebut, $b_etat) {
