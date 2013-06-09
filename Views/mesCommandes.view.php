@@ -4,6 +4,9 @@
 <?php
 if ($to_commande != null) {
 ?>
+<!--
+<form method="post" action="commande.php/mesCommandes">
+-->
 <table id="t_article">
 <tr>
     <th>Produit</th>
@@ -38,12 +41,16 @@ if ($to_commande != null) {
     <td><?php echo $o_produit['prix_unitaire'] ?></td>
     <td><?php echo $o_produit['poids_paquet_client'] ?></td>
     <td><?php echo $o_produit['seuil_min'] ?></td>
-    <td><input type="text" value="<?php echo $o_produit['quantite'] ?>"/></td>
+    <td><input type="text" name="quantite[<?php echo $o_produit['id_article']?>" value="<?php echo $o_produit['quantite'] ?>"/></td>
     <td><?php echo $o_produit['quantite_totale'] ?></td>
     <td><?php echo $o_produit['total_ttc'] ?></td>
 </tr>
 <?php
-    }
+   }  
+<!--
+<input type="submit" value="Modifier"/>
+</form>
+-->
 ?>
 </table>
 <?php
