@@ -16,6 +16,21 @@ class Campagne {
         return $o_result;
     }
 
+    public static function getIdCampagneCourante() {
+        $sql_query = "select id from campagne where etat=1";
+        $sql_tmp = mysql_query($sql_query);
+        $i_result = null;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité */
+            foreach ($o_row as &$column) {
+                $column = htmlentities($column);
+            }
+            /* Création du résultat */
+            $i_result = $o_row['id'];
+        }
+        return $i_result;
+    }
+
     /* Creaters */
 
     public static function create($s_dateDebut, $b_etat) {
