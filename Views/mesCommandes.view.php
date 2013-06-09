@@ -1,3 +1,5 @@
+<p><a class="action_navigation" href="<?php echo root ?>">Retour</a></p>
+
 <h1>Mes Commandes</h1>
 <?php
 if ($to_commande != null) {
