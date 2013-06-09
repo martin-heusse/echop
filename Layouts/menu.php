@@ -30,9 +30,11 @@ if (Utilisateur::isLogged()) {
     </ul>
     <h1 class="titre_menu">Administration</h1>
     <ul>
-        <li><a href="<?php echo root ?>/rayon.php/gererRayon">Gérer les rayon</a></li>
+        <li><a href="<?php echo root ?>/campagne.php/gererCampagne">Gérer la campagne courante</a></li>
+        <li><a href="<?php echo root ?>/rayon.php/gererRayon">Gérer les rayons</a></li>
         <li><a href="<?php echo root ?>/utilisateur.php/listeUtilisateur">Liste des utilisateurs</a></li>
         <li><a href="<?php echo root ?>/fournisseur.php/tousLesFournisseurs">Liste des fournisseurs</a></li>
+        <li><a href="<?php echo root ?>/campagne.php/historique">Historique des campagnes</a></li>
     </ul>
 <?php
     }

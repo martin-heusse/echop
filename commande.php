@@ -8,7 +8,6 @@ require_once('Model/Article.php');
 require_once('Model/Unite.php');
 require_once('Model/ArticleCampagne.php');
 require_once('Model/Rayon.php');
-require_once('Model/ArticleCampagne.php');
 require_once('Model/Fournisseur.php');
 
 class CommandeController extends Controller {

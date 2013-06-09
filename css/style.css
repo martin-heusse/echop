@@ -178,3 +178,11 @@ form .form_col, .form_col {
 .nombre {
     text-align: right;
 }
+
+.campagne_ouverte {
+    color: green;
+}
+
+.campagne_fermee {
+    color: red;
+}
