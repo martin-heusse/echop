@@ -25,7 +25,7 @@ class CommandeController extends Controller {
             $this->render('authenticationRequired');
             return;
         }
-        $i_idCampagne = Campagne::getCampagneCourante();
+        $i_idCampagne = Campagne::getIdCampagneCourante();
         $to_commande = Commande::getObjectsByIdCampagneIdUtilisateur($i_idCampagne, $_SESSION['idUtilisateur']);
         foreach($to_commande as &$o_article) {
             $i_idArticle = $o_article['id_article'];
@@ -37,7 +37,6 @@ class CommandeController extends Controller {
             $o_article['description_courte'] = Article::getDescriptionCourte($i_idArticle);
             $o_article['description_longue'] = Article::getDescriptionLongue($i_idArticle);
             // prix ttc
-	    // $i_idCampagne = $o_article['id_campagne'];
             $o_article_campagne = ArticleCampagne::getObjectByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
             $o_article['prix_ttc'] = $o_article_campagne['prix_ttc'];
             // poids paquet client
@@ -96,8 +95,7 @@ class CommandeController extends Controller {
     }
 
     public function utilisateurAyantCommandE(){
-      
-        $i_idCampagne = Campagne::getCampagneCourante();
+        $i_idCampagne = Campagne::getIdCampagneCourante();
         $to_commande = Commande::getIdUtilisateurUniqueByIdCampagne($i_idCampagne);
 	foreach($to_commande as &$o_article) {
 	  $i_idUtilisateur = $o_article['id_utilisateur'];
@@ -108,8 +106,8 @@ class CommandeController extends Controller {
 
 
     public function commandeUtilisateur(){
-        $i_idUtilisateur = $_GET['id_utilisateur']
-      	$i_idCampagne = Campagne::getCampagneCourante();
+        $i_idUtilisateur = $_GET['id_utilisateur'];
+      	$i_idCampagne = Campagne::getIdCampagneCourante();
         $to_commande = Commande::getObjectsByIdCampagneIdUtilisateur($i_idCampagne, $_SESSION['idUtilisateur']);
         foreach($to_commandeUtilisateur as &$o_article) {
             $i_idArticle = $o_article['id_article'];

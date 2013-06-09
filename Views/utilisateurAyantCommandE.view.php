@@ -12,8 +12,10 @@ if ($to_commande != null) {
     ?>
 <li>
   <?php
+
 <a href="../commande.php/commandeUtilisateur?id_utilisateur=$o_utilisateur['id_utilisateur']">
   echo $o_utilisateur['login_utilisateur']?>
+
 </a>
   </li>
 <?php
