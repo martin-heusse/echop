@@ -17,8 +17,6 @@ class RayonController extends Controller {
         $this->render('gererRayon', compact('to_rayon'));
     }
 
-    /* */
-
     public function defaultAction() {
         header('Location: '.root.'/connexion.php/connexion');
     }

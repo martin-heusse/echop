@@ -1,6 +1,6 @@
-<h1>Mes Commandes</h1>
+<h1>Commande de <?php $to_commandeUtilisateur['id_utilisateur'] LOGIN</h1>
 <?php
-if ($to_commande != null) {
+if ($to_commandeUtilisateur != null) {
 ?>
 <table id="t_article">
 <tr>
@@ -20,7 +20,7 @@ if ($to_commande != null) {
     <th>Total TTC</th>
 </tr>
 <?php 
-    foreach($to_commande as $o_produit) {
+    foreach($to_commandeUtilisateur as $o_produit) {
 ?>
   <tr> 
     <td><?php echo $o_produit['nom'] ?></td>
@@ -49,14 +49,3 @@ if ($to_commande != null) {
 <?php
 }
 ?>
-<!--
-<script type="text/javascript">
-function calculPoidsTotal(){
-    var poidsTotal = 0.0;
-    var test = event.srcElement;
-    // quantité est la 10eme colonne
-    document.write(test);
-    var quantite = parseFloat(document.getElementById("t_article").rows[this.rowIndex].cells[10].innerHTML); 
-} 
-</script>
--->

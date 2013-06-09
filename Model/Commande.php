@@ -4,14 +4,14 @@ class Commande {
     /* Creaters */
 
     public static function create($i_idArticle, $i_idCampagne,
-				  $i_idUtilisateur, $i_quantite) {
-        $sql_query = "insert into commande(id_article, id_campagne, 
-                      id_utilisateur, quantite) 
-            values('$i_idArticle', '$i_idCampagne', '$i_idUtilisateur', '$i_quantite')";
-        mysql_query($sql_query);
-        $i_result = mysql_insert_id();
-        return $i_result;
-    }
+        $i_idUtilisateur, $i_quantite) {
+            $sql_query = "insert into commande(id_article, id_campagne, 
+                id_utilisateur, quantite) 
+                values('$i_idArticle', '$i_idCampagne', '$i_idUtilisateur', '$i_quantite')";
+            mysql_query($sql_query);
+            $i_result = mysql_insert_id();
+            return $i_result;
+        }
 
     /* Getters */
 
@@ -75,6 +75,51 @@ class Commande {
         return $to_result;
     }
 
+    public static function getIdUtilisateurByIdArticleIdCampagne($i_idArticle, $i_idCampagne) {
+        $sql_query = "select distinct id_utilisateur from commande where id_article=$i_idArticle and id_campagne=$i_idCampagne";
+        $sql_tmp = mysql_query($sql_query);
+        $to_result = array();
+        while ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité */
+            foreach ($o_row as &$column) {
+                $column = htmlentities($column);
+            }
+            /* Création du résultat */
+            $to_result[] = $o_row;
+        }
+        return $to_result;
+    }
+
+    public static function getIdArticleByIdCampagne($i_idCampagne) {
+        $sql_query = "select distinct id_article from commande where id_campagne=$i_idCampagne";
+        $sql_tmp = mysql_query($sql_query);
+        $to_result = array();
+        while ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité */
+            foreach ($o_row as &$column) {
+                $column = htmlentities($column);
+            }
+            /* Création du résultat */
+            $to_result[] = $o_row;
+        }
+        return $to_result;
+    }
+
+    public static function getObjectsByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur) {
+        $sql_query = "select * from commande where id_campagne=$i_idCampagne and id_utilisateur=$i_idUtilisateur";
+        $sql_tmp = mysql_query($sql_query);
+        $to_result = array();
+        while ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité */
+            foreach ($o_row as &$column) {
+                $column = htmlentities($column);
+            }
+            /* Création du résultat */
+            $to_result[] = $o_row;
+        }
+        return $to_result;
+    }
+
     public static function getObject($i_id) {
         $sql_query = "select * from commande where id=$i_id";
         $sql_tmp = mysql_query($sql_query);
@@ -88,6 +133,21 @@ class Commande {
             $o_result = $o_row;
         }
         return $o_result;
+    }
+
+    public static function getIdUtilisateurUniqueByIdCampagne($i_idCampagne) {
+        $sql_query = "select distinct id_utilisateur from commande where id_campagne=$i_idCampagne";
+        $sql_tmp = mysql_query($sql_query);
+        $to_result = array();
+        while ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité */
+            foreach ($o_row as &$column) {
+                $column = htmlentities($column);
+            }
+            /* Création du résultat */
+            $to_result[] = $o_row;
+        }
+        return $to_result;
     }
 
     public static function getIdArticle($i_id) {
@@ -137,12 +197,12 @@ class Commande {
     /* Setters */
 
     public static function set($i_id,$i_idArticle,
-			       $i_idCampagne, $i_idUtilisateur, $i_quantite) {
-      $sql_query = "update commande set id_article = '$i_idArticle', id_campagne = '$i_idCampagne',
-      id_utilisateur='$i_idUtilisateur', quantite ='$i_quantite' where id=$i_id";
-      $b_result =  mysql_query($sql_query);
-      return $b_result;
-    }
+        $i_idCampagne, $i_idUtilisateur, $i_quantite) {
+            $sql_query = "update commande set id_article = '$i_idArticle', id_campagne = '$i_idCampagne',
+                id_utilisateur='$i_idUtilisateur', quantite ='$i_quantite' where id=$i_id";
+            $b_result =  mysql_query($sql_query);
+            return $b_result;
+        }
 
     public static function setIdArticle($i_id, $i_idArticle) {
         $sql_query = "update commande set id_article='$i_idArticle' 
