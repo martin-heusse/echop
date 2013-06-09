@@ -2,7 +2,7 @@
 class Campagne {
 
     public static function getCampagneCourante() {
-        $sql_query = "select * from campagne where actuel=1";
+        $sql_query = "select * from campagne where courant=1";
         $sql_tmp = mysql_query($sql_query);
         $o_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
@@ -17,7 +17,7 @@ class Campagne {
     }
 
     public static function getIdCampagneCourante() {
-        $sql_query = "select id from campagne where actuel=1";
+        $sql_query = "select id from campagne where courant=1";
         $sql_tmp = mysql_query($sql_query);
         $i_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
@@ -125,8 +125,8 @@ class Campagne {
         return $b_result;
     }
 
-    public static function getActuel($i_id) {
-        $sql_query = "select actuel from campagne where id=$i_id";
+    public static function getCourant($i_id) {
+        $sql_query = "select Courant from campagne where id=$i_id";
         $sql_tmp = mysql_query($sql_query);
         $b_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
@@ -159,8 +159,8 @@ class Campagne {
         return $b_result;
     }
 
-    public static function setActuel($i_id, $b_actuel) {
-        $sql_query = "update campagne set actuel='$b_actuel' 
+    public static function setCourant($i_id, $b_courant) {
+        $sql_query = "update campagne set courant='$b_courant' 
             where id=$i_id";
         $b_result =  mysql_query($sql_query);
         return $b_result;

@@ -49,7 +49,7 @@ insert into article_fournisseur(id_article,id_fournisseur, prix_article)
 	values(3, 3, 5);
 
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ht, prix_ttc)
-	values(1, 1, 2, 5, 1, 0, 14, 15);
+	values(1, 1, 2, 5, 1, 3, 14, 15);
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ht, prix_ttc)
 	values(2, 1, 2, 24.1, 1, 5, 17, 20);
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ht, prix_ttc)
