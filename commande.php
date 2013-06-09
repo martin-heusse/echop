@@ -25,9 +25,12 @@ class CommandeController extends Controller {
             $this->render('authenticationRequired');
             return;
         }
-	//	$i_idCampagne = 1;
-	 $i_idCampagne = Campagne::getIdCampagneCourante();
+	/* récupération de l'identifiant de la campagne courante */
+	$i_idCampagne = Campagne::getIdCampagneCourante();
+	/* récupération des articles commandés par un utilisateur */
         $to_commande = Commande::getObjectsByIdCampagneIdUtilisateur($i_idCampagne, $_SESSION['idUtilisateur']);
+
+	/* récupération de tous les attributs d'un article nécéssaires */
         foreach($to_commande as &$o_article) {
             $i_idArticle = $o_article['id_article'];
             $o_article['nom'] = Article::getNom($i_idArticle);
@@ -37,9 +40,10 @@ class CommandeController extends Controller {
             $o_article['nb_paquet_colis'] = Article::getNbPaquetColis($i_idArticle);
             $o_article['description_courte'] = Article::getDescriptionCourte($i_idArticle);
             $o_article['description_longue'] = Article::getDescriptionLongue($i_idArticle);
-            // prix ttc
+            // prix ttc et seuil min 
             $o_article_campagne = ArticleCampagne::getObjectByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
             $o_article['prix_ttc'] = $o_article_campagne['prix_ttc'];
+	    $o_article['seuil_min'] = $o_article_campagne['seuil_min'];
             // poids paquet client
             $o_article['poids_paquet_client'] = $o_article_campagne['poids_paquet_client'];
             //calcul poids unitaire
@@ -95,7 +99,7 @@ class CommandeController extends Controller {
         }
     }
 
-    public function utilisateurAyantCommandE(){
+    public function utilisateurAyantCommandE(){  
         $i_idCampagne = Campagne::getIdCampagneCourante();
         $to_commande = Commande::getIdUtilisateurUniqueByIdCampagne($i_idCampagne);
 	foreach($to_commande as &$o_article) {
@@ -107,10 +111,13 @@ class CommandeController extends Controller {
 
 
     public function commandeUtilisateur(){
-        $i_idUtilisateur = $_GET['id_utilisateur'];
+      
+      $i_idUtilisateur = $_GET['id_utilisateur'];
       	$i_idCampagne = Campagne::getIdCampagneCourante();
-        $to_commande = Commande::getObjectsByIdCampagneIdUtilisateur($i_idCampagne, $_SESSION['idUtilisateur']);
+        $to_commandeUtilisateur = Commande::getObjectsByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur);
+
         foreach($to_commandeUtilisateur as &$o_article) {
+	  
             $i_idArticle = $o_article['id_article'];
             $o_article['nom'] = Article::getNom($i_idArticle);
             $o_article['poids_paquet_fournisseur'] = Article::getPoidsPaquetFournisseur($i_idArticle);
@@ -120,10 +127,9 @@ class CommandeController extends Controller {
             $o_article['description_courte'] = Article::getDescriptionCourte($i_idArticle);
             $o_article['description_longue'] = Article::getDescriptionLongue($i_idArticle);
             // prix ttc
-	    // $i_idCampagne = $o_article['id_campagne'];
-            $i_idCampagne = 1;
             $o_article_campagne = ArticleCampagne::getObjectByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
             $o_article['prix_ttc'] = $o_article_campagne['prix_ttc'];
+	    $o_article['seuil_min'] = $o_article_campagne['seuil_min'];
             // poids paquet client
             $o_article['poids_paquet_client'] = $o_article_campagne['poids_paquet_client'];
             //calcul poids unitaire
@@ -132,11 +138,11 @@ class CommandeController extends Controller {
             $o_article['quantite_totale']=$o_article['quantite']*$o_article['poids_paquet_client'];
             // calcul total ttc
             $o_article['total_ttc']=$o_article['quantite_totale']*$o_article['prix_ttc']/$o_article['poids_paquet_fournisseur'];
-	    // recherche du login 
-	    $o_article['login']=Utilisateur::getLogin($i_idUtilisateur); 
 
+	    // recherche du login 
+	    $s_login=Utilisateur::getLogin($i_idUtilisateur);
         }
-        $this->render('commandeUtilisateur', compact('to_commandeUtilisateur'));
+        $this->render('commandeUtilisateur', compact('to_commandeUtilisateur', 's_login'));
         
     }
 

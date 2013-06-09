@@ -11,10 +11,10 @@ if ($to_commande != null) {
    foreach($to_commande as $o_utilisateur) {
     ?>
 <li>
-  <?php
+  
 
-<a href="../commande.php/commandeUtilisateur?id_utilisateur=$o_utilisateur['id_utilisateur']">
-  echo $o_utilisateur['login_utilisateur']?>
+<a href="../commande.php/commandeUtilisateur?id_utilisateur=<?php echo $o_utilisateur['id_utilisateur']?>">
+<?php  echo $o_utilisateur['login_utilisateur'] ?>
 
 </a>
   </li>

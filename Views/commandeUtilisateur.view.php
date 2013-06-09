@@ -1,4 +1,4 @@
-<h1>Commande de <?php $to_commandeUtilisateur['login']?></h1>
+<h1>Commande de <?php echo $s_login?></h1>
 <?php
 if ($to_commandeUtilisateur != null) {
 ?>
@@ -14,7 +14,8 @@ if ($to_commandeUtilisateur != null) {
     <th>Nombre de paquets par colis</th>
     <th>Prix TTC</th>
     <th>Prix TTC unitaire (au kilo/litre)</th>
-    <th>Poids unitaire que le client peut commander</th>   
+    <th>Poids unitaire que le client peut commander</th>  
+    <th>Quantité minimale que l'on peut commander</th> 
     <th>Quantité</th>
     <th>Quantité totale commandée</th>
     <th>Total TTC</th>
@@ -34,6 +35,7 @@ if ($to_commandeUtilisateur != null) {
     <td><?php echo $o_produit['prix_ttc'] ?></td>
     <td><?php echo $o_produit['prix_unitaire'] ?></td>
     <td><?php echo $o_produit['poids_paquet_client'] ?></td>
+    <td><?php echo $o_produit['seuil_min'] ?></td>
     <td><input type="text" value="<?php echo $o_produit['quantite'] ?>"/></td>
     <td><?php echo $o_produit['quantite_totale'] ?></td>
     <td><?php echo $o_produit['total_ttc'] ?></td>
