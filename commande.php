@@ -25,7 +25,8 @@ class CommandeController extends Controller {
             $this->render('authenticationRequired');
             return;
         }
-        $i_idCampagne = Campagne::getIdCampagneCourante();
+	//	$i_idCampagne = 1;
+	 $i_idCampagne = Campagne::getIdCampagneCourante();
         $to_commande = Commande::getObjectsByIdCampagneIdUtilisateur($i_idCampagne, $_SESSION['idUtilisateur']);
         foreach($to_commande as &$o_article) {
             $i_idArticle = $o_article['id_article'];
