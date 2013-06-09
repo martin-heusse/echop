@@ -1,5 +1,5 @@
 <?php
-require_once('def.php');
+  require_once('def.php');
 require_once('Model/Rayon.php');
 require_once('Model/Administrateur.php');
 require_once('Model/Utilisateur.php');
