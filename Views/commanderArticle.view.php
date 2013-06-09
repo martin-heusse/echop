@@ -1,7 +1,5 @@
 <p><a class="action_navigation" href="<?php echo root ?>">Retour</a></p>
 
-<p>Bienvenue sur "L'Échoppe d'ici et d'ailleurs".</p>
-
 <?php
     if ($to_rayon != null) {
 ?>

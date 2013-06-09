@@ -2,10 +2,6 @@
 /* Corps */
 
 html {
-    /*
-    background-color: #c6a771;
-    */
-    background-image: url(../Layouts/images/papaille.png);
     height: 100%;
 }
 
@@ -13,7 +9,6 @@ body {
     min-height: 100%;
     color #444444;
     background-color: #f0f0f0;
-    width: 1000px;
     margin: 10px auto;
     margin-top: 0px;
     margin-bottom: 0px;
@@ -41,7 +36,7 @@ a:hover {
 /* Header */
 
 #banniere {
-    background-color: #d6b781;
+    background-color: #ffcc99;
     background-repeat: no-repeat;
     background-position: right;
     height: 120px;
@@ -68,10 +63,9 @@ a:hover {
 #menu {
     padding-top: 20px;
     float: left;
-    background-color: #b08e51;
-    background-color: #967741;
-    color: #aaaaaa;
-    width: 200px;
+    background-color: #666666;
+    color: #cccccc;
+    width: 250px;
     min-height: 700px;
 }
 
@@ -85,8 +79,8 @@ a:hover {
     margin-left: -20px;
 }
 
-#menu ul a {
-    color: #d6b781;
+#menu ul a, #bonjour {
+    color: #cccccc;
     text-decoration: none;
 }
 
@@ -95,7 +89,6 @@ a:hover {
 }
 
 #bonjour {
-    color: #d6b781;
     display: inline-block;
     margin-left: 20px;
 }
@@ -109,10 +102,9 @@ a:hover {
 /* Contenu */
 
 #contenu {
-    float: left;
-    width: 760px;
     padding-left: 20px;
     padding-right: 20px;
+    margin-left: 250px;
 }
 
 h1 {
@@ -141,7 +133,7 @@ h1 {
 }
 
 table {
-    width: 100%;
+    width: 80%;
     border-collapse: collapse;
     margin-left: auto;
     margin-right: auto;

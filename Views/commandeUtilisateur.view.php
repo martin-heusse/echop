@@ -23,9 +23,10 @@ if ($to_commandeUtilisateur != null) {
     <th>Total TTC</th>
 </tr>
 <?php 
+    $num_ligne = 0;
     foreach($to_commandeUtilisateur as $o_produit) {
 ?>
-  <tr> 
+  <tr class="ligne_article<?php echo $num_ligne?>"> 
     <td><?php echo $o_produit['nom'] ?></td>
     <!--
     <td><?php echo $o_produit['description_courte'] ?></td>
@@ -43,6 +44,7 @@ if ($to_commandeUtilisateur != null) {
     <td><?php echo $o_produit['total_ttc'] ?></td>
 </tr>
 <?php
+        $num_ligne = ($num_ligne + 1) % 2;
     }
 ?>
 </table>
