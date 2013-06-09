@@ -61,6 +61,6 @@ insert into campagne_rayon(id_campagne, id_rayon) values (1, 2);
 insert into commande(id_article, id_campagne, id_utilisateur, quantite)
 	values(1, 1, 1, 5);
 insert into commande(id_article, id_campagne, id_utilisateur, quantite)
-	values(2, 1, 1, 2);
+	values(2, 1, 1, 6);
 insert into commande(id_article, id_campagne, id_utilisateur, quantite)
 	values(1, 1, 4, 1);
