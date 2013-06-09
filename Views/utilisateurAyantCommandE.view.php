@@ -11,7 +11,9 @@ if ($to_commande != null) {
     ?>
 <li>
   <?php
+<a href="../commande.php/commandeUtilisateur($o_utilisateur['id_utilisateur'])">
   echo $o_utilisateur['login_utilisateur']?>
+</a>
   </li>
 <?php
      }
@@ -25,3 +27,4 @@ if ($to_commande != null) {
 }
 ?>
 
+<!-- CREER LE LIEN VERS LA VUE DE PANIER DU CLIENT -->

@@ -21,7 +21,7 @@ class CommandeController extends Controller {
             $this->render('authenticationRequired');
             return;
         }
-	// A MODIFIER QD ON AURA CREER LES CAMPAGNES -> REMPLACER PAR IdCampagneIdUtilisateur à CREER
+	// A MODIFIER QD ON AURA CREER LES CAMPAGNES -> REMPLACER PAR IdCampagneIdUtilisateur
         $to_commande = Commande::getObjectsByIdUtilisateur($_SESSION['idUtilisateur']);
         foreach($to_commande as &$o_article) {
             $i_idArticle = $o_article['id_article'];
@@ -33,6 +33,7 @@ class CommandeController extends Controller {
             $o_article['description_courte'] = Article::getDescriptionCourte($i_idArticle);
             $o_article['description_longue'] = Article::getDescriptionLongue($i_idArticle);
             // prix ttc
+	    // $i_idCampagne = $o_article['id_campagne'];
             $i_idCampagne = 1;
             $o_article_campagne = ArticleCampagne::getObjectByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
             $o_article['prix_ttc'] = $o_article_campagne['prix_ttc'];
@@ -104,6 +105,34 @@ class CommandeController extends Controller {
 
 
     public function commandeUtilisateur(){
+      $i_idUtilisateur;//cherhcer le login ou le passer en paramètre?
+      	// A MODIFIER QD ON AURA CREER LES CAMPAGNES -> REMPLACER PAR IdCampagneIdUtilisateur
+        $to_commandeUtilisateur = Commande::getObjectsByIdUtilisateur($i_idUtilisateur);
+        foreach($to_commandeUtilisateur as &$o_article) {
+            $i_idArticle = $o_article['id_article'];
+            $o_article['nom'] = Article::getNom($i_idArticle);
+            $o_article['poids_paquet_fournisseur'] = Article::getPoidsPaquetFournisseur($i_idArticle);
+            $i_idUnite = Article::getIdUnite($i_idArticle);
+            $o_article['unite'] = Unite::getUnite($i_idUnite);
+            $o_article['nb_paquet_colis'] = Article::getNbPaquetColis($i_idArticle);
+            $o_article['description_courte'] = Article::getDescriptionCourte($i_idArticle);
+            $o_article['description_longue'] = Article::getDescriptionLongue($i_idArticle);
+            // prix ttc
+	    // $i_idCampagne = $o_article['id_campagne'];
+            $i_idCampagne = 1;
+            $o_article_campagne = ArticleCampagne::getObjectByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+            $o_article['prix_ttc'] = $o_article_campagne['prix_ttc'];
+            // poids paquet client
+            $o_article['poids_paquet_client'] = $o_article_campagne['poids_paquet_client'];
+            //calcul poids unitaire
+            $o_article['prix_unitaire']=$o_article['prix_ttc']/$o_article['poids_paquet_fournisseur'];
+            //calcul quantite totale
+            $o_article['quantite_totale']=$o_article['quantite']*$o_article['poids_paquet_client'];
+            // calcul total ttc
+            $o_article['total_ttc']=$o_article['quantite_totale']*$o_article['prix_ttc']/$o_article['poids_paquet_fournisseur'];
+
+        }
+        $this->render('commandeUtilisateur', compact('to_commandeUtilisateur'));
         
     }
 
