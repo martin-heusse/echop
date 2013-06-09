@@ -1,8 +1,9 @@
-<h1>Commande de l'utilisateur AJOUTER LOGIN </h1>
+<h1>Liste des Utilisateurs ayant passés une commande </h1>
 
  <p>
 
 <?php
+
 if ($to_commande != null) {
    ?> 
 <ul>
@@ -11,7 +12,7 @@ if ($to_commande != null) {
     ?>
 <li>
   <?php
-<a href="../commande.php/commandeUtilisateur($o_utilisateur['id_utilisateur'])">
+<a href="../commande.php/commandeUtilisateur?id_utilisateur=$o_utilisateur['id_utilisateur']">
   echo $o_utilisateur['login_utilisateur']?>
 </a>
   </li>
@@ -27,4 +28,3 @@ if ($to_commande != null) {
 }
 ?>
 
-<!-- CREER LE LIEN VERS LA VUE DE PANIER DU CLIENT -->

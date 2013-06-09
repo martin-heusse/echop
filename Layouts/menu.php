@@ -25,7 +25,7 @@ if (Utilisateur::isLogged()) {
     <h1 class="titre_menu">Campagne en cours</h1>
     <ul>
         <li><a href="<?php echo root ?>/commande.php/articlesCommandEs">Articles commandés</a></li>
-        <li><a href="<?php echo root ?>/commande.php/clientsAyantCommandE">Utilisateurs ayant commandés</a></li>
+        <li><a href="<?php echo root ?>/commande.php/utilisateurAyantCommandE">Utilisateurs ayant commandés</a></li>
         <li><a href="<?php echo root ?>/commande.php/fournisseursChoisis">Fournisseurs choisis</a></li>
     </ul>
     <h1 class="titre_menu">Administration</h1>
