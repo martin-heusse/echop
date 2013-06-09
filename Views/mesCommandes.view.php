@@ -4,7 +4,9 @@
 <?php
 if ($to_commande != null) {
 ?>
+<!--
 <form method="post" action="commande.php/mesCommandes">
+-->
 <table id="t_article">
 <tr>
     <th>Produit</th>
@@ -43,10 +45,12 @@ if ($to_commande != null) {
     <td><?php echo $o_produit['quantite_totale'] ?></td>
     <td><?php echo $o_produit['total_ttc'] ?></td>
 </tr>
+<?php
+   }  
+<!--
 <input type="submit" value="Modifier"/>
 </form>
-<?php
-    }
+-->
 ?>
 </table>
 <?php

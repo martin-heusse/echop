@@ -56,27 +56,26 @@ class CommandeController extends Controller {
         }
 	/* envoi à la vue */
         $this->render('mesCommandes', compact('to_commande'));
-	
 	/* gestion de la modification des quantités */
 	/* récupération de la variable post */
-	if (!isset($_POST['quantite'])){
-	  $ti_quantite = (int) $_POST['quantite'];// faire un test pour l'entrée
-	  foreach ($ti_quantite as $i_idArticle => $i_quantite) {
-	    /* si la quantité est nulle, on supprime l'article*/
-	    if ($i_quantite == 0) {
-	      Commande::delete($i_idArticle);
-	    } else {
-	      $i_seuilMin = ArticleCampagne::getSeuilMin($i_idArticle);
-	      /* si la quantité est supérieure au seuil min
-		 on actualise, 
-		 sinon on ne fait rien */
-	      if ($i_quantite < $i_seuilMin) {
-		Commande::setQuantite($i_idArticle, $i_quantite);
-	      }
-	   
-	    }
-	  }
-	}
+	//	if (!isset($_POST['quantite'])){
+	///$ti_quantite = (int) $_POST['quantite'];// faire un test pour l'entrée
+	//foreach ($ti_quantite as $i_idArticle => $i_quantite) {
+	//  /* si la quantité est nulle, on supprime l'article*/
+	//  if ($i_quantite == 0) {
+	//    Commande::delete($i_idArticle);
+	//  } else {
+	//    $i_seuilMin = ArticleCampagne::getSeuilMin($i_idArticle);
+	//    /* si la quantité est supérieure au seuil min
+	//	 on actualise, 
+	//	 sinon on ne fait rien */
+	//    if ($i_quantite < $i_seuilMin) {
+	//	Commande::setQuantite($i_idArticle, $i_quantite);
+	//    }
+	// 
+	//  }
+	//}
+	//	}
     }
     /* */
 
