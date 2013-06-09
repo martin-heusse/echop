@@ -134,16 +134,18 @@ class CommandeController extends Controller {
             $this->render('authenticationRequired');
             return;
         }
+        /* Paramètre GET nécessaire */
         if(!isset($_GET['idArticle'])) {
             header('Location: '.root.'/commande.php/articlesCommandEs');
             return;
         }
+        $i_idArticle = $_GET['idArticle'];
         $o_campagne = Campagne::getCampagneCourante();
         $i_idCampagne = $o_campagne['id'];
-        $i_idArticle = $_GET['idArticle'];
         $to_utilisateur = Commande::getIdUtilisateurByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
         foreach ($to_utilisateur as &$o_row) {
             $o_row['login'] = Utilisateur::getLogin($o_row['id_utilisateur']);
+            $o_row['id'] = $o_row['id_utilisateur'];
         }
         $this->render('utilisateursAyantCommandECetArticle', compact('to_utilisateur'));
     }
