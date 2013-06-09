@@ -37,8 +37,8 @@ CREATE TABLE administrateur (
 CREATE TABLE campagne (
    id integer not null auto_increment,
    date_debut date,
-   estOuvert boolean,
-   estCourant boolean,
+   etat boolean,
+   actuel boolean,
 
    constraint pk_campagne primary key(id)
 );
