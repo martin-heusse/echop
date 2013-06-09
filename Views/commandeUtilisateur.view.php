@@ -1,8 +1,8 @@
-<h1>Commande de <?php $to_commandeUtilisateur['id_utilisateur'] LOGIN</h1>
+<h1>Commande de <?php $to_commandeUtilisateur['login']?></h1>
 <?php
 if ($to_commandeUtilisateur != null) {
 ?>
-<table id="t_article">
+<table>
 <tr>
     <th>Produit</th>
     <!--
