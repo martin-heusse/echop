@@ -38,6 +38,7 @@ CREATE TABLE campagne (
    id integer not null auto_increment,
    date_debut date,
    etat boolean,
+   courant boolean,
 
    constraint pk_campagne primary key(id)
 );
