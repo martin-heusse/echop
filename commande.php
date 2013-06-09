@@ -1,6 +1,7 @@
 <?php
 require_once('def.php');
 require_once('Model/Commande.php');
+require_once('Model/Campagne.php');
 require_once('Model/Administrateur.php');
 require_once('Model/Utilisateur.php');
 require_once('Model/Article.php');
@@ -118,8 +119,9 @@ class CommandeController extends Controller {
             $this->render('authenticationRequired');
             return;
         }
-        $i_idCampagne = 1; // TODO
-        $to_article = Commande::getObjectsByIdCampagne($i_idCampagne);
+        $o_campagne = Campagne::getCampagneCourante();
+        $i_idCampagne = $o_campagne['id'];
+        $to_article = Commande::getIdArticleByIdCampagne($i_idCampagne);
         foreach ($to_article as &$o_row) {
             $o_row['nom'] = Article::getNom($o_row['id_article']);
         }
@@ -136,7 +138,8 @@ class CommandeController extends Controller {
             header('Location: '.root.'/commande.php/articlesCommandEs');
             return;
         }
-        $i_idCampagne = 1; // TODO
+        $o_campagne = Campagne::getCampagneCourante();
+        $i_idCampagne = $o_campagne['id'];
         $i_idArticle = $_GET['idArticle'];
         $to_utilisateur = Commande::getIdUtilisateurByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
         foreach ($to_utilisateur as &$o_row) {
