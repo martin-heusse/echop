@@ -228,6 +228,20 @@ class ArticleCampagne {
         return $to_result;
     }
 
+    public static function getIdFournisseurByIdCampagne($i_idCampagne) {
+        $sql_query = "select distinct id_fournisseur from article_campagne where id_campagne=$i_idCampagne and id_fournisseur is not null";
+        $sql_tmp = mysql_query($sql_query);
+        $to_result = array();
+        while ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité */
+            foreach ($o_row as &$column) {
+                $column = htmlentities($column);
+            }
+            /* Création du résultat */
+            $to_result[] = $o_row;
+        }
+        return $to_result;
+    }
 
     public static function getObject($i_id) {
         $sql_query = "select * from article_campagne where id=$i_id";

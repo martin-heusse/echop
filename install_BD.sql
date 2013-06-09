@@ -110,7 +110,7 @@ CREATE TABLE article_campagne (
    id integer not null auto_increment,
    id_article integer not null,
    id_campagne integer not null,
-   id_fournisseur integer not null,
+   id_fournisseur integer,
    id_tva integer not null,
    poids_paquet_client float,
    seuil_min float,
