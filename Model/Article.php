@@ -4,10 +4,10 @@ class Article {
     /* Creaters */
 
     public static function create($i_idRayon, $s_nom, $f_poidsPaquetFournisseur,
-				  $i_idUnite, $i_nbPaquetColis, $s_descriptionCourte, $s_descriptionLongue) {
+          $i_idUnite, $i_nbPaquetColis, $s_descriptionCourte, $s_descriptionLongue) {
         $sql_query = "insert into article(id_rayon,nom,poids_paquet_fournisseur,id_unite,nb_paquet,colis,description_courte,description_longue) 
             values('$i_id', '$i_idRayon', '$s_nom', '$f_poidsPaquetFournisseur',
-		   '$i_IdUnite', '$i_nbPaquetColis', '$s_descriptionCourte', '$s_descriptionLongue')";
+           '$i_IdUnite', '$i_nbPaquetColis', '$s_descriptionCourte', '$s_descriptionLongue')";
         mysql_query($sql_query);
         $i_result = mysql_insert_id();
         return $i_result;
@@ -27,7 +27,7 @@ class Article {
             /* Création du résultat */
             $to_result[] = $o_row;
         }
-	/* Formattage des nombres */
+    /* Formattage des nombres */
             foreach ($to_result as &$o_row) {
             $o_row['poids_paquet_fournisseur']    = number_format($o_row['poids_paquet_fournisseur']   , 2, '.', ' ');
             }
@@ -46,7 +46,7 @@ class Article {
             /* Création du résultat */
             $o_result = $o_row;
         }
-	/* Formattage des nombres */
+    /* Formattage des nombres */
             foreach ($to_result as &$o_row) {
             $o_row['poids_paquet_fournisseur']    = number_format($o_row['poids_paquet_fournisseur']   , 2, '.', ' ');
             
@@ -59,16 +59,16 @@ class Article {
       $sql_tmp = mysql_query($sql_query);
       $to_result = array();
       while ($o_row = mysql_fetch_assoc($sql_tmp)) {
-	/* Sécurité */
-	foreach ($o_row as &$column) {
-	  $column = htmlentities($column);
-	}
-	/* Création du résultat */
-	$to_result[] = $o_row;
+    /* Sécurité */
+    foreach ($o_row as &$column) {
+      $column = htmlentities($column);
+    }
+    /* Création du résultat */
+    $to_result[] = $o_row;
       }
       /* Formattage des nombres */
       foreach ($to_result as &$o_row) {
-	$o_row['poids_paquet_fournisseur']    = number_format($o_row['poids_paquet_fournisseur']   , 2, '.', ' ');     
+    $o_row['poids_paquet_fournisseur']    = number_format($o_row['poids_paquet_fournisseur']   , 2, '.', ' ');     
       }   
       return $to_result;
     }
@@ -100,14 +100,14 @@ class Article {
         $sql_tmp = mysql_query($sql_query);
         $f_result = 0;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
-	    /* Formattage des nombres */
-    	    $o_row['poids_paquet_fournisseur']    = number_format($o_row['poids_paquet_fournisseur']   , 2, '.', ' ');
+        /* Formattage des nombres */
+            $o_row['poids_paquet_fournisseur']    = number_format($o_row['poids_paquet_fournisseur']   , 2, '.', ' ');
             /* Sécurité et création du résultat */
             $f_result = htmlentities($o_row['poids_paquet_fournisseur']);
         }
         return $f_result;
     }
-				  
+
     public static function getIdUnite($i_id) {
         $sql_query = "select id_unite from article where id=$i_id";
         $sql_tmp = mysql_query($sql_query);
@@ -156,7 +156,7 @@ class Article {
     /* Setters */
 
     public static function set($i_id, $i_idRayon, $s_nom, $f_poidsPaquetFournisseur,
-				  $i_idUnite, $i_nbPaquetColis, $s_descriptionCourte, $s_descriptionLongue) {
+                  $i_idUnite, $i_nbPaquetColis, $s_descriptionCourte, $s_descriptionLongue) {
       $sql_query = "update article set id_rayon = '$i_idRayon',
       nom ='$s_nom', poids_paquet_fournisseur = '$f_poidsPaquetFournisseur', id_unite = '$i_idUnite', nb_paquet_colis = '$i_nbPaquetColis', description_courte = '$s_descriptionCourte', description_longue = '$s_descriptionLongue' where id=$i_id";
       $b_result =  mysql_query($sql_query);
@@ -216,7 +216,7 @@ class Article {
     /* Deleters */
 
     public static function delete($i_id, $i_idRayon, $s_nom, $f_poidsPaquetFournisseur,
-				  $i_idUnite, $i_nbPaquetColis, $s_descriptionCourte, $s_descriptionLongue) {
+                  $i_idUnite, $i_nbPaquetColis, $s_descriptionCourte, $s_descriptionLongue) {
         $sql_query = "delete from article where id=$i_id";
         $b_result =  mysql_query($sql_query);
         return $b_result;
