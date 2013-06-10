@@ -1,6 +1,7 @@
 <?php
 require_once("Model/Administrateur.php");
 require_once("Model/Utilisateur.php");
+require_once("Model/Campagne.php");
 ?>
 <div id="menu">
 <?php
@@ -22,7 +23,7 @@ if (Utilisateur::isLogged()) {
     if(Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
 ?>
     <!-- Menu administrateur -->
-    <h1 class="titre_menu">Campagne courante</h1>
+    <h1 class="titre_menu">Campagne n°<?php echo Campagne::getIdCampagneCourante() ?></h1>
     <ul>
         <li><a href="<?php echo root ?>/campagne.php/gererCampagne">Gérer la campagne courante</a></li>
         <li><a href="<?php echo root ?>/commande.php/articlesCommandEs">Articles commandés</a></li>
