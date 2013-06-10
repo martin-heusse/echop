@@ -1,6 +1,19 @@
 <?php
 class Commande {
 
+    /* Getter clé primaire */
+
+    public static function getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur) {
+        $sql_query = "select id from commande where id_article=$i_idArticle and id_campagne=$i_idCampagne and id_utilisateur=$i_idUtilisateur";
+        $sql_tmp = mysql_query($sql_query);
+        $i_result = 0;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité et création du résultat */
+            $i_result = htmlentities($o_row['id']);
+        }
+        return $i_result;
+    }
+
     /* Creaters */
 
     public static function create($i_idArticle, $i_idCampagne,

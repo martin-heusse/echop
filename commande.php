@@ -79,7 +79,8 @@ class CommandeController extends Controller {
 		   sinon on ne fait rien
 		*/
 		if ($i_quantite != 0 && $i_quantite >= $i_seuilMin) {
-		    Commande::setQuantite($i_idArticle, $i_quantite);
+            $i_idCommande = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
+		    Commande::setQuantite($i_idCommande, $i_quantite);
 		}
 	    }	
 	}
@@ -93,6 +94,8 @@ class CommandeController extends Controller {
 	$i_idUtilisateur =  $_SESSION['idUtilisateur'];
 	/* récupération de l'id article à supprimer */
 	$i_idArticle = $_GET['id_article'];
+    $i_idCommande = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
+		    Commande::setQuantite($i_idCommande, $i_quantite);
 	Commande::delete($i_idArticle, $i_idCampagne, $i_idUtilisateur);
 	header('Location: '.root.'/commande.php/mesCommandes');
       
