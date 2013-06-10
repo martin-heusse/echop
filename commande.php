@@ -15,7 +15,7 @@ class CommandeController extends Controller {
     public function __construct() {
         parent::__construct();
     }
-
+    
     /* Code Aurore */
 
     public function mesCommandes() {
@@ -27,7 +27,8 @@ class CommandeController extends Controller {
 	/* récupération de l'identifiant de la campagne courante */
 	$i_idCampagne = Campagne::getIdCampagneCourante();
 	/* récupération des articles commandés par un utilisateur */
-        $to_commande = Commande::getObjectsByIdCampagneIdUtilisateur($i_idCampagne, $_SESSION['idUtilisateur']);
+	$i_idUtilisateur =  $_SESSION['idUtilisateur'];
+        $to_commande = Commande::getObjectsByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur);
 
 	/* récupération de tous les attributs d'un article nécéssaires */
         foreach($to_commande as &$o_article) {
@@ -43,50 +44,67 @@ class CommandeController extends Controller {
             $o_article_campagne = ArticleCampagne::getObjectByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
             $o_article['prix_ttc'] = $o_article_campagne['prix_ttc'];
 	    $o_article['seuil_min'] = $o_article_campagne['seuil_min'];
+	    $o_article['poids_paquet_client'] = $o_article_campagne['poids_paquet_client'];
 	    
-	    /* modification de la quantité */
-            if (isset($_POST['quantite'])){
-	      $ti_quantite =  $_POST['quantite'];// faire un test pour l'entrée
-		$i_quantite = $ti_quantite[$i_idArticle];
-		if ($i_quantite == 0) {
-		  //Commande::delete($i_idArticle);
-		} else {
-		    $i_seuilMin = ArticleCampagne::getSeuilMin($i_idArticle);
-		    /* si la quantité est supérieure au seuil min
-		       on actualise, 
-		       sinon on ne fait rien */
-		    if ($i_quantite >= $i_seuilMin) {
-		        Commande::setQuantite($i_idArticle, $i_quantite);
-		    }
-		
-		$o_article['quantite'] = Commande::getQuantiteByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur); 
-		/* valeurs calculées */
-		/*calcul poids unitaire */
-		$o_article['prix_unitaire']=$o_article['prix_ttc']/$o_article['poids_paquet_fournisseur'];
-		/* calcul quantite totale */
-		$o_article['quantite_totale']=$o_article['quantite']*$o_article['poids_paquet_client'];
-		/* calcul total ttc */
-		$o_article['total_ttc']=$o_article['quantite_totale']*$o_article['prix_ttc']/$o_article['poids_paquet_fournisseur'];
-		}
-	    } else {
-	      /* valeurs calculées */
-	      /*calcul poids unitaire */
-	      $o_article['prix_unitaire']=$o_article['prix_ttc']/$o_article['poids_paquet_fournisseur'];
-	      /* calcul quantite totale */
-	      $o_article['quantite_totale']=$o_article['quantite']*$o_article['poids_paquet_client'];
-	      /* calcul total ttc */
-	      $o_article['total_ttc']=$o_article['quantite_totale']*$o_article['prix_ttc']/$o_article['poids_paquet_fournisseur'];
-	    }
-
+	    /* valeurs calculées */
+	    /*calcul poids unitaire */
+	    $o_article['prix_unitaire']=$o_article['prix_ttc']/$o_article['poids_paquet_fournisseur'];
+	    /* calcul quantite totale */
+	    $o_article['quantite_totale']=$o_article['quantite']*$o_article['poids_paquet_client'];
+	    /* calcul total ttc */
+	    $o_article['total_ttc']=$o_article['quantite_totale']*$o_article['prix_ttc']/$o_article['poids_paquet_fournisseur'];
         }
 	/* envoi à la vue */
         $this->render('mesCommandes', compact('to_commande'));
     }
+
+    public function modifierQuantite() {
+      
+	/* récupération de l'identifiant de la campagne courante */
+	$i_idCampagne = Campagne::getIdCampagneCourante();
+	/* récupération des articles commandés par un utilisateur */
+	$i_idUtilisateur =  $_SESSION['idUtilisateur'];
+	/* récupération des articles de l'utilisateur */
+	$ti_article = Commande::getIdArticleByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur);
+	/* pour chaque article on modifie la quantité si nécéssaire */
+	foreach($ti_article as &$i_article) {
+	    $i_idArticle = $i_article['id_article'];
+	    /* si des modifications ont été faite par l'utilisateur, on traite l'entrée */
+	    if (isset($_POST['quantite'])){
+		$ti_quantite =  $_POST['quantite'];// faire un test pour l'entrée
+		$i_quantite = $ti_quantite[$i_idArticle];
+		$i_seuilMin = ArticleCampagne::getSeuilMinByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+		/* si la quantité est supérieur au seuil min et non nulle,
+		   on actualise,
+		   sinon on ne fait rien
+		*/
+		if ($i_quantite != 0 && $i_quantite >= $i_seuilMin) {
+		    Commande::setQuantite($i_idArticle, $i_quantite);
+		}
+	    }	
+	}
+	header('Location: '.root.'/commande.php/mesCommandes');
+    }
+
+    public function supprimerArticle() {
+	/* récupération de l'identifiant de la campagne courante */
+	$i_idCampagne = Campagne::getIdCampagneCourante();
+	/* récupération des articles commandés par un utilisateur */
+	$i_idUtilisateur =  $_SESSION['idUtilisateur'];
+	/* récupération de l'id article à supprimer */
+	$i_idArticle = $_GET['id_article'];
+	Commande::delete($i_idArticle, $i_idCampagne, $i_idUtilisateur);
+	header('Location: '.root.'/commande.php/mesCommandes');
+      
+    }
+
+
     /* */
 
     /* Code Johann <3 */
 
     public function commanderArticle() {
+
 
         $to_rayon = Rayon::getAllObjects();
         $to_article = null;
