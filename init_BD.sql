@@ -14,7 +14,7 @@ insert into campagne(date_debut, etat, courant) values('2013-06-05', true, true)
 insert into campagne(date_debut, etat, courant) values('2013-06-06', false, false);
 insert into campagne(date_debut, etat, courant) values('2013-06-07', false, false);
 
-insert into rayon(nom) values('Épicerie');
+insert into rayon(nom) values('Epicerie');
 insert into rayon(nom) values('Jardins de Gaïa');
 insert into rayon(nom) values('Oranges et amandes en coques');
 insert into rayon(nom) values('Jean Hervé');

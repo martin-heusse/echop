@@ -22,19 +22,19 @@ if (Utilisateur::isLogged()) {
     if(Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
 ?>
     <!-- Menu administrateur -->
-    <h1 class="titre_menu">Campagne en cours</h1>
+    <h1 class="titre_menu">Campagne courante</h1>
     <ul>
+        <li><a href="<?php echo root ?>/campagne.php/gererCampagne">Gérer la campagne courante</a></li>
         <li><a href="<?php echo root ?>/commande.php/articlesCommandEs">Articles commandés</a></li>
         <li><a href="<?php echo root ?>/commande.php/utilisateurAyantCommandE">Utilisateurs ayant commandés</a></li>
         <li><a href="<?php echo root ?>/articleCampagne.php/fournisseursChoisis">Fournisseurs choisis</a></li>
     </ul>
     <h1 class="titre_menu">Administration</h1>
     <ul>
-        <li><a href="<?php echo root ?>/campagne.php/gererCampagne">Gérer la campagne courante</a></li>
         <li><a href="<?php echo root ?>/rayon.php/gererRayon">Gérer les rayons</a></li>
         <li><a href="<?php echo root ?>/utilisateur.php/listeUtilisateur">Liste des utilisateurs</a></li>
         <li><a href="<?php echo root ?>/fournisseur.php/tousLesFournisseurs">Liste des fournisseurs</a></li>
-        <li><a href="<?php echo root ?>/campagne.php/historique">Historique des campagnes</a></li>
+        <li><a href="<?php echo root ?>/campagne.php/historiqueCampagne">Historique des campagnes</a></li>
     </ul>
 <?php
     }

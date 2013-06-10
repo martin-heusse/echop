@@ -2,6 +2,10 @@
 
 <h1>Gérer la campagne en cours</h1>
 
+<p>Les utilisateurs peuvent commander des articles tant que la campagne est ouverte.<br/>
+Vous pouvez à tout moment bloquer les commandes ou les ré-ouvrir.<br/>
+Démarrer une nouvelle campagne archive la campagne en cours et en démarre une nouvelle.</p>
+
 <h2>Campagne en cours</h2>
 
 
@@ -12,16 +16,29 @@
 if ($o_campagne['etat'] == 1) {
 ?>
     <span class="campagne_ouverte">ouverte</span>
+</p>
+<p><a href="<?php echo root ?>/campagne.php/gererCampagne?etat=0">Bloquer les commandes pour la campagne en cours</a></p>
 <?php
 } else {
 ?>
     <span class="campagne_fermee">fermée</span>
+</p>
+<p><a href="<?php echo root ?>/campagne.php/gererCampagne?etat=1">Ouvrir les commandes pour la campagne en cours</a></p>
 <?php
 }
 ?>
-</p>
 
 <h2>Nouvelle campagne</h2>
 
-<p><a href="<?php echo root ?>/campagne.php/nouvelleCampagne">Démarrer une nouvelle campagne</a><br/>
-<strong>Attention : cette action est irréversible.</strong></p>
+<?php
+if ($o_campagne['etat'] == 1) {
+?>
+<p><strong>Pour démarrer une nouvelle commande, vous devez d'abord fermer la campagne courante.</strong></p>
+<?php
+} else {
+?>
+<p><strong>Attention : démarrer une nouvelle campagne archivera celle-ci.</strong></p>
+<p><a href="<?php echo root ?>/campagne.php/nouvelleCampagne">Démarrer une nouvelle campagne</a></p>
+<?php
+}
+?>
