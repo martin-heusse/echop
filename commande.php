@@ -81,13 +81,18 @@ class CommandeController extends Controller {
     /* Code Johann <3 */
 
     public function commanderArticle() {
-        $i_idRayon = 1;
 
         /* Sélection d'un rayon pour une commande */
         if (!isset($_POST['commande'])) {
             $to_rayon = Rayon::getAllObjects();
             $this->render('commanderArticle',compact('to_rayon'));
-            
+         
+           /* if (isset($_GET['idRayon'])) {
+                $to_article = Article::getObjectsByIdRayon($_GET['idRayon']);
+                $this->render('commanderArticle',compact('to_article');
+           } */
+        
+        } else {
             /* Saisie des quantités dans un rayon */
             foreach ($_POST['commande'] as $i_idArticle => $i_qte) {
                 $o_commande = Commande::getObjectsbyIdArticleIdCampagne($i_idArticle, $i_idCampagne);   
