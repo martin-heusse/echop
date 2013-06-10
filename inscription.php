@@ -11,8 +11,10 @@ class InscriptionController extends Controller {
 
     public function inscription() {
     
-        /* Variable de vérification */
-        $s_newLogin = $_POST['login'];
+        /* Variables d'inscription */
+        $s_Login = $_POST['login'];
+        $s_passwd = $_POST['motDePasse'];
+        $s_email = $_POST['email'];
         $to_checkLogin = Utilisateur::getObjectsByLogin($s_newLogin);
         $i_errLogin = 0;
         $i_errReg = 1;
@@ -21,11 +23,17 @@ class InscriptionController extends Controller {
         if ($to_checkLogin != array()) {
             $i_errLogin = 1;
         } else {
+            $b_valide = false;
+            Utilisateur::create($s_login, $s_passwd, $s_email,$b_valide);
             $i_errReg = 0;
         }
         
-        $this->render('inscription',compact('i_errLogin','i_errReg')); 
-        header('Location: '.root.'/inscription.php');
+      /*  $this->render('inscription',compact('i_errLogin','i_errReg')); 
+             header('Location: '.root.'/inscription.php');  */
+    }
+
+    public function defaultAction() {
+        header('Location: '.root.'/connexion.php/connexion');
     }
 }
 

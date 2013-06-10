@@ -1,11 +1,11 @@
 -- Peuplement
 
-insert into utilisateur(login, mot_de_passe, email, valide) values('Root', 'root', 'root@email.com',true);
-insert into utilisateur(login, mot_de_passe, email, valide) values('Aurore', 'root', 'aurore@email.com',true);
-insert into utilisateur(login, mot_de_passe, email, valide) values('Gilles', 'gilles', 'gilles@email.com',true);
-insert into utilisateur(login, mot_de_passe, email, valide) values('Philippe', 'toto', 'philippe@email.com',true);
-insert into utilisateur(login, mot_de_passe, email, valide) values('Johann', 'root', 'johann@email.com',true);
-insert into utilisateur(login, mot_de_passe, email, valide) values('a', 'a', 'a@example.com',true);
+insert into utilisateur(login, mot_de_passe, email, validite) values('Root', 'root', 'root@email.com',true);
+insert into utilisateur(login, mot_de_passe, email, validite) values('Aurore', 'root', 'aurore@email.com',true);
+insert into utilisateur(login, mot_de_passe, email, validite) values('Gilles', 'gilles', 'gilles@email.com',true);
+insert into utilisateur(login, mot_de_passe, email, validite) values('Philippe', 'toto', 'philippe@email.com',true);
+insert into utilisateur(login, mot_de_passe, email, validite) values('Johann', 'root', 'johann@email.com',true);
+insert into utilisateur(login, mot_de_passe, email, validite) values('a', 'a', 'a@example.com',true);
 
 insert into administrateur(id_utilisateur) values(1);
 insert into administrateur(id_utilisateur) values(6);
