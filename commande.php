@@ -251,7 +251,8 @@ class CommandeController extends Controller {
             $o_row['login'] = Utilisateur::getLogin($o_row['id_utilisateur']);
             $o_row['id'] = $o_row['id_utilisateur'];
         }
-        $this->render('utilisateursAyantCommandECetArticle', compact('to_utilisateur'));
+        $s_nomArticle = Article::getNom($i_idArticle);
+        $this->render('utilisateursAyantCommandECetArticle', compact('to_utilisateur', 's_nomArticle'));
     }
 
     public function defaultAction() {

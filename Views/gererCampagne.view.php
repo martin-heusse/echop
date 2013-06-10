@@ -6,7 +6,7 @@
 Vous pouvez à tout moment bloquer les commandes ou les ré-ouvrir.<br/>
 Démarrer une nouvelle campagne archive la campagne en cours et en démarre une nouvelle.</p>
 
-<h2>Campagne en cours</h2>
+<h2>Campagne courante</h2>
 
 
 <p><span>Numéro : </span><?php echo $o_campagne['id'] ?><br/>
@@ -17,13 +17,13 @@ if ($o_campagne['etat'] == 1) {
 ?>
     <span class="campagne_ouverte">ouverte</span>
 </p>
-<p><a href="<?php echo root ?>/campagne.php/gererCampagne?etat=0">Bloquer les commandes pour la campagne en cours</a></p>
+<p><a href="<?php echo root ?>/campagne.php/gererCampagne?etat=0">Bloquer les commandes pour la campagne courante</a></p>
 <?php
 } else {
 ?>
     <span class="campagne_fermee">fermée</span>
 </p>
-<p><a href="<?php echo root ?>/campagne.php/gererCampagne?etat=1">Ouvrir les commandes pour la campagne en cours</a></p>
+<p><a href="<?php echo root ?>/campagne.php/gererCampagne?etat=1">Ouvrir les commandes pour la campagne courante</a></p>
 <?php
 }
 ?>
@@ -33,7 +33,7 @@ if ($o_campagne['etat'] == 1) {
 <?php
 if ($o_campagne['etat'] == 1) {
 ?>
-<p><strong>Pour démarrer une nouvelle campagne, vous devez d'abord fermer la campagne courante.</strong></p>
+<p><strong>Pour démarrer une nouvelle campagne, vous devez d'abord bloquer les commandes pour la campagne courante.</strong></p>
 <?php
 } else {
 ?>
