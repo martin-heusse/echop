@@ -16,8 +16,8 @@ if ($to_commandeUtilisateur != null) {
     <th>Nombre de paquets par colis</th>
     <th>Prix TTC</th>
     <th>Prix TTC unitaire (au kilo/litre)</th>
-    <th>Poids unitaire que le client peut commander</th>  
-    <th>Quantité minimale que l'on peut commander</th> 
+    <th>Poids unitaire pour commande</th>  
+    <th>Quantité minimale pour commande</th> 
     <th>Quantité</th>
     <th>Quantité totale commandée</th>
     <th>Total TTC</th>
