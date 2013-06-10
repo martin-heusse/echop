@@ -173,8 +173,8 @@ form .input_valider {
     float: right;
 }
 
-/* Centre les nombres */
-.nombre {
+/* Centre */
+.centrer {
     text-align: center;
 }
 
@@ -194,4 +194,11 @@ form .input_valider {
 
 .campagne_fermee {
     color: red;
+}
+
+.indication_campagne {
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 30px;
 }

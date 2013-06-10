@@ -33,6 +33,8 @@ class CommandeController extends Controller {
         }
         /* Récupération de l'identifiant de la campagne courante */
         $i_idCampagne = Campagne::getIdCampagneCourante();
+        /* Récupération de l'état de la campagne */
+        $b_etat = Campagne::getEtat($i_idCampagne);
         /* Récupération des articles commandés par l'utilisateur courant */
         $i_idUtilisateur = $_SESSION['idUtilisateur'];
         $to_commande = Commande::getObjectsByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur);
@@ -62,7 +64,7 @@ class CommandeController extends Controller {
             /* Calcul total TTC */
             $o_article['total_ttc'] = $o_article['quantite_totale'] * $o_article['prix_ttc'] / $o_article['poids_paquet_fournisseur'];
         }
-        $this->render('mesCommandes', compact('to_commande'));
+        $this->render('mesCommandes', compact('to_commande', 'b_etat'));
     }
 
     /*
@@ -72,6 +74,13 @@ class CommandeController extends Controller {
     public function modifierQuantite() {
         /* Récupération de l'identifiant de la campagne courante */
         $i_idCampagne = Campagne::getIdCampagneCourante();
+        /* Récupération de l'état de la campagne */
+        $b_etat = Campagne::getEtat($i_idCampagne);
+        /* La campagne est fermée */
+        if ($b_etat == 0) {
+            header('Location: '.root.'/commande.php/mesCommandes');
+            return;
+        }
         /* Récupération des articles commandés par l'utilisateur courant */
         $i_idUtilisateur =  $_SESSION['idUtilisateur'];
         /* Récupération des articles de l'utilisateur */
@@ -101,6 +110,13 @@ class CommandeController extends Controller {
     public function supprimerArticle() {
         /* Récupération de l'identifiant de la campagne courante */
         $i_idCampagne = Campagne::getIdCampagneCourante();
+        /* Récupération de l'état de la campagne */
+        $b_etat = Campagne::getEtat($i_idCampagne);
+        /* La campagne est fermée */
+        if ($b_etat == 0) {
+            header('Location: '.root.'/commande.php/mesCommandes');
+            return;
+        }
         /* Récupération des articles commandés par l'utilisateur courant */
         $i_idUtilisateur =  $_SESSION['idUtilisateur'];
         /* Récupération de l'id article à supprimer */
