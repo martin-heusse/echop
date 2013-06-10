@@ -16,7 +16,7 @@ $i_numLigne = 0;
 foreach ($to_fournisseur as $o_fournisseur) {
 ?>
     <tr class="ligne_article<?php echo $i_numLigne ?>">
-        <td><a href="<?php echo root ?>/articleCampagne.php/commandeFournisseur?idFournisseur=<?php echo $o_fournisseur['id'] ?>">
+        <td><a href="<?php echo root ?>/fournisseur.php/commandeFournisseur?idFournisseur=<?php echo $o_fournisseur['id'] ?>">
         <?php echo $o_fournisseur['nom'] ?></a></td>
         <td><?php echo $o_fournisseur['prix_ht'] ?></td>
         <td><?php echo $o_fournisseur['prix_ttc'] ?></td>

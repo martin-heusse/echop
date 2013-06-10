@@ -36,7 +36,7 @@ if ($to_commande != null) {
         <th>Description longue</th>
          -->
         <th>Poids du paquet du fournisseur</th>
-        <th>Unité</th>
+        <!-- <th>Unité</th> -->
         <th>Nombre de paquets par colis</th>
         <th>Prix TTC</th>
         <th>Prix TTC unitaire (au kilo ou litre)</th>
@@ -64,12 +64,12 @@ if ($to_commande != null) {
         <td><?php echo $o_produit['description_courte'] ?></td>
         <td><?php echo $o_produit['description_longue'] ?></td>
         --> 
-        <td class="centrer"><?php echo $o_produit['poids_paquet_fournisseur'] ?></td>
-        <td class="centrer"><?php echo $o_produit['unite'] ?></td>
+        <td class="centrer"><?php echo $o_produit['poids_paquet_fournisseur'] ?><?php echo $o_produit['unite'] ?></td>
+        <!-- <td class="centrer"><?php echo $o_produit['unite'] ?></td> -->
         <td class="centrer"><?php echo $o_produit['nb_paquet_colis'] ?></td>
         <td class="centrer"><?php echo $o_produit['prix_ttc'] ?>&euro;</td>
-        <td class="centrer"><?php echo $o_produit['prix_unitaire'] ?></td>
-        <td class="centrer"><?php echo $o_produit['poids_paquet_client'] ?></td>
+        <td class="centrer"><?php echo $o_produit['prix_unitaire'] ?>&euro;/<?php echo $o_produit['unite'] ?></td>
+        <td class="centrer"><?php echo $o_produit['poids_paquet_client'] ?><?php echo $o_produit['unite'] ?></td>
         <td class="centrer"><?php echo $o_produit['seuil_min'] ?></td>
 <?php
         /* Bloquer ou autoriser la modification de la quantité */
@@ -84,7 +84,7 @@ if ($to_commande != null) {
         }
 ?>
         <td class="centrer col_coloree"><?php echo $o_produit['quantite_totale'] ?></td>
-        <td class="centrer"><?php echo $o_produit['total_ttc'] ?>&euro;</td>
+        <td class="centrer col_coloree"><?php echo $o_produit['total_ttc'] ?>&euro;</td>
 <?php
         /* Affiche ou non le lien de suppression */
         if ($b_etat == 1) {
@@ -98,6 +98,18 @@ if ($to_commande != null) {
     $i_numLigne = ($i_numLigne + 1) % 2;
    }
 ?>  
+    <tr>
+        <th colspan=9>Montant Total = </th>
+        <td class="centrer"><strong>xx&euro;</strong></td>
+<?php
+    /* Afficher ou non la dernière colonne dans la ligne "Montant total" */
+    if ($b_etat == 1) {
+?>
+        <td>&nbsp;</td>
+<?php
+    }
+?>
+    </tr>
 </table>
 <?php
     /* Affiche ou non le bouton de mise à jour */
