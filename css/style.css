@@ -151,7 +151,7 @@ th {
 /* ========================================================================== */
 /* Formulaire */
 
-.form_connexion {
+form .form_connexion {
     margin: 10px auto;
     width: 500px;
 }
@@ -164,6 +164,16 @@ form .form_col, .form_col {
     width: 160px;
 }
 
+/* Réduit la largeur de la quantité */
+form .input_quantite {
+    width: 80px;
+}
+
+/* Centre les nombres */
+.nombre {
+    text-align: center;
+}
+
 /* ========================================================================== */
 /* Autre */
 
@@ -172,11 +182,6 @@ form .form_col, .form_col {
     clear: both;
     height: 0;
     overflow: hidden; /* Précaution pour IE 7 */
-}
-
-/* Aligne les nombres à droite */
-.nombre {
-    text-align: right;
 }
 
 .campagne_ouverte {

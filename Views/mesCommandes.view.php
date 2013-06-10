@@ -18,7 +18,7 @@ if ($to_commande != null) {
     <th>Unite</th>
     <th>Nombre de paquets par colis</th>
     <th>Prix TTC</th>
-    <th>Prix TTC unitaire (au kilo/litre)</th>
+    <th>Prix TTC unitaire (au kilo ou litre)</th>
     <th>Poids unitaire que le client peut commander</th>   
     <th>Quantité minimale que l'on peut commander</th>
     <th>Quantité</th>
@@ -35,16 +35,16 @@ if ($to_commande != null) {
     <td><?php echo $o_produit['description_courte'] ?></td>
     <td><?php echo $o_produit['description_longue'] ?></td>
     --> 
-    <td><?php echo $o_produit['poids_paquet_fournisseur'] ?></td>
-    <td><?php echo $o_produit['unite'] ?></td>
-    <td><?php echo $o_produit['nb_paquet_colis'] ?></td>
-    <td><?php echo $o_produit['prix_ttc'] ?></td>
-    <td><?php echo $o_produit['prix_unitaire'] ?></td>
-    <td><?php echo $o_produit['poids_paquet_client'] ?></td>
-    <td><?php echo $o_produit['seuil_min'] ?></td>
-    <td><input type="text" name="quantite[<?php echo $o_produit['id_article']?>]" value="<?php echo $o_produit['quantite'] ?>"/></td>
-    <td><?php echo $o_produit['quantite_totale'] ?></td>
-    <td><?php echo $o_produit['total_ttc'] ?></td>
+    <td class="nombre"><?php echo $o_produit['poids_paquet_fournisseur'] ?></td>
+    <td class="nombre"><?php echo $o_produit['unite'] ?></td>
+    <td class="nombre"><?php echo $o_produit['nb_paquet_colis'] ?></td>
+    <td class="nombre"><?php echo $o_produit['prix_ttc'] ?></td>
+    <td class="nombre"><?php echo $o_produit['prix_unitaire'] ?></td>
+    <td class="nombre"><?php echo $o_produit['poids_paquet_client'] ?></td>
+    <td class="nombre"><?php echo $o_produit['seuil_min'] ?></td>
+    <td><input class="input_quantite" type="text" name="quantite[<?php echo $o_produit['id_article']?>]" value="<?php echo $o_produit['quantite'] ?>"/></td>
+    <td class="nombre"><?php echo $o_produit['quantite_totale'] ?></td>
+    <td class="nombre"><?php echo $o_produit['total_ttc'] ?></td>
     <td><a href="../commande.php/supprimerArticle?id_article=<?php echo $o_produit['id_article']?>" > supprimer l'article</a>
 </tr>
 <?php
