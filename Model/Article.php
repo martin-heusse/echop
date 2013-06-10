@@ -55,22 +55,22 @@ class Article {
     }
 
     public static function getObjectsByIdRayon($i_idRayon) {
-      $sql_query = "select * from article where id_rayon=$i_idRayon";
-      $sql_tmp = mysql_query($sql_query);
-      $to_result = array();
-      while ($o_row = mysql_fetch_assoc($sql_tmp)) {
-    /* Sécurité */
-    foreach ($o_row as &$column) {
-      $column = htmlentities($column);
-    }
-    /* Création du résultat */
-    $to_result[] = $o_row;
-      }
-      /* Formattage des nombres */
-      foreach ($to_result as &$o_row) {
-    $o_row['poids_paquet_fournisseur']    = number_format($o_row['poids_paquet_fournisseur']   , 2, '.', ' ');     
-      }   
-      return $to_result;
+        $sql_query = "select * from article where id_rayon=$i_idRayon";
+        $sql_tmp = mysql_query($sql_query);
+        $to_result = array();
+        while ($o_row = mysql_fetch_assoc($sql_tmp)) {
+        /* Sécurité */
+            foreach ($o_row as &$column) {
+                $column = htmlentities($column);
+            }
+        /* Création du résultat */
+        $to_result[] = $o_row;
+        }
+        /* Formattage des nombres */
+        foreach ($to_result as &$o_row) {
+            $o_row['poids_paquet_fournisseur'] = number_format($o_row['poids_paquet_fournisseur'], 2, '.', ' ');
+        }
+        return $to_result;
     }
 
     public static function getNom($i_id) {
