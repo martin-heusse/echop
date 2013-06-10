@@ -34,7 +34,7 @@ class CommandeController extends Controller {
         /* Récupération de l'identifiant de la campagne courante */
         $i_idCampagne = Campagne::getIdCampagneCourante();
         /* Récupération des articles commandés par l'utilisateur courant */
-        $i_idUtilisateur =  $_SESSION['idUtilisateur'];
+        $i_idUtilisateur = $_SESSION['idUtilisateur'];
         $to_commande = Commande::getObjectsByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur);
 
         /* récupération de tous les attributs nécessaires d'un article */
