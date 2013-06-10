@@ -41,7 +41,8 @@ if ($to_commande != null) {
     <td><?php echo $o_produit['prix_unitaire'] ?></td>
     <td><?php echo $o_produit['poids_paquet_client'] ?></td>
     <td><?php echo $o_produit['seuil_min'] ?></td>
-    <td><input type="text" name="quantite[<?php echo $o_produit['id_article']?>" value="<?php echo $o_produit['quantite'] ?>"/></td>
+<!--    <td><input type="text" name="quantite[<?php echo $o_produit['id_article']?>" value="<?php echo $o_produit['quantite'] ?>"/></td> -->
+    <td><input type="text" name="quantite[<?php echo $o_produit['id_article']?>]" value="<?php echo $o_produit['quantite'] ?>"/></td>
     <td><?php echo $o_produit['quantite_totale'] ?></td>
     <td><?php echo $o_produit['total_ttc'] ?></td>
 </tr>
