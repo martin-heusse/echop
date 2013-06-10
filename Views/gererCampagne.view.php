@@ -12,14 +12,17 @@
 if ($o_campagne['etat'] == 1) {
 ?>
     <span class="campagne_ouverte">ouverte</span>
+</p>
+<p><a href="<?php echo root ?>/campagne.php/gererCampagne?etat=0">Bloquer les commandes pour la campagne en cours</a></p>
 <?php
 } else {
 ?>
     <span class="campagne_fermee">fermée</span>
+</p>
+<p><a href="<?php echo root ?>/campagne.php/gererCampagne?etat=1">Ouvrir les commandes pour la campagne en cours</a></p>
 <?php
 }
 ?>
-</p>
 
 <h2>Nouvelle campagne</h2>
 

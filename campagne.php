@@ -26,6 +26,17 @@ class CampagneController extends Controller {
      * Permet d'ouvrir, de fermer ou de changer de campagne courante.
      */
     public function gererCampagne() {
+        /* Ouvrir ou fermer la campagne courante */
+        if (isset($_GET['etat'])) {
+            $b_etat = $_GET['etat'];
+            $i_idCampagneCourante = Campagne::getIdCampagneCourante();
+            if ($b_etat == 1) {
+                Campagne::setEtat($i_idCampagneCourante, true);
+            } else if ($b_etat == 0) {
+                Campagne::setEtat($i_idCampagneCourante, false);
+            }
+        }
+        /* Affiche la page de gestion de la campagne courante */
         $o_campagne = Campagne::getCampagneCourante();
         $this->render('gererCampagne', compact('o_campagne'));
     }
