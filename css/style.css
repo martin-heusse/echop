@@ -151,7 +151,7 @@ th {
 /* ========================================================================== */
 /* Formulaire */
 
-form .form_connexion {
+.form_connexion {
     margin: 10px auto;
     width: 500px;
 }

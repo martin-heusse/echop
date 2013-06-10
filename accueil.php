@@ -18,7 +18,6 @@ class AccueilController extends Controller {
      * Affiche la page d'accueil.
      */
     function accueil() {
-
         /* Authentication required */
         if (!Utilisateur::isLogged()) {
             $this->render('authenticationRequired');
@@ -26,6 +25,7 @@ class AccueilController extends Controller {
         }
         $this->render('accueil');
     }
+
     /*
      * Action par défaut.
      */
