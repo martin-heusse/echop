@@ -26,5 +26,12 @@ if ($o_campagne['etat'] == 1) {
 
 <h2>Nouvelle campagne</h2>
 
+<?php
+if ($o_campagne['etat'] == 1) {
+?>
+<p><strong>Vous devez d'abord fermer la campagne courante.</strong></p>
+<?php
+}
+?>
 <p><a href="<?php echo root ?>/campagne.php/nouvelleCampagne">Démarrer une nouvelle campagne</a><br/>
 <strong>Attention : cette action est irréversible.</strong></p>

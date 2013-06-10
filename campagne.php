@@ -31,14 +31,22 @@ class CampagneController extends Controller {
             $b_etat = $_GET['etat'];
             $i_idCampagneCourante = Campagne::getIdCampagneCourante();
             if ($b_etat == 1) {
-                Campagne::setEtat($i_idCampagneCourante, true);
+                Campagne::setEtat($i_idCampagneCourante, 1);
             } else if ($b_etat == 0) {
-                Campagne::setEtat($i_idCampagneCourante, false);
+                Campagne::setEtat($i_idCampagneCourante, 0);
             }
         }
         /* Affiche la page de gestion de la campagne courante */
         $o_campagne = Campagne::getCampagneCourante();
         $this->render('gererCampagne', compact('o_campagne'));
+    }
+
+    /*
+     * Affiche l'historique des campagnes passées.
+     */
+    public function historiqueCampagne() {
+        $to_campagne = Campagne::getObjectsByCourant(0);
+        $this->render('historiqueCampagne', compact('to_campagne'));
     }
 
     /*

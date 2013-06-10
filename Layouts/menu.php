@@ -34,7 +34,7 @@ if (Utilisateur::isLogged()) {
         <li><a href="<?php echo root ?>/rayon.php/gererRayon">Gérer les rayons</a></li>
         <li><a href="<?php echo root ?>/utilisateur.php/listeUtilisateur">Liste des utilisateurs</a></li>
         <li><a href="<?php echo root ?>/fournisseur.php/tousLesFournisseurs">Liste des fournisseurs</a></li>
-        <li><a href="<?php echo root ?>/campagne.php/historique">Historique des campagnes</a></li>
+        <li><a href="<?php echo root ?>/campagne.php/historiqueCampagne">Historique des campagnes</a></li>
     </ul>
 <?php
     }

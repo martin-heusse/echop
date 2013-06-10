@@ -129,7 +129,7 @@ h1 {
 /* Surligne au survol */
 .ligne_article0:hover, .ligne_article1:hover {
     background-color: #cccccc;
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 table {
