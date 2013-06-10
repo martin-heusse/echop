@@ -11,7 +11,7 @@ require_once('Model/Rayon.php');
 require_once('Model/Fournisseur.php');
 
 /*
- * Gère le modèle Campagne.
+ * Gère les campagnes.
  */
 class CampagneController extends Controller {
 
@@ -29,6 +29,11 @@ class CampagneController extends Controller {
         /* Authentication required */
         if (!Utilisateur::isLogged()) {
             $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if(!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
             return;
         }
         /* Ouvrir ou fermer la campagne courante */
@@ -55,6 +60,11 @@ class CampagneController extends Controller {
             $this->render('authenticationRequired');
             return;
         }
+        /* Doit être un administrateur */
+        if(!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
         $i_idCampagneCourante = Campagne::getIdCampagneCourante();
         $b_etat = Campagne::getEtat($i_idCampagneCourante);
         /* La campagne courante doit être fermée */
@@ -79,6 +89,11 @@ class CampagneController extends Controller {
         /* Authentication required */
         if (!Utilisateur::isLogged()) {
             $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if(!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
             return;
         }
         $to_campagne = Campagne::getObjectsByCourant(0);
