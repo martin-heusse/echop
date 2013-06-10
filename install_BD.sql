@@ -17,11 +17,11 @@ DROP TABLE IF EXISTS commande;
 
 CREATE TABLE utilisateur (
     id integer not null auto_increment,
-    login varchar(255),
-    mot_de_passe varchar(255),
-    email varchar(255),
-
-    constraint pk_utilisateur primary key(id)
+	login varchar(255),
+	mot_de_passe varchar(255),
+	email varchar(255),
+    valide boolean, 
+	constraint pk_utilisateur primary key(id)
 ) ENGINE = INNODB;
 
 CREATE TABLE administrateur (
