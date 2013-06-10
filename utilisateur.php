@@ -31,7 +31,7 @@ class UtilisateurController extends Controller {
         /* Récupère toutes les infos sur un utilisateur */
         $to_utilisateur = Utilisateur::getAllObjects();
 	//TODO: décommenter $to_utilisateur = Utilisateur::getObjectsByValidite(true);	
-        $this->render('listeUtilisateur', compact('to_utilisateur'));
+        $this->render('listeUtilisateurValide', compact('to_utilisateur'));
     }
 
     /*

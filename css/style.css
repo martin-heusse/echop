@@ -173,20 +173,17 @@ form .input_valider {
     float: right;
 }
 
+form .col_coloree {
+    background-color: red;
+}
+
 /* Centre */
 .centrer {
     text-align: center;
 }
 
 /* ========================================================================== */
-/* Autre */
-
-/* Pour que les flottants ne dépassent pas de leur conteneur */
-.clear {
-    clear: both;
-    height: 0;
-    overflow: hidden; /* Précaution pour IE 7 */
-}
+/* Campagne */
 
 .campagne_ouverte {
     color: green;
@@ -202,3 +199,14 @@ form .input_valider {
     font-size: 20px;
     margin-bottom: 30px;
 }
+
+/* ========================================================================== */
+/* Autre */
+
+/* Pour que les flottants ne dépassent pas de leur conteneur */
+.clear {
+    clear: both;
+    height: 0;
+    overflow: hidden; /* Précaution pour IE 7 */
+}
+

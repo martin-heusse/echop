@@ -43,7 +43,7 @@ if ($to_commande != null) {
         <th>Poids unitaire que le client peut commander</th>   
         <th>Quantité minimale que l'on peut commander</th>
         <th>Quantité</th>
-        <th>Quantité totale commandée</th>
+        <th class="col_coloree">Quantité totale commandée</th>
         <th>Total TTC</th>
 <?php
         /* Affiche ou non la colonne de suppression */
@@ -83,7 +83,7 @@ if ($to_commande != null) {
 <?php
         }
 ?>
-        <td class="centrer"><?php echo $o_produit['quantite_totale'] ?></td>
+        <td class="centrer col_coloree"><?php echo $o_produit['quantite_totale'] ?></td>
         <td class="centrer"><?php echo $o_produit['total_ttc'] ?></td>
 <?php
         /* Affiche ou non le lien de suppression */
