@@ -128,9 +128,11 @@ class CommandeController extends Controller {
 
     /* Code Johann <3 */
 
+    /* 
+     * Affiche la liste des articles par rayon.
+     * L'utilisateur a la possibilité de commander des articles.
+     */
     public function commanderArticle() {
-
-
         $to_rayon = Rayon::getAllObjects();
         $to_article = null;
         /* Sélection d'un rayon pour une commande */
@@ -171,6 +173,10 @@ class CommandeController extends Controller {
         $this->render('commanderArticle', compact('to_rayon','to_article'));
     }
 
+    /*
+     * Affiche la liste de tous les utilisateurs ayant effectué une commande 
+     * dans la campagne courante.
+     */
     public function utilisateurAyantCommandE(){  
         $i_idCampagne = Campagne::getIdCampagneCourante();
         $to_commande = Commande::getIdUtilisateurUniqueByIdCampagne($i_idCampagne);
@@ -181,7 +187,10 @@ class CommandeController extends Controller {
         $this->render('utilisateurAyantCommandE', compact('to_commande'));	
     }
 
-
+    /*
+     * Affiche la liste des commandes d'un utilisateur pour la campagne 
+     * courante.
+     */
     public function commandeUtilisateur() {
         if (!isset($_GET['idUtilisateur'])) {
             header('Location: '.root.'/commande.php/utilisateurAyantCommandE');
@@ -220,6 +229,9 @@ class CommandeController extends Controller {
         $this->render('commandeUtilisateur', compact('to_commandeUtilisateur', 's_login'));
     }
 
+    /*
+     * Affiche la liste des articles commandés pour la campagne courante.
+     */
     public function articlesCommandEs() {
         /* Authentication required */
         if (!Utilisateur::isLogged()) {
@@ -235,6 +247,10 @@ class CommandeController extends Controller {
         $this->render('articlesCommandEs', compact('to_article'));
     }
 
+    /*
+     * Affiche les utilisateurs ayant commandé un article en particulier pour la 
+     * campagne courante.
+     */
     public function utilisateursAyantCommandECetArticle() {
         /* Authentication required */
         if (!Utilisateur::isLogged()) {
@@ -258,6 +274,9 @@ class CommandeController extends Controller {
         $this->render('utilisateursAyantCommandECetArticle', compact('to_utilisateur', 's_nomArticle'));
     }
 
+    /*
+     * Action par défaut.
+     */
     public function defaultAction() {
         header('Location: '.root.'/commande.php/mesCommandes');
     }
