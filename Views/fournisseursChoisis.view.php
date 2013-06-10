@@ -5,12 +5,24 @@
 <p>Liste de tous les founisseurs choisis pour la campagne courante.<br/>
 Cliquez sur un nom de fournisseur pour voir les commandes associées pour la campagne courante.</p>
 
-<ul>
+<table>
+    <tr>
+        <th>Fournisseur</th>
+        <th>Prix total HT</th>
+        <th>Prix total TTC</th>
+    </tr>
 <?php
+$i_numLigne = 0;
 foreach ($to_fournisseur as $o_fournisseur) {
 ?>
-<li><a href="<?php echo root ?>/articleCampagne.php/commandeFournisseur?idFournisseur=<?php echo $o_fournisseur['id'] ?>"><?php echo $o_fournisseur['nom'] ?></a></li>
+    <tr class="ligne_article<?php echo $i_numLigne ?>">
+        <td><a href="<?php echo root ?>/articleCampagne.php/commandeFournisseur?idFournisseur=<?php echo $o_fournisseur['id'] ?>">
+        <?php echo $o_fournisseur['nom'] ?></a></td>
+        <td><?php echo $o_fournisseur['prix_ht'] ?></td>
+        <td><?php echo $o_fournisseur['prix_ttc'] ?></td>
+    </tr>
 <?php
+    $i_numLigne = ($i_numLigne + 1) % 2;
 }
 ?>
-</ul>
+</table>
