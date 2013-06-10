@@ -95,13 +95,11 @@ class CommandeController extends Controller {
         /* Sélection d'un rayon pour une commande */
         if (!isset($_POST['commande'])) {
             $to_rayon = Rayon::getAllObjects();
-            $this->render('commanderArticle',compact('to_rayon'));
-         
-           /* if (isset($_GET['idRayon'])) {
-                $to_article = Article::getObjectsByIdRayon($_GET['idRayon']);
-                $this->render('commanderArticle',compact('to_article');
-           } */
-        
+            $to_article = null;
+            if (isset($_GET['idRayon'])) {
+                $i_idRayon = $_GET['idRayon'];
+                $to_article = Article::getObjectsByIdRayon($i_idRayon);
+            }
         } else {
             /* Saisie des quantités dans un rayon */
             foreach ($_POST['commande'] as $i_idArticle => $i_qte) {
@@ -131,6 +129,7 @@ class CommandeController extends Controller {
                 }
             }
         }
+        $this->render('commanderArticle', compact('to_rayon','to_article'));
     }
 
     public function utilisateurAyantCommandE(){  
