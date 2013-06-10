@@ -1,6 +1,6 @@
-<p><a class="action_navigation" href="<?php echo root ?>/commande.php/utilisateurAyantCommandE">Retour</a></p>
+<p><a class="action_navigation" href="<?php echo root ?>/commande.php/utilisateurAyantCommandE">RETOUR</a></p>
 
-<h1>Commande de <?php echo $s_login?></h1>
+<h1>Commande de <?php echo $s_login ?></h1>
 <?php
 if ($to_commandeUtilisateur != null) {
 ?>

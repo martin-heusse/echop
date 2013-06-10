@@ -182,9 +182,12 @@ class CommandeController extends Controller {
     }
 
 
-    public function commandeUtilisateur(){
-
-        $i_idUtilisateur = $_GET['id_utilisateur'];
+    public function commandeUtilisateur() {
+        if (!isset($_GET['idUtilisateur'])) {
+            header('Location: '.root.'/commande.php/utilisateurAyantCommandE');
+            return;
+        }
+        $i_idUtilisateur = $_GET['idUtilisateur'];
         $i_idCampagne = Campagne::getIdCampagneCourante();
         $to_commandeUtilisateur = Commande::getObjectsByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur);
 
@@ -212,7 +215,7 @@ class CommandeController extends Controller {
             $o_article['total_ttc']=$o_article['quantite_totale']*$o_article['prix_ttc']/$o_article['poids_paquet_fournisseur'];
 
             // recherche du login 
-            $s_login=Utilisateur::getLogin($i_idUtilisateur);
+            $s_login = Utilisateur::getLogin($i_idUtilisateur);
         }
         $this->render('commandeUtilisateur', compact('to_commandeUtilisateur', 's_login'));
     }

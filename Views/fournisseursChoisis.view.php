@@ -2,6 +2,9 @@
 
 <h1>Fournisseurs choisis</h1>
 
+<p>Liste de tous les founisseurs choisis pour la campagne courante.<br/>
+Cliquez sur un nom de fournisseur pour voir les commandes associées pour la campagne courante.</p>
+
 <ul>
 <?php
 foreach ($to_fournisseur as $o_fournisseur) {

@@ -5,12 +5,21 @@
 <p>Liste des utilisateurs ayant commandé l'article <strong><?php echo $s_nomArticle ?></strong>.<br/>
 Cliquez sur un nom pour voir ses commandes.</p>
 
-<ul>
+<table>
+    <tr>
+        <th>Utilisateur</th>
+        <th>Quantité commandée</th>
+    </tr>
 <?php
+$i_numLigne = 0;
 foreach ($to_utilisateur as $o_utilisateur) {
 ?>
-    <li><a href="<?php echo root ?>/commande.php/commandeUtilisateur?idUtilisateur=<?php echo $o_utilisateur['id']?>"><?php echo $o_utilisateur['login'] ?></a></li>
+    <tr class="ligne_article<?php echo $i_numLigne ?>">
+        <td><a href="<?php echo root ?>/commande.php/commandeUtilisateur?idUtilisateur=<?php echo $o_utilisateur['id']?>"><?php echo $o_utilisateur['login'] ?></a></td>
+        <td><?php echo $o_utilisateur['quantite'] ?></td>
+    </tr>
 <?php
+    $i_numLigne = ($i_numLigne + 1) % 2;
 }
 ?>
-</ul>
+</table>

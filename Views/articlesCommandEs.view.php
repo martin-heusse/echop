@@ -5,12 +5,22 @@
 <p>Liste de tous les articles commandés par les utilisateurs pendant la campagne en cours.<br/>
 Cliquez sur l'un des articles pour voir la liste de tous les utilisateurs l'ayant commandé.</p>
 
-<ul>
+<table>
+    <tr>
+        <th>Article</th>
+        <th>Quantité commandée</th>
+    </tr>
 <?php
+$i_numLigne = 0;
 foreach ($to_article as $o_article) {
 ?>
-    <li><a href="<?php echo root ?>/commande.php/utilisateursAyantCommandECetArticle?idArticle=<?php echo $o_article['id_article']?>"><?php echo $o_article['nom']?></a></li>
+    <tr class="ligne_article<?php echo $i_numLigne?>">
+        <td><a href="<?php echo root ?>/commande.php/utilisateursAyantCommandECetArticle?idArticle=<?php echo $o_article['id_article']?>">
+        <?php echo $o_article['nom']?></a></td>
+        <td><?php echo $o_article['quantite'] ?></td>
+    </tr>
 <?php
+    $i_numLigne = ($i_numLigne + 1) % 2;
 }
 ?>
-</ul>
+</table>

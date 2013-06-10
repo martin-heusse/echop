@@ -67,7 +67,7 @@ if ($to_commande != null) {
         <td class="centrer"><?php echo $o_produit['poids_paquet_fournisseur'] ?></td>
         <td class="centrer"><?php echo $o_produit['unite'] ?></td>
         <td class="centrer"><?php echo $o_produit['nb_paquet_colis'] ?></td>
-        <td class="centrer"><?php echo $o_produit['prix_ttc'] ?></td>
+        <td class="centrer"><?php echo $o_produit['prix_ttc'] ?>&euro;</td>
         <td class="centrer"><?php echo $o_produit['prix_unitaire'] ?></td>
         <td class="centrer"><?php echo $o_produit['poids_paquet_client'] ?></td>
         <td class="centrer"><?php echo $o_produit['seuil_min'] ?></td>
@@ -84,7 +84,7 @@ if ($to_commande != null) {
         }
 ?>
         <td class="centrer col_coloree"><?php echo $o_produit['quantite_totale'] ?></td>
-        <td class="centrer"><?php echo $o_produit['total_ttc'] ?></td>
+        <td class="centrer"><?php echo $o_produit['total_ttc'] ?>&euro;</td>
 <?php
         /* Affiche ou non le lien de suppression */
         if ($b_etat == 1) {
