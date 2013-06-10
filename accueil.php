@@ -27,7 +27,7 @@ class AccueilController extends Controller {
     }
 
     /*
-     * Page par défaut.
+     * Action par défaut.
      */
     public function defaultAction() {
         header('Location: '.root.'/accueil.php/accueil');

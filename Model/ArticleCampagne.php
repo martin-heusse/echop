@@ -348,6 +348,17 @@ class ArticleCampagne {
         return $i_result;
     }
 
+    public static function getSeuilMinByIdArticleIdCampagne($i_idArticle, $i_idCampagne) {
+        $sql_query = "select seuil_min from article_campagne where id_article=$i_idArticle and id_campagne=$i_idCampagne";
+        $sql_tmp = mysql_query($sql_query);
+        $i_result = null;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité et création du résultat */
+            $i_result = htmlentities($o_row['seuil_min']);
+        }
+        return $i_result;
+    }
+
     public static function getPrixHt($i_id) {
         $sql_query = "select seuil_max from article_campagne where id=$i_id";
         $sql_tmp = mysql_query($sql_query);

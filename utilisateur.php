@@ -2,6 +2,9 @@
 require_once('def.php');
 require_once('Model/Utilisateur.php');
 
+/*
+ * Gère les utilisateurs.
+ */
 class UtilisateurController extends Controller {
 
     /*
@@ -11,16 +14,22 @@ class UtilisateurController extends Controller {
         parent::__construct();
     }
 
-
+    /*
+     * Affiche la liste de tous les utilisateurs.
+     */
     public function listeUtilisateur() {
         /* Authentication required */
         if (!Utilisateur::isLogged()) {
             $this->render('authenticationRequired');
             return;
         }
-        // on stocke tous les infos sur un utilisateur
+        /* Doit être un administrateur */
+        if(!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
+        /* Récupère toutes les infos sur un utilisateur */
         $to_utilisateur = Utilisateur::getAllObjects();
-
         $this->render('listeUtilisateur', compact('to_utilisateur'));
     }
 
