@@ -63,4 +63,4 @@ insert into commande(id_article, id_campagne, id_utilisateur, quantite)
 insert into commande(id_article, id_campagne, id_utilisateur, quantite)
 	values(2, 1, 1, 6);
 insert into commande(id_article, id_campagne, id_utilisateur, quantite)
-	values(1, 1, 4, 1);
+	values(1, 1, 4, 9);
