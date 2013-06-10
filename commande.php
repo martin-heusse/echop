@@ -51,16 +51,16 @@ class CommandeController extends Controller {
 	    
 	    /* modification de la quantité */
             if (isset($_POST['quantite'])){
-	        $ti_quantite =  $_POST['quantite'];// faire un test pour l'entrée
+	      $ti_quantite =  $_POST['quantite'];// faire un test pour l'entrée
 		$i_quantite = $ti_quantite[$i_idArticle];
 		if ($i_quantite == 0) {
-		    Commande::delete($i_idArticle);
+		  //Commande::delete($i_idArticle);
 		} else {
 		    $i_seuilMin = ArticleCampagne::getSeuilMin($i_idArticle);
 		    /* si la quantité est supérieure au seuil min
 		       on actualise, 
 		       sinon on ne fait rien */
-		    if ($i_quantite > $i_seuilMin) {
+		    if ($i_quantite >= $i_seuilMin) {
 		        Commande::setQuantite($i_idArticle, $i_quantite);
 		    }
 		
