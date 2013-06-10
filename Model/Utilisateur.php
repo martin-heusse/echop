@@ -140,7 +140,14 @@ class Utilisateur {
     }    
     
     public static function getCountByValidite() {
-        
+        $sql_query = "select count(*) number from utilisateur where validite=false";
+        $sql_tmp = mysql_query($sql_temp);
+        $i_result = 0;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité et création du résultat */
+            $i_result = htmlentities($o_row['number']);
+        }
+        return $i_result;
     }
 
 
