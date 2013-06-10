@@ -2,8 +2,10 @@
 
 <?php
     if ($to_rayon != null) {
-    /*        if ($to_article != null) {
+        if ($to_article != null) {
+        /* Affichage des articles */
 ?>
+            
             <p>  <?php echo $o_rayon['nom']?>:  </p>
             <ul>
 
@@ -11,10 +13,11 @@
                 foreach($to_article as $o_article) {
 ?>
                 <li><?php echo $o_article['nom']?></li>
-
             </ul>
 <?php 
-                } else { */
+                }
+        } else { 
+        /* Affichage des rayons */ 
 ?>
              <p> Choisissez un rayon :</p>
              <ul>
@@ -27,17 +30,11 @@
                  }
 ?>
             </ul>
-<?php 
-                     /*   }
-    } else { */
-            
-?>
-            
-
 <?php
-                     /*  }  */
+        }
     } else {
 ?>
+
 <p> Il n'y a actuellement aucun rayon disponible</p>
 
 <?php
