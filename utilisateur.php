@@ -49,9 +49,8 @@ class UtilisateurController extends Controller {
             return;
         }
         /* Récupère toutes les infos sur un utilisateur */
-        $to_utilisateur = Utilisateur::getAllObjects();
-	//TODO: décommenter $to_utilisateur = Utilisateur::getObjectsByValidite(false);
-        $this->render('listeUtilisateur', compact('to_utilisateur'));
+	 $to_utilisateur = Utilisateur::getObjectsByValidite(false);
+        $this->render('listeUtilisateurAValider', compact('to_utilisateur'));
     }
 
 
