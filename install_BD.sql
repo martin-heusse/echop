@@ -80,7 +80,6 @@ CREATE TABLE article (
 CREATE TABLE fournisseur (
    id integer not null auto_increment,
    nom varchar(255),
-   code varchar(255),
 
    constraint pk_fournisseur primary key(id)
 );
@@ -97,6 +96,7 @@ CREATE TABLE article_fournisseur (
    id_article integer not null,
    id_fournisseur integer not null,
    prix_article float,
+   code varchar(255),
 
    constraint pk_article_fournisseur primary key(id),
 

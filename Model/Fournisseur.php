@@ -3,9 +3,9 @@ class Fournisseur {
 
     /* Creaters */
 
-    public static function create($s_nom, $s_code) {
-        $sql_query = "insert into fournisseur(nom, code) 
-            values('$s_nom', '$s_code')";
+    public static function create($s_nom) {
+        $sql_query = "insert into fournisseur(nom) 
+            values('$s_nom')";
         mysql_query($sql_query);
         $i_result = mysql_insert_id();
         return $i_result;
@@ -39,18 +39,6 @@ class Fournisseur {
         return $s_result;
     }
 
-    public static function getCode($i_id) {
-        $sql_query = "select code from fournisseur where id=$i_id";
-        $sql_tmp = mysql_query($sql_query);
-        $s_result = null;
-        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
-            /* Sécurité et création du résultat */
-            $s_result = htmlentities($o_row['code']);
-        }
-        return $s_result;
-    }
-
-
     /* Setters */
 
     public static function set($i_id, $s_nom, $s_code) {
@@ -62,13 +50,6 @@ class Fournisseur {
 
     public static function setNom($i_id, $s_nom) {
         $sql_query = "update fournisseur set nom='$s_nom' 
-            where id=$i_id";
-        $b_result =  mysql_query($sql_query);
-        return $b_result;
-    }
-
-    public static function setCode($i_id, $s_code) {
-        $sql_query = "update fournisseur set code='$s_code' 
             where id=$i_id";
         $b_result =  mysql_query($sql_query);
         return $b_result;
