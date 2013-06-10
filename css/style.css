@@ -72,6 +72,8 @@ a:hover {
 #menu .titre_menu {
     margin-left: -5px;
     text-align: center;
+    margin-top: 20px;
+    margin-bottom: 15px;
 }
 
 #menu ul {
@@ -109,8 +111,8 @@ a:hover {
 
 h1 {
     text-align: center;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-top: 20px;
+    margin-bottom: 40px;
 }
 
 /* ========================================================================== */
@@ -148,6 +150,17 @@ th {
     background-color: #666666;
 }
 
+/* Colorier une ligne */
+table .col_coloree {
+    color: #444444;
+    background-color: #eecccc;
+}
+
+/* Centre */
+table .centrer {
+    text-align: center;
+}
+
 /* ========================================================================== */
 /* Formulaire */
 
@@ -167,20 +180,12 @@ form .form_col, .form_col {
 /* Réduit la largeur de la quantité */
 form .input_quantite {
     width: 80px;
+    text-align: center;
 }
 
 form .input_valider {
+    margin-top: 10px;
     float: right;
-}
-
-form .col_coloree {
-    color: #444444;
-    background-color: #cccccc;
-}
-
-/* Centre */
-.centrer {
-    text-align: center;
 }
 
 /* ========================================================================== */

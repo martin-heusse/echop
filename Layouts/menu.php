@@ -44,8 +44,8 @@ if (Utilisateur::isLogged()) {
     <!-- Menu utilisateur -->
     <h1 class="titre_menu">Menu</h1>
     <ul>
-        <li><a href="<?php echo root ?>/commande.php/commanderArticle">Commander des articles</a></li>
         <li><a href="<?php echo root ?>/commande.php/mesCommandes">Mes commandes</a></li>
+        <li><a href="<?php echo root ?>/commande.php/commanderArticle">Commander des articles</a></li>
     </ul>
 <?php
 } else {

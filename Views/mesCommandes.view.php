@@ -43,7 +43,7 @@ if ($to_commande != null) {
         <th>Poids unitaire que le client peut commander</th>   
         <th>Quantité minimale que l'on peut commander</th>
         <th>Quantité</th>
-        <th class="col_coloree">Quantité totale commandée</th>
+        <th>Quantité totale commandée</th>
         <th>Total TTC</th>
 <?php
         /* Affiche ou non la colonne de suppression */

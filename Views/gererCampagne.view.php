@@ -1,6 +1,6 @@
 <p><a class="action_navigation" href="<?php echo root ?>">Retour</a></p>
 
-<h1>Gérer la campagne en cours</h1>
+<h1>Gérer la campagne courante</h1>
 
 <p>Les utilisateurs peuvent commander des articles tant que la campagne est ouverte.<br/>
 Vous pouvez à tout moment bloquer les commandes ou les ré-ouvrir.<br/>
@@ -33,7 +33,7 @@ if ($o_campagne['etat'] == 1) {
 <?php
 if ($o_campagne['etat'] == 1) {
 ?>
-<p><strong>Pour démarrer une nouvelle commande, vous devez d'abord fermer la campagne courante.</strong></p>
+<p><strong>Pour démarrer une nouvelle campagne, vous devez d'abord fermer la campagne courante.</strong></p>
 <?php
 } else {
 ?>
