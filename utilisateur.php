@@ -17,7 +17,7 @@ class UtilisateurController extends Controller {
     /*
      * Affiche la liste de tous les utilisateurs.
      */
-    public function listeUtilisateur() {
+    public function listeUtilisateurValide() {
         /* Authentication required */
         if (!Utilisateur::isLogged()) {
             $this->render('authenticationRequired');
@@ -30,8 +30,30 @@ class UtilisateurController extends Controller {
         }
         /* Récupère toutes les infos sur un utilisateur */
         $to_utilisateur = Utilisateur::getAllObjects();
+	//TODO: décommenter $to_utilisateur = Utilisateur::getObjectsValide(true);	
         $this->render('listeUtilisateur', compact('to_utilisateur'));
     }
+
+    /*
+     * Affiche la liste de tous les utilisateurs à valider.
+     */
+    public function listeUtilisateurAValider() {
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if(!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
+        /* Récupère toutes les infos sur un utilisateur */
+        $to_utilisateur = Utilisateur::getAllObjects();
+	//TODO: décommenter $to_utilisateur = Utilisateur::getObjectsValide(false);
+        $this->render('listeUtilisateur', compact('to_utilisateur'));
+    }
+
 
     /*
      * Action par défaut.
