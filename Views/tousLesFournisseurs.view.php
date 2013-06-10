@@ -1,6 +1,6 @@
 <p><a class="action_navigation" href="<?php echo root ?>">Retour</a></p>
 
-<h1>Liste des fournisseurs</h1>
+<h1>Liste de tous les fournisseurs</h1>
 
 <ul>
 <?php

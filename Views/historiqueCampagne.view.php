@@ -1,8 +1,12 @@
+<p><a class="action_navigation" href="<?php echo root ?>">Retour</a></p>
+
 <h1>Historique des campagnes passés</h1>
 
 <table>
-    <th>Numéro</th>
-    <th>Date de début</th>
+    <tr>
+        <th>Numéro</th>
+        <th>Date de début</th>
+    </tr>
 <?php
 $i_numLigne = 0;
 foreach ($to_campagne as $o_campagne) {

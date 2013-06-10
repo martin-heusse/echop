@@ -26,6 +26,11 @@ class CampagneController extends Controller {
      * Permet d'ouvrir, de fermer ou de changer de campagne courante.
      */
     public function gererCampagne() {
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
         /* Ouvrir ou fermer la campagne courante */
         if (isset($_GET['etat'])) {
             $b_etat = $_GET['etat'];
@@ -42,9 +47,40 @@ class CampagneController extends Controller {
     }
 
     /*
+     * Archive la campagne courante et en ouvre une nouvelle.
+     */
+    public function nouvelleCampagne() {
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        $i_idCampagneCourante = Campagne::getIdCampagneCourante();
+        $b_etat = Campagne::getEtat($i_idCampagneCourante);
+        /* La campagne courante doit être fermée */
+        if ($b_etat == 1) {
+            header('Location: '.root.'/campagne.php/gererCampagne');
+            return;
+        }
+        /* Désafecte la campagne courante */
+        Campagne::setCourant($i_idCampagneCourante, 0);
+        /* Crée la nouvelle campagne */
+        $s_dateDebut = "2013-06-12";
+        $b_etat = 1;
+        $b_courant = 1;
+        $i_idCampagneCourante = Campagne::create($s_dateDebut, $b_etat, $b_courant);
+        header('Location: '.root.'/campagne.php/gererCampagne');
+    }
+
+    /*
      * Affiche l'historique des campagnes passées.
      */
     public function historiqueCampagne() {
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
         $to_campagne = Campagne::getObjectsByCourant(0);
         $this->render('historiqueCampagne', compact('to_campagne'));
     }
@@ -53,7 +89,7 @@ class CampagneController extends Controller {
      * Action par défaut.
      */
     public function defaultAction() {
-        header('Location: '.root.'/commande.php/mesCampagnes');
+        header('Location: '.root.'/campagne.php/gererCampagne');
     }
 }
 new CampagneController();
