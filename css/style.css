@@ -169,9 +169,36 @@ form .input_quantite {
     width: 80px;
 }
 
-/* Centre les nombres */
-.nombre {
+form .input_valider {
+    float: right;
+}
+
+form .col_coloree {
+    color: #444444;
+    background-color: #cccccc;
+}
+
+/* Centre */
+.centrer {
     text-align: center;
+}
+
+/* ========================================================================== */
+/* Campagne */
+
+.campagne_ouverte {
+    color: green;
+}
+
+.campagne_fermee {
+    color: red;
+}
+
+.indication_campagne {
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 30px;
 }
 
 /* ========================================================================== */
@@ -184,10 +211,3 @@ form .input_quantite {
     overflow: hidden; /* Précaution pour IE 7 */
 }
 
-.campagne_ouverte {
-    color: green;
-}
-
-.campagne_fermee {
-    color: red;
-}

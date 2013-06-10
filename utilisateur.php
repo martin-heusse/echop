@@ -29,9 +29,8 @@ class UtilisateurController extends Controller {
             return;
         }
         /* Récupère toutes les infos sur un utilisateur */
-        $to_utilisateur = Utilisateur::getAllObjects();
-	//TODO: décommenter $to_utilisateur = Utilisateur::getObjectsByValidite(true);	
-        $this->render('listeUtilisateur', compact('to_utilisateur'));
+        $to_utilisateur = Utilisateur::getObjectsByValidite(1);	
+        $this->render('listeUtilisateurValide', compact('to_utilisateur'));
     }
 
     /*
@@ -49,9 +48,8 @@ class UtilisateurController extends Controller {
             return;
         }
         /* Récupère toutes les infos sur un utilisateur */
-        $to_utilisateur = Utilisateur::getAllObjects();
-	//TODO: décommenter $to_utilisateur = Utilisateur::getObjectsByValidite(false);
-        $this->render('listeUtilisateur', compact('to_utilisateur'));
+        $to_utilisateur = Utilisateur::getObjectsByValidite(0);
+        $this->render('listeUtilisateurAValider', compact('to_utilisateur'));
     }
 
 
