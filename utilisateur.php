@@ -30,7 +30,7 @@ class UtilisateurController extends Controller {
         }
         /* Récupère toutes les infos sur un utilisateur */
         $to_utilisateur = Utilisateur::getAllObjects();
-	//TODO: décommenter $to_utilisateur = Utilisateur::getObjectsValide(true);	
+	//TODO: décommenter $to_utilisateur = Utilisateur::getObjectsByValidite(true);	
         $this->render('listeUtilisateur', compact('to_utilisateur'));
     }
 
@@ -50,7 +50,7 @@ class UtilisateurController extends Controller {
         }
         /* Récupère toutes les infos sur un utilisateur */
         $to_utilisateur = Utilisateur::getAllObjects();
-	//TODO: décommenter $to_utilisateur = Utilisateur::getObjectsValide(false);
+	//TODO: décommenter $to_utilisateur = Utilisateur::getObjectsByValidite(false);
         $this->render('listeUtilisateur', compact('to_utilisateur'));
     }
 
