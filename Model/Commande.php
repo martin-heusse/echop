@@ -280,13 +280,5 @@ class Commande {
         $b_result =  mysql_query($sql_query);
         return $b_result;
     }
-    
-    public static function deleteByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur) {
-        $sql_query = "delete from commande where id_article=$i_idArticle and id_campagne=$i_idCampagne and id_utilisateur=$i_idUtilisateur";
-        $b_result =  mysql_query($sql_query);
-        return $b_result;
-    }
-        
-    
 }
 ?>
