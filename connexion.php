@@ -3,16 +3,26 @@ require_once('def.php');
 require_once('Model/Administrateur.php');
 require_once('Model/Utilisateur.php');
 
+/*
+ * Gère la connexion.
+ */
 class ConnexionController extends Controller {
 
+    /*
+     * Constructeur.
+     */
     public function __construct() {
         parent::__construct();
     }
 
+    /*
+     * Affiche la page de connexion.
+     */
     public function connexion() {
         /* L'utilisateur doit être déconnecté */
         if (Utilisateur::isLogged()) {
             header('Location: '.root.'/index.php');
+            return;
         }
         /* Connexion */
         if (isset($_POST['login']) && $_POST['login'] != ""
@@ -41,17 +51,23 @@ class ConnexionController extends Controller {
         }
     }
 
+    /*
+     * Se déconnecter.
+     */
     public function deconnexion() {
         /* Authentication required */
         if (!Utilisateur::isLogged()) {
             $this->render('authenticationRequired');
             return;
         }
+        /* Détruit les variables de session */
         session_destroy();
         header('Location: '.root.'/index.php');
-
     }
 
+    /*
+     * Action par défaut.
+     */
     public function defaultAction() {
         header('Location: '.root.'/connexion.php/connexion');
     }

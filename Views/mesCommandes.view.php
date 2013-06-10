@@ -5,7 +5,7 @@
 if ($to_commande != null) {
 ?>
 
-<form method="post" action="commande.php/mesCommandes">
+<form method="post" action="commande.php/modifierQuantite">
 
 <table id="t_article">
 <tr>
@@ -24,6 +24,7 @@ if ($to_commande != null) {
     <th>Quantité</th>
     <th>Quantité totale commandée</th>
     <th>Total TTC</th>
+    <th>Suppression d'un article</th>
 </tr>
 <?php 
     foreach($to_commande as $o_produit) {
@@ -41,16 +42,17 @@ if ($to_commande != null) {
     <td><?php echo $o_produit['prix_unitaire'] ?></td>
     <td><?php echo $o_produit['poids_paquet_client'] ?></td>
     <td><?php echo $o_produit['seuil_min'] ?></td>
-    <td><input type="text" name="quantite[<?php echo $o_produit['id_article']?>" value="<?php echo $o_produit['quantite'] ?>"/></td>
+    <td><input type="text" name="quantite[<?php echo $o_produit['id_article']?>]" value="<?php echo $o_produit['quantite'] ?>"/></td>
     <td><?php echo $o_produit['quantite_totale'] ?></td>
     <td><?php echo $o_produit['total_ttc'] ?></td>
+    <td><a href="../commande.php/supprimerArticle?id_article=<?php echo $o_produit['id_article']?>" > supprimer l'article</a>
 </tr>
 <?php
    }
 ?>  
+</table>
 <input type="submit" value="Modifier"/>
 </form>
-</table>
 <?php
 } else {
 ?>

@@ -9,12 +9,13 @@ insert into utilisateur(login, mot_de_passe, email) values('a', 'a', 'a@example.
 
 insert into administrateur(id_utilisateur) values(1);
 insert into administrateur(id_utilisateur) values(6);
+insert into administrateur(id_utilisateur) values(2);
 
 insert into campagne(date_debut, etat, courant) values('2013-06-05', true, true);
 insert into campagne(date_debut, etat, courant) values('2013-06-06', false, false);
 insert into campagne(date_debut, etat, courant) values('2013-06-07', false, false);
 
-insert into rayon(nom) values('Épicerie');
+insert into rayon(nom) values('Epicerie');
 insert into rayon(nom) values('Jardins de Gaïa');
 insert into rayon(nom) values('Oranges et amandes en coques');
 insert into rayon(nom) values('Jean Hervé');
@@ -33,20 +34,20 @@ insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet
 insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
 	values(2, 'THE DARJEELING', 75, 2, 12, 'DARJEELING', '');
 
-insert into fournisseur(nom, code) values('RAPUNZEL', 12224);
-insert into fournisseur(nom, code) values('PICHARD', 54463);
-insert into fournisseur(nom, code) values('SIMON LEVE', 87564);
+insert into fournisseur(nom) values('RAPUNZEL');
+insert into fournisseur(nom) values('PICHARD');
+insert into fournisseur(nom) values('SIMON LEVE');
 
 insert into tva(valeur) values(19.60);
 
-insert into article_fournisseur(id_article,id_fournisseur, prix_article)
-	values(1, 1, 30.5);
-insert into article_fournisseur(id_article,id_fournisseur, prix_article)
-	values(2, 1, 22);
-insert into article_fournisseur(id_article,id_fournisseur, prix_article)
-	values(2, 2, 24);
-insert into article_fournisseur(id_article,id_fournisseur, prix_article)
-	values(3, 3, 5);
+insert into article_fournisseur(id_article,id_fournisseur, prix_article, code)
+	values(1, 1, 30.5, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_article, code)
+	values(2, 1, 22, 'E200');
+insert into article_fournisseur(id_article,id_fournisseur, prix_article, code)
+	values(2, 2, 24, 'YX4000');
+insert into article_fournisseur(id_article,id_fournisseur, prix_article, code)
+	values(3, 3, 5, '855 602 222');
 
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ht, prix_ttc)
 	values(1, 1, 2, 5, 1, 3, 14, 15);
@@ -63,4 +64,8 @@ insert into commande(id_article, id_campagne, id_utilisateur, quantite)
 insert into commande(id_article, id_campagne, id_utilisateur, quantite)
 	values(2, 1, 1, 6);
 insert into commande(id_article, id_campagne, id_utilisateur, quantite)
-	values(1, 1, 4, 1);
+	values(1, 1, 4, 9);
+insert into commande(id_article, id_campagne, id_utilisateur, quantite)
+	values(1, 1, 2, 5);
+
+

@@ -2,21 +2,40 @@
 require_once('def.php');
 require_once('Model/Utilisateur.php');
 
+/*
+ * Gère les utilisateurs.
+ */
 class UtilisateurController extends Controller {
 
+    /*
+     * Constructeur.
+     */
     public function __construct() {
         parent::__construct();
     }
 
-
+    /*
+     * Affiche la liste de tous les utilisateurs.
+     */
     public function listeUtilisateur() {
-        // on stocke tous les infos sur un utilisateur
-	$to_utilisateur = Utilisateur::getAllObjects();
-	
-	$this->render('listeUtilisateur', compact('to_utilisateur'));
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if(!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
+        /* Récupère toutes les infos sur un utilisateur */
+        $to_utilisateur = Utilisateur::getAllObjects();
+        $this->render('listeUtilisateur', compact('to_utilisateur'));
     }
 
-
+    /*
+     * Action par défaut.
+     */
     public function defaultAction() {
         header('Location: '.root.'/utilisateur.php/listeUtilisateur');
     }
