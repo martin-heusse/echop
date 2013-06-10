@@ -81,7 +81,7 @@ class CommandeController extends Controller {
             $i_idArticle = $i_article['id_article'];
             /* Si des modifications ont été faite par l'utilisateur, on traite l'entrée */
             if (isset($_POST['quantite'])){
-                $ti_quantite =  $_POST['quantite']; // TODO : faire un test pour l'entrée
+                $ti_quantite = $_POST['quantite'];
                 $i_quantite = $ti_quantite[$i_idArticle];
                 $i_seuilMin = ArticleCampagne::getSeuilMinByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
                 /* Si la quantité est supérieur au seuil min et non nulle, on 
@@ -199,12 +199,7 @@ class CommandeController extends Controller {
             $s_login=Utilisateur::getLogin($i_idUtilisateur);
         }
         $this->render('commandeUtilisateur', compact('to_commandeUtilisateur', 's_login'));
-
     }
-
-
-    /* */
-
 
     public function articlesCommandEs() {
         /* Authentication required */
