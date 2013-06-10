@@ -20,7 +20,8 @@ CREATE TABLE utilisateur (
 	login varchar(255),
 	mot_de_passe varchar(255),
 	email varchar(255),
-    validte boolean, 
+    validite boolean, 
+
 	constraint pk_utilisateur primary key(id)
 ) ENGINE = INNODB;
 

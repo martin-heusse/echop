@@ -45,7 +45,7 @@ if ($to_commande != null) {
         <td><input class="input_quantite" type="text" name="quantite[<?php echo $o_produit['id_article']?>]" value="<?php echo $o_produit['quantite'] ?>"/></td>
         <td class="nombre"><?php echo $o_produit['quantite_totale'] ?></td>
         <td class="nombre"><?php echo $o_produit['total_ttc'] ?></td>
-        <td><a href="../commande.php/supprimerArticle?id_article=<?php echo $o_produit['id_article']?>" > supprimer l'article</a>
+        <td><a href="../commande.php/supprimerArticle?id_article=<?php echo $o_produit['id_article']?>">supprimer l'article</a>
     </tr>
 <?php
     $i_numLigne = ($i_numLigne + 1) % 2;
