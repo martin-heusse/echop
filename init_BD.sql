@@ -9,6 +9,7 @@ insert into utilisateur(login, mot_de_passe, email) values('a', 'a', 'a@example.
 
 insert into administrateur(id_utilisateur) values(1);
 insert into administrateur(id_utilisateur) values(6);
+insert into administrateur(id_utilisateur) values(2);
 
 insert into campagne(date_debut, etat, courant) values('2013-06-05', true, true);
 insert into campagne(date_debut, etat, courant) values('2013-06-06', false, false);
@@ -64,3 +65,7 @@ insert into commande(id_article, id_campagne, id_utilisateur, quantite)
 	values(2, 1, 1, 6);
 insert into commande(id_article, id_campagne, id_utilisateur, quantite)
 	values(1, 1, 4, 9);
+insert into commande(id_article, id_campagne, id_utilisateur, quantite)
+	values(1, 1, 2, 5);
+
+
