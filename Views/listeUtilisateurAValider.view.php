@@ -32,7 +32,7 @@ if ($to_utilisateur != null) {
     <td> <?php echo $o_utilisateur['login']?> </td>
     <td><?php echo $o_utilisateur['email']?> </td>
     <td><a href="<?php echo root ?>/utilisateur.php/validerInscription?idUtilisateur=<?php echo $o_utilisateur['id']?>"> Valider </a> </td>
-    <td> <a href="<?php echo root ?>/utilisateur.php/refuserInscription?idUtilisateur=<?php echo $o_utilisateur['id']?>"> Refuser </a> </td>
+    <td> <a href="<?php echo root ?>/utilisateur.php/refuserInscription?idUtilisateur=<?php echo $o_utilisateur['id']?>"> <?php echo $o_utilisateur['id']?> Refuser </a> </td>
   </tr>
 
 <?php

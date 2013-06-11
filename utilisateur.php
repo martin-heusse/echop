@@ -54,6 +54,7 @@ class UtilisateurController extends Controller {
     }
 
     /* Permet de valider l'inscription d'un utilisateur */
+
     public function validerInscription (){
 	/* Authentication required */
         if (!Utilisateur::isLogged()) {
@@ -66,10 +67,33 @@ class UtilisateurController extends Controller {
             return;
         }
 	/* Récupération de l'identifiant de l'utilisateur à ajouter */
-        if (isset($_GET['id'])) {
-	    $i_idUtilisateur = $_GET['id'];
-	    Utilisateur::setValidite($i_idUtilisateur, 1);
+        if (isset($_GET['idUtilisateur'])) {
+	    $i_idUtilisateur = $_GET['idUtilisateur'];
+	    Utilisateur::setValidite($i_idUtilisateur, 1);   
         }
+        header('Location: '.root.'/utilisateur.php/listeUtilisateurAValider');
+    }
+
+
+    /* Permet de refuser l'inscription d'un utilisateur */
+
+    public function refuserInscription (){
+	/* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if(!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
+	/* Récupération de l'identifiant de l'utilisateur à supprimer */
+        if (isset($_GET['idUtilisateur'])) {
+	    $i_idUtilisateur = $_GET['idUtilisateur'];
+	    Utilisateur::delete($i_idUtilisateur);   
+        }
+        header('Location: '.root.'/utilisateur.php/listeUtilisateurAValider');
     }
 
     /*
@@ -81,23 +105,14 @@ class UtilisateurController extends Controller {
             $this->render('authentificationRequired');
             return;
         }
-
+        
         $i_emailSent = 0;
-        $fake = 0;
-        $to='johann.yvetot@ensimag.fr';
-        $sub = 'test';
-        $mesg = 'merde';
-        mail($to,$sub,$mesg);
-
 
         /* Récupère les données du mail à envoyer */
-        if (isset($_POST['message']) && $_POST['subject'] != "" && isset($_POST['message']) && $_POST['message'] != "") { 
-             
+        if (isset($_POST['subject']) && $_POST['subject'] != "" && isset($_POST['message']) && $_POST['message'] != "") { 
             $s_subject = $_POST['subject'];
             $s_message = $_POST['message']; 
             $to_email = Utilisateur::getAllEmail();
-            $fake = 1;
-            
 
             foreach ($to_email as $o_email) {
                 $s_email = $o_email['email'];

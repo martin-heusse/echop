@@ -33,7 +33,6 @@
 
 <p> errReg :<?php echo $i_errReg;?></p>
 <p> errLogin : <?php echo $i_errLogin;?></p>
-<p> fake : <?php echo $fake; ?></p>
 <p> login : <?php echo $s_login; ?></p>
 <p> mdp : <?php echo $s_passwd; ?></p>
 <p> email : <?php echo $s_email; ?></p>
