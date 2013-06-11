@@ -1,5 +1,6 @@
 <?php
 require_once('def.php');
+require_once('Model/Tva.php');
 require_once('Model/Rayon.php');
 require_once('Model/Unite.php');
 require_once('Model/Article.php');
@@ -22,6 +23,8 @@ class RayonController extends Controller {
         // liste des rayons (à partir de la table rayon)
         // pour afficher la liste rayons
         $to_rayon = Rayon::getAllObjects();
+        // liste de tous les fournisseurs
+        $to_fournisseur = Fournisseur::getAllObjects();
         // liste des descriptions des articles (à partir des tables  :
         // article, article_fournisseur et article_campagne)
         $to_descriptionArticle = array();
@@ -34,6 +37,7 @@ class RayonController extends Controller {
             $to_descriptionArticle = ArticleCampagne::getObjectsByIdCampagne($i_idCampagneEnCours);
             foreach($to_descriptionArticle as &$o_descriptionArticle){
                 $i_idArticle = $o_descriptionArticle['id_article'];
+                $i_idArticleCampagne = $o_descriptionArticle['id'];
                 $o_article = Article::getObject($i_idArticle);
                 //if($o_article['id_rayon'] != $i_idRayon){
                     //unset($o_descriptionArticle);
@@ -46,18 +50,22 @@ class RayonController extends Controller {
                     $o_descriptionArticle['description_longue'] = $o_article['description_longue'];
                     $o_descriptionArticle['description_courte'] = $o_article['description_courte'];
                     // retourne le nom de tous les fournisseurs
-                    //$to_articleFournisseur = ;
                     // obtenir le prix et le code de chaque fournisseur
-                    //$to_articleFournisseur = ArticleFournisseur::getObjectsByIdArticle($i_idArticle);
-                    /*foreach($to_articleFournisseur as &$o_articleFournisseur){
+                    $to_articleFournisseur = ArticleFournisseur::getObjectsByIdArticle($i_idArticle);
+                    foreach($to_articleFournisseur as &$o_articleFournisseur){
+                        $i_idArticleFournisseur = $o_articleFournisseur['id'];
                         $i_idFournisseur = $o_articleFournisseur['id_fournisseur'];
-                        $ts_nomFourniseur[] = $o_Fournisseur::getNom($i_idFournisseur);
-                    }*/
-                    
+                        $s_nomFourniseur = Fournisseur::getNom($i_idFournisseur);
+                        $o_descriptionArticle[$s_nomFourniseur]['code'] = ArticleFournisseur::getCode($i_idArticleFournisseur );
+                        $o_descriptionArticle[$s_nomFourniseur]['prix_article'] = ArticleFournisseur::getPrixArticle($i_idArticleFournisseur);
+                    }
+                    // on considère que le montant tva dépend de l'article
+                    $i_idTva = ArticleCampagne::getIdTva($i_idArticleCampagne);
+                    $o_descriptionArticle['tva'] = Tva::getValeur($i_idTva);
                 //}
             }
         }
-        $this->render('gererRayon', compact('to_rayon', '$ts_nomFourniseur', 'i_idRayon', 'to_descriptionArticle'));
+        $this->render('gererRayon', compact('to_rayon', 'to_fournisseur', 'i_idRayon', 'to_descriptionArticle'));
     }
 
     public function defaultAction() {
