@@ -58,8 +58,6 @@ class RayonController extends Controller {
                         $s_nomFourniseur = Fournisseur::getNom($i_idFournisseur);
                         $o_descriptionArticle[$s_nomFourniseur]['code'] = ArticleFournisseur::getCode($i_idArticleFournisseur );
                         $o_descriptionArticle[$s_nomFourniseur]['prix_article'] = ArticleFournisseur::getPrixArticle($i_idArticleFournisseur);
-                        var_dump($o_descriptionArticle[$s_nomFourniseur]['prix_article']);
-                        return;
                     }
                     // on considère que le montant tva dépend de l'article
                     $i_idTva = ArticleCampagne::getIdTva($i_idArticleCampagne);

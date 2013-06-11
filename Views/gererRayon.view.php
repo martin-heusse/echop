@@ -85,7 +85,9 @@ if ( isset($i_idRayon) ) {
         foreach($to_fournisseur as $o_fournisseur){
             $nom = $o_fournisseur['nom'];
 ?>
-            <td><?php echo $o_descriptionArticle[$nom]['code'] ?> <?php echo $o_descriptionArticle[$nom]['prix_article'] ?></td>
+            <td>code : <?php echo $o_descriptionArticle[$nom]['code'] ?> <br />
+                prix : <?php echo $o_descriptionArticle[$nom]['prix_article'] ?>
+            </td>
 <?php
             }
 ?>
