@@ -72,6 +72,8 @@ a:hover {
 #menu .titre_menu {
     margin-left: -5px;
     text-align: center;
+    margin-top: 20px;
+    margin-bottom: 15px;
 }
 
 #menu ul {
@@ -109,8 +111,8 @@ a:hover {
 
 h1 {
     text-align: center;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-top: 20px;
+    margin-bottom: 40px;
 }
 
 /* ========================================================================== */
@@ -137,6 +139,7 @@ table {
     border-collapse: collapse;
     margin-left: auto;
     margin-right: auto;
+    float: left;
 }
 
 table, th, td {
@@ -146,6 +149,17 @@ table, th, td {
 th {
     color: #cccccc;
     background-color: #666666;
+}
+
+/* Colorier une ligne */
+table .col_coloree {
+    color: #444444;
+    background-color: #eecccc;
+}
+
+/* Centre */
+table .centrer {
+    text-align: center;
 }
 
 /* ========================================================================== */
@@ -164,6 +178,35 @@ form .form_col, .form_col {
     width: 160px;
 }
 
+/* Réduit la largeur de la quantité */
+form .input_quantite {
+    width: 80px;
+    text-align: center;
+}
+
+form .input_valider {
+    margin-top: 10px;
+    float: right;
+}
+
+/* ========================================================================== */
+/* Campagne */
+
+.campagne_ouverte {
+    color: green;
+}
+
+.campagne_fermee {
+    color: red;
+}
+
+.indication_campagne {
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
 /* ========================================================================== */
 /* Autre */
 
@@ -174,15 +217,3 @@ form .form_col, .form_col {
     overflow: hidden; /* Précaution pour IE 7 */
 }
 
-/* Aligne les nombres à droite */
-.nombre {
-    text-align: right;
-}
-
-.campagne_ouverte {
-    color: green;
-}
-
-.campagne_fermee {
-    color: red;
-}

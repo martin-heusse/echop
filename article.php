@@ -4,7 +4,7 @@ require_once('Model/Administrateur.php');
 require_once('Model/Utilisateur.php');
 
 /*
- * Gère les articles (?).
+ * Gère les articles.
  */
 class ArticleController extends Controller {
 
@@ -16,10 +16,10 @@ class ArticleController extends Controller {
     }
 
     /*
-     * Action par défaut).
+     * Action par défaut.
      */
     public function defaultAction() {
-        header('Location: '.root.'/connexion.php/connexion');
+        header('Location: '.root.'/accueil.php/accueil');
     }
 }
 new ArticleController();

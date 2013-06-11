@@ -26,14 +26,15 @@ if (Utilisateur::isLogged()) {
     <h1 class="titre_menu">Campagne n°<?php echo Campagne::getIdCampagneCourante() ?></h1>
     <ul>
         <li><a href="<?php echo root ?>/campagne.php/gererCampagne">Gérer la campagne courante</a></li>
-        <li><a href="<?php echo root ?>/commande.php/articlesCommandEs">Articles commandés</a></li>
         <li><a href="<?php echo root ?>/commande.php/utilisateurAyantCommandE">Utilisateurs ayant commandés</a></li>
-        <li><a href="<?php echo root ?>/articleCampagne.php/fournisseursChoisis">Fournisseurs choisis</a></li>
+        <li><a href="<?php echo root ?>/commande.php/articlesCommandEs">Articles commandés</a></li>
+        <li><a href="<?php echo root ?>/fournisseur.php/fournisseursChoisis">Commandes par fournisseur</a></li>
     </ul>
     <h1 class="titre_menu">Administration</h1>
     <ul>
         <li><a href="<?php echo root ?>/rayon.php/gererRayon">Gérer les rayons</a></li>
-        <li><a href="<?php echo root ?>/utilisateur.php/listeUtilisateur">Liste des utilisateurs</a></li>
+        <li><a href="<?php echo root ?>/utilisateur.php/listeUtilisateurAValider">Inscriptions à valider</a></li>
+        <li><a href="<?php echo root ?>/utilisateur.php/listeUtilisateurValide">Liste des utilisateurs</a></li>
         <li><a href="<?php echo root ?>/fournisseur.php/tousLesFournisseurs">Liste des fournisseurs</a></li>
         <li><a href="<?php echo root ?>/campagne.php/historiqueCampagne">Historique des campagnes</a></li>
     </ul>
@@ -43,8 +44,8 @@ if (Utilisateur::isLogged()) {
     <!-- Menu utilisateur -->
     <h1 class="titre_menu">Menu</h1>
     <ul>
-        <li><a href="<?php echo root ?>/commande.php/commanderArticle">Commander des articles</a></li>
         <li><a href="<?php echo root ?>/commande.php/mesCommandes">Mes commandes</a></li>
+        <li><a href="<?php echo root ?>/commande.php/commanderArticle">Commander des articles</a></li>
     </ul>
 <?php
 } else {

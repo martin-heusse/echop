@@ -75,7 +75,7 @@ class CampagneController extends Controller {
         /* Désafecte la campagne courante */
         Campagne::setCourant($i_idCampagneCourante, 0);
         /* Crée la nouvelle campagne */
-        $s_dateDebut = "2013-06-12";
+        $s_dateDebut = date("Y-m-d", time());
         $b_etat = 1;
         $b_courant = 1;
         $i_idCampagneCourante = Campagne::create($s_dateDebut, $b_etat, $b_courant);

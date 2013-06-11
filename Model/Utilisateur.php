@@ -18,9 +18,9 @@ class Utilisateur {
 
     /* Creaters */
 
-    public static function create($s_login, $s_motDePasse, $s_email) {
-        $sql_query = "insert into utilisateur(login, mot_de_passe, email) 
-            values('$s_login', '$s_motDePasse', '$s_email')";
+    public static function create($s_login, $s_motDePasse, $s_email,$b_validite) {
+        $sql_query = "insert into utilisateur(login, mot_de_passe, email,validite) 
+            values('$s_login', '$s_motDePasse', '$s_email','$b_validite')";
         mysql_query($sql_query);
         $i_result = mysql_insert_id();
         return $i_result;
@@ -123,6 +123,33 @@ class Utilisateur {
         }
         return $s_result;
     }
+    
+    public static function getObjectsByValidite($b_validite) {
+        $sql_query = "select * from utilisateur where validite=$b_validite";
+        $sql_tmp = mysql_query($sql_query);
+        $to_result = null;
+        while ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité */
+            foreach ($o_row as &$column) {
+                    $column = htmlentities($column);
+            }
+            /* Création du résultat */
+            $to_result[] = $o_row;
+        }
+        return $to_result;
+    }    
+    
+    public static function getCountByValidite($b_validite) {
+        $sql_query = "select count(*) number from utilisateur where validite=$b_validite";
+        $sql_tmp = mysql_query($sql_query);
+        $i_result = 0;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité et création du résultat */
+            $i_result = htmlentities($o_row['number']);
+        }
+        return $i_result;
+    }
+
 
     /* Setters */
 
