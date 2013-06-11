@@ -53,6 +53,26 @@ class UtilisateurController extends Controller {
         $this->render('listeUtilisateurAValider', compact('to_utilisateur','i_nombreUtilisateurAValider'));
     }
 
+    /* Permet de valider l'inscription d'un utilisateur */
+    public function validationInscription (){
+	/* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if(!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
+	/* Récupération de l'identifiant de l'utilisateur à ajouter */
+        if (!isset($_GET['id'])) {
+            $i_idUtilisateur = $_SESSION['idUtilisateur>'];
+        } else {
+            $i_idUtilisateur = $_GET['idUtilisateur']; 
+        }
+    }
+
     /*
      * Permet l'envoi de mail à l'ensemble des utilisateurs.
      */
