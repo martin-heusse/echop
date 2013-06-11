@@ -3,9 +3,9 @@ class ArticleCampagne {
 
     /* Creaters */
 
-    public static function create($i_idArticle, $i_idCampagne, $i_idFournisseur, $i_idTva, $f_poidsPaquetClient, $i_seuilMin, $f_prixHt, $f_prixTtc) {
-        $sql_query = "insert into article_campagne(id_article, id_campagne, id_fournisseur, id_tva, poids_paquet_client, seuil_min, prix_ht, prix_ttc) 
-            values('$i_idArticle', '$i_idCampagne', '$i_idFournisseur', '$i_idTva', '$f_poidsPaquetClient', '$i_seuilMin', '$f_prixHt', '$f_prixTtc')";
+    public static function create($i_idArticle, $i_idCampagne, $i_idFournisseur, $i_idTva, $f_poidsPaquetClient, $i_seuilMin, $f_prixTtc) {
+        $sql_query = "insert into article_campagne(id_article, id_campagne, id_fournisseur, id_tva, poids_paquet_client, seuil_min, prix_ttc) 
+            values('$i_idArticle', '$i_idCampagne', '$i_idFournisseur', '$i_idTva', '$f_poidsPaquetClient', '$i_seuilMin', '$f_prixTtc')";
         mysql_query($sql_query);
         $i_result = mysql_insert_id();
         return $i_result;
@@ -25,11 +25,10 @@ class ArticleCampagne {
             /* Création du résultat */
             $to_result[] = $o_row;
         }
-	/* Formattage des nombres */
-            foreach ($to_result as &$o_row) {
-            $o_row['poids_paquet_client']    = number_format($o_row['poids_paquet_client']   , 2, '.', ' ');
-            $o_row['prix_ttc']    = number_format($o_row['prix_ttc']   , 2, '.', ' ');            
-            $o_row['prix_ht']    = number_format($o_row['prix_ht']   , 2, '.', ' ');            
+        /* Formattage des nombres */
+        foreach ($to_result as &$o_row) {
+            $o_row['poids_paquet_client'] = number_format($o_row['poids_paquet_client'], 2, '.', ' ');
+            $o_row['prix_ttc']            = number_format($o_row['prix_ttc'],            2, '.', ' ');            
         }
         return $to_result;
     }
@@ -47,11 +46,10 @@ class ArticleCampagne {
             /* Création du résultat */
             $to_result[] = $o_row;
         }
-	/* Formattage des nombres */
-            foreach ($to_result as &$o_row) {
-            $o_row['poids_paquet_client']    = number_format($o_row['poids_paquet_client']   , 2, '.', ' ');
-            $o_row['prix_ttc']    = number_format($o_row['prix_ttc']   , 2, '.', ' ');
-            $o_row['prix_ht']    = number_format($o_row['prix_ht']   , 2, '.', ' ');
+        /* Formattage des nombres */
+        foreach ($to_result as &$o_row) {
+            $o_row['poids_paquet_client'] = number_format($o_row['poids_paquet_client'], 2, '.', ' ');
+            $o_row['prix_ttc']            = number_format($o_row['prix_ttc'],            2, '.', ' ');            
         }
         return $to_result;
     }
@@ -69,11 +67,10 @@ class ArticleCampagne {
             /* Création du résultat */
             $to_result[] = $o_row;
         }
-	/* Formattage des nombres */
-            foreach ($to_result as &$o_row) {
-            $o_row['poids_paquet_client']    = number_format($o_row['poids_paquet_client']   , 2, '.', ' ');
-            $o_row['prix_ttc']    = number_format($o_row['prix_ttc']   , 2, '.', ' ');
-            $o_row['prix_ht']    = number_format($o_row['prix_ht']   , 2, '.', ' ');
+        /* Formattage des nombres */
+        foreach ($to_result as &$o_row) {
+            $o_row['poids_paquet_client'] = number_format($o_row['poids_paquet_client'], 2, '.', ' ');
+            $o_row['prix_ttc']            = number_format($o_row['prix_ttc'],            2, '.', ' ');            
         }
         return $to_result;
     }
@@ -83,10 +80,9 @@ class ArticleCampagne {
         $sql_tmp = mysql_query($sql_query);
         $o_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
-	    /* Formattage des nombres */
-            $o_row['poids_paquet_client']    = number_format($o_row['poids_paquet_client']   , 2, '.', ' ');
-            $o_row['prix_ttc']    = number_format($o_row['prix_ttc']   , 2, '.', ' '); 
-            $o_row['prix_ht']    = number_format($o_row['prix_ht']   , 2, '.', ' ');            
+            /* Formattage des nombres */
+            $o_row['poids_paquet_client'] = number_format($o_row['poids_paquet_client'], 2, '.', ' ');
+            $o_row['prix_ttc']            = number_format($o_row['prix_ttc'],            2, '.', ' ');            
             /* Sécurité */
             foreach ($o_row as &$column) {
                 $column = htmlentities($column);
@@ -109,11 +105,10 @@ class ArticleCampagne {
             /* Création du résultat */
             $to_result[] = $o_row;
         }
-	/* Formattage des nombres */
-            foreach ($to_result as &$o_row) {
-            $o_row['poids_paquet_client']    = number_format($o_row['poids_paquet_client']   , 2, '.', ' ');
-            $o_row['prix_ttc']    = number_format($o_row['prix_ttc']   , 2, '.', ' ');            
-            $o_row['prix_ht']    = number_format($o_row['prix_ht']   , 2, '.', ' ');            
+        /* Formattage des nombres */
+        foreach ($to_result as &$o_row) {
+            $o_row['poids_paquet_client'] = number_format($o_row['poids_paquet_client'], 2, '.', ' ');
+            $o_row['prix_ttc']            = number_format($o_row['prix_ttc'],            2, '.', ' ');            
         }
         return $to_result;
     }
@@ -131,11 +126,10 @@ class ArticleCampagne {
             /* Création du résultat */
             $to_result[] = $o_row;
         }
-	/* Formattage des nombres */
-            foreach ($to_result as &$o_row) {
-            $o_row['poids_paquet_client']    = number_format($o_row['poids_paquet_client']   , 2, '.', ' ');
-            $o_row['prix_ttc']    = number_format($o_row['prix_ttc']   , 2, '.', ' ');      
-            $o_row['prix_ht']    = number_format($o_row['prix_ht']   , 2, '.', ' ');                  
+        /* Formattage des nombres */
+        foreach ($to_result as &$o_row) {
+            $o_row['poids_paquet_client'] = number_format($o_row['poids_paquet_client'], 2, '.', ' ');
+            $o_row['prix_ttc']            = number_format($o_row['prix_ttc'],            2, '.', ' ');            
         }
         return $to_result;
     }
@@ -153,11 +147,10 @@ class ArticleCampagne {
             /* Création du résultat */
             $to_result[] = $o_row;
         }
-	/* Formattage des nombres */
-            foreach ($to_result as &$o_row) {
-            $o_row['poids_paquet_client']    = number_format($o_row['poids_paquet_client']   , 2, '.', ' ');
-            $o_row['prix_ttc']    = number_format($o_row['prix_ttc']   , 2, '.', ' ');          
-            $o_row['prix_ht']    = number_format($o_row['prix_ht']   , 2, '.', ' ');              
+        /* Formattage des nombres */
+        foreach ($to_result as &$o_row) {
+            $o_row['poids_paquet_client'] = number_format($o_row['poids_paquet_client'], 2, '.', ' ');
+            $o_row['prix_ttc']            = number_format($o_row['prix_ttc'],            2, '.', ' ');            
         }
         return $to_result;
     }
@@ -175,37 +168,13 @@ class ArticleCampagne {
             /* Création du résultat */
             $to_result[] = $o_row;
         }
-	/* Formattage des nombres */
-            foreach ($to_result as &$o_row) {
-            $o_row['poids_paquet_client']    = number_format($o_row['poids_paquet_client']   , 2, '.', ' ');
-            $o_row['prix_ttc']    = number_format($o_row['prix_ttc']   , 2, '.', ' ');          
-            $o_row['prix_ht']    = number_format($o_row['prix_ht']   , 2, '.', ' ');              
+        /* Formattage des nombres */
+        foreach ($to_result as &$o_row) {
+            $o_row['poids_paquet_client'] = number_format($o_row['poids_paquet_client'], 2, '.', ' ');
+            $o_row['prix_ttc']            = number_format($o_row['prix_ttc'],            2, '.', ' ');            
         }
         return $to_result;
     }
-
-
-    public static function getObjectsByPrixHt($f_prixHt) {
-        $sql_query = "select * from article_campagne where prix_ht=$f_prixHt";
-        $sql_tmp = mysql_query($sql_query);
-        $to_result = array();
-        while ($o_row = mysql_fetch_assoc($sql_tmp)) {
-            /* Sécurité */
-            foreach ($o_row as &$column) {
-                $column = htmlentities($column);
-            }
-            /* Création du résultat */
-            $to_result[] = $o_row;
-        }
-	/* Formattage des nombres */
-            foreach ($to_result as &$o_row) {
-            $o_row['poids_paquet_client']    = number_format($o_row['poids_paquet_client']   , 2, '.', ' ');
-            $o_row['prix_ttc']    = number_format($o_row['prix_ttc']   , 2, '.', ' ');          
-            $o_row['prix_ht']    = number_format($o_row['prix_ht']   , 2, '.', ' ');              
-        }
-        return $to_result;
-    }
-
 
     public static function getObjectsByPrixTtc($f_prixTtc) {
         $sql_query = "select * from article_campagne where prix_ttc=$f_prixTtc";
@@ -219,11 +188,10 @@ class ArticleCampagne {
             /* Création du résultat */
             $to_result[] = $o_row;
         }
-	/* Formattage des nombres */
-            foreach ($to_result as &$o_row) {
-            $o_row['poids_paquet_client']    = number_format($o_row['poids_paquet_client']   , 2, '.', ' ');
-            $o_row['prix_ttc']    = number_format($o_row['prix_ttc']   , 2, '.', ' ');        
-            $o_row['prix_ht']    = number_format($o_row['prix_ht']   , 2, '.', ' ');                
+        /* Formattage des nombres */
+        foreach ($to_result as &$o_row) {
+            $o_row['poids_paquet_client'] = number_format($o_row['poids_paquet_client'], 2, '.', ' ');
+            $o_row['prix_ttc']            = number_format($o_row['prix_ttc'],            2, '.', ' ');            
         }
         return $to_result;
     }
@@ -359,19 +327,6 @@ class ArticleCampagne {
         return $i_result;
     }
 
-    public static function getPrixHt($i_id) {
-        $sql_query = "select seuil_max from article_campagne where id=$i_id";
-        $sql_tmp = mysql_query($sql_query);
-        $i_result = null;
-        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
-	    /* Formattage des nombres */
-            $o_row['prix_ht']    = number_format($o_row['prix_ht']   , 2, '.', ' '); 
-            /* Sécurité et création du résultat */
-            $i_result = htmlentities($o_row['prix_ht']);
-        }
-        return $i_result;
-    }
-
     public static function getPrixTtc($i_id) {
         $sql_query = "select prix_ttc from article_campagne where id=$i_id";
         $sql_tmp = mysql_query($sql_query);
@@ -385,11 +340,10 @@ class ArticleCampagne {
         return $f_result;
     }
 
-
     /* Setters */
 
-    public static function set($i_id, $i_idArticle, $i_idCampagne, $i_idFournisseur, $i_idTva, $f_poidsPaquetClient, $i_seuilMin, $f_prixHt, $f_prixTtc) {
-        $sql_query = "update article_campagne set id_article='$i_idArticle', id_campagne='$i_idCampagne', id_fournisseur='$i_idFournisseur', id_tva='$i_idTva', poids_paquet_colis='$f_poidsPaquetColis', seuil_min='$i_seuilMin', prix_ht='$f_prixHt', prix_ttc='$f_prixTtc' 
+    public static function set($i_id, $i_idArticle, $i_idCampagne, $i_idFournisseur, $i_idTva, $f_poidsPaquetClient, $i_seuilMin, $f_prixTtc) {
+        $sql_query = "update article_campagne set id_article='$i_idArticle', id_campagne='$i_idCampagne', id_fournisseur='$i_idFournisseur', id_tva='$i_idTva', poids_paquet_colis='$f_poidsPaquetColis', seuil_min='$i_seuilMin', prix_ttc='$f_prixTtc' 
             where id=$i_id";
         $b_result =  mysql_query($sql_query);
         return $b_result;
@@ -432,13 +386,6 @@ class ArticleCampagne {
 
     public static function setSeuilMin($i_id, $i_seuilMin) {
         $sql_query = "update article_campagne set seuil_min='$i_seuilMin' 
-            where id=$i_id";
-        $b_result =  mysql_query($sql_query);
-        return $b_result;
-    }
-
-    public static function setPrixHt($i_id, $f_prixHt) {
-        $sql_query = "update article_campagne set prix_ht='$f_prixHt' 
             where id=$i_id";
         $b_result =  mysql_query($sql_query);
         return $b_result;
