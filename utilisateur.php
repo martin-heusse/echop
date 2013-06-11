@@ -65,7 +65,8 @@ class UtilisateurController extends Controller {
 
         $i_emailSent = 0;
         /* Récupère les données du mail à envoyer */
-        if (isset($_POST['subject'] && isset($_POST['message']) && $_POST['subject'] != "" && $_POST['message'] != "") {
+        /*
+        if (isset($_POST['subject']) && isset($_POST['message']) && ($_POST['subject'] != "") && ($_POST['message'] != ")")) {
             $s_subject = $_POST['subject'];
             $s_message = $_POST['message']; 
             $to_email = Utilisateur::getAllEmail();
@@ -77,7 +78,7 @@ class UtilisateurController extends Controller {
         }
 
         $this->render('envoiMail',compact('i_emailSent'));
-
+         */
     }
 
 
