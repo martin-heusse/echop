@@ -126,7 +126,7 @@ class Utilisateur {
     
     public static function getObjectsByValidite($b_validite) {
         $sql_query = "select * from utilisateur where validite=$b_validite";
-        $sql_tmp = mysql_query($sql_temp);
+        $sql_tmp = mysql_query($sql_query);
         $to_result = null;
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
@@ -139,9 +139,9 @@ class Utilisateur {
         return $to_result;
     }    
     
-    public static function getCountByValidite() {
-        $sql_query = "select count(*) number from utilisateur where validite=false";
-        $sql_tmp = mysql_query($sql_temp);
+    public static function getCountByValidite($b_validite) {
+        $sql_query = "select count(*) number from utilisateur where validite=$b_validite";
+        $sql_tmp = mysql_query($sql_query);
         $i_result = 0;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */

@@ -29,7 +29,7 @@ class UtilisateurController extends Controller {
             return;
         }
         /* Récupère toutes les infos sur un utilisateur */
-        $to_utilisateur = Utilisateur::getObjectsByValidite(1);	
+        $to_utilisateur = Utilisateur::getObjectsByValidite(true);	
         $this->render('listeUtilisateurValide', compact('to_utilisateur'));
     }
 
@@ -49,7 +49,8 @@ class UtilisateurController extends Controller {
         }
         /* Récupère toutes les infos sur un utilisateur */
         $to_utilisateur = Utilisateur::getObjectsByValidite(0);
-        $this->render('listeUtilisateurAValider', compact('to_utilisateur'));
+	$i_nombreUtilisateurAValider = Utilisateur::getCountByValidite(0);
+        $this->render('listeUtilisateurAValider', compact('to_utilisateur','i_nombreUtilisateurAValider'));
     }
 
 

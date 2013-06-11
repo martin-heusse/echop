@@ -1,4 +1,4 @@
-<p><a class="action_navigation" href="<?php echo root ?>">Retour</a></p>
+<p><a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a></p>
 
 <h1>Mes Commandes</h1>
 
@@ -17,7 +17,7 @@
 ?>
 
 <?php
-if ($to_commande != null) {
+if ($to_commande != null and $to_commande != array()) {
 ?>
 
 <?php
@@ -83,7 +83,7 @@ if ($to_commande != null) {
 <?php
         }
 ?>
-        <td class="centrer col_coloree"><?php echo $o_produit['quantite_totale'] ?></td>
+    <td class="centrer col_coloree"><?php echo $o_produit['quantite_totale'] ?><?php echo $o_produit['unite'] ?></td>
         <td class="centrer col_coloree"><?php echo $o_produit['total_ttc'] ?>&euro;</td>
 <?php
         /* Affiche ou non le lien de suppression */
@@ -100,7 +100,7 @@ if ($to_commande != null) {
 ?>  
     <tr>
         <th colspan=9>Montant Total = </th>
-        <td class="centrer"><strong>xx&euro;</strong></td>
+        <td class="centrer"><strong><?php echo $f_montantTotal ?>&euro;</strong></td>
 <?php
     /* Afficher ou non la dernière colonne dans la ligne "Montant total" */
     if ($b_etat == 1) {
@@ -123,7 +123,7 @@ if ($to_commande != null) {
 <?php
 } else {
 ?>
-<p>Vous n'avez pas de commande en cours</p>
+<p>Vous n'avez pas de commande en cours.</p>
 <?php
 }
 ?>

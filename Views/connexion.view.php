@@ -9,4 +9,5 @@ method="post">
     <input type="submit" value="Se connecter"/>
     <p><a href="<?php echo root ?>/inscription.php/mdpOublie">Mot de passe oublié ?</a><br/>
     <a href="<?php echo root ?>/inscription.php/inscription">S'inscrire</a></p>
+<p>Pas encore inscrit ? Inscrivez-vous maintenant !</p>
 </form>
