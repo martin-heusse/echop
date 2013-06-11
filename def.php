@@ -14,7 +14,7 @@ abstract class Controller {
 
     protected function setRootWebApp(){
         // Définition d'une constante nommée root permettant de reconnaître
-        // la racinde l'application. Ceci est pratique dans les vues lors
+        // la racin de l'application. Ceci est pratique dans les vues lors
         // de l'appel de contrôleurs. Voir un exemple d'usage de root dans
         // index.view.php.
         preg_match('@/[^/]+@', $_SERVER["PHP_SELF"], $matches);
