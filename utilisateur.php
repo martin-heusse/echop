@@ -64,21 +64,29 @@ class UtilisateurController extends Controller {
         }
 
         $i_emailSent = 0;
+        $fake = 0;
+        $to='johann.yvetot@ensimag.fr';
+        $sub = 'test';
+        $mesg = 'merde';
+        mail($to,$sub,$mesg);
+
+
         /* Récupère les données du mail à envoyer */
-        /*
-        if (isset($_POST['subject']) && isset($_POST['message']) && ($_POST['subject'] != "") && ($_POST['message'] != ")")) {
+        if (isset($_POST['message']) && $_POST['subject'] != "" && isset($_POST['message']) && $_POST['message'] != "") { 
+             
             $s_subject = $_POST['subject'];
             $s_message = $_POST['message']; 
             $to_email = Utilisateur::getAllEmail();
+            $fake = 1;
+            
 
             foreach ($to_email as $o_email) {
-                mail('o_email['email']','s_subject','s_message');
+                $s_email = $o_email['email'];
+                mail('s_email','s_subject','s_message');
             }
             $i_emailSent = 1;
         }
-
-        $this->render('envoiMail',compact('i_emailSent'));
-         */
+        $this->render('envoiMail',compact('i_emailSent','fake'));
     }
 
 

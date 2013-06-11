@@ -5,6 +5,7 @@
 <?php
 // Trace
 print_r($to_descriptionArticle);
+//print_r($to_fournisseur);
 ?>
 
 <?php
@@ -39,7 +40,17 @@ if ( isset($i_idRayon) ) {
             <th>Poids du paquet echoppe</th>
             <th>Unité</th>
             <th>Nombre de paquets par colis fournisseur</th>
+
             <!-- Boucle pour afficher les fournisseurs disponibles -->
+            <!-- A FAIRE -->
+<?php
+        foreach($to_fournisseur as $o_fournisseur){
+?>
+        <th><?php echo $o_fournisseur['nom'] ?></th>
+<?php
+        }
+?>
+
             <th>Prix HT ou TTC dépensé par l'échoppe pour un colis auprès du founisseur choisi</th>
             <th>Taxe à payer par l'échoppe pour un colis du fournisseur choisi</th>
             <!-- colonne informative attention aux arrondis -->
@@ -67,8 +78,20 @@ if ( isset($i_idRayon) ) {
             <td> <?php echo $o_descriptionArticle['unite'] ?> </td>
             <!-- Nombre de paquets par colis fournisseur -->
             <td> <?php echo $o_descriptionArticle['nb_paquet_colis'] ?> </td>
+
             <!-- Boucle pour afficher les fournisseurs disponibles -->
-            <!-- A FAIRE --!>
+            <!-- A FAIRE -->
+<?php
+        foreach($to_fournisseur as $o_fournisseur){
+            $nom = $o_fournisseur['nom'];
+?>
+            <td>code : <?php echo $o_descriptionArticle[$nom]['code'] ?> <br />
+                prix à verser au fournisseur : <?php echo $o_descriptionArticle[$nom]['prix_article'] ?> <br />
+                prix ttc : 
+            </td>
+<?php
+            }
+?>
             <!-- Taxe à payer par l'échoppe pour un colis du fournisseur choisi -->
             <td> <?php echo $o_descriptionArticle ?> </td>
             <!-- Prix HT ou TTC dépensé par l'échoppe pour un colis auprès du founisseur choisi -->
@@ -79,7 +102,7 @@ if ( isset($i_idRayon) ) {
             <!-- Prix TTC rapporté à l'unité echoppe -->
             <td> <?php echo $o_descriptionArticle ?> </td>
             <!-- TVA -->
-            <td> <?php echo $o_descriptionArticle ?> </td>
+            <td> <?php echo $o_descriptionArticle['tva'] ?> </td>
             <!-- Description courte -->
             <td> <?php echo $o_descriptionArticle['description_courte'] ?> </td>
             <!-- Description longue -->

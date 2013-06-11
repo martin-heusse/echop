@@ -5,7 +5,7 @@ class ArticleFournisseur {
     /* Creaters */
 
     public static function create($i_idArticle, $i_idFournisseur, $f_prixArticle, $s_code) {
-        $sql_query = "insert into article_fournisseur(id_article, id_fournisseur, prix_article, code) 
+        $sql_query = "insert into article_fournisseur(id_article, id_fournisseur, prix_article, code)
             values('$i_idArticle', '$i_idFournisseur', '$f_prixArticle', '$s_code')";
         mysql_query($sql_query);
         $i_result = mysql_insert_id();
@@ -132,18 +132,28 @@ class ArticleFournisseur {
         return $i_result;
     }
 
-    public static function getPrixArticle($i_id) {
-        $sql_query = "select prix_article from article_fournisseur where id=$i_id";
+    public static function getPrixTtc($i_id) {
+        $sql_query = "select prix_ttc from article_fournisseur where id=$i_id";
         $sql_tmp = mysql_query($sql_query);
-        $f_result = null;
+        $i_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
-            /* Formattage des nombres */
-            $o_row['prix_article']    = number_format($o_row['prix_article']   , 2, '.', ' ');
             /* Sécurité et création du résultat */
-            $f_result = htmlentities($o_row['prix_article']);
+            $i_result = htmlentities($o_row['prix_ttc']);
         }
-        return $f_result;
+        return $i_result;
     }
+
+    public static function getPrixHt($i_id) {
+        $sql_query = "select prix_ht from article_fournisseur where id=$i_id";
+        $sql_tmp = mysql_query($sql_query);
+        $i_result = null;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité et création du résultat */
+            $i_result = htmlentities($o_row['prix_ht']);
+        }
+        return $i_result;
+    }
+
 
     public static function getCode($i_id) {
         $sql_query = "select code from article_fournisseur where id=$i_id";
@@ -158,8 +168,8 @@ class ArticleFournisseur {
 
     /* Setters */
 
-    public static function set($i_id, $i_idArticle, $i_idFournisseur, $f_prixArticle) {
-        $sql_query = "update article_fournisseur set id_article='$i_idArticle', id_fournisseur='$i_idFournisseur', prix_article='$f_prixArticle' 
+    public static function set($i_id, $i_idArticle, $i_idFournisseur, $f_prixHt, $f_prixTtc) {
+        $sql_query = "update article_fournisseur set id_article='$i_idArticle', id_fournisseur='$i_idFournisseur', prix_ht='$f_prixHt', prix_ttc='$f_prixTtc'
             where id=$i_id";
         $b_result =  mysql_query($sql_query);
         return $b_result;
@@ -173,14 +183,21 @@ class ArticleFournisseur {
     }
 
     public static function setIdFournisseur($i_id, $i_idFournisseur) {
-        $sql_query = "update article_fournisseur set id_fournisseur='$i_idFournisseur' 
+        $sql_query = "update article_fournisseur set id_fournisseur='$i_idFournisseur'
             where id=$i_id";
         $b_result =  mysql_query($sql_query);
         return $b_result;
     }
 
-    public static function setPrixArticle($i_id, $f_prixArticle) {
-        $sql_query = "update article_fournisseur set prix_article='$f_prixArticle' 
+    public static function setPrixHt($i_id, $i_idArticle) {
+        $sql_query = "update article_fournisseur set prix_ht='$f_prixHt'
+            where id=$i_id";
+        $b_result =  mysql_query($sql_query);
+        return $b_result;
+    }
+
+    public static function setPrixTtc($i_id, $i_idArticle) {
+        $sql_query = "update article_fournisseur set prix_ttc='$f_prixTtc'
             where id=$i_id";
         $b_result =  mysql_query($sql_query);
         return $b_result;
