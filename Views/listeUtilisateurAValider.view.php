@@ -21,9 +21,10 @@ if ($to_utilisateur != null) {
 <?php
     foreach($to_utilisateur as $o_utilisateur) {
 ?>
-<li>
+<li> <a href="../utilisateur.php/validationInscription?idUtilisateur=<?php echo $o_utilisateur['id']?>">
 <?php
         echo $o_utilisateur['login']?>
+ </a>
   </li>
 <?php
     }
