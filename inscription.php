@@ -19,8 +19,6 @@ class InscriptionController extends Controller {
         $s_passwd = "undo";
         $s_email = "undo";
 
-        $fake = 0;
-
         if (isset($_POST['login']) && isset($_POST['motDePasse']) && isset($_POST['email']) && $_POST['login'] != "" && $_POST['motDePasse'] != "" && $_POST['email'] != "") {
             $s_login = $_POST['login'];
             $s_passwd = $_POST['motDePasse'];
