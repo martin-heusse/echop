@@ -86,7 +86,8 @@ if ( isset($i_idRayon) ) {
             $nom = $o_fournisseur['nom'];
 ?>
             <td>code : <?php echo $o_descriptionArticle[$nom]['code'] ?> <br />
-                prix : <?php echo $o_descriptionArticle[$nom]['prix_article'] ?>
+                prix à verser au fournisseur : <?php echo $o_descriptionArticle[$nom]['prix_article'] ?> <br />
+                prix ttc : 
             </td>
 <?php
             }
