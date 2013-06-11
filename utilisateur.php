@@ -54,7 +54,7 @@ class UtilisateurController extends Controller {
     }
 
     /* Permet de valider l'inscription d'un utilisateur */
-    public function validationInscription (){
+    public function validerInscription (){
 	/* Authentication required */
         if (!Utilisateur::isLogged()) {
             $this->render('authenticationRequired');
@@ -66,10 +66,9 @@ class UtilisateurController extends Controller {
             return;
         }
 	/* Récupération de l'identifiant de l'utilisateur à ajouter */
-        if (!isset($_GET['id'])) {
-            $i_idUtilisateur = $_SESSION['idUtilisateur>'];
-        } else {
-            $i_idUtilisateur = $_GET['idUtilisateur']; 
+        if (isset($_GET['id'])) {
+	    $i_idUtilisateur = $_GET['id'];
+	    Utilisateur::setValidite($i_idUtilisateur, 1);
         }
     }
 
