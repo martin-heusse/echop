@@ -11,7 +11,6 @@ if ($to_commande != null) {
 <table>
     <tr>
         <th>Utilisateur</th>
-        <th>Prix total HT</th>
         <th>Prix total TTC</th>
     </tr>
 <?php
@@ -21,7 +20,6 @@ if ($to_commande != null) {
     <tr class="ligne_article<?php echo $i_numLigne ?>">
         <td><a href="../commande.php/commandeUtilisateur?idUtilisateur=<?php echo $o_utilisateur['id_utilisateur']?>">
         <?php echo $o_utilisateur['login_utilisateur'] ?></a></td>
-        <td><?php echo $o_utilisateur['prix_ht'] ?></td>
         <td><?php echo $o_utilisateur['prix_ttc'] ?></td>
     </tr>
 <?php

@@ -49,10 +49,10 @@ class UtilisateurController extends Controller {
         }
         /* Récupère toutes les infos sur un utilisateur */
         $to_utilisateur = Utilisateur::getObjectsByValidite(0);
-	$i_nombreUtilisateurAValider = Utilisateur::getCountByValidite(0);
+        $i_nombreUtilisateurAValider = Utilisateur::getCountByValidite(0);
         $this->render('listeUtilisateurAValider', compact('to_utilisateur','i_nombreUtilisateurAValider'));
     }
-    
+
     /*
      * Permet l'envoi de mail à l'ensemble des utilisateurs.
      */
@@ -75,9 +75,9 @@ class UtilisateurController extends Controller {
             }
             $i_emailSent = 1;
         }
-        
+
         $this->render('envoiMail',compact('i_emailSent'));
-    
+
     }
 
 

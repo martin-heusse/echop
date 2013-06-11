@@ -7,22 +7,26 @@
 if ($i_nombreUtilisateurAValider == 1){
 ?>
 Il y a <?php echo $i_nombreUtilisateurAValider?> utilisateur à valider. 
-<?php } else { ?>
+<?php
+} else {
+?>
 Il y a <?php echo $i_nombreUtilisateurAValider?> utilisateurs à valider.
-<?php } ?>
+<?php
+}
+?>
 <?php
 if ($to_utilisateur != null) {
-   ?> 
+?> 
 <ul>
 <?php
-   foreach($to_utilisateur as $o_utilisateur) {
-    ?>
+    foreach($to_utilisateur as $o_utilisateur) {
+?>
 <li>
 <?php
-  echo $o_utilisateur['login']?>
+        echo $o_utilisateur['login']?>
   </li>
 <?php
-     }
+    }
 ?>
 </ul>
 
