@@ -4,27 +4,35 @@
 
 <?php
 // Trace
-print_r($to_descriptionArticle);
-//print_r($to_fournisseur);
+// print_r($to_descriptionArticle);
+// print_r($to_fournisseur);
 ?>
 
+<p> La liste des actions : </p>
+<a href="http://localhost/echoppe/rayon.php/creerRayon"> créer un rayon <a/>
+&nbsp
+<a href="http://localhost/echoppe/rayon.php/creerRayon"> créer un article <a/>
+
+<p> La liste des rayons : </p>
 <?php
 foreach ($to_rayon as $o_rayon) {
 ?>
-
 <!-- affichage de la liste des rayons -->
 <a href="http://localhost/echoppe/rayon.php/gererRayon?i_idRayon=<?php echo $o_rayon['id'] ?>">
 <?php echo $o_rayon['nom'] ?>
 </a>
+&nbsp
 <?php
 }
 ?>
+
 <!-- par défaut pas de rayon -->
 <!-- reste à vérifier que l'utilisateur ne peut pas rentrer n'importe quoi dans l'URL -->
 <?php
 if ( isset($i_idRayon) ) {
 ?>
-<p> Il y a un rayon !</p>
+<!-- // Trace
+<p> Il y a un rayon !</p> -->
 <?php 
     if ( $to_descriptionArticle == array()) {
 ?>
@@ -40,6 +48,7 @@ if ( isset($i_idRayon) ) {
             <th>Poids du paquet echoppe</th>
             <th>Unité</th>
             <th>Nombre de paquets par colis fournisseur</th>
+            <th>Seuil min</th>
 
             <!-- Boucle pour afficher les fournisseurs disponibles -->
             <!-- A FAIRE -->
@@ -51,8 +60,6 @@ if ( isset($i_idRayon) ) {
         }
 ?>
 
-            <th>Prix HT ou TTC dépensé par l'échoppe pour un colis auprès du founisseur choisi</th>
-            <th>Taxe à payer par l'échoppe pour un colis du fournisseur choisi</th>
             <!-- colonne informative attention aux arrondis -->
             <th>Prix TTC choisi par l'échoppe rapporté au colis du fournisseur vendu au client</th>
             <!-- colonne informative -->
@@ -78,29 +85,39 @@ if ( isset($i_idRayon) ) {
             <td> <?php echo $o_descriptionArticle['unite'] ?> </td>
             <!-- Nombre de paquets par colis fournisseur -->
             <td> <?php echo $o_descriptionArticle['nb_paquet_colis'] ?> </td>
+            <!-- Seuil min -->
+            <td> <?php echo $o_descriptionArticle['seuil_min'] ?> </td>
 
             <!-- Boucle pour afficher les fournisseurs disponibles -->
             <!-- A FAIRE -->
 <?php
-        foreach($to_fournisseur as $o_fournisseur){
-            $nom = $o_fournisseur['nom'];
+            foreach($to_fournisseur as $o_fournisseur){
+                $nom = $o_fournisseur['nom'];
+                if(isset($o_descriptionArticle[$nom])){
 ?>
-            <td>code : <?php echo $o_descriptionArticle[$nom]['code'] ?> <br />
-                prix à verser au fournisseur : <?php echo $o_descriptionArticle[$nom]['prix_article'] ?> <br />
-                prix ttc : 
-            </td>
+            <td>code : <?php echo $o_descriptionArticle[$nom]['code'] ?>
+                 <br />prix à verser au fournisseur : 
 <?php
+                    if($o_descriptionArticle[$nom]['prix_ht'] == ""){
+                        echo $o_descriptionArticle[$nom]['prix_ttc'];
+                    } else {
+                        echo $o_descriptionArticle[$nom]['prix_ht'];
+                    }
+?>
+              <br />prix ttc : <?php echo $o_descriptionArticle[$nom]['prix_ttc'] ?></td>
+<?php
+                } else {
+?>
+                <td> </td>
+<?php
+                }
             }
 ?>
-            <!-- Taxe à payer par l'échoppe pour un colis du fournisseur choisi -->
-            <td> <?php echo $o_descriptionArticle ?> </td>
-            <!-- Prix HT ou TTC dépensé par l'échoppe pour un colis auprès du founisseur choisi -->
+
             <!-- Prix TTC choisi par l'échoppe rapporté au colis du fournisseur vendu au client -->
-            <td> <?php echo $o_descriptionArticle ?> </td>
-            <!-- Prix TTC choisi par l'échoppe rapporté au colis du fournisseur vendu au client -->
-            <td> <?php echo $o_descriptionArticle ?> </td>
+            <td> <?php echo $o_descriptionArticle['prix_ttc'] ?> </td>
             <!-- Prix TTC rapporté à l'unité echoppe -->
-            <td> <?php echo $o_descriptionArticle ?> </td>
+            <td> <?php echo $o_descriptionArticle['prix_echoppe_ttc'] ?> </td>
             <!-- TVA -->
             <td> <?php echo $o_descriptionArticle['tva'] ?> </td>
             <!-- Description courte -->
