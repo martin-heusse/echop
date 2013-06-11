@@ -62,23 +62,14 @@ class UtilisateurController extends Controller {
             $this->render('authentificationRequired');
             return;
         }
-
+        
         $i_emailSent = 0;
-        $fake = 0;
-        $to='johann.yvetot@ensimag.fr';
-        $sub = 'test';
-        $mesg = 'merde';
-        mail($to,$sub,$mesg);
-
 
         /* Récupère les données du mail à envoyer */
-        if (isset($_POST['message']) && $_POST['subject'] != "" && isset($_POST['message']) && $_POST['message'] != "") { 
-             
+        if (isset($_POST['subject']) && $_POST['subject'] != "" && isset($_POST['message']) && $_POST['message'] != "") { 
             $s_subject = $_POST['subject'];
             $s_message = $_POST['message']; 
             $to_email = Utilisateur::getAllEmail();
-            $fake = 1;
-            
 
             foreach ($to_email as $o_email) {
                 $s_email = $o_email['email'];
