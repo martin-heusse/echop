@@ -96,7 +96,8 @@ CREATE TABLE article_fournisseur (
    id integer not null auto_increment,
    id_article integer not null,
    id_fournisseur integer not null,
-   prix_article float,
+   prix_ht float,
+   prix_ttc float,
    code varchar(255),
 
     constraint pk_article_fournisseur primary key(id),
@@ -116,7 +117,6 @@ CREATE TABLE article_campagne (
     id_tva integer not null,
     poids_paquet_client float,
     seuil_min float,
-    prix_ht float,
     prix_ttc float,
 
     constraint pk_article_campagne primary key(id),
