@@ -13,7 +13,6 @@ class InscriptionController extends Controller {
             return;
         }
         /* Variables d'inscription */
-        $to_checkLogin = array();
         $i_errReg = 1;
         $i_errLogin = 0;
         $s_login = "undo";
@@ -33,7 +32,7 @@ class InscriptionController extends Controller {
             if ($to_checkLogin != array()) {
                 $i_errLogin = 1;
             } else {
-                $b_valide = false;
+                $b_valide = 0;
                 Utilisateur::create($s_login, $s_passwd, $s_email,$b_valide);
                 $i_errReg = 0;
             }

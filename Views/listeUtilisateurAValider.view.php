@@ -3,26 +3,30 @@
 <h1>Liste des inscriptions d'utilisateurs à valider</h1>
 
  <p>
-<php?
+<?php
 if ($i_nombreUtilisateurAValider == 1){
 ?>
-Il y a <?php echo $i_nombreUtilisateurAValider?> utilisateur à valider. dna sle if
-<php? } else { ?>
-Il y a <?php echo $i_nombreUtilisateurAValider?> utilisateurs à valider. dans le else
-<php? } ?>
+Il y a <?php echo $i_nombreUtilisateurAValider?> utilisateur à valider. 
+<?php
+} else {
+?>
+Il y a <?php echo $i_nombreUtilisateurAValider?> utilisateurs à valider.
+<?php
+}
+?>
 <?php
 if ($to_utilisateur != null) {
-   ?> 
+?> 
 <ul>
 <?php
-   foreach($to_utilisateur as $o_utilisateur) {
-    ?>
+    foreach($to_utilisateur as $o_utilisateur) {
+?>
 <li>
-  <?php
-  echo $o_utilisateur['login']?>
+<?php
+        echo $o_utilisateur['login']?>
   </li>
 <?php
-     }
+    }
 ?>
 </ul>
 

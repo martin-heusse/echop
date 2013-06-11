@@ -33,10 +33,11 @@ if (Utilisateur::isLogged()) {
     <h1 class="titre_menu">Administration</h1>
     <ul>
         <li><a href="<?php echo root ?>/rayon.php/gererRayon">Gérer les rayons</a></li>
-        <li><a href="<?php echo root ?>/utilisateur.php/listeUtilisateurAValider">Inscriptions à valider</a></li>
+	    <li><a href="<?php echo root ?>/utilisateur.php/listeUtilisateurAValider">Inscriptions à valider (<?php echo Utilisateur::getCountByValidite(0) ?>)</a></li>
         <li><a href="<?php echo root ?>/utilisateur.php/listeUtilisateurValide">Liste des utilisateurs</a></li>
         <li><a href="<?php echo root ?>/fournisseur.php/tousLesFournisseurs">Liste des fournisseurs</a></li>
         <li><a href="<?php echo root ?>/campagne.php/historiqueCampagne">Historique des campagnes</a></li>
+        <li><a href="<?php echo root ?>/utilisateur.php/envoiMail">Envoyer un mail à tous les utilisateurs</a></li>
     </ul>
 <?php
     }

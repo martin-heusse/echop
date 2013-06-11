@@ -8,7 +8,7 @@ Cliquez sur l'un des articles pour voir la liste de tous les utilisateurs l'ayan
 <table>
     <tr>
         <th>Article</th>
-        <th>Quantité commandée</th>
+        <th>Quantité totale commandée</th>
     </tr>
 <?php
 $i_numLigne = 0;

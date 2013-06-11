@@ -2,6 +2,14 @@
 
 <h1>Commandes par fournisseur</h1>
 
+<?php
+if ($to_fournisseur == null or $to_fournisseur == array()) {
+?>
+<p>Aucun fournisseur n'a été choisis pour les articles de cette campagne.</p>
+<?php
+} else {
+?>
+
 <p>Liste de tous les founisseurs choisis pour la campagne courante.<br/>
 Cliquez sur un nom de fournisseur pour voir les commandes associées pour la campagne courante.</p>
 
@@ -26,3 +34,6 @@ foreach ($to_fournisseur as $o_fournisseur) {
 }
 ?>
 </table>
+<?php
+}
+?>

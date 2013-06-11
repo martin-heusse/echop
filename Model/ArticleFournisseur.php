@@ -140,7 +140,7 @@ class ArticleFournisseur {
             /* Formattage des nombres */
             $o_row['prix_article'] = number_format($o_row['prix_article'], 2, '.', ' ');
             /* Sécurité et création du résultat */
-            $f_result = htmlentities($o_row['email']);
+            $f_result = htmlentities($o_row['prix_article']);
         }
         return $f_result;
     }
