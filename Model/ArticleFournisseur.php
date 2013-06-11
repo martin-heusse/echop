@@ -4,9 +4,9 @@ class ArticleFournisseur {
 
     /* Creaters */
 
-    public static function create($i_idArticle, $i_idFournisseur, $f_prixArticle, $s_code) {
-        $sql_query = "insert into article_fournisseur(id_article, id_fournisseur, prix_article, code)
-            values('$i_idArticle', '$i_idFournisseur', '$f_prixArticle', '$s_code')";
+    public static function create($i_idArticle, $i_idFournisseur, $f_prixHt, $f_prixTtc, $s_code) {
+        $sql_query = "insert into article_fournisseur(id_article, id_fournisseur, prix_ht, prix_ttc, code)
+            values('$i_idArticle', '$i_idFournisseur', '$f_prixHt', '$_prixTtc', '$s_code')";
         mysql_query($sql_query);
         $i_result = mysql_insert_id();
         return $i_result;
@@ -28,7 +28,8 @@ class ArticleFournisseur {
         }
         /* Formattage des nombres */
         foreach ($to_result as &$o_row) {
-            $o_row['prix_article']    = number_format($o_row['prix_article']   , 2, '.', ' ');
+            $o_row['prix_ht']  = number_format($o_row['prix_ht'],  2, '.', ' ');
+            $o_row['prix_ttc'] = number_format($o_row['prix_ttc'], 2, '.', ' ');
         }
         return $to_result;
     }
@@ -47,7 +48,8 @@ class ArticleFournisseur {
         }
         /* Formattage des nombres */
         foreach ($to_result as &$o_row) {
-            $o_row['prix_article']    = number_format($o_row['prix_article']   , 2, '.', ' ');
+            $o_row['prix_ht']  = number_format($o_row['prix_ht'],  2, '.', ' ');
+            $o_row['prix_ttc'] = number_format($o_row['prix_ttc'], 2, '.', ' ');
 
         }
         return $to_result;
@@ -65,17 +67,17 @@ class ArticleFournisseur {
             /* Création du résultat */
             $to_result[] = $o_row;
         }
-
         /* Formattage des nombres */
         foreach ($to_result as &$o_row) {
-            $o_row['prix_article']    = number_format($o_row['prix_article']   , 2, '.', ' ');
+            $o_row['prix_ht']  = number_format($o_row['prix_ht'],  2, '.', ' ');
+            $o_row['prix_ttc'] = number_format($o_row['prix_ttc'], 2, '.', ' ');
         }
         return $to_result;
     }
 
 
-    public static function getObjectsByPrixArticle($f_prixArticle) {
-        $sql_query = "select * from article_fournisseur where prix_article=$f_prixArticle";
+    public static function getObjectsByPrixHt($f_prixHt) {
+        $sql_query = "select * from article_fournisseur where prix_ht=$f_prixHt";
         $sql_tmp = mysql_query($sql_query);
         $to_result = array();
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
@@ -88,7 +90,28 @@ class ArticleFournisseur {
         }
         /* Formattage des nombres */
         foreach ($to_result as &$o_row) {
-            $o_row['prix_article']    = number_format($o_row['prix_article']   , 2, '.', ' ');
+            $o_row['prix_ht']  = number_format($o_row['prix_ht'],  2, '.', ' ');
+            $o_row['prix_ttc'] = number_format($o_row['prix_ttc'], 2, '.', ' ');
+        }
+        return $to_result;
+    }
+
+    public static function getObjectsByPrixTtc($f_prixHt) {
+        $sql_query = "select * from article_fournisseur where prix_ttc=$f_prixTtc";
+        $sql_tmp = mysql_query($sql_query);
+        $to_result = array();
+        while ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité */
+            foreach ($o_row as &$column) {
+                $column = htmlentities($column);
+            }
+            /* Création du résultat */
+            $to_result[] = $o_row;
+        }
+        /* Formattage des nombres */
+        foreach ($to_result as &$o_row) {
+            $o_row['prix_ht']  = number_format($o_row['prix_ht'],  2, '.', ' ');
+            $o_row['prix_ttc'] = number_format($o_row['prix_ttc'], 2, '.', ' ');
         }
         return $to_result;
     }
@@ -99,7 +122,8 @@ class ArticleFournisseur {
         $o_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Formattage des nombres */
-            $o_row['prix_article']    = number_format($o_row['prix_article']   , 2, '.', ' ');
+            $o_row['prix_ht']  = number_format($o_row['prix_ht'],  2, '.', ' ');
+            $o_row['prix_ttc'] = number_format($o_row['prix_ttc'], 2, '.', ' ');
             /* Sécurité */
             foreach ($o_row as &$column) {
                 $column = htmlentities($column);
@@ -137,6 +161,8 @@ class ArticleFournisseur {
         $sql_tmp = mysql_query($sql_query);
         $i_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Formattage des nombres */
+            $o_row['prix_ttc'] = number_format($o_row['prix_ttc'], 2, '.', ' ');
             /* Sécurité et création du résultat */
             $i_result = htmlentities($o_row['prix_ttc']);
         }
@@ -148,6 +174,8 @@ class ArticleFournisseur {
         $sql_tmp = mysql_query($sql_query);
         $i_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Formattage des nombres */
+            $o_row['prix_ht'] = number_format($o_row['prix_ht'], 2, '.', ' ');
             /* Sécurité et création du résultat */
             $i_result = htmlentities($o_row['prix_ht']);
         }

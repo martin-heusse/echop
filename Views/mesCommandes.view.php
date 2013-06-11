@@ -24,7 +24,7 @@ if ($to_commande != null and $to_commande != array()) {
     /* Affiche ou non le formulaire */
     if ($b_etat == 1) {
 ?>
-<form method="post" action="commande.php/modifierQuantite">
+<form method="post" action="mesCommandes.php/mesCommandesModifier">
 <?php
     }
 ?>
@@ -89,7 +89,7 @@ if ($to_commande != null and $to_commande != array()) {
         /* Affiche ou non le lien de suppression */
         if ($b_etat == 1) {
 ?>
-        <td class="centrer"><a href="../commande.php/supprimerArticle?id_article=<?php echo $o_produit['id_article']?>">supprimer l'article</a>
+        <td class="centrer"><a href="../mesCommandes.php/mesCommandesSupprimer?id_article=<?php echo $o_produit['id_article']?>">supprimer l'article</a>
 <?php
         }
 ?>
