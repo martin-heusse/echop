@@ -1,4 +1,4 @@
-<p><a class="action_navigation" href="<?php echo root ?>/commande.php/articlesCommandEs">Retour</a></p>
+<p><a class="action_navigation" href="<?php echo root ?>/commande.php/articlesCommandEs">Retour aux articles commandés</a></p>
 
 <h1>Utilisateurs ayant commandé cet article</h1>
 

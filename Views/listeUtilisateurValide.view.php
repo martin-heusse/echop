@@ -1,4 +1,4 @@
-<p><a class="action_navigation" href="<?php echo root ?>">Retour</a></p>
+<p><a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a></p>
 
 <h1>Liste de tous les utilisateurs</h1>
 

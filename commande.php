@@ -218,43 +218,6 @@ class CommandeController extends Controller {
      * courante.
      */
     public function commandeUtilisateur() {
-        /*
-        if (!isset($_GET['idUtilisateur'])) {
-            header('Location: '.root.'/commande.php/utilisateurAyantCommandE');
-            return;
-        }
-        $i_idUtilisateur = $_GET['idUtilisateur'];
-        $i_idCampagne = Campagne::getIdCampagneCourante();
-        $to_commandeUtilisateur = Commande::getObjectsByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur);
-
-        foreach($to_commandeUtilisateur as &$o_article) {
-
-            $i_idArticle = $o_article['id_article'];
-            $o_article['nom'] = Article::getNom($i_idArticle);
-            $o_article['poids_paquet_fournisseur'] = Article::getPoidsPaquetFournisseur($i_idArticle);
-            $i_idUnite = Article::getIdUnite($i_idArticle);
-            $o_article['unite'] = Unite::getUnite($i_idUnite);
-            $o_article['nb_paquet_colis'] = Article::getNbPaquetColis($i_idArticle);
-            $o_article['description_courte'] = Article::getDescriptionCourte($i_idArticle);
-            $o_article['description_longue'] = Article::getDescriptionLongue($i_idArticle);
-            // prix ttc
-            $o_article_campagne = ArticleCampagne::getObjectByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
-            $o_article['prix_ttc'] = $o_article_campagne['prix_ttc'];
-            $o_article['seuil_min'] = $o_article_campagne['seuil_min'];
-            // poids paquet client
-            $o_article['poids_paquet_client'] = $o_article_campagne['poids_paquet_client'];
-            //calcul poids unitaire
-            $o_article['prix_unitaire']=$o_article['prix_ttc']/$o_article['poids_paquet_fournisseur'];
-            //calcul quantite totale
-            $o_article['quantite_totale']=$o_article['quantite']*$o_article['poids_paquet_client'];
-            // calcul total ttc
-            $o_article['total_ttc']=$o_article['quantite_totale']*$o_article['prix_ttc']/$o_article['poids_paquet_fournisseur'];
-
-            // recherche du login 
-            $s_login = Utilisateur::getLogin($i_idUtilisateur);
-        }
-        $this->render('commandeUtilisateur', compact('to_commandeUtilisateur', 's_login'));
-         */
         /* Authentication required */
         if (!Utilisateur::isLogged()) {
             $this->render('authenticationRequired');
@@ -363,7 +326,7 @@ class CommandeController extends Controller {
         $i_idCommande = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
         Commande::delete($i_idCommande);
         /* Redirection */
-        header('Location: '.root.'/commande.php/commandeUtilisateur');
+        header('Location: '.root.'/commande.php/commandeUtilisateur?idUtilisateur='.$i_idUtilisateur);
     }
 
     /*
