@@ -25,7 +25,7 @@ class InscriptionController extends Controller {
             $s_login = $_POST['login'];
             $s_passwd = $_POST['motDePasse'];
             $s_email = $_POST['email'];
-            $to_checkLogin = Utilisateur::getObjectByLogin($s_login); */
+            $to_checkLogin = Utilisateur::getObjectByLogin($s_login); 
 
             /* Vérification de la disponibilité du login */
             if ($to_checkLogin == array()) {

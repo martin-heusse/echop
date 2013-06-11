@@ -54,6 +54,7 @@ class UtilisateurController extends Controller {
     }
 
     /* Permet de valider l'inscription d'un utilisateur */
+
     public function validerInscription (){
 	/* Authentication required */
         if (!Utilisateur::isLogged()) {
@@ -66,10 +67,33 @@ class UtilisateurController extends Controller {
             return;
         }
 	/* Récupération de l'identifiant de l'utilisateur à ajouter */
-        if (isset($_GET['id'])) {
-	    $i_idUtilisateur = $_GET['id'];
-	    Utilisateur::setValidite($i_idUtilisateur, 1);
+        if (isset($_GET['idUtilisateur'])) {
+	    $i_idUtilisateur = $_GET['idUtilisateur'];
+	    Utilisateur::setValidite($i_idUtilisateur, 1);   
         }
+        header('Location: '.root.'/utilisateur.php/listeUtilisateurAValider');
+    }
+
+
+    /* Permet de refuser l'inscription d'un utilisateur */
+
+    public function refuserInscription (){
+	/* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if(!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
+	/* Récupération de l'identifiant de l'utilisateur à supprimer */
+        if (isset($_GET['idUtilisateur'])) {
+	    $i_idUtilisateur = $_GET['idUtilisateur'];
+	    Utilisateur::delete($i_idUtilisateur);   
+        }
+        header('Location: '.root.'/utilisateur.php/listeUtilisateurAValider');
     }
 
     /*
