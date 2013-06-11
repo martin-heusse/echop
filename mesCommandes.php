@@ -11,9 +11,9 @@ require_once('Model/Rayon.php');
 require_once('Model/Fournisseur.php');
 
 /*
- * Gère les commandes.
+ * Gère "Mes commandes" des utilisateurs en tant qu'utilisateur.
  */
-class CommandeController extends Controller {
+class MesCommandesController extends Controller {
 
     /*
      * Constructeur.
@@ -23,24 +23,9 @@ class CommandeController extends Controller {
     }
 
     /*
-     * Affiche la liste de tous les utilisateurs ayant effectué une commande 
-     * dans la campagne courante.
+     * Affiche les commandes de l'utilisateur courant.
      */
-    public function utilisateurAyantCommandE(){  
-        $i_idCampagne = Campagne::getIdCampagneCourante();
-        $to_commande = Commande::getIdUtilisateurUniqueByIdCampagne($i_idCampagne);
-        foreach($to_commande as &$o_article) {
-            $i_idUtilisateur = $o_article['id_utilisateur'];
-            $o_article['login_utilisateur'] = Utilisateur::getLogin($i_idUtilisateur);
-        }
-        $this->render('utilisateurAyantCommandE', compact('to_commande'));	
-    }
-
-    /*
-     * Affiche la liste des commandes d'un utilisateur pour la campagne 
-     * courante.
-     */
-    public function commandeUtilisateur() {
+    public function mesCommandes() {
         /* Authentication required */
         if (!Utilisateur::isLogged()) {
             $this->render('authenticationRequired');
@@ -50,12 +35,8 @@ class CommandeController extends Controller {
         $i_idCampagne = Campagne::getIdCampagneCourante();
         /* Récupération de l'état de la campagne */
         $b_etat = Campagne::getEtat($i_idCampagne);
-        /* Récupération des articles commandés par l'utilisateur */
-        if (!isset($_GET['idUtilisateur'])) {
-            header('Location: '.root.'/commande.php/utilisateurAyantCommandE');
-            return;
-        }
-        $i_idUtilisateur = $_GET['idUtilisateur'];
+        /* Récupération des articles commandés par l'utilisateur courant */
+        $i_idUtilisateur = $_SESSION['idUtilisateur'];
         $to_commande = Commande::getObjectsByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur);
         /* Montant total */
         $f_montantTotal = 0;
@@ -90,25 +71,25 @@ class CommandeController extends Controller {
             $f_montantTotal += $o_article['total_ttc'];
             $f_montantTotal = number_format($f_montantTotal, 2, '.', ' ');
         }
-        // recherche du login 
-        $s_login = Utilisateur::getLogin($i_idUtilisateur);
-        $this->render('commandeUtilisateur', compact('to_commande', 'b_etat', 'f_montantTotal', 'i_idUtilisateur', 's_login'));
+        $this->render('mesCommandes', compact('to_commande', 'b_etat', 'f_montantTotal'));
     }
 
     /*
-     * Gère la modification des quantités dans la commande d'un utilisateur.
+     * Gère la modification des quantités dans "mes commandes" de la commande
+     * de l'utilisateur courant.
      */
-    public function modifierQuantiteUtilisateur() {
-        /* Récupération des articles commandés par l'utilisateur */
-        if (!isset($_GET['idUtilisateur'])) {
-            header('Location: '.root.'/commande.php/utilisateurAyantCommandE');
-            return;
-        }
-        $i_idUtilisateur = $_GET['idUtilisateur']; 
+    public function mesCommandesModifier() {
         /* Récupération de l'identifiant de la campagne courante */
         $i_idCampagne = Campagne::getIdCampagneCourante();
         /* Récupération de l'état de la campagne */
         $b_etat = Campagne::getEtat($i_idCampagne);
+        /* La campagne est fermée */
+        if ($b_etat == 0) {
+            header('Location: '.root.'/mesCommandes.php/mesCommandes');
+            return;
+        }
+        /* Récupération des articles commandés par l'utilisateur courant */
+        $i_idUtilisateur = $_SESSION['idUtilisateur'];
         /* Récupération des articles de l'utilisateur */
         $ti_article = Commande::getIdArticleByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur);
         /* Pour chaque article on modifie la quantité si nécéssaire */
@@ -128,81 +109,39 @@ class CommandeController extends Controller {
             }	
         }
         /* Redirection */
-        header('Location: '.root.'/commande.php/commandeUtilisateur?idUtilisateur='.$i_idUtilisateur);
+        header('Location: '.root.'/mesCommandes.php/mesCommandes');
     }
 
     /*
-     * Supprime l'article d'un utilisateur.
+     * Supprime l'article de l'utilisateur courant.
      */
-    public function supprimerArticleUtilisateur() {
-        /* Récupération des articles commandés par l'utilisateur */
-        if (!isset($_GET['idUtilisateur'])) {
-            header('Location: '.root.'/commande.php/utilisateurAyantCommandE');
-        }
-        $i_idUtilisateur = $_GET['idUtilisateur']; 
+    public function mesCommandesSupprimer() {
         /* Récupération de l'identifiant de la campagne courante */
         $i_idCampagne = Campagne::getIdCampagneCourante();
         /* Récupération de l'état de la campagne */
         $b_etat = Campagne::getEtat($i_idCampagne);
+        /* La campagne est fermée */
+        if ($b_etat == 0) {
+            header('Location: '.root.'/mesCommandes.php/mesCommandes');
+            return;
+        }
+        /* Récupération des articles commandés par l'utilisateur courant */
+        $i_idUtilisateur = $_SESSION['idUtilisateur'];
         /* Récupération de l'id article à supprimer */
         $i_idArticle = $_GET['id_article'];
         $i_idCommande = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
         Commande::delete($i_idCommande);
         /* Redirection */
-        header('Location: '.root.'/commande.php/commandeUtilisateur?idUtilisateur='.$i_idUtilisateur);
+        header('Location: '.root.'/mesCommandes.php/mesCommandes');
     }
 
-    /*
-     * Affiche la liste des articles commandés pour la campagne courante.
-     */
-    public function articlesCommandEs() {
-        /* Authentication required */
-        if (!Utilisateur::isLogged()) {
-            $this->render('authenticationRequired');
-            return;
-        }
-        $o_campagne = Campagne::getCampagneCourante();
-        $i_idCampagne = $o_campagne['id'];
-        $to_article = Commande::getIdArticleByIdCampagne($i_idCampagne);
-        foreach ($to_article as &$o_row) {
-            $o_row['nom'] = Article::getNom($o_row['id_article']);
-        }
-        $this->render('articlesCommandEs', compact('to_article'));
-    }
-
-    /*
-     * Affiche les utilisateurs ayant commandé un article en particulier pour la 
-     * campagne courante.
-     */
-    public function utilisateursAyantCommandECetArticle() {
-        /* Authentication required */
-        if (!Utilisateur::isLogged()) {
-            $this->render('authenticationRequired');
-            return;
-        }
-        /* Paramètre GET nécessaire */
-        if(!isset($_GET['idArticle'])) {
-            header('Location: '.root.'/commande.php/articlesCommandEs');
-            return;
-        }
-        $i_idArticle = $_GET['idArticle'];
-        $o_campagne = Campagne::getCampagneCourante();
-        $i_idCampagne = $o_campagne['id'];
-        $to_utilisateur = Commande::getIdUtilisateurByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
-        foreach ($to_utilisateur as &$o_row) {
-            $o_row['login'] = Utilisateur::getLogin($o_row['id_utilisateur']);
-            $o_row['id'] = $o_row['id_utilisateur'];
-        }
-        $s_nomArticle = Article::getNom($i_idArticle);
-        $this->render('utilisateursAyantCommandECetArticle', compact('to_utilisateur', 's_nomArticle'));
-    }
 
     /*
      * Action par défaut.
      */
     public function defaultAction() {
-        header('Location: '.root.'/commande.php/mesCommandes');
+        header('Location: '.root.'/mesCommandes.php/mesCommandes');
     }
 }
-new CommandeController();
+new MesCommandesController();
 ?>

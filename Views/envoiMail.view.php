@@ -7,12 +7,12 @@
     <form name="formulaire" 
     action="<?php echo root ?>/utilisateur.php/envoiMail"
     enctype="multipart/form-data"
-    methode="post">
+    method="post">
     
     <p><span class="form_col"><label>Sujet :</label></span><input type="text" name="subject" required/></p>
-    <br><textarea rows ='10' cols='80' name='message'>Message:</textarea></br>
+    <br><textarea rows ='10' cols='70' name='message'></textarea></br>
+    <input type="submit" value="Envoyer">
     </form>
-
 <?php 
     } else {
 ?>
@@ -20,3 +20,4 @@
 <?php
     }
 ?>
+

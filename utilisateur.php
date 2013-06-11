@@ -53,6 +53,49 @@ class UtilisateurController extends Controller {
         $this->render('listeUtilisateurAValider', compact('to_utilisateur','i_nombreUtilisateurAValider'));
     }
 
+    /* Permet de valider l'inscription d'un utilisateur */
+
+    public function validerInscription (){
+	/* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if(!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
+	/* Récupération de l'identifiant de l'utilisateur à ajouter */
+        if (isset($_GET['idUtilisateur'])) {
+	    $i_idUtilisateur = $_GET['idUtilisateur'];
+	    Utilisateur::setValidite($i_idUtilisateur, 1);   
+        }
+        header('Location: '.root.'/utilisateur.php/listeUtilisateurAValider');
+    }
+
+
+    /* Permet de refuser l'inscription d'un utilisateur */
+
+    public function refuserInscription (){
+	/* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if(!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
+	/* Récupération de l'identifiant de l'utilisateur à supprimer */
+        if (isset($_GET['idUtilisateur'])) {
+	    $i_idUtilisateur = $_GET['idUtilisateur'];
+	    Utilisateur::delete($i_idUtilisateur);   
+        }
+        header('Location: '.root.'/utilisateur.php/listeUtilisateurAValider');
+    }
+
     /*
      * Permet l'envoi de mail à l'ensemble des utilisateurs.
      */
@@ -62,23 +105,22 @@ class UtilisateurController extends Controller {
             $this->render('authentificationRequired');
             return;
         }
-
+        
         $i_emailSent = 0;
+
         /* Récupère les données du mail à envoyer */
-        /*
-        if (isset($_POST['subject']) && isset($_POST['message']) && ($_POST['subject'] != "") && ($_POST['message'] != ")")) {
+        if (isset($_POST['subject']) && $_POST['subject'] != "" && isset($_POST['message']) && $_POST['message'] != "") { 
             $s_subject = $_POST['subject'];
             $s_message = $_POST['message']; 
             $to_email = Utilisateur::getAllEmail();
 
             foreach ($to_email as $o_email) {
-                mail('o_email['email']','s_subject','s_message');
+                $s_email = $o_email['email'];
+                mail('s_email','s_subject','s_message');
             }
             $i_emailSent = 1;
         }
-
-        $this->render('envoiMail',compact('i_emailSent'));
-         */
+        $this->render('envoiMail',compact('i_emailSent','fake'));
     }
 
 
