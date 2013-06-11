@@ -25,12 +25,11 @@ class InscriptionController extends Controller {
             $s_login = $_POST['login'];
             $s_passwd = $_POST['motDePasse'];
             $s_email = $_POST['email'];
-            $fake = 1;
-            $to_checkLogin = Utilisateur::getObjectsByLogin($s_login);
+            $to_checkLogin = Utilisateur::getObjectByLogin($s_login); */
 
             /* Vérification de la disponibilité du login */
-            if ($to_checkLogin != array()) {
-                $i_errLogin = 1;
+            if ($to_checkLogin == array()) {
+                $i_errLogin = 1; 
             } else {
                 $b_valide = 0;
                 Utilisateur::create($s_login, $s_passwd, $s_email,$b_valide);
@@ -38,7 +37,7 @@ class InscriptionController extends Controller {
             }
         } 
         $this->render('inscription',compact('i_errLogin','i_errReg',
-            'fake','s_login','s_passwd','s_email'));
+            's_login','s_passwd','s_email'));
     }
 
     public function defaultAction() {
