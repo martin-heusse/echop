@@ -18,7 +18,7 @@ if ($to_utilisateur != null) {
    foreach($to_utilisateur as $o_utilisateur) {
     ?>
 <li>
-  <?php
+<?php
   echo $o_utilisateur['login']?>
   </li>
 <?php

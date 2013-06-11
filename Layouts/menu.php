@@ -37,6 +37,7 @@ if (Utilisateur::isLogged()) {
         <li><a href="<?php echo root ?>/utilisateur.php/listeUtilisateurValide">Liste des utilisateurs</a></li>
         <li><a href="<?php echo root ?>/fournisseur.php/tousLesFournisseurs">Liste des fournisseurs</a></li>
         <li><a href="<?php echo root ?>/campagne.php/historiqueCampagne">Historique des campagnes</a></li>
+        <li><a href="<?php echo root ?>/utilisateur.php/envoiMail">Envoyer un mail à tous les utilisateurs</a></li>
     </ul>
 <?php
     }
