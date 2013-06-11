@@ -138,7 +138,7 @@ class ArticleFournisseur {
         $f_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Formattage des nombres */
-            $o_row['prix_article']    = number_format($o_row['prix_article']   , 2, '.', ' ');
+            $o_row['prix_article'] = number_format($o_row['prix_article'], 2, '.', ' ');
             /* Sécurité et création du résultat */
             $f_result = htmlentities($o_row['email']);
         }
