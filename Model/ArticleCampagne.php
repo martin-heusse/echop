@@ -50,8 +50,8 @@ class ArticleCampagne {
 	/* Formattage des nombres */
             foreach ($to_result as &$o_row) {
             $o_row['poids_paquet_client']    = number_format($o_row['poids_paquet_client']   , 2, '.', ' ');
-            $o_row['prix_ttc']    = number_format($o_row['prix_ttc']   , 2, '.', ' ');            
-            $o_row['prix_ht']    = number_format($o_row['prix_ht']   , 2, '.', ' ');            
+            $o_row['prix_ttc']    = number_format($o_row['prix_ttc']   , 2, '.', ' ');
+            $o_row['prix_ht']    = number_format($o_row['prix_ht']   , 2, '.', ' ');
         }
         return $to_result;
     }
@@ -72,8 +72,8 @@ class ArticleCampagne {
 	/* Formattage des nombres */
             foreach ($to_result as &$o_row) {
             $o_row['poids_paquet_client']    = number_format($o_row['poids_paquet_client']   , 2, '.', ' ');
-            $o_row['prix_ttc']    = number_format($o_row['prix_ttc']   , 2, '.', ' ');            
-            $o_row['prix_ht']    = number_format($o_row['prix_ht']   , 2, '.', ' ');            
+            $o_row['prix_ttc']    = number_format($o_row['prix_ttc']   , 2, '.', ' ');
+            $o_row['prix_ht']    = number_format($o_row['prix_ht']   , 2, '.', ' ');
         }
         return $to_result;
     }
