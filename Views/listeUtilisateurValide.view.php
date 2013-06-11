@@ -7,18 +7,22 @@
 <?php
 if ($to_utilisateur != null) {
    ?> 
-<ul>
+<table>
+  <tr>
+    <th> Login </th>
+    <th> Adresse Mail </th>
+    <tr/>
 <?php
    foreach($to_utilisateur as $o_utilisateur) {
     ?>
-<li>
-  <?php
-  echo $o_utilisateur['login']?>
-  </li>
+  <tr>
+    <td> <?php echo $o_utilisateur['login']?> </td>
+    <td> <?php echo $o_utilisateur['email']?> </td>
+  </tr>
 <?php
      }
 ?>
-</ul>
+</table>
 <?php
 } else {
 ?>

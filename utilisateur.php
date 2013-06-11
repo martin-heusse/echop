@@ -69,7 +69,13 @@ class UtilisateurController extends Controller {
 	/* Récupération de l'identifiant de l'utilisateur à ajouter */
         if (isset($_GET['idUtilisateur'])) {
 	    $i_idUtilisateur = $_GET['idUtilisateur'];
-	    Utilisateur::setValidite($i_idUtilisateur, 1);   
+	    Utilisateur::setValidite($i_idUtilisateur, 1);
+	    $s_login = Utilisateur::getLogin($i_idUtilisateur);
+	    $s_mot_de_passe = Utilisateur::getMotDePasse($i_idUtilisateur);
+	    $s_email = Utilisateur::getEmail($i_idUtilisateur);
+	    $s_subject = "Inscription validée";
+	    $s_message = "Votre inscription a été validée. Votre login :". $s_login. "Votre mot de passe :" . $s_mot_de_passe ;
+	    mail('s_email','s_subject','s_message');
         }
         header('Location: '.root.'/utilisateur.php/listeUtilisateurAValider');
     }
