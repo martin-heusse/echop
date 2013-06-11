@@ -38,8 +38,9 @@ class CommandeController extends Controller {
         /* Récupération des articles commandés par l'utilisateur courant */
         $i_idUtilisateur = $_SESSION['idUtilisateur'];
         $to_commande = Commande::getObjectsByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur);
-
-        /* récupération de tous les attributs nécessaires d'un article */
+        /* Montant total */
+        $f_montantTotal = 0;
+        /* Récupération de tous les attributs nécessaires d'un article */
         foreach($to_commande as &$o_article) {
             /* Attributs dépendant de l'article */
             $i_idArticle = $o_article['id_article'];
@@ -59,17 +60,26 @@ class CommandeController extends Controller {
             /* Valeurs calculées */
             /* Calcul poids unitaire */
             $o_article['prix_unitaire'] = $o_article['prix_ttc'] / $o_article['poids_paquet_fournisseur'];
+            $o_article['prix_unitaire'] = number_format($o_article['prix_unitaire'], 2, '.', ' ');
             /* Calcul quantité totale */
             $o_article['quantite_totale'] = $o_article['quantite'] * $o_article['poids_paquet_client'];
+            $o_article['quantite_totale'] = number_format($o_article['quantite_totale'], 2, '.', ' ');
             /* Calcul total TTC */
             $o_article['total_ttc'] = $o_article['quantite_totale'] * $o_article['prix_ttc'] / $o_article['poids_paquet_fournisseur'];
+            $o_article['total_ttc'] = number_format($o_article['total_ttc'], 2, '.', ' ');
+            /* Calcul du montant total */
+            $f_montantTotal += $o_article['total_ttc'];
+            $f_montantTotal = number_format($f_montantTotal, 2, '.', ' ');
         }
-        $this->render('mesCommandes', compact('to_commande', 'b_etat'));
+        $this->render('mesCommandes', compact('to_commande', 'b_etat', 'f_montantTotal'));
     }
 
     /*
      * Gère la modification des quantités dans la commande de l'utilisateur 
      * courant.
+     * Si $_GET['idUtilisateur'] existe, modifie la quantité de l'article de 
+     * cet utilisateur.
+     * Sinon, modifie celle de l'utilisateur courant.
      */
     public function modifierQuantite() {
         /* Récupération de l'identifiant de la campagne courante */
@@ -81,8 +91,12 @@ class CommandeController extends Controller {
             header('Location: '.root.'/commande.php/mesCommandes');
             return;
         }
-        /* Récupération des articles commandés par l'utilisateur courant */
-        $i_idUtilisateur =  $_SESSION['idUtilisateur'];
+        /* Récupération des articles commandés par l'utilisateur */
+        if (!isset($_GET['idUtilisateur'])) {
+            $i_idUtilisateur = $_SESSION['idUtilisateur'];
+        } else {
+            $i_idUtilisateur = $_GET['idUtilisateur']; 
+        }
         /* Récupération des articles de l'utilisateur */
         $ti_article = Commande::getIdArticleByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur);
         /* Pour chaque article on modifie la quantité si nécéssaire */
@@ -101,11 +115,16 @@ class CommandeController extends Controller {
                 }
             }	
         }
-        header('Location: '.root.'/commande.php/mesCommandes');
+        /* Redirection */
+        if (!isset($_GET['idUtilisateur'])) {
+            header('Location: '.root.'/commande.php/mesCommandes');
+        } else {
+            header('Location: '.root.'/commande.php/commandeUtilisateur');
+        }
     }
 
     /*
-     * Supprime l'article.
+     * Supprime l'article de l'utilisateur courant.
      */
     public function supprimerArticle() {
         /* Récupération de l'identifiant de la campagne courante */
@@ -117,16 +136,23 @@ class CommandeController extends Controller {
             header('Location: '.root.'/commande.php/mesCommandes');
             return;
         }
-        /* Récupération des articles commandés par l'utilisateur courant */
-        $i_idUtilisateur =  $_SESSION['idUtilisateur'];
+        /* Récupération des articles commandés par l'utilisateur */
+        if (!isset($_GET['idUtilisateur'])) {
+            $i_idUtilisateur = $_SESSION['idUtilisateur'];
+        } else {
+            $i_idUtilisateur = $_GET['idUtilisateur']; 
+        }
         /* Récupération de l'id article à supprimer */
         $i_idArticle = $_GET['id_article'];
         $i_idCommande = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
         Commande::delete($i_idCommande);
-        header('Location: '.root.'/commande.php/mesCommandes');
+        /* Redirection */
+        if (!isset($_GET['idUtilisateur'])) {
+            header('Location: '.root.'/commande.php/mesCommandes');
+        } else {
+            header('Location: '.root.'/commande.php/commandeUtilisateur');
+        }
     }
-
-    /* Code Johann <3 */
 
     /* 
      * Affiche la liste des articles par rayon.
@@ -192,6 +218,7 @@ class CommandeController extends Controller {
      * courante.
      */
     public function commandeUtilisateur() {
+        /*
         if (!isset($_GET['idUtilisateur'])) {
             header('Location: '.root.'/commande.php/utilisateurAyantCommandE');
             return;
@@ -227,6 +254,116 @@ class CommandeController extends Controller {
             $s_login = Utilisateur::getLogin($i_idUtilisateur);
         }
         $this->render('commandeUtilisateur', compact('to_commandeUtilisateur', 's_login'));
+         */
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Récupération de l'identifiant de la campagne courante */
+        $i_idCampagne = Campagne::getIdCampagneCourante();
+        /* Récupération de l'état de la campagne */
+        $b_etat = Campagne::getEtat($i_idCampagne);
+        /* Récupération des articles commandés par l'utilisateur */
+        if (!isset($_GET['idUtilisateur'])) {
+            header('Location: '.root.'/commande.php/utilisateurAyantCommandE');
+            return;
+        }
+        $i_idUtilisateur = $_GET['idUtilisateur'];
+        $to_commande = Commande::getObjectsByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur);
+        /* Montant total */
+        $f_montantTotal = 0;
+        /* Récupération de tous les attributs nécessaires d'un article */
+        foreach($to_commande as &$o_article) {
+            /* Attributs dépendant de l'article */
+            $i_idArticle = $o_article['id_article'];
+            $o_article['nom'] = Article::getNom($i_idArticle);
+            $o_article['poids_paquet_fournisseur'] = Article::getPoidsPaquetFournisseur($i_idArticle);
+            $i_idUnite = Article::getIdUnite($i_idArticle);
+            $o_article['unite'] = Unite::getUnite($i_idUnite);
+            $o_article['nb_paquet_colis'] = Article::getNbPaquetColis($i_idArticle);
+            $o_article['description_courte'] = Article::getDescriptionCourte($i_idArticle);
+            $o_article['description_longue'] = Article::getDescriptionLongue($i_idArticle);
+            /* Prix TTC, seuil min et poids paquet client */
+            $o_article_campagne = ArticleCampagne::getObjectByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+            $o_article['prix_ttc'] = $o_article_campagne['prix_ttc'];
+            $o_article['seuil_min'] = $o_article_campagne['seuil_min'];
+            $o_article['poids_paquet_client'] = $o_article_campagne['poids_paquet_client'];
+
+            /* Valeurs calculées */
+            /* Calcul poids unitaire */
+            $o_article['prix_unitaire'] = $o_article['prix_ttc'] / $o_article['poids_paquet_fournisseur'];
+            $o_article['prix_unitaire'] = number_format($o_article['prix_unitaire'], 2, '.', ' ');
+            /* Calcul quantité totale */
+            $o_article['quantite_totale'] = $o_article['quantite'] * $o_article['poids_paquet_client'];
+            $o_article['quantite_totale'] = number_format($o_article['quantite_totale'], 2, '.', ' ');
+            /* Calcul total TTC */
+            $o_article['total_ttc'] = $o_article['quantite_totale'] * $o_article['prix_ttc'] / $o_article['poids_paquet_fournisseur'];
+            $o_article['total_ttc'] = number_format($o_article['total_ttc'], 2, '.', ' ');
+            /* Calcul du montant total */
+            $f_montantTotal += $o_article['total_ttc'];
+            $f_montantTotal = number_format($f_montantTotal, 2, '.', ' ');
+        }
+        // recherche du login 
+        $s_login = Utilisateur::getLogin($i_idUtilisateur);
+        $this->render('commandeUtilisateur', compact('to_commande', 'b_etat', 'f_montantTotal', 'i_idUtilisateur', 's_login'));
+    }
+
+    /*
+     * Gère la modification des quantités dans la commande d'un utilisateur.
+     */
+    public function modifierQuantiteUtilisateur() {
+        /* Récupération des articles commandés par l'utilisateur */
+        if (!isset($_GET['idUtilisateur'])) {
+            header('Location: '.root.'/commande.php/utilisateurAyantCommandE');
+            return;
+        }
+        $i_idUtilisateur = $_GET['idUtilisateur']; 
+        /* Récupération de l'identifiant de la campagne courante */
+        $i_idCampagne = Campagne::getIdCampagneCourante();
+        /* Récupération de l'état de la campagne */
+        $b_etat = Campagne::getEtat($i_idCampagne);
+        /* Récupération des articles de l'utilisateur */
+        $ti_article = Commande::getIdArticleByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur);
+        /* Pour chaque article on modifie la quantité si nécéssaire */
+        foreach($ti_article as &$i_article) {
+            $i_idArticle = $i_article['id_article'];
+            /* Si des modifications ont été faite par l'utilisateur, on traite l'entrée */
+            if (isset($_POST['quantite'])){
+                $ti_quantite = $_POST['quantite'];
+                $i_quantite = $ti_quantite[$i_idArticle];
+                $i_seuilMin = ArticleCampagne::getSeuilMinByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+                /* Si la quantité est supérieur au seuil min et non nulle, on 
+                 * actualise, sinon on ne fait rien */
+                if ($i_quantite != 0 && $i_quantite >= $i_seuilMin) {
+                    $i_idCommande = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
+                    Commande::setQuantite($i_idCommande, $i_quantite);
+                }
+            }	
+        }
+        /* Redirection */
+        header('Location: '.root.'/commande.php/commandeUtilisateur?idUtilisateur='.$i_idUtilisateur);
+    }
+
+    /*
+     * Supprime l'article d'un utilisateur.
+     */
+    public function supprimerArticleUtilisateur() {
+        /* Récupération des articles commandés par l'utilisateur */
+        if (!isset($_GET['idUtilisateur'])) {
+            header('Location: '.root.'/commande.php/utilisateurAyantCommandE');
+        }
+        $i_idUtilisateur = $_GET['idUtilisateur']; 
+        /* Récupération de l'identifiant de la campagne courante */
+        $i_idCampagne = Campagne::getIdCampagneCourante();
+        /* Récupération de l'état de la campagne */
+        $b_etat = Campagne::getEtat($i_idCampagne);
+        /* Récupération de l'id article à supprimer */
+        $i_idArticle = $_GET['id_article'];
+        $i_idCommande = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
+        Commande::delete($i_idCommande);
+        /* Redirection */
+        header('Location: '.root.'/commande.php/commandeUtilisateur');
     }
 
     /*
