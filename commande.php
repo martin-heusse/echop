@@ -187,6 +187,13 @@ class CommandeController extends Controller {
         $to_article = Commande::getIdArticleByIdCampagne($i_idCampagne);
         foreach ($to_article as &$o_row) {
             $o_row['nom'] = Article::getNom($o_row['id_article']);
+            $i_idArticle = $o_row['id_article'];
+            $o_row['quantite_totale'] = 0;
+            $to_commande = Commande::getObjectsByIdArticle($i_idArticle);
+            foreach ($to_commande as $o_commande) {
+                $i_quantite = $o_commande['quantite'];
+                $o_row['quantite_totale'] += $i_quantite;
+            }
         }
         $this->render('articlesCommandEs', compact('to_article'));
     }
@@ -210,12 +217,16 @@ class CommandeController extends Controller {
         $o_campagne = Campagne::getCampagneCourante();
         $i_idCampagne = $o_campagne['id'];
         $to_utilisateur = Commande::getIdUtilisateurByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+        $i_quantiteTotale = 0;
         foreach ($to_utilisateur as &$o_row) {
             $o_row['login'] = Utilisateur::getLogin($o_row['id_utilisateur']);
             $o_row['id'] = $o_row['id_utilisateur'];
+            $i_idUtilisateur = $o_row['id'];
+            $o_row['quantite'] = Commande::getQuantiteByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
+            $i_quantiteTotale += $o_row['quantite'];
         }
         $s_nomArticle = Article::getNom($i_idArticle);
-        $this->render('utilisateursAyantCommandECetArticle', compact('to_utilisateur', 's_nomArticle'));
+        $this->render('utilisateursAyantCommandECetArticle', compact('to_utilisateur', 's_nomArticle', 'i_quantiteTotale'));
     }
 
     /*
