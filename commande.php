@@ -32,10 +32,27 @@ class CommandeController extends Controller {
         foreach($to_commande as &$o_article) {
             $i_idUtilisateur = $o_article['id_utilisateur'];
             $o_article['login_utilisateur'] = Utilisateur::getLogin($i_idUtilisateur);
-	    /*$to_article = Commande::getIdArticleByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur);
-	    /* Montant total */
-	    /*$f_montantTotal = 0;
-	      foreach($to_article as ...) récupérer pour chaque artcile qté + prix et additionner*/ 
+            $to_article = Commande::getIdArticleByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur);
+            /* Montant total */
+            $o_article['montant_total'] = 0;
+            
+            foreach($to_article as $o_produit){
+                $i_idArticle = $o_produit['id_article'];
+                $i_quantite = Commande::getQuantiteByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
+                $i_idArticleCampagne = ArticleCampagne::getIdByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+                $i_poidsPaquetClient = ArticleCampagne::getPoidsPaquetClient($i_idArticleCampagne);
+                $i_prixTtc = ArticleCampagne::getPrixTtc($i_idArticleCampagne);                
+                $i_idPoidsPaquetFournisseur = Article::getPoidsPaquetFournisseur($i_idArticle);
+            /* Calcul quantité totale */
+            $i_quantiteTotale = $i_quantite * $i_poidsPaquetClient;
+            $i_quantiteTotale = number_format($i_quantiteTotale, 2, '.', ' ');
+            /* Calcul total TTC */
+            $i_totalTtc = $i_quantiteTotale * $i_prixTtc / $i_idPoidsPaquetFournisseur;
+            $i_totalTtc = number_format($i_totalTtc, 2, '.', ' ');
+            /* Calcul du montant total */
+            $o_article['montant_total'] += $i_totalTtc;
+            $o_article['montant_total'] = number_format($o_article['montant_total'], 2, '.', ' ');
+            } 
         }
         $this->render('utilisateurAyantCommandE', compact('to_commande'));	
     }

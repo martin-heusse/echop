@@ -53,10 +53,10 @@ class CommanderArticleController extends Controller {
             $o_article['description_courte'] = Article::getDescriptionCourte($i_idArticle);
             $o_article['description_longue'] = Article::getDescriptionLongue($i_idArticle);
             /* Prix TTC, seuil min et poids paquet client */
-	    /* $o_article_campagne = ArticleCampagne::getObjectByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+        /* $o_article_campagne = ArticleCampagne::getObjectByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
             $o_article['prix_ttc'] = $o_article_campagne['prix_ttc'];
             $o_article['seuil_min'] = $o_article_campagne['seuil_min'];
-            $o_article['poids_paquet_client'] = $o_article_campagne['poids_paquet_client'];*/
+        $o_article['poids_paquet_client'] = $o_article_campagne['poids_paquet_client'];*/
             /* Quantité */
             $i_idCommande = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
             $o_article['quantite'] = Commande::getQuantite($i_idCommande); 
@@ -95,28 +95,30 @@ class CommanderArticleController extends Controller {
         /* Récupération des articles commandés par l'utilisateur courant */
         $i_idUtilisateur = $_SESSION['idUtilisateur'];
         /* Récupération des articles de l'utilisateur */
-        $ti_article = Commande::getIdArticleByIdCampagne($i_idCampagne);
+        $ti_article = ArticleCampagne::getObjectsByIdCampagne($i_idCampagne);
         /* Pour chaque article on modifie la quantité si nécéssaire */
         foreach($ti_article as &$i_article) {
             $i_idArticle = $i_article['id_article'];
-            /* Vérifie si l'article est déjà présent dans la commande 
-             * sinon crée la commande */
-            $i_idCommande = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
-            if ($i_idCommande == 0) {
-                Commande::create($i_idArticle, $i_idCampagne, $i_idUtilisateur, 0);
-            }
             /* Si des modifications ont été faite par l'utilisateur, on traite l'entrée */
             if (isset($_POST['quantite'])){
                 $ti_quantite = $_POST['quantite'];
                 $i_quantite = $ti_quantite[$i_idArticle];
-                $i_seuilMin = ArticleCampagne::getSeuilMinByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
-                /* Si la quantité est supérieur au seuil min et non nulle, on 
-                 * actualise, sinon on ne fait rien */
-                if ($i_quantite != 0 && $i_quantite >= $i_seuilMin) {
+                if($i_quantite != 0) {
+                    /* Vérifie si l'article dont la quantité a été modifié est déjà présent dans la commande 
+                     * sinon crée la commande */
                     $i_idCommande = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
-                    Commande::setQuantite($i_idCommande, $i_quantite);
-                }
-            }	
+                    if ($i_idCommande == 0) {
+                        Commande::create($i_idArticle, $i_idCampagne, $i_idUtilisateur, 0);
+                    }
+                    $i_seuilMin = ArticleCampagne::getSeuilMinByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+                    /* Si la quantité est supérieur au seuil min et non nulle, on 
+                     * actualise, sinon on ne fait rien */
+                    if ($i_quantite >= $i_seuilMin) {
+                        $i_idCommande = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
+                        Commande::setQuantite($i_idCommande, $i_quantite);
+                    }
+                }	
+            }
         }
         /* Redirection */
         header('Location: '.root.'/commanderArticle.php/commanderArticle');
