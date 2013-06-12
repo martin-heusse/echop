@@ -18,13 +18,13 @@ class InscriptionController extends Controller {
         $s_login = "undo";
         $s_passwd = "undo";
         $s_email = "undo";
-
         if (isset($_POST['login']) && isset($_POST['motDePasse']) && isset($_POST['email']) && $_POST['login'] != "" && $_POST['motDePasse'] != "" && $_POST['email'] != "") {
             $s_login = $_POST['login'];
             $s_passwd = $_POST['motDePasse'];
             $s_email = $_POST['email'];
-            $to_checkLogin = Utilisateur::getObjectByLogin($s_login);
-
+            
+            $to_checkLogin = Utilisateur::getObjectsByLogin($s_login);
+            
             /* Vérification de la disponibilité du login */
             if ($to_checkLogin != array()) {
                 $i_errLogin = 1; 

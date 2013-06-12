@@ -59,7 +59,7 @@ class Utilisateur {
     }
 
     public static function getObjectsByLogin($s_login) {
-        $sql_query = "select * from utilisateur where login=$s_login";
+        $sql_query = "select * from utilisateur where login='$s_login'";
         $sql_tmp = mysql_query($sql_query);
         $to_result = array();
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
@@ -74,7 +74,7 @@ class Utilisateur {
     }
 
     public static function getObjectByLogin($s_login) {
-        $sql_query = "select * from utilisateur where login =$s_login";
+        $sql_query = "select * from utilisateur where login ='$s_login'";
         $sql_temp = mysql_query($sql_query);
         $o_result = null;
 

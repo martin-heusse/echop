@@ -38,7 +38,7 @@ class CommanderArticleController extends Controller {
         $b_etat = Campagne::getEtat($i_idCampagne);
         /* Récupération des articles commandés par l'utilisateur courant */
         $i_idUtilisateur = $_SESSION['idUtilisateur'];
-        $to_commande = Commande::getIdArticleByIdCampagne($i_idCampagne);
+        $to_commande = ArticleCampagne::getObjectsByIdCampagne($i_idCampagne);
         /* Montant total */
         $f_montantTotal = 0;
         /* Récupération de tous les attributs nécessaires d'un article */
@@ -53,10 +53,10 @@ class CommanderArticleController extends Controller {
             $o_article['description_courte'] = Article::getDescriptionCourte($i_idArticle);
             $o_article['description_longue'] = Article::getDescriptionLongue($i_idArticle);
             /* Prix TTC, seuil min et poids paquet client */
-            $o_article_campagne = ArticleCampagne::getObjectByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+	    /* $o_article_campagne = ArticleCampagne::getObjectByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
             $o_article['prix_ttc'] = $o_article_campagne['prix_ttc'];
             $o_article['seuil_min'] = $o_article_campagne['seuil_min'];
-            $o_article['poids_paquet_client'] = $o_article_campagne['poids_paquet_client'];
+            $o_article['poids_paquet_client'] = $o_article_campagne['poids_paquet_client'];*/
             /* Quantité */
             $i_idCommande = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
             $o_article['quantite'] = Commande::getQuantite($i_idCommande); 

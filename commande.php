@@ -33,6 +33,8 @@ class CommandeController extends Controller {
             $i_idUtilisateur = $o_article['id_utilisateur'];
             $o_article['login_utilisateur'] = Utilisateur::getLogin($i_idUtilisateur);
 	    /*$to_article = Commande::getIdArticleByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur);
+	    /* Montant total */
+	    /*$f_montantTotal = 0;
 	      foreach($to_article as ...) récupérer pour chaque artcile qté + prix et additionner*/ 
         }
         $this->render('utilisateurAyantCommandE', compact('to_commande'));	
