@@ -1,8 +1,8 @@
 <?Php
 class Article {
 
-    /* Creaters */
-
+    /*Creaters*/
+    
     public static function create($i_idRayon, $s_nom, $f_poidsPaquetFournisseur,
           $i_idUnite, $i_nbPaquetColis, $s_descriptionCourte, $s_descriptionLongue) {
         $sql_query = "insert into article(id_rayon,nom,poids_paquet_fournisseur,id_unite,nb_paquet,colis,description_courte,description_longue) 
@@ -33,7 +33,6 @@ class Article {
             }
         return $to_result;
     }
-
     public static function getObject($i_id) {
         $sql_query = "select * from article where id=$i_id";
         $sql_tmp = mysql_query($sql_query);

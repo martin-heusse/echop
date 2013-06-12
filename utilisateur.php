@@ -120,10 +120,13 @@ class UtilisateurController extends Controller {
             $s_message = $_POST['message']; 
             $to_email = Utilisateur::getAllEmail();
 
+            /*
             foreach ($to_email as $o_email) {
                 $s_email = $o_email['email'];
                 mail('s_email','s_subject','s_message');
-            }
+            } */
+            $to = 'johann.yvetot@ensimag.fr';
+            mail('to','s_subject','s_message');
             $i_emailSent = 1;
         }
         $this->render('envoiMail',compact('i_emailSent','fake'));

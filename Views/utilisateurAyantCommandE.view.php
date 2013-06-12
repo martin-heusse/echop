@@ -20,7 +20,7 @@ if ($to_commande != null) {
     <tr class="ligne_article<?php echo $i_numLigne ?>">
         <td><a href="../commande.php/commandeUtilisateur?idUtilisateur=<?php echo $o_utilisateur['id_utilisateur']?>">
         <?php echo $o_utilisateur['login_utilisateur'] ?></a></td>
-        <td><?php echo $o_utilisateur['prix_ttc'] ?></td>
+        <td><?php echo $o_utilisateur['montant_total'] ?></td>
     </tr>
 <?php
     $i_numLigne = ($i_numLigne + 1) % 2;

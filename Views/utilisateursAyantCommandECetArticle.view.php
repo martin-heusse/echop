@@ -30,7 +30,7 @@ Cliquez sur un nom pour voir ses commandes.</p>
     }
 ?>
     <th>Quantité totale commandée = </th>
-    <td class="centrer">xx</td>
+    <td class="centrer"><?php echo $i_quantiteTotale?> </td>
 </table>
 <?php
 }
