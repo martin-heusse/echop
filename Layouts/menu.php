@@ -32,7 +32,7 @@ if (Utilisateur::isLogged()) {
     </ul>
     <h1 class="titre_menu">Administration</h1>
     <ul>
-        <li><a href="<?php echo root ?>/article.php/afficherArticle">Gérer les rayons et les articles</a></li>
+        <li><a href="<?php echo root ?>/rayon.php/afficherRayon">Gérer les rayons et les articles</a></li>
 	    <li><a href="<?php echo root ?>/utilisateur.php/listeUtilisateurAValider">Inscriptions à valider (<?php echo Utilisateur::getCountByValidite(0) ?>)</a></li>
         <li><a href="<?php echo root ?>/utilisateur.php/listeUtilisateurValide">Liste des utilisateurs</a></li>
         <li><a href="<?php echo root ?>/fournisseur.php/tousLesFournisseurs">Liste des fournisseurs</a></li>
