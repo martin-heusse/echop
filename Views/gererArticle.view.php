@@ -51,7 +51,7 @@ foreach ($to_descriptionArticle as $o_descriptionArticle) {
         <tr>
             <!-- création d'un formulaire -->
             <form method="post" action="<?php echo root ?>/article.php/modifierArticle">
-                <input type="hidden" name="id_article" value="<?php echo $o_descriptionArticle['id_article'] ?>"/>
+                <input type="hidden" name="id_article_campagne" value="<?php echo $o_descriptionArticle['id'] ?>"/>
                 <!-- Nom du produit -->
                 <td title="Produit"><input type="text" name="nom_article" value="<?php echo $o_descriptionArticle['nom'] ?>"/></td>
                 <!-- Poids du paquet fournisseur -->
@@ -69,19 +69,17 @@ foreach ($to_descriptionArticle as $o_descriptionArticle) {
                 <!-- A FAIRE -->
 <?php
     foreach($to_fournisseur as $o_fournisseur){
-        $nom = $o_fournisseur['nom'];
         $id = $o_fournisseur['id'];
-        if(isset($o_descriptionArticle[$nom])){
-            if($o_descriptionArticle[$nom]['prix_ht'] == ""){
-                $prix_fournisseur = $o_descriptionArticle[$nom]['prix_ttc'];
+        if(isset($o_descriptionArticle[$id])){
+            if($o_descriptionArticle[$id]['prix_ht'] == ""){
+                $prix_fournisseur = $o_descriptionArticle[$id]['prix_ttc'];
              } else {
-                $prix_fournisseur = $o_descriptionArticle[$nom]['prix_ht'];
+                $prix_fournisseur = $o_descriptionArticle[$id]['prix_ht'];
             }
 ?>
-?>
-            <td>code : <input type="text" name="code[<?php echo $id ?>]" value="<?php echo $o_descriptionArticle[$nom]['code']?>"/> <br />
+            <td>code : <input type="text" name="code[<?php echo $id ?>]" value="<?php echo $o_descriptionArticle[$id]['code']?>"/> <br />
                 prix à verser au fournisseur : <input type="text" name="prix_fournisseur[<?php echo $id ?>]" value="<?php echo $prix_fournisseur ?>"/> <br />
-                prix ttc : <input type="text" name="prix_ttc[<?php echo $id ?>]" value="<?php echo $o_descriptionArticle[$nom]['prix_ttc'] ?>"/></td>
+                prix ttc : <input type="text" name="prix_ttc[<?php echo $id ?>]" value="<?php echo $o_descriptionArticle[$id]['prix_ttc'] ?>"/></td>
 
 <?php
         } else {

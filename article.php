@@ -49,12 +49,10 @@ class ArticleController extends Controller {
                 // obtenir le prix et le code de chaque fournisseur
                 $to_articleFournisseur = ArticleFournisseur::getObjectsByIdArticle($i_idArticle);
                 foreach($to_articleFournisseur as &$o_articleFournisseur){
-                    $i_idArticleFournisseur = $o_articleFournisseur['id'];
                     $i_idFournisseur = $o_articleFournisseur['id_fournisseur'];
-                    $s_nomFourniseur = Fournisseur::getNom($i_idFournisseur);
-                    $o_descriptionArticle[$s_nomFourniseur]['code'] = ArticleFournisseur::getCode($i_idArticleFournisseur );
-                    $o_descriptionArticle[$s_nomFourniseur]['prix_ht'] = ArticleFournisseur::getPrixHt($i_idArticleFournisseur);
-                    $o_descriptionArticle[$s_nomFourniseur]['prix_ttc'] = ArticleFournisseur::getPrixTtc($i_idArticleFournisseur);
+                    $o_descriptionArticle[$i_idFournisseur]['code'] = $o_articleFournisseur['code'];
+                    $o_descriptionArticle[$i_idFournisseur]['prix_ht'] = $o_articleFournisseur['prix_ht'];
+                    $o_descriptionArticle[$i_idFournisseur]['prix_ttc'] = $o_articleFournisseur['prix_ttc'];
                 }
                 // on considère que le montant tva dépend de l'article
                 $i_idTva = ArticleCampagne::getIdTva($i_idArticleCampagne);
@@ -72,23 +70,39 @@ class ArticleController extends Controller {
 
     public function modifierArticle() {
         // récupération des variables post
-        $id_article = $POST['id_article'];
-        $nom_article = $POST['nom_article'];
-        $poids_paquet_fournisseur = $POST['poids_paquet_fournisseur'];
-        $poids_paquet_client = $POST['poids_paquet_client'];
-        $unite = $POST['unite'];
-        $nb_paquet_colis = $POST['nb_paquet_colis'];
-        $seuil_min = $POST['seuil_min'];
+        $i_idArticleCampagne = $_POST['id_article_campagne'];
+        $s_nomArticle = $_POST['nom_article'];
+        $f_poidsPaquetFournisseur = $_POST['poids_paquet_fournisseur'];
+        $f_poidsPaquetClient = $_POST['poids_paquet_client'];
+        $s_unite = $_POST['unite'];
+        $i_nbPaquetColis = $_POST['nb_paquet_colis'];
+        $i_seuilMin = $_POST['seuil_min'];
         // modification des fournisseurs
-        $prix_ttc_echoppe = $POST['prix_ttc_echoppe'];
-        $tva = $POST['tva'];
-        $description_courte = $POST['description_courte'];
-        $description_longue = $POST['description_longue'];
-        
+        $f_prixTtcEchoppe = $_POST['prix_ttc_echoppe'];
+        $f_tva = $_POST['tva'];
+        $s_descriptionCourte = $_POST['description_courte'];
+        $s_descriptionLongue = $_POST['description_longue'];
+        // Les modifications à faire dans la base de données.
+        // Dans la table article_campagne
+        // pour l'instant l'id fournisseur ne change pas
+        // modification de la tva
+        $i_idTva = ArticleCampagne::getIdTva($i_idArticleCampagne);
+        Tva::setValeur($id_idTva,$f_tva);
+        /*// Dans la table article dans l'ordre des champs :
+        // modification de unite
+        $i_idUnite = Article::getIdUnite($i_idArticle);
+        Unite::setValeur($i_idUnite, $s_unite);
+        // modification de id_rayon pas modifiable
+        Article::setNom($i_idArticle,$s_nomArticle);
+        Article::setPoidsPaquetFournisseur($i_idArticle,$f_poidsPaquetFournisseur);
+        Article::setNbPaquetColis($i_idArticle,$i_nbPaquetColis);
+        Article::setDescriptionCourte($i_idArticle,$s_descriptionCourte);
+        Article::setDescriptionLongue($i_idArticle,$s_descriptionLongue);*/
+        // Dans la table article_fournisseur
         // redirection vers afficher les articles
         header('Location: '.root.'/rayon.php/afficherRayon');
-        /*echo "A FAIRE !";
-        return;*/
+        echo "A FAIRE !";
+        return;
     }
 
     public function creerArticle() {
