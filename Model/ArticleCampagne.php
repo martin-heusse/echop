@@ -241,7 +241,7 @@ class ArticleCampagne {
         }
         return $to_result;
     }
-    
+
     public static function getPoidsPaquetFournisseurByIdArticle($i_idArticle) {
         $sql_query = "select poids_paquet_fournisseur from article_campagne where id_article=$i_idArticle";
         $sql_tmp = mysql_query($sql_query);

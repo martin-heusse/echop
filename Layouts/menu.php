@@ -46,7 +46,7 @@ if (Utilisateur::isLogged()) {
     <h1 class="titre_menu">Menu</h1>
     <ul>
         <li><a href="<?php echo root ?>/mesCommandes.php/mesCommandes">Mes commandes</a></li>
-        <li><a href="<?php echo root ?>/commanderArticle.php/commanderArticle">Commander des articles</a></li>
+        <li><a href="<?php echo root ?>/commanderArticle.php/afficherRayon">Commander des articles</a></li>
     </ul>
 <?php
 } else {
