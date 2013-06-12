@@ -22,9 +22,6 @@ class ArticleController extends Controller {
     }
 
     public function afficherArticle() {
-        // liste des rayons (à partir de la table rayon)
-        // pour afficher la liste rayons
-        $to_rayon = Rayon::getAllObjects();
         // liste de tous les fournisseurs
         $to_fournisseur = Fournisseur::getAllObjects();
         // liste des descriptions des articles (à partir des tables  :
@@ -63,19 +60,35 @@ class ArticleController extends Controller {
                 $i_idTva = ArticleCampagne::getIdTva($i_idArticleCampagne);
                 $o_descriptionArticle['tva'] = Tva::getValeur($i_idTva);
                 // colonnes composées renvoyées à la vue et formatage des nombres
-                $o_descriptionArticle['prix_echoppe_ttc'] = number_format($o_descriptionArticle['prix_ttc']/$o_descriptionArticle['poids_paquet_fournisseur'], 2, '.', ' ');
+                $o_descriptionArticle['prix_echoppe_ttc_unite'] = number_format($o_descriptionArticle['prix_ttc']/$o_descriptionArticle['poids_paquet_fournisseur'], 2, '.', ' ');
                 $o_descriptionArticle[$s_nomFourniseur]['prix_ht'] = number_format($o_descriptionArticle[$s_nomFourniseur]['prix_ht'], 2, '.', ' ');
                 $o_descriptionArticle[$s_nomFourniseur]['prix_ttc'] = number_format($o_descriptionArticle[$s_nomFourniseur]['prix_ttc'], 2, '.', ' ');
                 $o_descriptionArticle['poids_paquet_fournisseur'] = number_format($o_descriptionArticle['poids_paquet_fournisseur'], 2, '.', ' ');
                 $o_descriptionArticle['poids_paquet_client'] = number_format($o_descriptionArticle['poids_paquet_client'], 2, '.', ' ');
             }
         }
-        $this->render('gererArticleRayon', compact('to_rayon', 'to_fournisseur', 'i_idRayon', 'to_descriptionArticle'));
+        $this->render('gererArticle', compact('to_rayon', 'to_fournisseur', 'i_idRayon', 'to_descriptionArticle'));
     }
 
     public function modifierArticle() {
-        echo "A FAIRE !";
-        return;
+        // récupération des variables post
+        $id_article = $POST['id_article'];
+        $nom_article = $POST['nom_article'];
+        $poids_paquet_fournisseur = $POST['poids_paquet_fournisseur'];
+        $poids_paquet_client = $POST['poids_paquet_client'];
+        $unite = $POST['unite'];
+        $nb_paquet_colis = $POST['nb_paquet_colis'];
+        $seuil_min = $POST['seuil_min'];
+        // modification des fournisseurs
+        $prix_ttc_echoppe = $POST['prix_ttc_echoppe'];
+        $tva = $POST['tva'];
+        $description_courte = $POST['description_courte'];
+        $description_longue = $POST['description_longue'];
+        
+        // redirection vers afficher les articles
+        header('Location: '.root.'/rayon.php/afficherRayon');
+        /*echo "A FAIRE !";
+        return;*/
     }
 
     public function creerArticle() {
@@ -86,7 +99,7 @@ class ArticleController extends Controller {
 
     // Action par défaut.
     public function defaultAction() {
-        header('Location: '.root.'/article.php/afficherArticle');
+        header('Location: '.root.'/rayon.php/afficherRayon');
     }
 }
 new ArticleController();

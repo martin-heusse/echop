@@ -1,6 +1,22 @@
 <?php
 class ArticleCampagne {
 
+    /* Getter clé primaire */
+    public static function getIdByIdArticleIdCampagne($i_idArticle, $i_idCampagne) {
+        $sql_query = "select id from article_campagne where id_article=$i_idArticle and id_campagne=$i_idCampagne";
+        $sql_tmp = mysql_query($sql_query);
+        $o_result = 0;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité */
+            /*foreach ($o_row as &$column) {
+                $column = htmlentities($column);
+            }*/
+            /* Création du résultat */
+            $o_result = htmlentities($o_row['id']);
+        }
+        return $o_result;
+    }
+
     /* Creaters */
 
     public static function create($i_idArticle, $i_idCampagne, $i_idFournisseur, $i_idTva, $f_poidsPaquetClient, $i_seuilMin, $f_prixTtc) {
@@ -225,6 +241,17 @@ class ArticleCampagne {
         }
         return $to_result;
     }
+    
+    public static function getPoidsPaquetFournisseurByIdArticle($i_idArticle) {
+        $sql_query = "select poids_paquet_fournisseur from article_campagne where id_article=$i_idArticle";
+        $sql_tmp = mysql_query($sql_query);
+        $i_result = null;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité et création du résultat */
+            $i_result = htmlentities($o_row['id_fournisseur']);
+        }
+        return $i_result;
+    }
 
     public static function getObject($i_id) {
         $sql_query = "select * from article_campagne where id=$i_id";
@@ -268,6 +295,7 @@ class ArticleCampagne {
         return $i_result;
     }
 
+
     public static function getIdFournisseur($i_id) {
         $sql_query = "select id_fournisseur from article_campagne where id=$i_id";
         $sql_tmp = mysql_query($sql_query);
@@ -278,7 +306,6 @@ class ArticleCampagne {
         }
         return $i_result;
     }
-
     public static function getPoidsPaquetClient($i_id) {
         $sql_query = "select poids_paquet_client from article_campagne where id=$i_id";
         $sql_tmp = mysql_query($sql_query);
