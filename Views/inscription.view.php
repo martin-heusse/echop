@@ -18,7 +18,7 @@
         }
 ?>
         
-    <p><span class="form_col"><label>Mot de passe</label></span><input type="password" name="motDePasse" required/></p>
+    <p><span class="form_col"><label>Mot de passe</label></span><input type="text" name="motDePasse" required/></p>
     <p><span class="form_col"><label>Email</label></span><input type="text" name="email" required/></p>
     <input type="submit" value="S'enregistrer"/>
 </form>
