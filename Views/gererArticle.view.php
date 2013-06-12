@@ -1,6 +1,6 @@
-<p><a class="action_navigation" href="<?php echo root ?>">Retour</a></p>
+<p><a class="action_navigation" href="<?php echo root ?>/rayon.php/afficherRayon">Retour</a></p>
 
-<h1>Gérer les rayons</h1>
+<h1>Gérer tous les articles</h1>
 
 <?php
 // Trace
@@ -9,37 +9,9 @@
 ?>
 
 <p> La liste des actions : </p>
-<a href="<?php echo root ?>/rayon.php/creerRayon"> créer un rayon <a/>
-&nbsp
 <a href="<?php echo root ?>/article.php/creerArticle"> créer un article <a/>
 
-<p> La liste des rayons : </p>
-<?php
-foreach ($to_rayon as $o_rayon) {
-?>
-<!-- affichage de la liste des rayons -->
-<a href="<?php echo root ?>/article.php/afficherArticle?i_idRayon=<?php echo $o_rayon['id'] ?>">
-<?php echo $o_rayon['nom'] ?>
-</a>
-&nbsp
-<?php
-}
-?>
-
 <!-- par défaut pas de rayon -->
-<!-- reste à vérifier que l'utilisateur ne peut pas rentrer n'importe quoi dans l'URL -->
-<?php
-if ( isset($i_idRayon) ) {
-?>
-<!-- // Trace
-<p> Il y a un rayon !</p> -->
-<?php 
-    if ( $to_descriptionArticle == array()) {
-?>
-<p> Il n'y a pas d'articles pour ce rayon </p>
-<?php
-    } else {
-?>
 <table>
     <thead> <!-- En-tête du tableau -->
         <tr>
@@ -53,11 +25,11 @@ if ( isset($i_idRayon) ) {
             <!-- Boucle pour afficher les fournisseurs disponibles -->
             <!-- A FAIRE -->
 <?php
-        foreach($to_fournisseur as $o_fournisseur){
+foreach($to_fournisseur as $o_fournisseur){
 ?>
-            <th><?php echo $o_fournisseur['nom'] ?></th>
+         <th><?php echo $o_fournisseur['nom'] ?></th>
 <?php
-        }
+}
 ?>
 
             <!-- colonne informative attention aux arrondis -->
@@ -73,12 +45,13 @@ if ( isset($i_idRayon) ) {
 
     <tbody> <!-- Corps du tableau -->
 <?php
-        // Boucle sur tous les produits
-        foreach ($to_descriptionArticle as $o_descriptionArticle) {
+// Boucle sur tous les produits
+foreach ($to_descriptionArticle as $o_descriptionArticle) {
 ?>
         <tr>
             <!-- création d'un formulaire -->
             <form method="post" action="<?php echo root ?>/article.php/modifierArticle">
+                <input type="hidden" name="id_article" value="<?php echo $o_descriptionArticle['id_article'] ?>"/>
                 <!-- Nom du produit -->
                 <td title="Produit"><input type="text" name="nom_article" value="<?php echo $o_descriptionArticle['nom'] ?>"/></td>
                 <!-- Poids du paquet fournisseur -->
@@ -95,34 +68,35 @@ if ( isset($i_idRayon) ) {
                 <!-- Boucle pour afficher les fournisseurs disponibles -->
                 <!-- A FAIRE -->
 <?php
-            foreach($to_fournisseur as $o_fournisseur){
-                $nom = $o_fournisseur['nom'];
-                if(isset($o_descriptionArticle[$nom])){
+    foreach($to_fournisseur as $o_fournisseur){
+        $nom = $o_fournisseur['nom'];
+        $id = $o_fournisseur['id'];
+        if(isset($o_descriptionArticle[$nom])){
+            if($o_descriptionArticle[$nom]['prix_ht'] == ""){
+                $prix_fournisseur = $o_descriptionArticle[$nom]['prix_ttc'];
+             } else {
+                $prix_fournisseur = $o_descriptionArticle[$nom]['prix_ht'];
+            }
 ?>
-            <td>code : <?php echo $o_descriptionArticle[$nom]['code'] ?>
-                 <br />prix à verser au fournisseur : 
-<?php
-                    if($o_descriptionArticle[$nom]['prix_ht'] == ""){
-                        echo $o_descriptionArticle[$nom]['prix_ttc'];
-                    } else {
-                        echo $o_descriptionArticle[$nom]['prix_ht'];
-                    }
 ?>
-              <br />prix ttc : <?php echo $o_descriptionArticle[$nom]['prix_ttc'] ?></td>
+            <td>code : <input type="text" name="code[<?php echo $id ?>]" value="<?php echo $o_descriptionArticle[$nom]['code']?>"/> <br />
+                prix à verser au fournisseur : <input type="text" name="prix_fournisseur[<?php echo $id ?>]" value="<?php echo $prix_fournisseur ?>"/> <br />
+                prix ttc : <input type="text" name="prix_ttc[<?php echo $id ?>]" value="<?php echo $o_descriptionArticle[$nom]['prix_ttc'] ?>"/></td>
+
 <?php
-                } else {
+        } else {
 ?>
                     <td> </td>
 <?php
-                }
-            }
+        }
+    }
 ?>
 
                 <!-- Prix TTC choisi par l'échoppe rapporté au colis du fournisseur vendu au client -->
                 <td><input type="text" name="prix_ttc_echoppe" value="<?php echo $o_descriptionArticle['prix_ttc'] ?>"/></td>
                 <!-- Prix TTC rapporté à l'unité echoppe -->
                 <!-- A FAIRE -->
-                <td><input type="text" name="prix_ttc_echoppe" value="<?php echo $o_descriptionArticle['prix_echoppe_ttc'] ?>"/></td>
+                <td><?php echo $o_descriptionArticle['prix_echoppe_ttc_unite'] ?></td>
                 <!-- TVA -->
                 <td><input type="text" name="tva" value="<?php echo $o_descriptionArticle['tva'] ?>"/></td>
                 <!-- Description courte -->
@@ -133,17 +107,7 @@ if ( isset($i_idRayon) ) {
             <form>
        </tr>
 <?php
-        }
+}
 ?>
    </tbody>
 </table>
-<?php
-    }
-?>
-<?php
-} else { 
-?>
-<p> Choisissez votre rayon !</p>
-<?php
-}
-?>

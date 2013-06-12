@@ -17,6 +17,14 @@ class RayonController extends Controller {
         parent::__construct();
     }
 
+
+    public function afficherRayon() {
+        // liste des rayons (à partir de la table rayon)
+        // pour afficher la liste rayons
+        $to_rayon = Rayon::getAllObjects();
+        $this->render('gererRayon', compact('to_rayon'));
+    }
+
     public function creerRayon() {
         echo "A FAIRE !";
         return;
