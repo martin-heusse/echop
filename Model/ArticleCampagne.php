@@ -44,7 +44,7 @@ class ArticleCampagne {
         /* Formattage des nombres */
         foreach ($to_result as &$o_row) {
             $o_row['poids_paquet_client'] = number_format($o_row['poids_paquet_client'], 2, '.', ' ');
-            $o_row['prix_ttc']            = number_format($o_row['prix_ttc'],            2, '.', ' ');            
+            $o_row['prix_ttc']            = number_format($o_row['prix_ttc'],            2, '.', ' ');
         }
         return $to_result;
     }
@@ -65,7 +65,7 @@ class ArticleCampagne {
         /* Formattage des nombres */
         foreach ($to_result as &$o_row) {
             $o_row['poids_paquet_client'] = number_format($o_row['poids_paquet_client'], 2, '.', ' ');
-            $o_row['prix_ttc']            = number_format($o_row['prix_ttc'],            2, '.', ' ');            
+            $o_row['prix_ttc']            = number_format($o_row['prix_ttc'],            2, '.', ' ');
         }
         return $to_result;
     }
@@ -86,7 +86,7 @@ class ArticleCampagne {
         /* Formattage des nombres */
         foreach ($to_result as &$o_row) {
             $o_row['poids_paquet_client'] = number_format($o_row['poids_paquet_client'], 2, '.', ' ');
-            $o_row['prix_ttc']            = number_format($o_row['prix_ttc'],            2, '.', ' ');            
+            $o_row['prix_ttc']            = number_format($o_row['prix_ttc'],            2, '.', ' ');
         }
         return $to_result;
     }
@@ -98,7 +98,7 @@ class ArticleCampagne {
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Formattage des nombres */
             $o_row['poids_paquet_client'] = number_format($o_row['poids_paquet_client'], 2, '.', ' ');
-            $o_row['prix_ttc']            = number_format($o_row['prix_ttc'],            2, '.', ' ');            
+            $o_row['prix_ttc']            = number_format($o_row['prix_ttc'],            2, '.', ' ');
             /* Sécurité */
             foreach ($o_row as &$column) {
                 $column = htmlentities($column);
@@ -124,7 +124,7 @@ class ArticleCampagne {
         /* Formattage des nombres */
         foreach ($to_result as &$o_row) {
             $o_row['poids_paquet_client'] = number_format($o_row['poids_paquet_client'], 2, '.', ' ');
-            $o_row['prix_ttc']            = number_format($o_row['prix_ttc'],            2, '.', ' ');            
+            $o_row['prix_ttc']            = number_format($o_row['prix_ttc'],            2, '.', ' ');
         }
         return $to_result;
     }
@@ -145,7 +145,7 @@ class ArticleCampagne {
         /* Formattage des nombres */
         foreach ($to_result as &$o_row) {
             $o_row['poids_paquet_client'] = number_format($o_row['poids_paquet_client'], 2, '.', ' ');
-            $o_row['prix_ttc']            = number_format($o_row['prix_ttc'],            2, '.', ' ');            
+            $o_row['prix_ttc']            = number_format($o_row['prix_ttc'],            2, '.', ' ');
         }
         return $to_result;
     }
@@ -166,7 +166,7 @@ class ArticleCampagne {
         /* Formattage des nombres */
         foreach ($to_result as &$o_row) {
             $o_row['poids_paquet_client'] = number_format($o_row['poids_paquet_client'], 2, '.', ' ');
-            $o_row['prix_ttc']            = number_format($o_row['prix_ttc'],            2, '.', ' ');            
+            $o_row['prix_ttc']            = number_format($o_row['prix_ttc'],            2, '.', ' ');
         }
         return $to_result;
     }
@@ -187,7 +187,7 @@ class ArticleCampagne {
         /* Formattage des nombres */
         foreach ($to_result as &$o_row) {
             $o_row['poids_paquet_client'] = number_format($o_row['poids_paquet_client'], 2, '.', ' ');
-            $o_row['prix_ttc']            = number_format($o_row['prix_ttc'],            2, '.', ' ');            
+            $o_row['prix_ttc'] = number_format($o_row['prix_ttc'], 2, '.', ' ');
         }
         return $to_result;
     }
@@ -207,7 +207,7 @@ class ArticleCampagne {
         /* Formattage des nombres */
         foreach ($to_result as &$o_row) {
             $o_row['poids_paquet_client'] = number_format($o_row['poids_paquet_client'], 2, '.', ' ');
-            $o_row['prix_ttc']            = number_format($o_row['prix_ttc'],            2, '.', ' ');            
+            $o_row['prix_ttc']            = number_format($o_row['prix_ttc'], 2, '.', ' ');
         }
         return $to_result;
     }
@@ -258,10 +258,10 @@ class ArticleCampagne {
         $sql_tmp = mysql_query($sql_query);
         $o_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
-	    /* Formattage des nombres */
+            /* Formattage des nombres */
             $o_row['poids_paquet_client']    = number_format($o_row['poids_paquet_client']   , 2, '.', ' ');
             $o_row['prix_ttc']    = number_format($o_row['prix_ttc']   , 2, '.', ' '); 
-            $o_row['prix_ht']    = number_format($o_row['prix_ht']   , 2, '.', ' ');            
+            $o_row['prix_ht']    = number_format($o_row['prix_ht']   , 2, '.', ' ');
             /* Sécurité */
             foreach ($o_row as &$column) {
                 $column = htmlentities($column);
@@ -311,7 +311,7 @@ class ArticleCampagne {
         $sql_tmp = mysql_query($sql_query);
         $f_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
-	    /* Formattage des nombres */
+            /* Formattage des nombres */
             $o_row['poids_paquet_client']    = number_format($o_row['poids_paquet_client']   , 2, '.', ' ');
             $o_row['prix_ttc']    = number_format($o_row['prix_ttc']   , 2, '.', ' '); 
             /* Sécurité et création du résultat */

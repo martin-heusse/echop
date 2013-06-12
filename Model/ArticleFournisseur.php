@@ -48,8 +48,8 @@ class ArticleFournisseur {
         }
         /* Formattage des nombres */
         foreach ($to_result as &$o_row) {
-            $o_row['prix_ht']  = number_format($o_row['prix_ht'],  2, '.', ' ');
-            $o_row['prix_ttc'] = number_format($o_row['prix_ttc'], 2, '.', ' ');
+            $o_row['prix_ht']  = number_format((double)$o_row['prix_ht'], 2, '.', ' ');
+            $o_row['prix_ttc'] = number_format((double)$o_row['prix_ttc'], 2, '.', ' ');
 
         }
         return $to_result;

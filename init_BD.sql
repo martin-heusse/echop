@@ -40,6 +40,7 @@ insert into fournisseur(nom) values('PICHARD');
 insert into fournisseur(nom) values('SIMON LEVE');
 
 insert into tva(valeur) values(19.60);
+insert into tva(valeur) values(5.50);
 
 insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
     values(1, 1,null, 30.5, 'E100');
@@ -51,11 +52,11 @@ insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, co
     values(3, 3, 8, 5, '855 602 222');
 
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
-    values(1, 1, 2, 5, 1, 3, 15);
+    values(1, 1, 1, 5, 1, 3, 15);
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
-    values(2, 1, 2, 24.1, 1, 5, 20);
+    values(2, 1, 2, 24.1, 2, 5, 20);
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
-    values(3, 1, NULL, 30, 1, 1, 10);
+    values(3, 1, 3, 30, 1, 1, 10);
 
 insert into campagne_rayon(id_campagne, id_rayon) values (1, 1);
 insert into campagne_rayon(id_campagne, id_rayon) values (1, 2);

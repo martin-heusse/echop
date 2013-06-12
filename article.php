@@ -24,6 +24,8 @@ class ArticleController extends Controller {
     public function afficherArticle() {
         // liste de tous les fournisseurs
         $to_fournisseur = Fournisseur::getAllObjects();
+        // liste de toutes les tva
+        $to_tva = Tva::getAllObjects();
         // liste des descriptions des articles (à partir des tables  :
         // article, article_fournisseur et article_campagne)
         $to_descriptionArticle = array();
@@ -59,50 +61,29 @@ class ArticleController extends Controller {
                 $o_descriptionArticle['tva'] = Tva::getValeur($i_idTva);
                 // colonnes composées renvoyées à la vue et formatage des nombres
                 $o_descriptionArticle['prix_echoppe_ttc_unite'] = number_format($o_descriptionArticle['prix_ttc']/$o_descriptionArticle['poids_paquet_fournisseur'], 2, '.', ' ');
-                $o_descriptionArticle[$s_nomFourniseur]['prix_ht'] = number_format($o_descriptionArticle[$s_nomFourniseur]['prix_ht'], 2, '.', ' ');
-                $o_descriptionArticle[$s_nomFourniseur]['prix_ttc'] = number_format($o_descriptionArticle[$s_nomFourniseur]['prix_ttc'], 2, '.', ' ');
+                $o_descriptionArticle[$i_idFournisseur]['prix_ht'] = number_format($o_descriptionArticle[$i_idFournisseur]['prix_ht'], 2, '.', ' ');
+                $o_descriptionArticle[$i_idFournisseur]['prix_ttc'] = number_format($o_descriptionArticle[$i_idFournisseur]['prix_ttc'], 2, '.', ' ');
                 $o_descriptionArticle['poids_paquet_fournisseur'] = number_format($o_descriptionArticle['poids_paquet_fournisseur'], 2, '.', ' ');
                 $o_descriptionArticle['poids_paquet_client'] = number_format($o_descriptionArticle['poids_paquet_client'], 2, '.', ' ');
             }
         }
-        $this->render('gererArticle', compact('to_rayon', 'to_fournisseur', 'i_idRayon', 'to_descriptionArticle'));
+        $this->render('gererArticle', compact('to_rayon', 'to_fournisseur', 'i_idRayon', 'to_descriptionArticle', 'to_tva'));
     }
 
     public function modifierArticle() {
-        // récupération des variables post
-        $i_idArticleCampagne = $_POST['id_article_campagne'];
-        $s_nomArticle = $_POST['nom_article'];
-        $f_poidsPaquetFournisseur = $_POST['poids_paquet_fournisseur'];
-        $f_poidsPaquetClient = $_POST['poids_paquet_client'];
-        $s_unite = $_POST['unite'];
-        $i_nbPaquetColis = $_POST['nb_paquet_colis'];
-        $i_seuilMin = $_POST['seuil_min'];
-        // modification des fournisseurs
-        $f_prixTtcEchoppe = $_POST['prix_ttc_echoppe'];
-        $f_tva = $_POST['tva'];
-        $s_descriptionCourte = $_POST['description_courte'];
-        $s_descriptionLongue = $_POST['description_longue'];
-        // Les modifications à faire dans la base de données.
-        // Dans la table article_campagne
-        // pour l'instant l'id fournisseur ne change pas
-        // modification de la tva
-        $i_idTva = ArticleCampagne::getIdTva($i_idArticleCampagne);
-        Tva::setValeur($id_idTva,$f_tva);
-        /*// Dans la table article dans l'ordre des champs :
-        // modification de unite
-        $i_idUnite = Article::getIdUnite($i_idArticle);
-        Unite::setValeur($i_idUnite, $s_unite);
-        // modification de id_rayon pas modifiable
-        Article::setNom($i_idArticle,$s_nomArticle);
-        Article::setPoidsPaquetFournisseur($i_idArticle,$f_poidsPaquetFournisseur);
-        Article::setNbPaquetColis($i_idArticle,$i_nbPaquetColis);
-        Article::setDescriptionCourte($i_idArticle,$s_descriptionCourte);
-        Article::setDescriptionLongue($i_idArticle,$s_descriptionLongue);*/
-        // Dans la table article_fournisseur
-        // redirection vers afficher les articles
+        // récupération des tableaux
+        $ti_idArticleCampagne = $_POST['id_article_campagne'];
+        $ti_poisPaquetClient = $_POST['poids_paquet_client'];
+        $ti_seuilMin = $_POST['seuil_min'];
+        $i_nbArticleCampagne = count($ti_idArticleCampagne);
+        for ($i=0; $i<$i_nbArticleCampagne; $i++) {
+        // pour tous les articles campagnes
+        // on récupère les variables en méthode post
+        
+        }
         header('Location: '.root.'/rayon.php/afficherRayon');
-        echo "A FAIRE !";
-        return;
+        //echo "A FAIRE !";
+        //return;
     }
 
     public function creerArticle() {
