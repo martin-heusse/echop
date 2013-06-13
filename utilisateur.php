@@ -116,10 +116,12 @@ class UtilisateurController extends Controller {
         $i_emailSent = 0;
 
         /* Récupération des données du mail et envoi */
+        /*
         if (isset($_POST['subject']) && $_POST['subject'] != "" && isset($_POST['message']) && $_POST['message'] != "") { 
             $s_subject = $_POST['subject'];
             $s_message = $_POST['message']; 
             $to_email = Utilisateur::getAllEmail();
+         */
 
             /*
             $s_message .= "\n";
@@ -145,8 +147,8 @@ class UtilisateurController extends Controller {
                 $fake = 2;
             }*/
 
-            $destinataire = "philippe.tran@ensimag.fr";
-            //$destinataire = "philippe.tran2@gmail.com";
+            //$destinataire = "philippe.tran@ensimag.fr";
+            $destinataire = "philippe.tran2@gmail.com";
             $sujet = "salut =)";
 
             /* Texte */
@@ -155,8 +157,8 @@ class UtilisateurController extends Controller {
             /* Headers */
             $headers_mail  = 'MIME-Version: 1.0'                           ."\r\n";
             $headers_mail .= 'Content-type: text/html; charset=utf-8'      ."\r\n";
-            $headers_mail .= 'From: <philippe.tran@ensimag.fr>'      ."\r\n";
-            //$headers_mail .= 'From: <philippe.tran2@gmail.com>'      ."\r\n";
+            //$headers_mail .= 'From: <philippe.tran@ensimag.fr>'      ."\r\n";
+            $headers_mail .= 'From: <philippe.tran2@gmail.com>'      ."\r\n";
             /* Contenu */
             $message_mail  = "<html>\n\t<head>\n\t</head>\n\t<body>\n\t\t";
             $message_mail .= $texte."\n" ;
@@ -168,8 +170,10 @@ class UtilisateurController extends Controller {
 
             mail($destinataire, $sujet, $message_mail, $headers_mail);
             return;
+            /*
         }
         $this->render('envoiMail',compact('i_emailSent','fake'));
+             */
     }
 
 
