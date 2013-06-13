@@ -47,7 +47,8 @@ if (Utilisateur::isLogged()) {
     <ul>
         <li><a href="<?php echo root ?>/mesCommandes.php/mesCommandes">Mes commandes</a></li>
         <li><a href="<?php echo root ?>/commanderArticle.php/afficherRayon">Commander des articles</a></li>
-    </ul>
+        <li><a href="<?php echo root ?>/utilisateur.php/profil">Mon profil</a></li>
+     </ul>
 <?php
 } else {
 ?>
