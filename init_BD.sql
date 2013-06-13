@@ -96,6 +96,7 @@ insert into fournisseur(nom) values('PROBA BIO');
 insert into tva(valeur) values(19.60);
 insert into tva(valeur) values(5.50);
 
+-- articles au hasard
 insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
     values(1, 1,null, 30.5, 'E100');
 insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
@@ -104,6 +105,7 @@ insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, co
     values(2, 2, 2.4, 24, 'YX4000');
 insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
     values(3, 3, 8, 5, '855 602 222');
+-- fin des artciles au hasard
 insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
     values(4, 4,12.05, 12.54, '');
 insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
@@ -185,64 +187,70 @@ insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, co
 insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
     values(29, 5,0.93, 0.98, 'E100');
 
+
+
+-- article au hasard
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
     values(1, 1, 1, 5, 1, 3, 15);
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
     values(2, 1, 2, 24.1, 2, 5, 20);
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
     values(3, 1, 3, 30, 1, 1, 10);
+-- fin des articles au hasard
+-- RIZ
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
-    values(4, 1, null, 1, null, 1, 13.92);
+    values(4, 1, 4, 1, 2, 1, 13.92);
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
-    values(5, 1, null, 1, null, 5, 65.32);
+    values(5, 1, 4, 1, 2, 5, 65.32);
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
-    values(6, 1, null, 1, null, 1, 16.04);
+    values(6, 1, 5, 1, 2, 1, 16.04);
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
-    values(7, 1, null, 1, null, 1, 10.95);
+    values(7, 1, 5, 1, 2, 1, 10.95);
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
-    values(8, 1, null, 1, null, 5, 50.48);
+    values(8, 1, 4, 1, 2, 5, 50.48);
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
-    values(9, 1, null, 1, null, 1, 18.43);
+    values(9, 1, 4, 1, 2, 1, 18.43);
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
-    values(10, 1, null, 1, null, 5, 87.62);
+    values(10, 1, 4, 1, 2, 5, 87.62);
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
-    values(11, 1, null, 1, null, 1, 18.51);
+    values(11, 1, 4, 1, 2, 1, 18.51);
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
-    values(12, 1, null, 1, null, 5, 88.20);
+    values(12, 1, 4, 1, 2, 5, 88.20);
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
-    values(13, 1, null, 1, null, 1, 21.69);
+    values(13, 1, 4, 1, 2, 1, 21.69);
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
-    values(14, 1, null, 1, null, 5, 91.91);
+    values(14, 1, 4, 1, 2, 5, 91.91);
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
-    values(15, 1, null, 1, null,1 , 22.54);
+    values(15, 1, 5, 1, 2, 1, 22.54);
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
-    values(16, 1, null, 1, null, 5, 108.32);
+    values(16, 1, 5, 1, 2, 5, 108.32);
+-- PATES
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
-    values(17, 1, null, 2.5, null, 1,9.55 );
+    values(17, 1, 4, 2.5, 2, 1,9.55 );
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
-    values(18, 1, null, 2.5, null, 1, 9.55);
+    values(18, 1, 4, 2.5, 2, 1, 9.55);
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
-    values(19, 1, null, 2.5, null, 1, 10.54);
+    values(19, 1, 5, 2.5, 2, 1, 10.54);
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
-    values(20, 1, null, 2.5, null, 1, 11.65);
+    values(20, 1, 5, 2.5, 2, 1, 11.65);
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
-    values(21, 1, null, 2.5, null, 1, 11.54);
+    values(21, 1, 5, 2.5, 2, 1, 11.54);
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
-    values(22, 1, null, 2.5, null, 1, 9.55);
+    values(22, 1, 4, 2.5, 2, 1, 9.55);
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
-    values(23, 1, null, 2.5, null, 1, 9.55);
+    values(23, 1, 4, 2.5, 2, 1, 9.55);
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
-    values(24, 1, null, 2.5, null, 1, 9.55);
+    values(24, 1, 4, 2.5, 2, 1, 9.55);
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
-    values(25, 1, null, 2.5, null, 1, 15.97);
+    values(25, 1, 4, 2.5, 2, 1, 15.97);
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
-    values(26, 1, null, 0.5, null, 1, 2.30);
+    values(26, 1, 5, 0.5, 2, 1, 2.30);
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
-    values(27, 1, null, 0.5, null, 1, 1.11);
+    values(27, 1, 5, 0.5, 2, 1, 1.11);
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
-    values(28, 1, null, 0.5, null, 1, 1.11);
+    values(28, 1, 5, 0.5, 2, 1, 1.11);
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
-    values(29, 1, null, 0.25, null, 1, 1.09);
+    values(29, 1, 5, 0.25, 2, 1, 1.09);
 
 insert into campagne_rayon(id_campagne, id_rayon) values (1, 1);
 insert into campagne_rayon(id_campagne, id_rayon) values (1, 2);

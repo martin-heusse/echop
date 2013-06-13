@@ -1,27 +1,12 @@
 <?php
 require_once('def.php');
 require_once('Model/Utilisateur.php');
+require_once('Util.php');
 
 /*
  * Gère les utilisateurs.
  */
 class UtilisateurController extends Controller {
-
-    /* 
-     * Fonction pour envoyer un mail.
-     */
-    public static function sendEmail($s_destinataire, $s_subject, $s_message) {
-        /* Header */
-        $s_header  = 'MIME-Version: 1.0'."\r\n";
-        $s_header .= 'Content-type: text/html; charset=utf-8'."\r\n";
-        $s_header .= 'From: <philippe.tran@ensimag.fr>'."\r\n"; // a changer
-        /* Contenu */
-        $s_contenu  = "<html>\n\t<head>\n\t</head>\n\t<body>\n\t\t";
-        $s_contenu .= "<p>".$s_message."</p>\n" ;
-        $s_contenu .= "\t</body>\n</html>";
-        // Envoie du mail
-        mail($s_destinataire, $s_subject, $s_contenu, $s_header);
-    }
 
     /*
      * Constructeur.
@@ -91,7 +76,7 @@ class UtilisateurController extends Controller {
             $s_destinataire = Utilisateur::getEmail($i_idUtilisateur);
             $s_subject = "[L'Échoppe d'ici et d'ailleurs] Inscription validée";
             $s_message = "Votre inscription a été validée. Votre login :". $s_login. "Votre mot de passe :" . $s_mot_de_passe;
-            UtilisateurController::sendEmail($s_destinataire, $s_subject, $s_message);
+            Util::sendEmail($s_destinataire, $s_subject, $s_message);
         }
         header('Location: '.root.'/utilisateur.php/listeUtilisateurAValider');
     }
@@ -135,7 +120,7 @@ class UtilisateurController extends Controller {
             $s_message = htmlentities($_POST['message']); 
             $ts_email = Utilisateur::getAllEmail();
             foreach ($ts_email as $s_destinataire) {
-                UtilisateurController::sendEmail($s_destinataire, $s_subject, $s_message);
+                Util::sendEmail($s_destinataire, $s_subject, $s_message);
             }
         }
         $this->render('envoiMail' ,compact('i_emailSent'));
