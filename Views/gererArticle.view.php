@@ -2,44 +2,40 @@
 
 <h1>Gérer tous les articles</h1>
 
-<?php
-// Trace
-// print_r($to_descriptionArticle);
-// print_r($to_fournisseur);
-?>
+<p>La liste des actions :</p>
+<a href="<?php echo root ?>/article.php/creerArticle">Créer un article</a>
 
-<p> La liste des actions : </p>
-<a href="<?php echo root ?>/article.php/creerArticle"> créer un article <a/>
-
-
-<form method="post" action="<?php echo root ?>/article.php/modifierArticle"> <!-- Création d'un formulaire englobant tout le tableau-->
-    <table>
-        <thead> <!-- En-tête du tableau -->
-            <tr>
-                <th>Produit</th>
-                <th>Poids du paquet fournisseur</th>
-                <th>Poids du paquet client</th>
-                <th>Unité</th>
-                <th>Nombre de paquets par colis fournisseur</th>
-                <th>Seuil min</th>
+<!-- Création d'un formulaire englobant tout le tableau -->
+<form method="post" action="<?php echo root ?>/article.php/modifierArticle">
+<table>
+    <thead> <!-- En-tête du tableau -->
+        <tr>
+            <th>Produit</th>
+            <th>Poids du paquet fournisseur</th>
+            <th>Poids du paquet client</th>
+            <th>Unité</th>
+            <th>Nombre de paquets par colis fournisseur</th>
+            <th>Seuil min</th>
 <?php
 foreach($to_fournisseur as $o_fournisseur){
 //boucle pour afficher le nom de tous les fournisseurs
 ?>
-                <th><?php echo $o_fournisseur['nom'] ?></th>
+            <th><?php echo $o_fournisseur['nom'] ?></th>
 <?php
 }
 ?>
-               <!-- colonne informative attention aux arrondis -->
-               <th>Prix TTC choisi par l'échoppe rapporté au colis du fournisseur vendu au client</th>
-               <!-- colonne informative -->
-               <th>Prix TTC rapporté à l'unité echoppe</th>
-               <th>TVA</th>
-               <th>Description courte</th>
-               <th>Description longue</th>
-             </tr>
-         </thead>
-        <tbody> <!-- Corps du tableau -->
+            <!-- colonne informative attention aux arrondis -->
+            <th>Prix TTC choisi par l'échoppe rapporté au colis du fournisseur vendu au client</th>
+            <!-- colonne informative -->
+            <th>Prix TTC rapporté à l'unité echoppe</th>
+            <th>TVA</th>
+            <!--
+            <th>Description courte</th>
+            <th>Description longue</th>
+            -->
+         </tr>
+    </thead>
+    <tbody> <!-- Corps du tableau -->
 <?php
 foreach ($to_descriptionArticle as $o_descriptionArticle) {
 // boucle pour affcher tous les produits
@@ -102,14 +98,14 @@ $i_idArticleCampagne = $o_descriptionArticle['id']
 ?>
                 </select></td>
                 <!-- Description courte -->
-                <td><?php echo $o_descriptionArticle['description_courte'] ?></td>
+                <!--<td><?php echo $o_descriptionArticle['description_courte'] ?></td>-->
                 <!-- Description longue -->
-                <td><?php echo $o_descriptionArticle['description_longue'] ?></td>
+                <!--<td><?php echo $o_descriptionArticle['description_longue'] ?></td>-->
           </tr>
 <?php
 }
 ?>
         </tbody>
-    </table>
-    <input type="submit" value="modifier tous les articles" />
+</table>
+<input type="submit" class="input_valider" value="Mettre à jour les articles"/>
 <form>
