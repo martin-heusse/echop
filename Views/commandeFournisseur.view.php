@@ -14,8 +14,8 @@ foreach ($to_article as $o_article) {
 ?>
     <tr class="ligne_article<?php echo $i_numLigne ?>">
         <td><?php echo $o_article['nom'] ?></td>
-        <td><?php echo $o_article['quantite'] ?></td>
-        <td><?php echo $f_montantTtc ?></td>
+        <td><?php echo $o_article['quantite_totale'] ?></td>
+        <td><?php echo $o_article['montant_total'] ?></td>
     </tr>
 <?php
     $i_numLigne = ($i_numLigne + 1) % 2;
