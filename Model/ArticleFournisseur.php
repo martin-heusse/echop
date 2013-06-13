@@ -169,6 +169,19 @@ class ArticleFournisseur {
         return $i_result;
     }
 
+    public static function getPrixTtcByIdArticleIdFournisseur($i_idArticle, $i_idFournisseur) {
+        $sql_query = "select prix_ttc from article_fournisseur where id_article=$i_idArticle and id_fournisseur=$i_idFournisseur ";
+        $sql_tmp = mysql_query($sql_query);
+        $i_result = null;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Formattage des nombres */
+            $o_row['prix_ttc'] = number_format($o_row['prix_ttc'], 2, '.', ' ');
+            /* Sécurité et création du résultat */
+            $i_result = htmlentities($o_row['prix_ttc']);
+        }
+        return $i_result;
+    }
+
     public static function getPrixHt($i_id) {
         $sql_query = "select prix_ht from article_fournisseur where id=$i_id";
         $sql_tmp = mysql_query($sql_query);

@@ -19,12 +19,12 @@ if ($b_etat == 1) {
 <?php
 if ($to_commande != null and $to_commande != array()) {
 	?>
-
-		<?php
+coucou
+		<?php  echo $i_idRayon;
 		/* Affiche ou non le formulaire */
 		if ($b_etat == 1) {
 			?>
-				<form method="post" action="commanderArticle.php/commanderArticleModifier?idRayon=<?php echo $i_idRayon?>">
+                <form method="post" action="<?php echo root ?>/commanderArticle.php/commanderArticleModifier?idRayon=<?php echo $i_idRayon?>">
 				<?php
 		}
 	?>
@@ -55,9 +55,12 @@ if ($to_commande != null and $to_commande != array()) {
 	?>
 		</tr>
 		<?php 
-		$i_numLigne = 0;
-	foreach($to_commande as $o_produit) {
-	if($o_produit['id_rayon']==$i_idRayon){	?>
+        $i_numLigne = 0;
+        ?> avant boucle <?php
+        foreach($to_commande as $o_produit) {
+            ?> apres boucle rayonprodiut <?php echo $o_produit['id_rayon']; ?> rayon donne <?php echo $i_idRayon ;
+            if($o_produit['id_rayon']==$i_idRayon){	?>
+bon produit
 			<tr class="ligne_article<?php echo $i_numLigne ?>">
 			<td><?php echo $o_produit['nom'] ?></td>
 			<!--
