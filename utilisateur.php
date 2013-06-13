@@ -111,44 +111,15 @@ class UtilisateurController extends Controller {
             $this->render('authentificationRequired');
             return;
         }
-
-        $fake = 0;
         $i_emailSent = 0;
-
         /* Récupération des données du mail et envoi */
-        /*
         if (isset($_POST['subject']) && $_POST['subject'] != "" && isset($_POST['message']) && $_POST['message'] != "") { 
+            $i_emailSent = 1;
             $s_subject = $_POST['subject'];
             $s_message = $_POST['message']; 
-            $to_email = Utilisateur::getAllEmail();
-         */
-
-            /*
-            $s_message .= "\n";
-            $to = 'johann.yvetot@ensimag.fr';
-             */
-            /* Headers */
-          /*  $s_headers = 'MIME-Version : 1.0'."\r\n";
-            $s_headers .= 'Content-type: text/html; charset=iso-8859-1'."\r\n";
-           */
-            /*
-            $s_headers = 'From: <johann.yvetot@ensimag.fr>'."\r\n"; 
-            $s_headers .= "\r\n";
-             */
-           /* 
-            foreach ($to_email as $o_email) {
-                $s_email = $o_email['email'];
-                mail('s_email','s_subject','s_message');
-            } */
-            
-            /*
-            if (mail('to','s_subject','s_message','s_headers')) {
-                $i_emailSent = 1;
-                $fake = 2;
-            }*/
+            $ts_email = Utilisateur::getAllEmail();
 
             $destinataire = "philippe.tran@ensimag.fr";
-            //$destinataire = "philippe.tran2@gmail.com";
             $sujet = "salut =)";
 
             /* Texte */
@@ -158,23 +129,14 @@ class UtilisateurController extends Controller {
             $headers_mail  = 'MIME-Version: 1.0'                           ."\r\n";
             $headers_mail .= 'Content-type: text/html; charset=utf-8'      ."\r\n";
             $headers_mail .= 'From: <philippe.tran@ensimag.fr>'      ."\r\n";
-            //$headers_mail .= 'From: <philippe.tran2@gmail.com>'      ."\r\n";
             /* Contenu */
             $message_mail  = "<html>\n\t<head>\n\t</head>\n\t<body>\n\t\t";
             $message_mail .= $texte."\n" ;
-            /*
-            $message_mail .= "\t\t<h5>Ce message vous a été envoyé
-                automatiquement, veuillez ne pas y répondre</h5>\n";
-             */
             $message_mail .="\t</body>\n</html>";
 
             mail($destinataire, $sujet, $message_mail, $headers_mail);
-        echo "coucou";
-            return;
-            /*
         }
-        $this->render('envoiMail',compact('i_emailSent','fake'));
-             */
+        $this->render('envoiMail',compact('i_emailSent');
     }
 
 

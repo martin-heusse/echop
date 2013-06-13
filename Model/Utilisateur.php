@@ -46,16 +46,16 @@ class Utilisateur {
     public static function getAllEmail() {
             $sql_query = "select email from utilisateur";
             $sql_tmp = mysql_query($sql_query);
-            $to_result = array();
+            $ts_result = array();
             while ($o_row = mysql_fetch_assoc($sql_tmp)) {
                 /* Sécurité */
                 foreach ($o_row as &$column) {
                     $column = htmlentities($column);
                 }
                 /* Création du résultat */
-                $to_result[] = $o_row;
+                $ts_result[] = $o_row['email'];
             }
-            return $to_result;
+            return $ts_result;
     }
 
     public static function getObjectsByLogin($s_login) {
