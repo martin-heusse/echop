@@ -59,8 +59,6 @@ class CommanderArticleController extends Controller {
             return;
         }
         $i_idRayon = $_GET['idRayon'];
-        echo 'id_rayon';
-        echo $i_idRayon;
         $to_commande = ArticleCampagne::getObjectsByIdCampagne($i_idCampagne);
         /* Montant total */
         $f_montantTotal = 0;
@@ -105,13 +103,10 @@ class CommanderArticleController extends Controller {
      */
     public function commanderArticleModifier() {
         if (!isset($_GET['idRayon'])) {	
-            echo 'ici c get';
             $this->render('afficherRayon');
             return;
         }
-        echo 'idRayon dans modification d article';
         $i_idRayon = $_GET['idRayon'];
-        echo $_GET['idRayon']; 
         /* Récupération de l'identifiant de la campagne courante */
         $i_idCampagne = Campagne::getIdCampagneCourante();
         /* Récupération de l'état de la campagne */
@@ -128,17 +123,13 @@ class CommanderArticleController extends Controller {
         /* Pour chaque article on modifie la quantité si nécéssaire */
         foreach($ti_article as &$i_article) {
             $i_idArticle = $i_article['id_article'];
-            echo 'idArticle';
-            echo $i_idArticle;
             /* vérifier si l'article est bien dans le rayon */
             $i_idRayonArticle = Article::getIdRayon($i_idArticle);
             if($i_idRayon == $i_idRayonArticle) {
                 /* Si des modifications ont été faite par l'utilisateur, on traite l'entrée */
                 if (isset($_POST['quantite'])){
                     $ti_quantite = $_POST['quantite'];
-                    echo 'avant quantite';
                     $i_quantite = $ti_quantite[$i_idArticle];
-                    echo $i_quantite;
                     if($i_quantite != 0) {
                         /* Vérifie si l'article dont la quantité a été modifié est déjà présent dans la commande 
                          * sinon crée la commande */
@@ -157,7 +148,6 @@ class CommanderArticleController extends Controller {
                 }
             }
         }
-        echo $i_idRayon;
         /* Redirection */
         header('Location: '.root.'/commanderArticle.php/commanderArticle?idRayon='.$i_idRayon);
     }
