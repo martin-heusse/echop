@@ -237,7 +237,64 @@ class CommandeController extends Controller {
 
         }
         $s_nomArticle = Article::getNom($i_idArticle);
-        $this->render('utilisateursAyantCommandECetArticle', compact('to_utilisateur', 's_nomArticle', 'i_quantiteTotale', 's_unite'));
+        $i_idArticle = htmlentities($_GET['idArticle']);
+        $this->render('utilisateursAyantCommandECetArticle', compact('i_idArticle', 'to_utilisateur', 's_nomArticle', 'i_quantiteTotale', 's_unite'));
+    }
+
+    /*
+     * Affiche l'article à modifier d'un utilisateur pour la campagne courante.
+     */
+    public function commandeUtilisateurPourCetArticle() {
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        if (!isset($_GET['idArticle'])) {
+            return;
+        }
+        /* Récupération de l'identifiant de la campagne courante */
+        $i_idCampagne = Campagne::getIdCampagneCourante();
+        /* Récupération de l'état de la campagne */
+        $b_etat = Campagne::getEtat($i_idCampagne);
+        /* Récupération des articles commandés par l'utilisateur */
+        if (!isset($_GET['idUtilisateur'])) {
+            header('Location: '.root.'/commande.php/utilisateurAyantCommandE');
+            return;
+        }
+        $i_idUtilisateur = $_GET['idUtilisateur'];
+        $i_idArticle = $_GET['idArticle'];
+        $i_idCommande = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
+        $o_commande = Commande::getObject($i_idCommande);
+        /* Récupération de tous les attributs nécessaires d'un article */
+            /* Attributs dépendant de l'article */
+            $i_idArticle = $o_commande['id_article'];
+            $o_commande['nom'] = Article::getNom($i_idArticle);
+            $o_commande['poids_paquet_fournisseur'] = Article::getPoidsPaquetFournisseur($i_idArticle);
+            $i_idUnite = Article::getIdUnite($i_idArticle);
+            $o_commande['unite'] = Unite::getUnite($i_idUnite);
+            $o_commande['nb_paquet_colis'] = Article::getNbPaquetColis($i_idArticle);
+            $o_commande['description_courte'] = Article::getDescriptionCourte($i_idArticle);
+            $o_commande['description_longue'] = Article::getDescriptionLongue($i_idArticle);
+            /* Prix TTC, seuil min et poids paquet client */
+            $o_commande_campagne = ArticleCampagne::getObjectByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+            $o_commande['prix_ttc'] = $o_commande_campagne['prix_ttc'];
+            $o_commande['seuil_min'] = $o_commande_campagne['seuil_min'];
+            $o_commande['poids_paquet_client'] = $o_commande_campagne['poids_paquet_client'];
+
+            /* Valeurs calculées */
+            /* Calcul poids unitaire */
+            $o_commande['prix_unitaire'] = $o_commande['prix_ttc'] / $o_commande['poids_paquet_fournisseur'];
+            $o_commande['prix_unitaire'] = number_format($o_commande['prix_unitaire'], 2, '.', ' ');
+            /* Calcul quantité totale */
+            $o_commande['quantite_totale'] = $o_commande['quantite'] * $o_commande['poids_paquet_client'];
+            $o_commande['quantite_totale'] = number_format($o_commande['quantite_totale'], 2, '.', ' ');
+            /* Calcul total TTC */
+            $o_commande['total_ttc'] = $o_commande['quantite_totale'] * $o_commande['prix_ttc'] / $o_commande['poids_paquet_fournisseur'];
+            $o_commande['total_ttc'] = number_format($o_commande['total_ttc'], 2, '.', ' ');
+        // recherche du login 
+        $s_login = Utilisateur::getLogin($i_idUtilisateur);
+        $this->render('commandeUtilisateurPourCetArticle', compact('i_idArticle', 'o_commande', 'b_etat', 'i_idUtilisateur', 's_login'));
     }
 
     /*
