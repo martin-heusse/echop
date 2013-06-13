@@ -115,28 +115,23 @@ class UtilisateurController extends Controller {
         /* Récupération des données du mail et envoi */
         if (isset($_POST['subject']) && $_POST['subject'] != "" && isset($_POST['message']) && $_POST['message'] != "") { 
             $i_emailSent = 1;
-            $s_subject = $_POST['subject'];
-            $s_message = $_POST['message']; 
+            $s_subject = htmlentities($_POST['subject']);
+            $s_message = htmlentities($_POST['message']); 
             $ts_email = Utilisateur::getAllEmail();
-
-            $destinataire = "philippe.tran@ensimag.fr";
-            $sujet = "salut =)";
-
-            /* Texte */
-            $texte = "<p>Salut c'est moi !</p>"."\n\t";
-
-            /* Headers */
-            $headers_mail  = 'MIME-Version: 1.0'                           ."\r\n";
-            $headers_mail .= 'Content-type: text/html; charset=utf-8'      ."\r\n";
-            $headers_mail .= 'From: <philippe.tran@ensimag.fr>'      ."\r\n";
-            /* Contenu */
-            $message_mail  = "<html>\n\t<head>\n\t</head>\n\t<body>\n\t\t";
-            $message_mail .= $texte."\n" ;
-            $message_mail .="\t</body>\n</html>";
-
-            mail($destinataire, $sujet, $message_mail, $headers_mail);
+            foreach ($ts_email as $s_destinataire) {
+                /* Header */
+                $s_header  = 'MIME-Version: 1.0'."\r\n";
+                $s_header .= 'Content-type: text/html; charset=utf-8'."\r\n";
+                $s_header .= 'From: <philippe.tran@ensimag.fr>'."\r\n";
+                /* Contenu */
+                $s_contenu  = "<html>\n\t<head>\n\t</head>\n\t<body>\n\t\t";
+                $s_contenu .= "<p>".$s_message."</p>\n" ;
+                $s_contenu .= "\t</body>\n</html>";
+                // Envoie du mail
+                mail($s_destinataire, $s_subject, $s_contenu, $s_header);
+            }
         }
-        $this->render('envoiMail',compact('i_emailSent');
+        $this->render('envoiMail' ,compact('i_emailSent'));
     }
 
 
