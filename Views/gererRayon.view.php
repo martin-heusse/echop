@@ -9,7 +9,7 @@
 ?>
 
 <p> La liste des actions : </p>
-<a href="<?php echo root ?>/rayon.php/creerRayon"> créer un rayon <a/>
+<a href="<?php echo root ?>/rayon.php/creerRayon"> créer un rayon <a/></br>
 <a href="<?php echo root ?>/rayon.php/modifierRayon"> modifier un rayon <a/>
 <p> La liste des rayons : </p>
 <?php
