@@ -22,7 +22,6 @@ class ArticleController extends Controller {
     }
 
     public function afficherArticle() {
-        /*
         // liste de tous les fournisseurs
         $to_fournisseur = Fournisseur::getAllObjects();
         // liste de toutes les tva
@@ -69,7 +68,7 @@ class ArticleController extends Controller {
             }
         }
         $this->render('gererArticle', compact('to_rayon', 'to_fournisseur', 'i_idRayon', 'to_descriptionArticle', 'to_tva'));
-         */
+        /*
         // Campagne courante
         $i_idCampagneCourante = Campagne::getIdCampagneCourante();
         // Articles de la campagne courante
@@ -84,9 +83,9 @@ class ArticleController extends Controller {
             // Données dans Article
             // Ajout dans le tableau
             $to_articleCampagne[] = $o_articleCampagne;
-            // Render
-            $this->render('gererArticle', compact('to_articleCampagne'));
         }
+        $this->render('gererArticle', compact('to_articleCampagne'));
+         */
     }
 
     public function modifierArticle() {

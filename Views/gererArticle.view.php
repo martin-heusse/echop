@@ -23,12 +23,14 @@
             <th>Nombre de paquets par colis fournisseur</th>
             <th>Seuil min</th>
 <?php
+/*
 foreach($to_fournisseur as $o_fournisseur){
 //boucle pour afficher le nom de tous les fournisseurs
 ?>
             <th><?php echo $o_fournisseur['nom'] ?></th>
 <?php
 }
+ */
 ?>
             <!-- colonne informative attention aux arrondis -->
             <th>Prix TTC choisi par l'échoppe rapporté au colis du fournisseur vendu au client</th>
@@ -49,7 +51,7 @@ $i_idArticleCampagne = $o_descriptionArticle['id']
 ?>
             <tr>
                 <!-- En variable cachée id_article_campagne -->
-                <input type="hidden" name="id_article_campagne[<?php echo $i_idArticleCampagne ?>]" value="<?php echo $i_idArticleCampagne ?>"/>
+                <input type="hidden" name="id_article_campagne[]" value="<?php echo $i_idArticleCampagne ?>"/>
                 <!-- Nom du produit -->
                 <td title="Produit"><?php echo $o_descriptionArticle['nom'] ?></td>
                 <!-- Poids du paquet fournisseur -->
@@ -98,7 +100,7 @@ $i_idArticleCampagne = $o_descriptionArticle['id']
 <?php
     foreach($to_tva as $o_tva){
 ?>
-                    <option value="<?php echo $o_tva['valeur'] ?>" <?php if($o_tva['valeur']==$o_descriptionArticle['tva']){echo 'selected="true"';} ?>> <?php echo $o_tva['valeur'] ?></option>
+                    <option value="<?php echo $o_tva['id'] ?>" <?php if($o_tva['valeur']==$o_descriptionArticle['tva']){echo 'selected="true"';} ?>> <?php echo $o_tva['valeur'] ?></option>
 <?php
     }
 ?>
