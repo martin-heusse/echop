@@ -2,6 +2,12 @@
 
 <h1>Gérer tous les articles</h1>
 
+<?php
+// Trace
+// print_r($to_descriptionArticle);
+// print_r($to_fournisseur);
+?>
+
 <p>La liste des actions :</p>
 <a href="<?php echo root ?>/article.php/creerArticle">Créer un article</a>
 

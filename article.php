@@ -105,9 +105,61 @@ class ArticleController extends Controller {
         //return;
     }
 
+    public function afficherCreerArticle() {
+        $this->render('creerArticle');
+    }
+
     public function creerArticle() {
-        echo "A FAIRE !";
-        return;
+        $i_erreur = null;
+        // récupération des variables
+        if( !isset($_POST['nom_produit']) or $_POST['nom_produit']==""
+            or !isset($_POST['poids_paquet_fournisseur'])
+            or !isset($_POST['poids_paquet_client'])
+            or !isset($_POST['id_unite'])
+            or !isset($_POST['nb_paquet_colis'])
+            or !isset($_POST['seuil_min'])
+            or !isset($_POST['id_fournisseur'])
+            or !isset($_POST['code'])
+            or !isset($_POST['prix_ttc_fournisseur'])
+            or !isset($_POST['prix_ht'])
+            or !isset($_POST['id_tva'])
+            or !isset($_POST['prix_ttc_echoppe'])
+            or !isset($_POST['description_courte'])
+            or !isset($_POST['description_longue']) ){
+            // si une des variables n'est pas définie
+            $i_erreur = 1;
+            $this->render('creerArticle',compact('i_erreur'));
+            return;
+        } else {
+            // si toutes les variables sont définies
+        $s_nomProduit = $_POST['nom_produit'];
+        $f_poidsPaquetFournisseur = $_POST['poids_paquet_fournisseur'];
+        $f_poidsPaquetClient = $_POST['poids_paquet_client'];
+        $i_idUnite = $_POST['id_unite'];
+        $i_nbPaquetColis = $_POST['nb_paquet_colis'];
+        $i_seuilMin = $_POST['seuil_min'];
+            // liste des fournisseurs A FAIRE
+        $i_idFournisseur = $_POST['id_fournisseur'];
+        $s_code = $_POST['code'];
+        $f_prixTtcFournisseur = $_POST['prix_ttc_fournisseur'];
+        $f_prixHt = $_POST['prix_ht'];
+            // fin de la liste
+        $i_idTva = $_POST['id_tva'];
+        $f_prixTtcEchoppe = $_POST['prix_ttc_echoppe'];
+        $s_descriptionCourte = $_POST['description_courte'];
+        $s_descriptionLongue = $_POST['description_longue'];
+        // par défaut on choisi le rayon 1
+        $i_idRayon = 1;
+        $i_idArticle = Article::create($i_idRayon, $s_nomProduit, $f_poidsPaquetFournisseur,$i_idUnite, $i_nbPaquetColis, $s_descriptionCourte, $s_descriptionLongue);
+        $i_idCampagne = Campagne::getIdCampagneCourante();
+        // Normalement ici $i_idFournisseur est celui du fournisseur choisi par l'échoppe A CHANGER
+        ArticleCampagne::create($i_idArticle, $i_idCampagne, $i_idFournisseur, $i_idTva, $f_poidsPaquetClient, $i_seuilMin, $f_prixTtcEchoppe);
+        // Normalement ici liste des fournisseurs à créer A CHANGER
+        ArticleFournisseur::create($i_idArticle, $i_idFournisseur, $f_prixHt, $f_prixTtcFournisseur, $s_code);
+        // on redonne à la vue toutes les variables
+        $i_erreur = 0;
+        $this->render('creerArticle',compact('i_erreur'));
+        }
     }
 
 
