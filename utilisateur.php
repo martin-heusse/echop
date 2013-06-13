@@ -120,7 +120,6 @@ class UtilisateurController extends Controller {
         if (isset($_POST['subject']) && $_POST['subject'] != "" && isset($_POST['message']) && $_POST['message'] != "") { 
             $s_subject = $_POST['subject'];
             $s_message = $_POST['message']; 
-            $to_email = Utilisateur::getAllEmail();
          */
 
             /*
@@ -147,7 +146,9 @@ class UtilisateurController extends Controller {
                 $fake = 2;
             }*/
 
+            $to_email = Utilisateur::getAllEmail();
             $destinataire = "philippe.tran@ensimag.fr";
+            foreach ($to_email as $destinataire) {
             //$destinataire = "philippe.tran2@gmail.com";
             $sujet = "salut =)";
 
@@ -168,7 +169,8 @@ class UtilisateurController extends Controller {
              */
             $message_mail .="\t</body>\n</html>";
 
-            mail($destinataire, $sujet, $message_mail, $headers_mail);
+            mail($destinataire['email'], $sujet, $message_mail, $headers_mail);
+            }
         echo "coucou";
             return;
             /*
