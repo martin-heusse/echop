@@ -9,7 +9,7 @@
 ?>
 
 <p>La liste des actions :</p>
-<a href="<?php echo root ?>/article.php/creerArticle">Créer un article</a>
+<a href="<?php echo root ?>/article.php/afficherCreerArticle">Créer un article</a>
 
 <!-- Création d'un formulaire englobant tout le tableau -->
 <form method="post" action="<?php echo root ?>/article.php/modifierArticle">
@@ -23,14 +23,12 @@
             <th>Nombre de paquets par colis fournisseur</th>
             <th>Seuil min</th>
 <?php
-/*
 foreach($to_fournisseur as $o_fournisseur){
 //boucle pour afficher le nom de tous les fournisseurs
 ?>
             <th><?php echo $o_fournisseur['nom'] ?></th>
 <?php
 }
- */
 ?>
             <!-- colonne informative attention aux arrondis -->
             <th>Prix TTC choisi par l'échoppe rapporté au colis du fournisseur vendu au client</th>
