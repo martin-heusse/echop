@@ -6,7 +6,7 @@ class ArticleFournisseur {
 
     public static function create($i_idArticle, $i_idFournisseur, $f_prixHt, $f_prixTtc, $s_code) {
         $sql_query = "insert into article_fournisseur(id_article, id_fournisseur, prix_ht, prix_ttc, code)
-            values('$i_idArticle', '$i_idFournisseur', '$f_prixHt', '$_prixTtc', '$s_code')";
+            values('$i_idArticle', '$i_idFournisseur', '$f_prixHt', '$f_prixTtc', '$s_code')";
         mysql_query($sql_query);
         $i_result = mysql_insert_id();
         return $i_result;
@@ -158,6 +158,19 @@ class ArticleFournisseur {
 
     public static function getPrixTtc($i_id) {
         $sql_query = "select prix_ttc from article_fournisseur where id=$i_id";
+        $sql_tmp = mysql_query($sql_query);
+        $i_result = null;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Formattage des nombres */
+            $o_row['prix_ttc'] = number_format($o_row['prix_ttc'], 2, '.', ' ');
+            /* Sécurité et création du résultat */
+            $i_result = htmlentities($o_row['prix_ttc']);
+        }
+        return $i_result;
+    }
+
+    public static function getPrixTtcByIdArticleIdFournisseur($i_idArticle, $i_idFournisseur) {
+        $sql_query = "select prix_ttc from article_fournisseur where id_article=$i_idArticle and id_fournisseur=$i_idFournisseur ";
         $sql_tmp = mysql_query($sql_query);
         $i_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {

@@ -68,6 +68,24 @@ class ArticleController extends Controller {
             }
         }
         $this->render('gererArticle', compact('to_rayon', 'to_fournisseur', 'i_idRayon', 'to_descriptionArticle', 'to_tva'));
+        /*
+        // Campagne courante
+        $i_idCampagneCourante = Campagne::getIdCampagneCourante();
+        // Articles de la campagne courante
+        $ti_idArticle = ArticleCampagne::getIdArticleByIdCampagne($i_idCampagnecourante);
+        // Tableau final qui va contenir tous les articles avec les infos
+        $to_articleCampagne = array();
+        foreach ($ti_idArticle as $i_idArticle) {
+            // idArticleCampagne de l'article
+            $i_idArticleCampagne = ArticleCampagne::getIdByIdArticleIdCampagne($i_idArticle, $i_idCampagneCourante);
+            // Données dans ArticleCampagne
+            $o_articleCampagne = ArticleCampagne::getObjects($i_idArticleCampagne);
+            // Données dans Article
+            // Ajout dans le tableau
+            $to_articleCampagne[] = $o_articleCampagne;
+        }
+        $this->render('gererArticle', compact('to_articleCampagne'));
+         */
     }
 
     public function modifierArticle() {
@@ -86,9 +104,78 @@ class ArticleController extends Controller {
         //return;
     }
 
+    public function afficherCreerArticle() {
+        $to_tva = Tva::getAllObjects();
+        $to_unite = Unite::getAllObjects();
+        $to_fournisseur = Fournisseur::getAllObjects();
+        $this->render('creerArticle',compact('to_tva', 'to_unite', 'to_fournisseur'));
+    }
+
     public function creerArticle() {
-        echo "A FAIRE !";
-        return;
+        $i_erreur = null;
+        $to_tva = Tva::getAllObjects();
+        $to_unite = Unite::getAllObjects();
+        $to_fournisseur = Fournisseur::getAllObjects();
+        // récupération des variables
+        if( !isset($_POST['nom_produit']) or $_POST['nom_produit']==""
+            or !isset($_POST['poids_paquet_fournisseur'])
+            or !isset($_POST['poids_paquet_client'])
+            or !isset($_POST['id_unite'])
+            or !isset($_POST['nb_paquet_colis'])
+            or !isset($_POST['seuil_min'])
+            // gestion des fournisseurs
+            or !isset($_POST['id_fournisseur_choisi'])
+                // ici id_fournisseur est un tableau contenant tous les id_fournisseur du formulaire
+            or !isset($_POST['id_fournisseur'])
+                // ici code, prix_ttc_fournisseur et prix_ht sont des tableaux
+            or !isset($_POST['code'])
+            or !isset($_POST['prix_ttc_fournisseur'])
+            or !isset($_POST['prix_ht'])
+            // fin de la gestion des fournisseur
+            or !isset($_POST['id_tva'])
+            or !isset($_POST['prix_ttc_echoppe'])
+            or !isset($_POST['description_courte'])
+            or !isset($_POST['description_longue']) ){
+            // si une des variables n'est pas définie
+            $i_erreur = 1;
+        } else {
+            // si toutes les variables sont définies
+        $s_nomProduit = $_POST['nom_produit'];
+        $f_poidsPaquetFournisseur = $_POST['poids_paquet_fournisseur'];
+        $f_poidsPaquetClient = $_POST['poids_paquet_client'];
+        $i_idUnite = $_POST['id_unite'];
+        $i_nbPaquetColis = $_POST['nb_paquet_colis'];
+        $i_seuilMin = $_POST['seuil_min'];
+            // liste des fournisseurs A FAIRE
+        $i_idFournisseurChoisi = $_POST['id_fournisseur_choisi'];
+        $ti_idFournisseur = $_POST['id_fournisseur'];
+        $s_code = $_POST['code'];
+        $f_prixTtcFournisseur = $_POST['prix_ttc_fournisseur'];
+        $f_prixHt = $_POST['prix_ht'];
+            // fin de la liste
+        $i_idTva = $_POST['id_tva'];
+        $f_prixTtcEchoppe = $_POST['prix_ttc_echoppe'];
+        $s_descriptionCourte = $_POST['description_courte'];
+        $s_descriptionLongue = $_POST['description_longue'];
+        // par défaut on choisi le rayon 1
+        $i_idRayon = 1;
+        $i_idArticle = Article::create($i_idRayon, $s_nomProduit, $f_poidsPaquetFournisseur,$i_idUnite, $i_nbPaquetColis, $s_descriptionCourte, $s_descriptionLongue);
+        $i_idCampagne = Campagne::getIdCampagneCourante();
+        // $i_idFournisseurChoisi est l'identifiant du fournisseur choisi par l'échoppe
+        ArticleCampagne::create($i_idArticle, $i_idCampagne, $i_idFournisseurChoisi, $i_idTva, $f_poidsPaquetClient, $i_seuilMin, $f_prixTtcEchoppe);
+        // Normalement ici liste des fournisseurs à créer 
+        $i_nbFournisseur = count($ti_idFournisseur);
+        for($i = 0; $i < $i_nbFournisseur; $i++){
+            $i_idFournisseur = $ti_idFournisseur[$i];
+            $f_prixHt = $code[$i];
+            $f_prixTtcFournisseur = $prix_ttc_fournisseur[$i];
+            $s_code = $ti_idFournisseur[$i];
+            ArticleFournisseur::create($i_idArticle, $i_idFournisseur, $f_prixHt, $f_prixTtcFournisseur, $s_code);
+        }
+        // on redonne à la vue toutes les variables
+        $i_erreur = 0;
+        }
+        $this->render('creerArticle',compact('i_erreur', 'to_tva', 'to_unite', 'to_fournisseur'));
     }
 
 

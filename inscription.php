@@ -32,10 +32,31 @@ class InscriptionController extends Controller {
                 $b_valide = 0;
                 Utilisateur::create($s_login, $s_passwd, $s_email,$b_valide);
                 $i_errReg = 0;
+                /* Envoie du mail pour avertir les administrateurs */
+                // récupérer les mails des admins
+                // foreach :
+                //UtilisateurController::sendEmail($s_destinataire, $s_subject, $s_message);
             }
         } 
         $this->render('inscription',compact('i_errLogin','i_errReg',
             's_login','s_passwd','s_email'));
+    }
+
+    /*
+     * Affiche la page d'oublie de mot de passe.
+     */
+    public function passOubliE() {
+        if(!isset($_POST['login'])) {
+            $this->render('passOubliE');
+            return;
+        }
+        $s_login = htmlentities($_POST['login']);
+        $o_utilisateur = Utilisateur::getObjectByLogin($s_login);
+        $s_destinataire = $o_utilisateur['email'];
+        $s_motDePasse = $o_utilisateur['mot_de_passe'];
+        $s_subject = "[L'Échoppe d'ici et d'ailleurs] Oubli de mot de passe";
+        $s_message = "Votre login : ".$s_login."\nVotre mot de passe : ".$s_motDePasse;
+        UtilisateurController::sendEmail($s_destinataire, $s_subject, $s_message);
     }
 
     public function defaultAction() {

@@ -1,9 +1,9 @@
 -- Peuplement
 
 insert into utilisateur(login, mot_de_passe, email, validite) values('Root', 'root', 'root@email.com', true);
-insert into utilisateur(login, mot_de_passe, email, validite) values('Aurore', 'root', 'aurore@email.com', true);
-insert into utilisateur(login, mot_de_passe, email, validite) values('Gilles', 'gilles', 'gilles@email.com', true);
-insert into utilisateur(login, mot_de_passe, email, validite) values('Philippe', 'toto', 'philippe@email.com', true);
+insert into utilisateur(login, mot_de_passe, email, validite) values('Aurore', 'root', 'aurore.bellas@ensimag.fr', true);
+insert into utilisateur(login, mot_de_passe, email, validite) values('Gilles', 'gilles', 'gilles.legoux@ensimag.fr', true);
+insert into utilisateur(login, mot_de_passe, email, validite) values('Philippe', 'toto', 'philippe.tran@ensimag.fr', true);
 insert into utilisateur(login, mot_de_passe, email, validite) values('Johann', 'root', 'johann.yvetot@ensimag.fr', true);
 insert into utilisateur(login, mot_de_passe, email, validite) values('a', 'a', 'a@example.com', true);
 insert into utilisateur(login, mot_de_passe, email, validite) values('nouveauInscrit', 'toto', 'new@example.com', false);
@@ -34,10 +34,64 @@ insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet
     values(1, 'SUCRE INTEGRAL "SUCANAT"', 25, 1, 1, 'Sucre cristallisé VAHINE', '');
 insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
     values(2, 'THE DARJEELING', 75, 2, 12, 'DARJEELING', '');
+insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1, 'Riz long 1/2 complet', 5, 1, 1, 'Riz de camargue', 'markal');
+insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1, 'Riz long 1/2 complet', 25, 1, 1, 'Riz de camargue', 'markal');
+insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1, 'Riz long blanc', 5, 1, 1, 'Camargue', '');
+insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1, 'riz rond 1/2 complet', 5, 1, 1, 'Italie', '');
+insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1, 'riz rond complet', 25, 1, 1, 'Italie', '');
+insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1, 'riz thai 1/2 complet', 5, 1, 1, 'thailande', '');
+insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1, 'riz thai 1/2 complet', 25, 1, 1, 'thailande', '');
+insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1, 'riz thai blanc', 5, 1, 1, '', '');
+insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1, 'riz thai blanc', 25, 1, 1, '', '');
+insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1, 'riz basmati 1/2 complet', 5, 1, 1, '', '');
+insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1, 'riz basmati 1/2 complet', 25, 1, 1, '', '');
+insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1, 'riz basmati blanc', 5, 1, 1, 'thailande', '');
+insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1, 'riz basmati blanc', 25, 1, 1, 'inde', '');
+insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1, 'coquillette 1/2 complete', 5, 1, 1, '', '');
+insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1, 'macaroni 1/2 complete', 5, 1, 1, '', '');
+insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1, 'nouille 1/2 complete', 5, 1, 1, '', '');
+insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1, 'spaghettis 1/2 complete', 5, 1, 1, '', '');
+insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1, 'coquillette complete', 5, 1, 1, '', '');
+insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1, 'coquillette blanche', 5, 1, 1, '', '');
+insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1, 'macaroni blanche', 5, 1, 1, 'macaroni blanche', '');
+insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1, 'spaghetti blanche', 5, 1, 1, '', '');
+insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1, 'spirale trois couleurs', 5, 1, 1, '', '');
+insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1, 'spaghetti quinoa persil ail', 0.5, 1, 12, '', '');
+insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1, 'mini crete de coq', 0.5, 1, 12, '', '');
+insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1, 'penne 1/2 complet', 0.5, 1, 12, '', '');
+insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1, 'Lasagnes', 0.25, 1, 12, '', '');
 
 insert into fournisseur(nom) values('RAPUNZEL');
 insert into fournisseur(nom) values('PICHARD');
 insert into fournisseur(nom) values('SIMON LEVE');
+insert into fournisseur(nom) values('MARKAL');
+insert into fournisseur(nom) values('PROBA BIO');
 
 insert into tva(valeur) values(19.60);
 insert into tva(valeur) values(5.50);
@@ -50,6 +104,86 @@ insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, co
     values(2, 2, 2.4, 24, 'YX4000');
 insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
     values(3, 3, 8, 5, '855 602 222');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(4, 4,12.05, 12.54, '');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(4, 5,null, 12.71, '');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(5, 4,null, 30.5, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(6, 5,13.70, 14.45, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(7, 5,9.35, 9.86, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(8,4,null, 45.48, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(8,5,44.25, 46.68, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(9,4,null, 16.60, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(9,5,17.25, 18.20, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(10, 4,null, 78.94, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(10, 5,75.50, 79.65, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(11, 4,null, 16.68, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(11, 5,15.95, 16.83, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(12, 4,null, 79.46, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(13, 4,null, 19.54, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(13, 5,19.15, 20.20, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(14, 4,null, 82.80, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(14, 5,92.00, 97.06, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(15, 4,null, 23.10, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(15, 5,19.25, 20.31, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(16, 4,null, 94.35, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(16, 5,92.50, 97.59, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(17, 4,null, 8.60, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(17, 5,8.80, 9.28, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(18, 4,null, 8.60, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(18, 5,8.80, 9.28, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(19, 5,9.00, 9.50, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(20, 5,9.95, 10.50, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(21, 5,9.00, 9.50, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(22, 4,null, 8.60, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(22, 5,8.80, 9.28, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(23, 4,null, 8.60, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(23, 5,8.80, 9.28, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(24, 4,null, 8.60, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(24, 5,9.70, 10.23, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(25, 4,null, 14.39, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(26, 5,1.96, 2.07, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(27, 5, 0.95, 1.00, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(28, 5,0.95, 1.00, 'E100');
+insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
+    values(29, 5,0.93, 0.98, 'E100');
 
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
     values(1, 1, 1, 5, 1, 3, 15);
@@ -57,6 +191,58 @@ insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paqu
     values(2, 1, 2, 24.1, 2, 5, 20);
 insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
     values(3, 1, 3, 30, 1, 1, 10);
+insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
+    values(4, 1, null, 1, null, 1, 13.92);
+insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
+    values(5, 1, null, 1, null, 5, 65.32);
+insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
+    values(6, 1, null, 1, null, 1, 16.04);
+insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
+    values(7, 1, null, 1, null, 1, 10.95);
+insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
+    values(8, 1, null, 1, null, 5, 50.48);
+insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
+    values(9, 1, null, 1, null, 1, 18.43);
+insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
+    values(10, 1, null, 1, null, 5, 87.62);
+insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
+    values(11, 1, null, 1, null, 1, 18.51);
+insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
+    values(12, 1, null, 1, null, 5, 88.20);
+insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
+    values(13, 1, null, 1, null, 1, 21.69);
+insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
+    values(14, 1, null, 1, null, 5, 91.91);
+insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
+    values(15, 1, null, 1, null,1 , 22.54);
+insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
+    values(16, 1, null, 1, null, 5, 108.32);
+insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
+    values(17, 1, null, 2.5, null, 1,9.55 );
+insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
+    values(18, 1, null, 2.5, null, 1, 9.55);
+insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
+    values(19, 1, null, 2.5, null, 1, 10.54);
+insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
+    values(20, 1, null, 2.5, null, 1, 11.65);
+insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
+    values(21, 1, null, 2.5, null, 1, 11.54);
+insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
+    values(22, 1, null, 2.5, null, 1, 9.55);
+insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
+    values(23, 1, null, 2.5, null, 1, 9.55);
+insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
+    values(24, 1, null, 2.5, null, 1, 9.55);
+insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
+    values(25, 1, null, 2.5, null, 1, 15.97);
+insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
+    values(26, 1, null, 0.5, null, 1, 2.30);
+insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
+    values(27, 1, null, 0.5, null, 1, 1.11);
+insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
+    values(28, 1, null, 0.5, null, 1, 1.11);
+insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc)
+    values(29, 1, null, 0.25, null, 1, 1.09);
 
 insert into campagne_rayon(id_campagne, id_rayon) values (1, 1);
 insert into campagne_rayon(id_campagne, id_rayon) values (1, 2);
