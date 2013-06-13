@@ -9,7 +9,7 @@
 ?>
 
 <p> La liste des actions : </p>
-<a href="<?php echo root ?>/article.php/creerArticle"> créer un article <a/>
+<a href="<?php echo root ?>/article.php/afficherCreerArticle"> créer un article <a/>
 
 
 <form method="post" action="<?php echo root ?>/article.php/modifierArticle"> <!-- Création d'un formulaire englobant tout le tableau-->

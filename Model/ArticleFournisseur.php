@@ -6,7 +6,7 @@ class ArticleFournisseur {
 
     public static function create($i_idArticle, $i_idFournisseur, $f_prixHt, $f_prixTtc, $s_code) {
         $sql_query = "insert into article_fournisseur(id_article, id_fournisseur, prix_ht, prix_ttc, code)
-            values('$i_idArticle', '$i_idFournisseur', '$f_prixHt', '$_prixTtc', '$s_code')";
+            values('$i_idArticle', '$i_idFournisseur', '$f_prixHt', '$f_prixTtc', '$s_code')";
         mysql_query($sql_query);
         $i_result = mysql_insert_id();
         return $i_result;
