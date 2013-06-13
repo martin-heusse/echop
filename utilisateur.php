@@ -141,6 +141,9 @@ class UtilisateurController extends Controller {
         $this->render('envoiMail' ,compact('i_emailSent'));
     }
 
+    public function profil() {
+        return;
+    }
 
     /*
      * Action par défaut.
