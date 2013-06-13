@@ -23,14 +23,14 @@ Cliquez sur un nom pour voir ses commandes.</p>
 ?>
     <tr class="ligne_article<?php echo $i_numLigne ?>">
         <td><a href="<?php echo root ?>/commande.php/commandeUtilisateur?idUtilisateur=<?php echo $o_utilisateur['id']?>"><?php echo $o_utilisateur['login'] ?></a></td>
-        <td class="centrer"><?php echo $o_utilisateur['quantite'] ?></td>
+        <td class="centrer"><?php echo $o_utilisateur['quantite'].$s_unite ?></td>
     </tr>
 <?php
         $i_numLigne = ($i_numLigne + 1) % 2;
     }
 ?>
     <th>Quantité totale commandée = </th>
-    <td class="centrer"><?php echo $i_quantiteTotale?> </td>
+    <td class="centrer"><?php echo $i_quantiteTotale.$s_unite?> </td>
 </table>
 <?php
 }
