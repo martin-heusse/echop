@@ -90,7 +90,7 @@ class UtilisateurController extends Controller {
             $s_mot_de_passe = Utilisateur::getMotDePasse($i_idUtilisateur);
             $s_destinataire = Utilisateur::getEmail($i_idUtilisateur);
             $s_subject = "Inscription validée";
-            $s_message = "Votre inscription a été validée. Votre login :". $s_login. "Votre mot de passe :" . $s_mot_de_passe ;
+            $s_message = "Votre inscription a été validée. \n Votre login :". $s_login. "\n Votre mot de passe :" . $s_mot_de_passe ;
             UtilisateurController::sendEmail($s_destinataire, $s_subject, $s_message);
         }
         header('Location: '.root.'/utilisateur.php/listeUtilisateurAValider');
@@ -113,6 +113,10 @@ class UtilisateurController extends Controller {
         /* Récupération de l'identifiant de l'utilisateur à supprimer */
         if (isset($_GET['idUtilisateur'])) {
             $i_idUtilisateur = $_GET['idUtilisateur'];
+            $s_destinataire = Utilisateur::getEmail($i_idUtilisateur);
+            $s_subject = "Inscription refusée";
+            $s_message = "Votre inscription a été refusée par un des administrateurs de l'Echoppe d'ici et d'ailleurs." ;
+            UtilisateurController::sendEmail($s_destinataire, $s_subject, $s_message);
             Utilisateur::delete($i_idUtilisateur);   
         }
         header('Location: '.root.'/utilisateur.php/listeUtilisateurAValider');
