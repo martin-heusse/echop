@@ -56,7 +56,7 @@ class UtilisateurController extends Controller {
     /* Permet de valider l'inscription d'un utilisateur */
 
     public function validerInscription (){
-	/* Authentication required */
+        /* Authentication required */
         if (!Utilisateur::isLogged()) {
             $this->render('authenticationRequired');
             return;
@@ -66,16 +66,16 @@ class UtilisateurController extends Controller {
             $this->render('adminRequired');
             return;
         }
-	/* Récupération de l'identifiant de l'utilisateur à ajouter */
+        /* Récupération de l'identifiant de l'utilisateur à ajouter */
         if (isset($_GET['idUtilisateur'])) {
-	    $i_idUtilisateur = $_GET['idUtilisateur'];
-	    Utilisateur::setValidite($i_idUtilisateur, 1);
-	    $s_login = Utilisateur::getLogin($i_idUtilisateur);
-	    $s_mot_de_passe = Utilisateur::getMotDePasse($i_idUtilisateur);
-	    $s_email = Utilisateur::getEmail($i_idUtilisateur);
-	    $s_subject = "Inscription validée";
-	    $s_message = "Votre inscription a été validée. Votre login :". $s_login. "Votre mot de passe :" . $s_mot_de_passe ;
-	    mail('s_email','s_subject','s_message');
+            $i_idUtilisateur = $_GET['idUtilisateur'];
+            Utilisateur::setValidite($i_idUtilisateur, 1);
+            $s_login = Utilisateur::getLogin($i_idUtilisateur);
+            $s_mot_de_passe = Utilisateur::getMotDePasse($i_idUtilisateur);
+            $s_email = Utilisateur::getEmail($i_idUtilisateur);
+            $s_subject = "Inscription validée";
+            $s_message = "Votre inscription a été validée. Votre login :". $s_login. "Votre mot de passe :" . $s_mot_de_passe ;
+            mail('s_email','s_subject','s_message');
         }
         header('Location: '.root.'/utilisateur.php/listeUtilisateurAValider');
     }
@@ -84,7 +84,7 @@ class UtilisateurController extends Controller {
     /* Permet de refuser l'inscription d'un utilisateur */
 
     public function refuserInscription (){
-	/* Authentication required */
+        /* Authentication required */
         if (!Utilisateur::isLogged()) {
             $this->render('authenticationRequired');
             return;
@@ -94,10 +94,10 @@ class UtilisateurController extends Controller {
             $this->render('adminRequired');
             return;
         }
-	/* Récupération de l'identifiant de l'utilisateur à supprimer */
+        /* Récupération de l'identifiant de l'utilisateur à supprimer */
         if (isset($_GET['idUtilisateur'])) {
-	    $i_idUtilisateur = $_GET['idUtilisateur'];
-	    Utilisateur::delete($i_idUtilisateur);   
+            $i_idUtilisateur = $_GET['idUtilisateur'];
+            Utilisateur::delete($i_idUtilisateur);   
         }
         header('Location: '.root.'/utilisateur.php/listeUtilisateurAValider');
     }
@@ -111,23 +111,39 @@ class UtilisateurController extends Controller {
             $this->render('authentificationRequired');
             return;
         }
-        
+
+        $fake = 0;
         $i_emailSent = 0;
 
-        /* Récupère les données du mail à envoyer */
+        /* Récupération des données du mail et envoi */
         if (isset($_POST['subject']) && $_POST['subject'] != "" && isset($_POST['message']) && $_POST['message'] != "") { 
             $s_subject = $_POST['subject'];
             $s_message = $_POST['message']; 
             $to_email = Utilisateur::getAllEmail();
 
-            /*
+
+            $s_message .= "\n";
+            $to = 'johann.yvetot@ensimag.fr';
+
+            /* Headers */
+          /*  $s_headers = 'MIME-Version : 1.0'."\r\n";
+            $s_headers .= 'Content-type: text/html; charset=iso-8859-1'."\r\n";
+           */
+            
+            $s_headers = 'From: <johann.yvetot@ensimag.fr>'."\r\n"; 
+            $s_headers .= "\r\n";
+            
+           /* 
             foreach ($to_email as $o_email) {
                 $s_email = $o_email['email'];
                 mail('s_email','s_subject','s_message');
             } */
-            $to = 'johann.yvetot@ensimag.fr';
-            mail('to','s_subject','s_message');
-            $i_emailSent = 1;
+            
+
+            if (mail('to','s_subject','s_message','s_headers')) {
+                $i_emailSent = 1;
+                $fake = 2;
+            }
         }
         $this->render('envoiMail',compact('i_emailSent','fake'));
     }
