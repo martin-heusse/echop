@@ -1,6 +1,7 @@
 <?php
 require_once('def.php');
 require_once('Model/Utilisateur.php');
+require_once('Util.php');
 
 /*
  * Gère les utilisateurs.
