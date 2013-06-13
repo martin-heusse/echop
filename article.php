@@ -68,6 +68,24 @@ class ArticleController extends Controller {
             }
         }
         $this->render('gererArticle', compact('to_rayon', 'to_fournisseur', 'i_idRayon', 'to_descriptionArticle', 'to_tva'));
+        /*
+        // Campagne courante
+        $i_idCampagneCourante = Campagne::getIdCampagneCourante();
+        // Articles de la campagne courante
+        $ti_idArticle = ArticleCampagne::getIdArticleByIdCampagne($i_idCampagnecourante);
+        // Tableau final qui va contenir tous les articles avec les infos
+        $to_articleCampagne = array();
+        foreach ($ti_idArticle as $i_idArticle) {
+            // idArticleCampagne de l'article
+            $i_idArticleCampagne = ArticleCampagne::getIdByIdArticleIdCampagne($i_idArticle, $i_idCampagneCourante);
+            // Données dans ArticleCampagne
+            $o_articleCampagne = ArticleCampagne::getObjects($i_idArticleCampagne);
+            // Données dans Article
+            // Ajout dans le tableau
+            $to_articleCampagne[] = $o_articleCampagne;
+        }
+        $this->render('gererArticle', compact('to_articleCampagne'));
+         */
     }
 
     public function modifierArticle() {
