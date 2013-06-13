@@ -237,7 +237,8 @@ class CommandeController extends Controller {
 
         }
         $s_nomArticle = Article::getNom($i_idArticle);
-        $this->render('utilisateursAyantCommandECetArticle', compact('to_utilisateur', 's_nomArticle', 'i_quantiteTotale', 's_unite'));
+        $i_idArticle = htmlentities($_GET['idArticle']);
+        $this->render('utilisateursAyantCommandECetArticle', compact('i_idArticle', 'to_utilisateur', 's_nomArticle', 'i_quantiteTotale', 's_unite'));
     }
 
     /*
@@ -247,6 +248,9 @@ class CommandeController extends Controller {
         /* Authentication required */
         if (!Utilisateur::isLogged()) {
             $this->render('authenticationRequired');
+            return;
+        }
+        if (!isset($_GET['idArticle'])) {
             return;
         }
         /* Récupération de l'identifiant de la campagne courante */
@@ -259,43 +263,38 @@ class CommandeController extends Controller {
             return;
         }
         $i_idUtilisateur = $_GET['idUtilisateur'];
-        $to_commande = Commande::getObjectsByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur);
-        /* Montant total */
-        $f_montantTotal = 0;
+        $i_idArticle = $_GET['idArticle'];
+        $i_idCommande = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
+        $o_commande = Commande::getObject($i_idCommande);
         /* Récupération de tous les attributs nécessaires d'un article */
-        foreach($to_commande as &$o_article) {
             /* Attributs dépendant de l'article */
-            $i_idArticle = $o_article['id_article'];
-            $o_article['nom'] = Article::getNom($i_idArticle);
-            $o_article['poids_paquet_fournisseur'] = Article::getPoidsPaquetFournisseur($i_idArticle);
+            $i_idArticle = $o_commande['id_article'];
+            $o_commande['nom'] = Article::getNom($i_idArticle);
+            $o_commande['poids_paquet_fournisseur'] = Article::getPoidsPaquetFournisseur($i_idArticle);
             $i_idUnite = Article::getIdUnite($i_idArticle);
-            $o_article['unite'] = Unite::getUnite($i_idUnite);
-            $o_article['nb_paquet_colis'] = Article::getNbPaquetColis($i_idArticle);
-            $o_article['description_courte'] = Article::getDescriptionCourte($i_idArticle);
-            $o_article['description_longue'] = Article::getDescriptionLongue($i_idArticle);
+            $o_commande['unite'] = Unite::getUnite($i_idUnite);
+            $o_commande['nb_paquet_colis'] = Article::getNbPaquetColis($i_idArticle);
+            $o_commande['description_courte'] = Article::getDescriptionCourte($i_idArticle);
+            $o_commande['description_longue'] = Article::getDescriptionLongue($i_idArticle);
             /* Prix TTC, seuil min et poids paquet client */
-            $o_article_campagne = ArticleCampagne::getObjectByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
-            $o_article['prix_ttc'] = $o_article_campagne['prix_ttc'];
-            $o_article['seuil_min'] = $o_article_campagne['seuil_min'];
-            $o_article['poids_paquet_client'] = $o_article_campagne['poids_paquet_client'];
+            $o_commande_campagne = ArticleCampagne::getObjectByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+            $o_commande['prix_ttc'] = $o_commande_campagne['prix_ttc'];
+            $o_commande['seuil_min'] = $o_commande_campagne['seuil_min'];
+            $o_commande['poids_paquet_client'] = $o_commande_campagne['poids_paquet_client'];
 
             /* Valeurs calculées */
             /* Calcul poids unitaire */
-            $o_article['prix_unitaire'] = $o_article['prix_ttc'] / $o_article['poids_paquet_fournisseur'];
-            $o_article['prix_unitaire'] = number_format($o_article['prix_unitaire'], 2, '.', ' ');
+            $o_commande['prix_unitaire'] = $o_commande['prix_ttc'] / $o_commande['poids_paquet_fournisseur'];
+            $o_commande['prix_unitaire'] = number_format($o_commande['prix_unitaire'], 2, '.', ' ');
             /* Calcul quantité totale */
-            $o_article['quantite_totale'] = $o_article['quantite'] * $o_article['poids_paquet_client'];
-            $o_article['quantite_totale'] = number_format($o_article['quantite_totale'], 2, '.', ' ');
+            $o_commande['quantite_totale'] = $o_commande['quantite'] * $o_commande['poids_paquet_client'];
+            $o_commande['quantite_totale'] = number_format($o_commande['quantite_totale'], 2, '.', ' ');
             /* Calcul total TTC */
-            $o_article['total_ttc'] = $o_article['quantite_totale'] * $o_article['prix_ttc'] / $o_article['poids_paquet_fournisseur'];
-            $o_article['total_ttc'] = number_format($o_article['total_ttc'], 2, '.', ' ');
-            /* Calcul du montant total */
-            $f_montantTotal += $o_article['total_ttc'];
-            $f_montantTotal = number_format($f_montantTotal, 2, '.', ' ');
-        }
+            $o_commande['total_ttc'] = $o_commande['quantite_totale'] * $o_commande['prix_ttc'] / $o_commande['poids_paquet_fournisseur'];
+            $o_commande['total_ttc'] = number_format($o_commande['total_ttc'], 2, '.', ' ');
         // recherche du login 
         $s_login = Utilisateur::getLogin($i_idUtilisateur);
-        $this->render('commandeUtilisateurPourCetArticle', compact('to_commande', 'b_etat', 'f_montantTotal', 'i_idUtilisateur', 's_login'));
+        $this->render('commandeUtilisateurPourCetArticle', compact('i_idArticle', 'o_commande', 'b_etat', 'i_idUtilisateur', 's_login'));
     }
 
     /*

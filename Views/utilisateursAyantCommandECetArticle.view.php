@@ -22,7 +22,7 @@ Cliquez sur un nom pour voir ses commandes.</p>
     foreach ($to_utilisateur as $o_utilisateur) {
 ?>
     <tr class="ligne_article<?php echo $i_numLigne ?>">
-        <td><a href="<?php echo root ?>/commande.php/commandeUtilisateurPourCetArticle?idUtilisateur=<?php echo $o_utilisateur['id']?>"><?php echo $o_utilisateur['login'] ?></a></td>
+        <td><a href="<?php echo root ?>/commande.php/commandeUtilisateurPourCetArticle?idArticle=<?php echo $i_idArticle ?>&idUtilisateur=<?php echo $o_utilisateur['id']?>"><?php echo $o_utilisateur['login'] ?></a></td>
         <td class="centrer"><?php echo $o_utilisateur['quantite'].$s_unite ?></td>
     </tr>
 <?php
