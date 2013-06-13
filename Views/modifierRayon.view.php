@@ -1,34 +1,39 @@
-<h1>Modification de rayon</h1>
+<p><a class="action_navigation" href="<?php echo root ?>/rayon.php/afficherRayon">Retour</a></p>
+
+<h1>Modifier un rayon</h1>
 
 <?php 
     if ($i_oldRayonSet == 0) {
 ?>
 
-<form name="formulaire"
+<form
+name="formulaire"
 action="<?php echo root ?>/rayon.php/modifierRayon"
 enctype="multipart/form-data"
 method="get">
-    <p> Liste des rayons </p>
+    <p> La liste des rayons  : </p>
+<ul>
 <?php
         foreach ($to_rayon as $o_rayon) {
 ?>
-        <a href="<?php echo root ?>/rayon.php/modifierRayon?idRayon=<?php echo $o_rayon['id']?>"><?php echo $o_rayon['nom']?></a></br>
+        <li><a href="<?php echo root ?>/rayon.php/modifierRayon?idRayon=<?php echo $o_rayon['id']?>"><?php echo $o_rayon['nom']?></a></li>
 <?php
         }
 ?>
-
+</ul>
 </form>
 
 <?php
     } else {
 ?>
 
-<form name="formulaire"
+<form
+name="formulaire"
 action="<?php echo root ?>/rayon.php/modifierRayon"
 enctype="multipart/form-data"
 method="post">
-    <p><span class="form_col"><label>Nouveau nom du rayon</label></span><input type="text" name="newNomRayon" required/></p>
-    <p><span class="form_col"><label></label></span><input type="hidden" name="idRayon" value="<?php echo $i_idRayon ?>"</p>
+    <p><label>Nouveau nom du rayon</label>&nbsp&nbsp<input type="text" name="newNomRayon" required/>
+    <input type="hidden" name="idRayon" value="<?php echo $i_idRayon ?>"/>
 
 <?php
         if ($i_errNewName == 1) {
@@ -38,7 +43,7 @@ method="post">
         }
 ?>
 
-    <input type="submit" value="Valider"/>
+    <input type="submit" value="Valider"/></p>
 </form>
 <?php
     }

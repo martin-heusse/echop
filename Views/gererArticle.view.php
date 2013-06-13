@@ -8,11 +8,14 @@
 // print_r($to_fournisseur);
 ?>
 
-<p>La liste des actions :</p>
-<a href="<?php echo root ?>/article.php/afficherCreerArticle">Créer un article</a>
-
 <!-- Création d'un formulaire englobant tout le tableau -->
 <form method="post" action="<?php echo root ?>/article.php/modifierArticle">
+
+<p>La liste des actions :
+<button><a href="<?php echo root ?>/article.php/afficherCreerArticle">Créer un article</a></button>
+<input align="middle" type="submit" class="input_valider" value="Mettre à jour les articles"/>
+</p>
+
 <table>
     <thead> <!-- En-tête du tableau -->
         <tr>
@@ -113,5 +116,4 @@ $i_idArticleCampagne = $o_descriptionArticle['id']
 ?>
         </tbody>
 </table>
-<input type="submit" class="input_valider" value="Mettre à jour les articles"/>
 <form>

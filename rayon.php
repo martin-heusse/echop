@@ -1,13 +1,6 @@
 <?php
 require_once('def.php');
-require_once('Model/Tva.php');
 require_once('Model/Rayon.php');
-require_once('Model/Unite.php');
-require_once('Model/Article.php');
-require_once('Model/Campagne.php');
-require_once('Model/ArticleFournisseur.php');
-require_once('Model/ArticleCampagne.php');
-require_once('Model/Fournisseur.php');
 require_once('Model/Administrateur.php');
 require_once('Model/Utilisateur.php');
 
@@ -45,7 +38,7 @@ class RayonController extends Controller {
                 $i_rayonSet = 1;
                 Rayon::create($s_nomRayon);
                 $to_rayon = Rayon::getAllObjects();
-                $this->render('gererRayon', compact('to_rayon'));       
+                $this->render('gererRayon', compact('to_rayon'));
             }
         }
 
@@ -62,13 +55,13 @@ class RayonController extends Controller {
         }
 
 
-        if (isset($_GET['idRayon']) && $_GET['idRayon'] != "") {  
+        if (isset($_GET['idRayon']) && $_GET['idRayon'] != "") {
             $i_oldRayonSet = 1;
             $i_idRayon = $_GET['idRayon']; 
             $this->render('modifierRayon',compact('i_idRayon','i_errNewName','i_oldRayonSet','to_rayon'));
         }
 
-        if (isset($_POST['newNomRayon']) && $_POST['newNomRayon'] != "") { 
+        if (isset($_POST['newNomRayon']) && $_POST['newNomRayon'] != "") {
             $s_nomRayon = $_POST['newNomRayon'];
             $i_id = $_POST['idRayon'];
 
@@ -81,7 +74,7 @@ class RayonController extends Controller {
             } else {
                 Rayon::setNom($i_id,$s_nomRayon);
                 $to_rayon = Rayon::getAllObjects();
-                $this->render('gererRayon', compact('to_rayon'));       
+                $this->render('gererRayon', compact('to_rayon'));
             }
 
         }

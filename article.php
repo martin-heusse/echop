@@ -31,7 +31,7 @@ class ArticleController extends Controller {
         $to_descriptionArticle = array();
         $i_idRayon = null;
         $ts_nomFourniseur = array();
-        if( isset($_GET['i_idRayon']) ){
+        //if( isset($_GET['i_idRayon']) ){
             // reste à vérifier que l'id_rayon est correct sécurité
             $i_idRayon = $_GET['i_idRayon'];
             $i_idCampagneEnCours = Campagne::getIdCampagneCourante();
@@ -66,7 +66,7 @@ class ArticleController extends Controller {
                 $o_descriptionArticle['poids_paquet_fournisseur'] = number_format($o_descriptionArticle['poids_paquet_fournisseur'], 2, '.', ' ');
                 $o_descriptionArticle['poids_paquet_client'] = number_format($o_descriptionArticle['poids_paquet_client'], 2, '.', ' ');
             }
-        }
+        //}
         $this->render('gererArticle', compact('to_rayon', 'to_fournisseur', 'i_idRayon', 'to_descriptionArticle', 'to_tva'));
         /*
         // Campagne courante
