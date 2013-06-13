@@ -35,14 +35,18 @@ if(isset($i_erreur)){
         <p><span class="form_col"><label>Seuil min</label></span><input type="text" name="seuil_min" value=""/></p>
         <!-- fournisseurs  -->
         <h5> Liste des fournisseurs </h5>
-<?php foreach($to_fournisseur as $o_fournisseur){
+<?php
+// cocher le premier fournisseur
+$estChoisi = TRUE;
+foreach($to_fournisseur as $o_fournisseur){
 ?>
         <p>
-            <span class="form_col"><label><?php echo $o_fournisseur['nom'] ?></label></span>
-            <label>Code</label><input type="text" name="code" value=""/>
-            <label>Prix TTC</label><input type="text" name="prix_ttc_fournisseur" value=""/>
-            <label>Prix HT</label><input type="text" name="prix_ht" value=""/>
-            <label>Choisir</label><input type="radio" name="id_fournisseur[]" value="<?php echo $o_fournisseur['id'] ?>"/>
+            <span class="form_col"><label><?php echo $o_fournisseur['nom']; ?></label></span>
+            <input type="hidden" name="id_fournisseur[]" value="<?php echo $o_fournisseur['id']; ?>"/>
+            <label>Code</label><input type="text" name="code[]" value=""/>
+            <label>Prix TTC</label><input type="text" name="prix_ttc_fournisseur[]" value=""/>
+            <label>Prix HT</label><input type="text" name="prix_ht[]" value=""/>
+            <label>Choisir</label><input type="radio" name="id_fournisseur_choisi" value="<?php echo $o_fournisseur['id']; ?>" <?php if($estChoisi){$estChoisi = null; echo 'checked="true"';} ?>/>
         </p>
 <?php
 }

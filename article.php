@@ -123,10 +123,15 @@ class ArticleController extends Controller {
             or !isset($_POST['id_unite'])
             or !isset($_POST['nb_paquet_colis'])
             or !isset($_POST['seuil_min'])
+            // gestion des fournisseurs
+            or !isset($_POST['id_fournisseur_choisi'])
+                // ici id_fournisseur est un tableau contenant tous les id_fournisseur du formulaire
             or !isset($_POST['id_fournisseur'])
+                // ici code, prix_ttc_fournisseur et prix_ht sont des tableaux
             or !isset($_POST['code'])
             or !isset($_POST['prix_ttc_fournisseur'])
             or !isset($_POST['prix_ht'])
+            // fin de la gestion des fournisseur
             or !isset($_POST['id_tva'])
             or !isset($_POST['prix_ttc_echoppe'])
             or !isset($_POST['description_courte'])
@@ -142,7 +147,8 @@ class ArticleController extends Controller {
         $i_nbPaquetColis = $_POST['nb_paquet_colis'];
         $i_seuilMin = $_POST['seuil_min'];
             // liste des fournisseurs A FAIRE
-        $i_idFournisseur = $_POST['id_fournisseur'];
+        $i_idFournisseurChoisi = $_POST['id_fournisseur_choisi'];
+        $ti_idFournisseur = $_POST['id_fournisseur'];
         $s_code = $_POST['code'];
         $f_prixTtcFournisseur = $_POST['prix_ttc_fournisseur'];
         $f_prixHt = $_POST['prix_ht'];
@@ -155,10 +161,17 @@ class ArticleController extends Controller {
         $i_idRayon = 1;
         $i_idArticle = Article::create($i_idRayon, $s_nomProduit, $f_poidsPaquetFournisseur,$i_idUnite, $i_nbPaquetColis, $s_descriptionCourte, $s_descriptionLongue);
         $i_idCampagne = Campagne::getIdCampagneCourante();
-        // Normalement ici $i_idFournisseur est celui du fournisseur choisi par l'échoppe A CHANGER
-        ArticleCampagne::create($i_idArticle, $i_idCampagne, $i_idFournisseur, $i_idTva, $f_poidsPaquetClient, $i_seuilMin, $f_prixTtcEchoppe);
-        // Normalement ici liste des fournisseurs à créer A CHANGER
-        ArticleFournisseur::create($i_idArticle, $i_idFournisseur, $f_prixHt, $f_prixTtcFournisseur, $s_code);
+        // $i_idFournisseurChoisi est l'identifiant du fournisseur choisi par l'échoppe
+        ArticleCampagne::create($i_idArticle, $i_idCampagne, $i_idFournisseurChoisi, $i_idTva, $f_poidsPaquetClient, $i_seuilMin, $f_prixTtcEchoppe);
+        // Normalement ici liste des fournisseurs à créer 
+        $i_nbFournisseur = count($ti_idFournisseur);
+        for($i = 0; $i < $i_nbFournisseur; $i++){
+            $i_idFournisseur = $ti_idFournisseur[$i];
+            $f_prixHt = $code[$i];
+            $f_prixTtcFournisseur = $prix_ttc_fournisseur[$i];
+            $s_code = $ti_idFournisseur[$i];
+            ArticleFournisseur::create($i_idArticle, $i_idFournisseur, $f_prixHt, $f_prixTtcFournisseur, $s_code);
+        }
         // on redonne à la vue toutes les variables
         $i_erreur = 0;
         }
