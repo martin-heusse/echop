@@ -55,10 +55,11 @@ class CommanderArticleController extends Controller {
 		$i_idUtilisateur = $_SESSION['idUtilisateur'];
 
 		if (!isset($_GET['idRayon'])) {	
-			$this->render('commanderArticle');/* aller à l'acceuil*/
+			$this->render('afficherRayon');
 			return;
 		}
-		$i_idRayon = $_GET['idRayon'];
+        $i_idRayon = $_GET['idRayon'];
+        echo $i_idRayon;
 		$to_commande = ArticleCampagne::getObjectsByIdCampagne($i_idCampagne);
 		/* Montant total */
 		$f_montantTotal = 0;
@@ -102,11 +103,13 @@ class CommanderArticleController extends Controller {
 	 * commande de l'utilisateur courant.
 	 */
 	public function commanderArticleModifier() {
-		if (!isset($_GET['idRayon'])) {	
-			$this->render('commanderArticle');/* aller à l'acceuil*/
+        if (!isset($_GET['idRayon'])) {	
+            echo 'ici c get';
+			$this->render('afficherRayon');
 			return;
-		}
-		$i_idRayon = $_GET['idRayon'];
+        }
+        $i_idRayon = $_GET['idRayon'];
+        echo $_GET['idRayon'];
 		/* Récupération de l'identifiant de la campagne courante */
 		$i_idCampagne = Campagne::getIdCampagneCourante();
 		/* Récupération de l'état de la campagne */
@@ -156,11 +159,11 @@ class CommanderArticleController extends Controller {
 		$i_idCampagne = Campagne::getIdCampagneCourante();
 		/* Récupération de l'état de la campagne */
 		$b_etat = Campagne::getEtat($i_idCampagne);
-		if (!isset($_GET['idRayon'])) {	
-			$this->render('commanderArticle');/* aller à l'acceuil*/
+		if (!isset($_POST['idRayon'])) {	
+			$this->render('afficherRayon');
 			return;
 		}
-		$i_idRayon = $_GET['idRayon'];
+		$i_idRayon = $_POST['idRayon'];
 		/* La campagne est fermée */
 		if ($b_etat == 0) {
 			header('Location: '.root.'/commanderArticle.php/commanderArticle?idRayon=$i_idRayon');

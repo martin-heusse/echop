@@ -70,6 +70,25 @@ class ArticleCampagne {
         return $to_result;
     }
 
+    public static function getObjectsByIdCampagneIdFournisseur($i_idCampagne, $i_idFournisseur) {
+        $sql_query = "select * from article_campagne where id_campagne=$i_idCampagne id_fournisseur=$i_idFournisseur";
+        $sql_tmp = mysql_query($sql_query);
+        $to_result = array();
+        while ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité */
+            foreach ($o_row as &$column) {
+                $column = htmlentities($column);
+            }
+            /* Création du résultat */
+            $to_result[] = $o_row;
+        }
+        /* Formattage des nombres */
+        foreach ($to_result as &$o_row) {
+            $o_row['poids_paquet_client'] = number_format($o_row['poids_paquet_client'], 2, '.', ' ');
+            $o_row['prix_ttc']            = number_format($o_row['prix_ttc'],            2, '.', ' ');
+        }
+        return $to_result;
+    }
 
     public static function getObjectsByIdCampagne($i_idCampagne) {
         $sql_query = "select * from article_campagne where id_campagne=$i_idCampagne";
