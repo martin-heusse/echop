@@ -1,6 +1,7 @@
 <?php 
 require_once('def.php');
 require_once('Model/Utilisateur.php');
+require_once('Util.php');
 
 class InscriptionController extends Controller {
 
@@ -46,17 +47,28 @@ class InscriptionController extends Controller {
      * Affiche la page d'oublie de mot de passe.
      */
     public function passOubliE() {
+        $b_erreurLogin = 0;
+        $b_success = 0;
         if(!isset($_POST['login'])) {
-            $this->render('passOubliE');
+            $this->render('passOubliE', compact('b_erreurLogin', 'b_success'));
             return;
         }
         $s_login = htmlentities($_POST['login']);
         $o_utilisateur = Utilisateur::getObjectByLogin($s_login);
+        /* Le login n'existe pas */
+        if ($o_utilisateur == array() or $o_utilisateur == null) {
+            $b_erreurLogin = 1;
+            $this->render('passOubliE', compact('b_erreurLogin', 'b_success'));
+            return;
+        }
+        $s_login = Utilisateur::getLogin($o_utilisateur['id']);
         $s_destinataire = $o_utilisateur['email'];
         $s_motDePasse = $o_utilisateur['mot_de_passe'];
         $s_subject = "[L'Échoppe d'ici et d'ailleurs] Oubli de mot de passe";
         $s_message = "Votre login : ".$s_login."\nVotre mot de passe : ".$s_motDePasse;
-        UtilisateurController::sendEmail($s_destinataire, $s_subject, $s_message);
+        Util::sendEmail($s_destinataire, $s_subject, $s_message);
+        $b_success = 1;
+        $this->render('passOubliE', compact('s_destinataire', 'b_erreurLogin', 'b_success'));
     }
 
     public function defaultAction() {
