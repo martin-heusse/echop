@@ -1,4 +1,4 @@
-<p><a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a></p>
+<p><a class="action_navigation" href="<?php echo root ?>/commande.php/utilisateurAyantCommandE">Retour aux utilisateurs ayant commandé</a></p>
 
 <h1>Commande de <?php echo $s_login ?></h1>
 
