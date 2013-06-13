@@ -26,10 +26,33 @@ class RayonController extends Controller {
     }
 
     public function creerRayon() {
-        echo "A FAIRE !";
-        return;
+        $i_rayonSet = 0;
+        $i_errName = 0;
+        if (!Utilisateur::isLogged()) {
+            header('Location: '.root.'/authentificationRequired');
+        }
+
+        if (isset($_POST['nomRayon']) && $_POST['nomRayon'] != "") {
+            $s_nomRayon = $_POST['nomRayon'];
+
+            /* Vérification de la disponibilité du nom */
+            $o_nom = Rayon::getObjectByNom($s_nomRayon);
+
+            if ($o_nom != array()) {
+                $i_errName = 1;
+            } else {
+                
+                $i_rayonSet = 1;
+                Rayon::create($s_nomRayon);
+                $to_rayon = Rayon::getAllObjects();
+                $this->render('gererRayon', compact('to_rayon'));       
+            }
+        }
+
+       $this->render('creerRayon',compact('i_rayonSet','i_errName'));
     }
 
+    
     public function defaultAction() {
         header('Location: '.root.'/rayon.php/creerRayon');
     }
