@@ -90,8 +90,8 @@ class UtilisateurController extends Controller {
             $s_mot_de_passe = Utilisateur::getMotDePasse($i_idUtilisateur);
             $s_destinataire = Utilisateur::getEmail($i_idUtilisateur);
             $s_subject = "[L'Échoppe d'ici et d'ailleurs] Inscription validée";
-            $s_message = "Votre inscription a été validée.\nVotre login : ".$s_login."\nVotre mot de passe : ".$s_mot_de_passe;
-            UtilisateurController::sendEmail($s_destinataire, $s_subject, $s_message) {
+            $s_message = "Votre inscription a été validée. Votre login :". $s_login. "Votre mot de passe :" . $s_mot_de_passe;
+            UtilisateurController::sendEmail($s_destinataire, $s_subject, $s_message);
         }
         header('Location: '.root.'/utilisateur.php/listeUtilisateurAValider');
     }

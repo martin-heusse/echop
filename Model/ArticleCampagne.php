@@ -71,7 +71,7 @@ class ArticleCampagne {
     }
 
     public static function getObjectsByIdCampagneIdFournisseur($i_idCampagne, $i_idFournisseur) {
-        $sql_query = "select * from article_campagne where id_campagne=$i_idCampagne id_fournisseur=$i_idFournisseur";
+        $sql_query = "select * from article_campagne where id_campagne=$i_idCampagne and id_fournisseur=$i_idFournisseur";
         $sql_tmp = mysql_query($sql_query);
         $to_result = array();
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
@@ -347,7 +347,6 @@ class ArticleCampagne {
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Formattage des nombres */
             $o_row['poids_paquet_client']    = number_format($o_row['poids_paquet_client']   , 2, '.', ' ');
-            $o_row['prix_ttc']    = number_format($o_row['prix_ttc']   , 2, '.', ' '); 
             /* Sécurité et création du résultat */
             $f_result = htmlentities($o_row['poids_paquet_client']);
         }
