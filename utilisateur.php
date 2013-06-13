@@ -89,8 +89,8 @@ class UtilisateurController extends Controller {
             $s_login = Utilisateur::getLogin($i_idUtilisateur);
             $s_mot_de_passe = Utilisateur::getMotDePasse($i_idUtilisateur);
             $s_destinataire = Utilisateur::getEmail($i_idUtilisateur);
-            $s_subject = "Inscription validée";
-            $s_message = "Votre inscription a été validée. Votre login :". $s_login. "Votre mot de passe :" . $s_mot_de_passe ;
+            $s_subject = "[L'Échoppe d'ici et d'ailleurs] Inscription validée";
+            $s_message = "Votre inscription a été validée. Votre login :". $s_login. "Votre mot de passe :" . $s_mot_de_passe;
             UtilisateurController::sendEmail($s_destinataire, $s_subject, $s_message);
         }
         header('Location: '.root.'/utilisateur.php/listeUtilisateurAValider');
@@ -131,7 +131,7 @@ class UtilisateurController extends Controller {
         /* Récupération des données du mail et envoi */
         if (isset($_POST['subject']) && $_POST['subject'] != "" && isset($_POST['message']) && $_POST['message'] != "") { 
             $i_emailSent = 1;
-            $s_subject = htmlentities($_POST['subject']);
+            $s_subject = "[L'Échoppe d'ici et d'ailleurs] ".htmlentities($_POST['subject']);
             $s_message = htmlentities($_POST['message']); 
             $ts_email = Utilisateur::getAllEmail();
             foreach ($ts_email as $s_destinataire) {
