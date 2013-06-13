@@ -87,11 +87,17 @@ class ArticleController extends Controller {
     }
 
     public function afficherCreerArticle() {
-        $this->render('creerArticle');
+        $to_tva = Tva::getAllObjects();
+        $to_unite = Unite::getAllObjects();
+        $to_fournisseur = Fournisseur::getAllObjects();
+        $this->render('creerArticle',compact('to_tva', 'to_unite', 'to_fournisseur'));
     }
 
     public function creerArticle() {
         $i_erreur = null;
+        $to_tva = Tva::getAllObjects();
+        $to_unite = Unite::getAllObjects();
+        $to_fournisseur = Fournisseur::getAllObjects();
         // récupération des variables
         if( !isset($_POST['nom_produit']) or $_POST['nom_produit']==""
             or !isset($_POST['poids_paquet_fournisseur'])
@@ -109,8 +115,6 @@ class ArticleController extends Controller {
             or !isset($_POST['description_longue']) ){
             // si une des variables n'est pas définie
             $i_erreur = 1;
-            $this->render('creerArticle',compact('i_erreur'));
-            return;
         } else {
             // si toutes les variables sont définies
         $s_nomProduit = $_POST['nom_produit'];
@@ -139,8 +143,8 @@ class ArticleController extends Controller {
         ArticleFournisseur::create($i_idArticle, $i_idFournisseur, $f_prixHt, $f_prixTtcFournisseur, $s_code);
         // on redonne à la vue toutes les variables
         $i_erreur = 0;
-        $this->render('creerArticle',compact('i_erreur'));
         }
+        $this->render('creerArticle',compact('i_erreur', 'to_tva', 'to_unite', 'to_fournisseur'));
     }
 
 
