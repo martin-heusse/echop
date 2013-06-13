@@ -149,9 +149,9 @@ class ArticleController extends Controller {
             // liste des fournisseurs A FAIRE
         $i_idFournisseurChoisi = $_POST['id_fournisseur_choisi'];
         $ti_idFournisseur = $_POST['id_fournisseur'];
-        $s_code = $_POST['code'];
-        $f_prixTtcFournisseur = $_POST['prix_ttc_fournisseur'];
-        $f_prixHt = $_POST['prix_ht'];
+        $ts_code = $_POST['code'];
+        $tf_prixTtcFournisseur = $_POST['prix_ttc_fournisseur'];
+        $tf_prixHt = $_POST['prix_ht'];
             // fin de la liste
         $i_idTva = $_POST['id_tva'];
         $f_prixTtcEchoppe = $_POST['prix_ttc_echoppe'];
@@ -167,9 +167,9 @@ class ArticleController extends Controller {
         $i_nbFournisseur = count($ti_idFournisseur);
         for($i = 0; $i < $i_nbFournisseur; $i++){
             $i_idFournisseur = $ti_idFournisseur[$i];
-            $f_prixHt = $code[$i];
-            $f_prixTtcFournisseur = $prix_ttc_fournisseur[$i];
-            $s_code = $ti_idFournisseur[$i];
+            $f_prixHt = $tf_prixHt[$i];
+            $f_prixTtcFournisseur = $tf_prixTtcFournisseur[$i];
+            $s_code = $ts_code[$i];
             ArticleFournisseur::create($i_idArticle, $i_idFournisseur, $f_prixHt, $f_prixTtcFournisseur, $s_code);
         }
         // on redonne à la vue toutes les variables
