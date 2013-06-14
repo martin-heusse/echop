@@ -59,11 +59,11 @@ $i_idArticleCampagne = $o_descriptionArticle['id']
                 <!-- Poids du paquet fournisseur -->
                 <td align="center" title="Poids du paquet fournisseur" ><?php echo $o_descriptionArticle['poids_paquet_fournisseur'] ?>&nbsp;<?php echo $o_descriptionArticle['unite'] ?></td>
                 <!-- Poids du paquet client -->
-                <td align="center" title="Poids du paquet client"><div><input class="input_quantite" type="text" name="poids_paquet_client[<?php echo $i_idArticleCampagne ?>]" value="<?php echo $o_descriptionArticle['poids_paquet_client'] ?>"/>&nbsp;<?php echo $o_descriptionArticle['unite'] ?></div></td>
+                <td align="center" title="Poids du paquet client"><div><input class="input_quantite" type="text" name="poids_paquet_client[]" value="<?php echo $o_descriptionArticle['poids_paquet_client'] ?>"/>&nbsp;<?php echo $o_descriptionArticle['unite'] ?></div></td>
                 <!-- Nombre de paquets par colis fournisseur -->
                 <td align="center" title="Nombre de paquets par colis"><?php echo $o_descriptionArticle['nb_paquet_colis'] ?></td>
                 <!-- Seuil min -->
-                <td align="center" title="Seuil min que peut choisir le client"><input class="input_quantite" type="text" name="seuil_min[<?php echo $i_idArticleCampagne ?>]" value="<?php echo $o_descriptionArticle['seuil_min'] ?>"/></td>
+                <td align="center" title="Seuil min que peut choisir le client"><input class="input_quantite" type="text" name="seuil_min[]" value="<?php echo $o_descriptionArticle['seuil_min'] ?>"/></td>
 
                 <!-- Boucle pour afficher les fournisseurs disponibles -->
 <?php
@@ -86,7 +86,7 @@ $i_idArticleCampagne = $o_descriptionArticle['id']
                             <td><?php echo $o_descriptionArticle[$id]['code'] ?></td>
                             <td><?php echo $prix_fournisseur ?>&nbsp;&euro;</td>
                             <td><?php echo $o_descriptionArticle[$id]['prix_ttc'] ?>&nbsp;&euro;</td>
-                            <td><input type="radio" name="fournisseur_choisi[<?php echo $i_idArticleCampagne ?>][]" value="<?php echo $id ?>"  <?php if($id==$o_descriptionArticle['id_fournisseur']){echo 'checked="true"';} ?>></td>
+                            <td><input type="radio" name="fournisseur_choisi[]" value="<?php echo $id ?>"  <?php if($id==$o_descriptionArticle['id_fournisseur']){echo 'checked="true"';} ?>></td>
                         </tr>
                     </table>
                  </td>
@@ -99,7 +99,7 @@ $i_idArticleCampagne = $o_descriptionArticle['id']
     }
 ?>
                 <!-- TVA -->
-                <td align="center" title="TVA" ><select name="tva[<?php echo $i_idArticleCampagne ?>]">
+                <td align="center" title="TVA" ><select name="tva[]">
 <?php
     foreach($to_tva as $o_tva){
 ?>
@@ -109,7 +109,7 @@ $i_idArticleCampagne = $o_descriptionArticle['id']
 ?>
                 </select></td>
                 <!-- Prix TTC choisi par l'échoppe rapporté au colis du fournisseur vendu au client -->
-                <td align="center" title="Prix TTC choisi par l'échoppe rapporté au colis du fournisseur vendu au client"><input class="input_quantite" type="text" name="prix_ttc_echoppe[<?php echo $i_idArticleCampagne ?>]" value="<?php echo $o_descriptionArticle['prix_ttc'] ?>"/>&nbsp;&euro;</td>
+                <td align="center" title="Prix TTC choisi par l'échoppe rapporté au colis du fournisseur vendu au client"><input class="input_quantite" type="text" name="prix_ttc_echoppe[]" value="<?php echo $o_descriptionArticle['prix_ttc'] ?>"/>&nbsp;&euro;</td>
                 <!-- Prix TTC rapporté à l'unité echoppe -->
                 <td align="center" title="Prix TTC rapporté à l'unité echoppe"><?php echo $o_descriptionArticle['prix_echoppe_ttc_unite'] ?>&nbsp;&euro;/<?php echo $o_descriptionArticle['unite'] ?></td>
           </tr>

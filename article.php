@@ -89,19 +89,25 @@ class ArticleController extends Controller {
     }
 
     public function modifierArticle() {
-        // récupération des tableaux
-        $ti_idArticleCampagne = $_POST['id_article_campagne'];
-        $ti_poisPaquetClient = $_POST['poids_paquet_client'];
-        $ti_seuilMin = $_POST['seuil_min'];
-        $i_nbArticleCampagne = count($ti_idArticleCampagne);
-        for ($i=0; $i<$i_nbArticleCampagne; $i++) {
-        // pour tous les articles campagnes
-        // on récupère les variables en méthode post
-        
+        $i_erreur = null;
+        // récupération des variables
+        if( !isset($_POST['poids_paquet_client'])
+            or !isset($_POST['seuil_min'])
+            or !isset($_POST['fournisseur_choisi'])
+            or !isset($_POST['tva'])
+            or !isset($_POST['prix_ttc_echoppe']) ) {
+            $i_erreur = 1;
+        } else {
+            $ti_idArticleCampagne = $_POST['id_article_campagne'];
+            $ti_poisPaquetClient = $_POST['poids_paquet_client'];
+            $ti_seuilMin = $_POST['seuil_min'];
+            $i_nbArticleCampagne = count($ti_idArticleCampagne);
+            for ($i=0; $i<$i_nbArticleCampagne; $i++) {
+                // pour tous les articles campagnes
+                // on récupère les variables en méthode post
+            }
         }
-        header('Location: '.root.'/rayon.php/afficherRayon');
-        //echo "A FAIRE !";
-        //return;
+        header('Location: '.root.'/article.php/afficherArticle');
     }
 
     public function afficherCreerArticle() {
