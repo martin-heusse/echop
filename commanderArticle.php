@@ -34,7 +34,7 @@ class CommanderArticleController extends Controller {
         /* Récupération de l'état de la campagne */
         $b_etat = Campagne::getEtat($i_idCampagne);
         $to_rayon = Rayon::getAllObjects();
-        $this->render('commanderArticle', compact('to_rayon','b_etat'));
+        $this->render('commanderArticleAfficherRayon', compact('to_rayon','b_etat'));
     }
     /* 
      * Affiche la liste des articles par rayon.

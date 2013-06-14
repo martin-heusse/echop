@@ -24,9 +24,5 @@ method="post">
 </form>
 
 <?php
-    } else {
-?>
-<p> TO DO </p>
-<?php
     }
 ?>
