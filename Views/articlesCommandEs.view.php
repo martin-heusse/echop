@@ -9,6 +9,8 @@ Cliquez sur l'un des articles pour voir la liste de tous les utilisateurs l'ayan
     <tr>
         <th>Article</th>
         <th>Quantité totale commandée</th>
+        <th>Colisage</th>
+        <th>Manque</th>
     </tr>
 <?php
 $i_numLigne = 0;
@@ -18,6 +20,8 @@ foreach ($to_article as $o_article) {
         <td><a href="<?php echo root ?>/commande.php/utilisateursAyantCommandECetArticle?idArticle=<?php echo $o_article['id_article']?>">
         <?php echo $o_article['nom']?></a></td>
         <td class="centrer"><?php echo $o_article['quantite_totale'].$o_article['unite']?></td>
+        <td class="centrer">multiple de <?php echo $o_article['colisage'].$o_article['unite']?></td>
+        <td class="centrer"><?php echo $o_article['manque'].$o_article['unite']?></td>
     </tr>
 <?php
     $i_numLigne = ($i_numLigne + 1) % 2;

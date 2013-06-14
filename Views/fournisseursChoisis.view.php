@@ -16,7 +16,6 @@ Cliquez sur un nom de fournisseur pour voir les commandes associées pour la cam
 <table>
     <tr>
         <th>Fournisseur</th>
-        <th>Prix total HT</th>
         <th>Prix total TTC</th>
     </tr>
 <?php
@@ -26,7 +25,6 @@ foreach ($to_fournisseur as $o_fournisseur) {
     <tr class="ligne_article<?php echo $i_numLigne ?>">
         <td><a href="<?php echo root ?>/fournisseur.php/commandeFournisseur?idFournisseur=<?php echo $o_fournisseur['id'] ?>">
         <?php echo $o_fournisseur['nom'] ?></a></td>
-        <td class="centrer"><!--<?php echo $o_fournisseur['prix_ht'] ?>--></td>
         <td class="centrer"><?php echo $o_fournisseur['montant_total'] ?>&euro;</td>
     </tr>
 <?php

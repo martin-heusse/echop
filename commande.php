@@ -194,11 +194,16 @@ class CommandeController extends Controller {
             $to_commande = Commande::getObjectsByIdArticle($i_idArticle);
             $i_idArticleCampagne = ArticleCampagne::getIdByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
             $i_poidsPaquetClient = ArticleCampagne::getPoidsPaquetClient($i_idArticleCampagne);
+            $i_poidsPaquetFournisseur = Article::getPoidsPaquetFournisseur($i_idArticle);
+            $i_nbrePaquetColis = Article::getNbPaquetColis($i_idArticle);
+            $o_row['colisage'] = $i_poidsPaquetFournisseur * $i_nbrePaquetColis;
             foreach ($to_commande as $o_commande) {
                 $i_quantite = $o_commande['quantite']*$i_poidsPaquetClient;
                 $o_commande['quantite'] = $i_quantite;
                 $o_row['quantite_totale'] += $i_quantite;
             }
+            $i_manque = $o_row['quantite_totale'] % $o_row['colisage'];
+            $o_row['manque'] = $o_row['colisage'] - $i_manque;
         }
         $this->render('articlesCommandEs', compact('to_article'));
     }
@@ -226,6 +231,9 @@ class CommandeController extends Controller {
             $s_unite = Unite::getUnite($i_idUnite);
             $i_idArticleCampagne = ArticleCampagne::getIdByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
             $i_poidsPaquetClient = ArticleCampagne::getPoidsPaquetClient($i_idArticleCampagne);
+            $i_poidsPaquetFournisseur = Article::getPoidsPaquetFournisseur($i_idArticle);
+            $i_nbrePaquetColis = Article::getNbPaquetColis($i_idArticle);
+            $i_colisage = $i_poidsPaquetFournisseur * $i_nbrePaquetColis;
         $i_quantiteTotale = 0;
         foreach ($to_utilisateur as &$o_row) {
             $o_row['login'] = Utilisateur::getLogin($o_row['id_utilisateur']);
@@ -236,9 +244,11 @@ class CommandeController extends Controller {
             $i_quantiteTotale += $o_row['quantite'];
 
         }
+        $i_manque = $i_quantiteTotale % $i_colisage;
+        $i_manque = $i_colisage - $i_manque;
         $s_nomArticle = Article::getNom($i_idArticle);
         $i_idArticle = htmlentities($_GET['idArticle']);
-        $this->render('utilisateursAyantCommandECetArticle', compact('i_idArticle', 'to_utilisateur', 's_nomArticle', 'i_quantiteTotale', 's_unite'));
+        $this->render('utilisateursAyantCommandECetArticle', compact('i_idArticle', 'to_utilisateur', 'i_colisage', 's_nomArticle', 'i_quantiteTotale', 's_unite', 'i_manque'));
     }
 
     /*

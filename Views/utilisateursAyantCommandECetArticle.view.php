@@ -29,8 +29,18 @@ Cliquez sur un nom pour voir ses commandes.</p>
         $i_numLigne = ($i_numLigne + 1) % 2;
     }
 ?>
-    <th>Quantité totale commandée = </th>
-    <td class="centrer"><?php echo $i_quantiteTotale.$s_unite?> </td>
+    <tr>
+        <th>Quantité totale commandée = </th>
+        <td class="centrer"><?php echo $i_quantiteTotale.$s_unite?> </td>
+    </tr>
+    <tr>
+        <th>Quantité pour le colisage =</th>
+        <td class="centrer">multiple de <?php echo $i_colisage.$s_unite ?> </td>
+    </tr>
+    <tr>
+        <th>Quantité manquante =</th>
+        <td class="centrer"><?php echo $i_manque.$s_unite ?></td>
+    </tr>
 </table>
 <?php
 }
