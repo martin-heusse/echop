@@ -18,9 +18,6 @@ if ($b_etat == 1) {
 
 <?php
 if ($to_commande != null and $to_commande != array()) {
-?>
-coucou
-<?php  echo $i_idRayon;
 /* Affiche ou non le formulaire */
 if ($b_etat == 1) {
 ?>
@@ -56,11 +53,8 @@ if ($b_etat == 1) {
         </tr>
 <?php 
 $i_numLigne = 0;
-?> avant boucle <?php
 foreach($to_commande as $o_produit) {
-    ?> apres boucle rayonprodiut <?php echo $o_produit['id_rayon']; ?> rayon donne <?php echo $i_idRayon ;
     if($o_produit['id_rayon']==$i_idRayon){	?>
-bon produit
             <tr class="ligne_article<?php echo $i_numLigne ?>">
             <td><?php echo $o_produit['nom'] ?></td>
             <!--
@@ -126,19 +120,8 @@ if ($b_etat == 1) {
 ?>
 <?php
 } else { 
+?>
     <p>Vous n'avez pas de commande en cours.</p>
 <?php
 }
-}
 ?>
-    <!--
-    <script type="text/javascript">
-function calculPoidsTotal(){
-    var poidsTotal = 0.0;
-    var test = event.srcElement;
-    // quantité est la 10eme colonne
-    document.write(test);
-    var quantite = parseFloat(document.getElementById("t_article").rows[this.rowIndex].cells[10].innerHTML); 
-} 
-</script>
--->
