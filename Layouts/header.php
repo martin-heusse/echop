@@ -14,11 +14,12 @@ if (!isset($titre_page)) {
     </head>
 <body>
 <div id="banniere">
-    <!--
+    
     <a href="<?php echo root ?>/index.php">
-    <img id="logo" src="<?php echo root ?>/Layouts/images/banniere.png" alt="<?php echo $titre_page ?>"/></a>
+    
+        <img id="logo" src="<?php echo root ?>/Layouts/images/logo.png" alt="<?php echo $titre_page ?>" /></a>
     <p>L'échoppe d'ici et d'ailleurs</p>
-    -->
+    
 </div><!-- id="banniere" -->
 
 <?php include($this->root().'/Layouts/menu.php') ?>
