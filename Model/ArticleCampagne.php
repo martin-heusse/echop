@@ -431,7 +431,7 @@ class ArticleCampagne {
     }
 
     public static function setPoidsPaquetClient($i_id, $f_poidsPaquetClient) {
-        $sql_query = "update article_campagne set poids_paquet_client='$f_poidsPaquetClient' 
+        $sql_query = "update article_campagne set poids_paquet_client='$f_poidsPaquetClient'
             where id=$i_id";
         $b_result =  mysql_query($sql_query);
         return $b_result;

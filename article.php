@@ -22,6 +22,11 @@ class ArticleController extends Controller {
     }
 
     public function afficherArticle() {
+        if(isset($_GET['i_erreur'])){
+            $i_erreur = $_GET['i_erreur'];
+        } else {
+            $i_erreur = null;
+        }
         // liste de tous les fournisseurs
         $to_fournisseur = Fournisseur::getAllObjects();
         // liste de toutes les tva
@@ -29,45 +34,35 @@ class ArticleController extends Controller {
         // liste des descriptions des articles (à partir des tables  :
         // article, article_fournisseur et article_campagne)
         $to_descriptionArticle = array();
-        $i_idRayon = null;
         $ts_nomFourniseur = array();
-        //if( isset($_GET['i_idRayon']) ){
-            // reste à vérifier que l'id_rayon est correct sécurité
-            $i_idRayon = $_GET['i_idRayon'];
-            $i_idCampagneEnCours = Campagne::getIdCampagneCourante();
-            $to_descriptionArticle = ArticleCampagne::getObjectsByIdCampagne($i_idCampagneEnCours);
-            foreach($to_descriptionArticle as &$o_descriptionArticle){
-                $i_idArticle = $o_descriptionArticle['id_article'];
-                $i_idArticleCampagne = $o_descriptionArticle['id'];
-                $o_article = Article::getObject($i_idArticle);
-                $i_idUnite = $o_article['id_unite'];
-                $o_descriptionArticle['unite'] = Unite::getUnite($i_idUnite);
-                $o_descriptionArticle['nom'] = $o_article['nom'];
-                $o_descriptionArticle['poids_paquet_fournisseur'] = $o_article['poids_paquet_fournisseur'];
-                $o_descriptionArticle['nb_paquet_colis'] = $o_article['nb_paquet_colis'];
-                $o_descriptionArticle['description_longue'] = $o_article['description_longue'];
-                $o_descriptionArticle['description_courte'] = $o_article['description_courte'];
-                // retourne le nom de tous les fournisseurs
-                // obtenir le prix et le code de chaque fournisseur
-                $to_articleFournisseur = ArticleFournisseur::getObjectsByIdArticle($i_idArticle);
-                foreach($to_articleFournisseur as &$o_articleFournisseur){
-                    $i_idFournisseur = $o_articleFournisseur['id_fournisseur'];
-                    $o_descriptionArticle[$i_idFournisseur]['code'] = $o_articleFournisseur['code'];
-                    $o_descriptionArticle[$i_idFournisseur]['prix_ht'] = $o_articleFournisseur['prix_ht'];
-                    $o_descriptionArticle[$i_idFournisseur]['prix_ttc'] = $o_articleFournisseur['prix_ttc'];
-                }
-                // on considère que le montant tva dépend de l'article
-                $i_idTva = ArticleCampagne::getIdTva($i_idArticleCampagne);
-                $o_descriptionArticle['tva'] = Tva::getValeur($i_idTva);
-                // colonnes composées renvoyées à la vue et formatage des nombres
-                $o_descriptionArticle['prix_echoppe_ttc_unite'] = number_format($o_descriptionArticle['prix_ttc']/$o_descriptionArticle['poids_paquet_fournisseur'], 2, '.', ' ');
-                $o_descriptionArticle[$i_idFournisseur]['prix_ht'] = number_format($o_descriptionArticle[$i_idFournisseur]['prix_ht'], 2, '.', ' ');
-                $o_descriptionArticle[$i_idFournisseur]['prix_ttc'] = number_format($o_descriptionArticle[$i_idFournisseur]['prix_ttc'], 2, '.', ' ');
-                $o_descriptionArticle['poids_paquet_fournisseur'] = number_format($o_descriptionArticle['poids_paquet_fournisseur'], 2, '.', ' ');
-                $o_descriptionArticle['poids_paquet_client'] = number_format($o_descriptionArticle['poids_paquet_client'], 2, '.', ' ');
+        $i_idCampagneEnCours = Campagne::getIdCampagneCourante();
+        $to_descriptionArticle = ArticleCampagne::getObjectsByIdCampagne($i_idCampagneEnCours);
+        foreach($to_descriptionArticle as &$o_descriptionArticle){
+            $i_idArticle = $o_descriptionArticle['id_article'];
+            $i_idArticleCampagne = $o_descriptionArticle['id'];
+            $o_article = Article::getObject($i_idArticle);
+            $i_idUnite = $o_article['id_unite'];
+            $o_descriptionArticle['unite'] = Unite::getUnite($i_idUnite);
+            $o_descriptionArticle['nom'] = $o_article['nom'];
+            $o_descriptionArticle['poids_paquet_fournisseur'] = $o_article['poids_paquet_fournisseur'];
+            $o_descriptionArticle['nb_paquet_colis'] = $o_article['nb_paquet_colis'];
+            $o_descriptionArticle['description_longue'] = $o_article['description_longue'];
+            $o_descriptionArticle['description_courte'] = $o_article['description_courte'];
+            // retourne le nom de tous les fournisseurs
+            // obtenir le prix et le code de chaque fournisseur
+            $to_articleFournisseur = ArticleFournisseur::getObjectsByIdArticle($i_idArticle);
+            foreach($to_articleFournisseur as &$o_articleFournisseur){
+                $i_idFournisseur = $o_articleFournisseur['id_fournisseur'];
+                $o_descriptionArticle[$i_idFournisseur]['code'] = $o_articleFournisseur['code'];
+                $o_descriptionArticle[$i_idFournisseur]['prix_ht'] = $o_articleFournisseur['prix_ht'];
+                $o_descriptionArticle[$i_idFournisseur]['prix_ttc'] = $o_articleFournisseur['prix_ttc'];
             }
-        //}
-        $this->render('gererArticle', compact('to_rayon', 'to_fournisseur', 'i_idRayon', 'to_descriptionArticle', 'to_tva'));
+            // on considère que le montant tva dépend de l'article
+            $o_descriptionArticle['id_tva_choisi'] = ArticleCampagne::getIdTva($i_idArticleCampagne);
+            // colonnes composées renvoyées à la vue et formatage des nombres
+            $o_descriptionArticle['prix_echoppe_ttc_unite'] = number_format($o_descriptionArticle['prix_ttc']/$o_descriptionArticle['poids_paquet_fournisseur'], 2, '.', ' ');
+        }
+        $this->render('gererArticle', compact('to_rayon', 'to_fournisseur', 'i_idRayon', 'to_descriptionArticle', 'to_tva','i_erreur'));
         /*
         // Campagne courante
         $i_idCampagneCourante = Campagne::getIdCampagneCourante();
@@ -90,24 +85,44 @@ class ArticleController extends Controller {
 
     public function modifierArticle() {
         $i_erreur = null;
-        // récupération des variables
-        if( !isset($_POST['poids_paquet_client'])
+        if( !isset($_POST['id_article_campagne'])
+            or !isset($_POST['poids_paquet_client'])
             or !isset($_POST['seuil_min'])
-            or !isset($_POST['fournisseur_choisi'])
-            or !isset($_POST['tva'])
+            // a faire à régler
+            //or !isset($_POST['id_fournisseur_choisi'])
+            or !isset($_POST['id_tva'])
             or !isset($_POST['prix_ttc_echoppe']) ) {
+            // si une des variables n'est pas définie
             $i_erreur = 1;
         } else {
+            // si toutes les variables sont définies on les récupère
             $ti_idArticleCampagne = $_POST['id_article_campagne'];
-            $ti_poisPaquetClient = $_POST['poids_paquet_client'];
+            $tf_poidsPaquetClient = $_POST['poids_paquet_client'];
             $ti_seuilMin = $_POST['seuil_min'];
+            $ti_idTva = $_POST['id_tva'];
+            $tf_prixTtcEchoppe = $_POST['prix_ttc_echoppe'];
             $i_nbArticleCampagne = count($ti_idArticleCampagne);
             for ($i=0; $i<$i_nbArticleCampagne; $i++) {
-                // pour tous les articles campagnes
-                // on récupère les variables en méthode post
+                $i_idArticleCampagne = $ti_idArticleCampagne[$i];
+                // modification du poids paquet client
+                $f_poidsPaquetClient = $tf_poidsPaquetClient[$i];
+                ArticleCampagne::setPoidsPaquetClient($i_idArticleCampagne, $f_poidsPaquetClient);
+                // modification du seuil min
+                $i_seuilMin = $ti_seuilMin[$i];
+                ArticleCampagne::setSeuilMin($i_idArticleCampagne, $i_seuilMin);
+                // modification du fournisseur choisi
+                $i_idFournisseurChoisi = $_POST["id_fournisseur_choisi"][$i_idArticleCampagne];
+                ArticleCampagne::setIdFournisseur($i_idArticleCampagne, $i_idFournisseurChoisi);
+                // modification de la tva
+                $i_idTva = $ti_idTva[$i];
+                ArticleCampagne::setIdTva($i_idArticleCampagne, $i_idTva);
+                // modification du prix choisi par l'échoppe
+                $f_prixTtcEchoppe = $tf_prixTtcEchoppe[$i];
+                ArticleCampagne::setPrixTtc($i_idArticleCampagne, $f_prixTtcEchoppe);
+                $i_erreur = 0;
             }
         }
-        header('Location: '.root.'/article.php/afficherArticle');
+        header("Location: ".root."/article.php/afficherArticle?i_erreur=$i_erreur");
     }
 
     public function afficherCreerArticle() {
