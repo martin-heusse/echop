@@ -9,6 +9,8 @@ if (!isset($titre_page)) {
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <title> <?php echo $titre_page ?> </title>
+        <!-- Favicon -->
+        <link href="<?php echo root ?>/Layouts/images/favicon.ico" rel="icon" type="image/x-icon"/>    
         <!-- Style -->
         <link rel="stylesheet" type="text/css" href="<?php echo root ?>/css/style.css" />
     </head>
