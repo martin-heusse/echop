@@ -80,7 +80,7 @@ class RayonController extends Controller {
 
         }
 
-        $this->render('modifierRayon',compact('i_errNewName','i_oldRayonSet','to_rayon'));
+        $this->render('modifierRayon',compact('i_errNewName','i_oldRayonSet','to_rayon', 's_nomRayon'));
     }
 
     public function defaultAction() {

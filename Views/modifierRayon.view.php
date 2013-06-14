@@ -25,8 +25,22 @@ method="get">
 
 <?php
     } else {
-?>
 
+        if ($i_errNewName == 1) {
+?>
+    <p> Erreur : Ce rayon existe déjà </p>
+<form 
+name="formulaire"
+action="<?php echo root ?>/rayon.php/modifierRayon"
+enctype="multipart/form-data"
+method="post">
+    <p> Ancien nom : <?php echo $s_nomRayon ?> </p>
+    <p><span class="form_col"><label>Nouveau nom du rayon</label></span><input type="text" name="newNomRayon" required/></p>
+    <p><span class="form_col"></span><input type="hidden" name="idRayon" value="<?php echo $i_idRayon ?>"</p>
+
+<?php
+        } else {
+?>
 <form
 name="formulaire"
 action="<?php echo root ?>/rayon.php/modifierRayon"
@@ -36,10 +50,6 @@ method="post">
     <p><span class="form_col"><label>Nouveau nom du rayon</label></span><input type="text" name="newNomRayon" required/></p>
     <p><span class="form_col"></span><input type="hidden" name="idRayon" value="<?php echo $i_idRayon ?>"</p>
 
-<?php
-        if ($i_errNewName == 1) {
-?>
-    <p> Erreur : Ce rayon existe déjà </p>
 <?php
         }
 ?>
