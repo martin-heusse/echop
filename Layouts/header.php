@@ -17,7 +17,7 @@ if (!isset($titre_page)) {
     
     <a href="<?php echo root ?>/index.php">
     
-        <img id="logo" src="<?php echo root ?>/Layouts/images/logo.png" alt="<?php echo $titre_page ?>" /></a>
+        <img id="logo" src="<?php echo root ?>/Layouts/images/logo_90x90.png" alt="<?php echo $titre_page ?>" /></a>
     <p>L'échoppe d'ici et d'ailleurs</p>
     
 </div><!-- id="banniere" -->
