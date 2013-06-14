@@ -14,12 +14,6 @@ if(isset($i_erreur)){
 
 <h1>Gérer tous les articles</h1>
 
-<?php
-// Trace
-// print_r($to_descriptionArticle);
-// print_r($to_fournisseur);
-?>
-
 <!-- Création d'un formulaire englobant tout le tableau -->
 <form method="post" action="<?php echo root ?>/article.php/modifierArticle">
 

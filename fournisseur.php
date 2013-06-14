@@ -8,6 +8,7 @@ require_once('Model/Commande.php');
 require_once('Model/ArticleCampagne.php');
 require_once('Model/Article.php');
 require_once('Model/ArticleFournisseur.php');
+require_once('Model/Unite.php');
 
 /*
  * Gère les fournisseurs.
@@ -115,6 +116,8 @@ class FournisseurController extends Controller {
             $i_poidsPaquetFournisseur = Article::getPoidsPaquetFournisseur($i_idArticle);
             $o_article['montant_total'] = $o_article['quantite_totale'] * $f_prixTtcArticle / $i_poidsPaquetFournisseur;
             $o_article['nom'] = Article::getNom($i_idArticle);
+            $i_idUnite = Article::getIdUnite($i_idArticle);
+            $o_article['unite'] = Unite::getValeur($i_idUnite);
         }
         $this->render('commandeFournisseur', compact('to_article'));
     }

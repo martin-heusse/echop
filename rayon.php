@@ -57,8 +57,9 @@ class RayonController extends Controller {
 
         if (isset($_GET['idRayon']) && $_GET['idRayon'] != "") {
             $i_oldRayonSet = 1;
-            $i_idRayon = $_GET['idRayon']; 
-            $this->render('modifierRayon',compact('i_idRayon','i_errNewName','i_oldRayonSet','to_rayon'));
+            $i_idRayon = $_GET['idRayon'];
+            $s_Rayon = Rayon::getNom($i_idRayon); 
+            $this->render('modifierRayon',compact('s_Rayon','i_idRayon','i_errNewName','i_oldRayonSet','to_rayon'));
         }
 
         if (isset($_POST['newNomRayon']) && $_POST['newNomRayon'] != "") {
@@ -79,7 +80,7 @@ class RayonController extends Controller {
 
         }
 
-        $this->render('modifierRayon',compact('i_errNewName','i_oldRayonSet','to_rayon'));
+        $this->render('modifierRayon',compact('i_errNewName','i_oldRayonSet','to_rayon', 's_nomRayon'));
     }
 
     public function defaultAction() {

@@ -24,6 +24,7 @@ class ConnexionController extends Controller {
             header('Location: '.root.'/index.php');
             return;
         }
+        $i_errConnexion = 0;
         /* Connexion */
         if (isset($_POST['login']) && $_POST['login'] != ""
             && isset($_POST['motDePasse']) && $_POST['motDePasse'] != "") {
@@ -41,13 +42,13 @@ class ConnexionController extends Controller {
             }
             /* Échec lors de l'authentification */
             else {
-                // TODO message d'erreur
-                $this->render('connexion');
+                $i_errConnexion = 1; 
+                $this->render('connexion', compact('i_errConnexion'));
             }
         }
         /* Afficher la page de connexion */
         else {
-            $this->render('connexion');
+            $this->render('connexion', compact('i_errConnexion'));
         }
     }
 
