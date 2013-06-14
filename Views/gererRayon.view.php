@@ -14,6 +14,6 @@ foreach ($to_rayon as $o_rayon) {
 ?>
 </ul>
 
-<button><a href="<?php echo root ?>/rayon.php/creerRayon"> créer un rayon <a/></button>
-<button><a href="<?php echo root ?>/rayon.php/modifierRayon"> modifier un rayon <a/></button>
+<a href="<?php echo root ?>/rayon.php/creerRayon"> créer un rayon <a/>
+<a href="<?php echo root ?>/rayon.php/modifierRayon"> modifier un rayon <a/>
 
