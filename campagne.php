@@ -93,7 +93,7 @@ class CampagneController extends Controller {
             $i_idTva = $o_art['id_tva'];
             $f_poidsPaquetClient = $o_art['poids_paquet_client'];
             $i_seuilMin = $o_art['seuil_min'];
-            $f_prixTtc = $o_art['prix_ttx'];
+            $f_prixTtc = $o_art['prix_ttc'];
 
             ArticleCampagne::create($i_idArticle,$i_idCampagneCourante,$i_idFournisseur, $i_idTva, $f_poidsPaquetClient, $i_seuilMin, $f_prixTtc);
         }
