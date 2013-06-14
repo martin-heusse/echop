@@ -17,7 +17,7 @@ foreach ($to_article as $o_article) {
     <tr class="ligne_article<?php echo $i_numLigne?>">
         <td><a href="<?php echo root ?>/commande.php/utilisateursAyantCommandECetArticle?idArticle=<?php echo $o_article['id_article']?>">
         <?php echo $o_article['nom']?></a></td>
-        <td><?php echo $o_article['quantite_totale'].$o_article['unite']?></td>
+        <td class="centrer"><?php echo $o_article['quantite_totale'].$o_article['unite']?></td>
     </tr>
 <?php
     $i_numLigne = ($i_numLigne + 1) % 2;

@@ -43,6 +43,17 @@ class Unite {
         return $o_result;
     }
 
+    public static function getValeur($i_id) {
+        $sql_query = "select valeur from unite where id=$i_id";
+        $sql_tmp = mysql_query($sql_query);
+        $s_result = null;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité et création du résultat */
+            $s_result = htmlentities($o_row['valeur']);
+        }
+        return $s_result;
+    }
+
     public static function getUnite($i_id) {
         $sql_query = "select valeur from unite where id=$i_id";
         $sql_tmp = mysql_query($sql_query);
