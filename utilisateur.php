@@ -1,6 +1,7 @@
 <?php
 require_once('def.php');
 require_once('Model/Utilisateur.php');
+require_once('Util.php');
 
 /*
  * Gère les utilisateurs.
@@ -149,7 +150,9 @@ class UtilisateurController extends Controller {
      * Permet de voir et d'éditer son profil 
      */
     public function profil() {
-    
+
+        $i_editProfile = 0;  
+        
         if (!Utilisateur::isLogged()) {
             $this->render('authentificationRequired');
             return;
@@ -157,10 +160,24 @@ class UtilisateurController extends Controller {
         /* Récupération des données du profil */ 
         $s_login = $_SESSION['login'];
         $o_profil = Utilisateur::getObjectByLogin($s_login);
-        $s_password = $o_profil['mot_de_passe'];
-        $s_email = $_SESSION['email'];
+        $i_id = $o_profil['id'];
+        $s_password = Utilisateur::getMotDePasse($i_id);
+        $s_email = Utilisateur::getEmail($i_id);
 
-        $this->render('profil' ,compact('s_login','s_password','s_email'));
+        /* Modification eventuelle du mot de passe  */
+        if (isset($_POST['resetMdp']) && $_POST['resetMdp'] != "" && $_POST['resetMdp'] != $s_password) {
+            $s_password = $_POST['resetMdp'];
+            Utilisateur::setMotDePasse($i_id,$s_password);
+            $i_editProfile = 1;
+        }
+
+        /* Modification eventuelle de l'email  */
+        if (isset($_POST['resetEmail']) && $_POST['resetEmail'] != "" && $_POST['resetEmail'] != $s_email) {
+            $s_email = $_POST['resetEmail'];
+            Utilisateur::setEmail($i_id,$s_email);
+            $i_editProfile = 1;
+        }
+        $this->render('profil' ,compact('s_login','s_password','s_email','i_editProfile'));
     }
 
     /*

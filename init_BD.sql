@@ -156,11 +156,11 @@ insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, co
 insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
     values(16, 5,9.00, 9.50, 'E100');
 insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
-    values(27, 5,9.95, 10.50, 'E100');
+    values(17, 5,9.95, 10.50, 'E100');
 insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
     values(18, 5,9.00, 9.50, 'E100');
 insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
-    values(19, 4,null, 8.60, 'E100');
+    values(19, 4, null, 8.60, 'E100');	
 insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
     values(19, 5,8.80, 9.28, 'E100');
 insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc, code)
@@ -248,4 +248,5 @@ insert into commande(id_article, id_campagne, id_utilisateur, quantite)
     values(1, 1, 4, 9);
 insert into commande(id_article, id_campagne, id_utilisateur, quantite)
     values(1, 1, 2, 5);
+
 

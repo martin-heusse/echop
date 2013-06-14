@@ -1,11 +1,5 @@
-<?php
-    //Trace
-    //var_dump($to_unite);
-    //return;
-?>
-
 <form action="<?php echo root ?>/article.php/creerArticle" method="post" name="formulaire">
-    <p><a class="action_navigation" href="<?php echo root ?>/rayon.php/afficherRayon">Retour</a>
+    <p><a class="action_navigation" href="<?php echo root ?>/article.php/afficherArticle">Retour</a>
 <?php
 if(isset($i_erreur)){
     if($i_erreur==0){
@@ -20,6 +14,8 @@ if(isset($i_erreur)){
     <fieldset><legend>Créer un article</legend>
         <p>Les Champs avec * sont obligatoires.</p>
         <p><span class="form_col"><label>Produit<sup>&nbsp *</sup></label></span><input type="text" name="nom_produit" value=""/></p>
+        <p><span class="form_col"><label>Description courte</label></span><input type="text" name="description_courte" value=""/></p>
+        <p><span class="form_col"><label>Description longue</label></span><input type="text" name="description_longue" value=""/></p>
         <p><span class="form_col"><label>Poids du paquet fournisseur</label></span><input type="text" name="poids_paquet_fournisseur" value=""/></p>
         <p><span class="form_col"><label>Poids du paquet client</label></span><input type="text" name="poids_paquet_client" value=""/></p>
         <!-- choix multiple unité -->
@@ -61,10 +57,8 @@ foreach($to_fournisseur as $o_fournisseur){
 ?>
         </select></p>
         <p><span class="form_col"><label>Prix TTC choisi par l'échoppe rapporté au colis du fournisseur vendu au client</label></span><input type="text" name="prix_ttc_echoppe" value=""/></p>
-        <p><span class="form_col"><label>Prix TTC rapporté à l'unité echoppe</label></span><input type="text" value="A CALCULER JS" disabled="disabled"/></p>
         <!-- Prix TTC choisi par l'échoppe rapporté au colis du fournisseur vendu au client à calculer -->
-        <p><span class="form_col"><label>Description courte</label></span><input type="text" name="description_courte" value=""/></p>
-        <p><span class="form_col"><label>Description longue</label></span><input type="text" name="description_longue" value=""/></p>
+        <p><span class="form_col"><label>Prix TTC rapporté à l'unité echoppe</label></span><input type="text" value="A CALCULER JS" disabled="disabled"/></p>
         <input type="submit" value="valider" />
     </fieldset>
 </form>

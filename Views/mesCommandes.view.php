@@ -24,7 +24,7 @@ if ($to_commande != null and $to_commande != array()) {
     /* Affiche ou non le formulaire */
     if ($b_etat == 1) {
 ?>
-<form method="post" action="mesCommandes.php/mesCommandesModifier">
+    <form method="post" action="<?php echo root ?>/mesCommandes.php/mesCommandesModifier">
 <?php
     }
 ?>
@@ -85,7 +85,7 @@ if ($to_commande != null and $to_commande != array()) {
         /* Affiche ou non le lien de suppression */
         if ($b_etat == 1) {
 ?>
-        <td class="centrer"><a href="../mesCommandes.php/mesCommandesSupprimer?id_article=<?php echo $o_produit['id_article']?>">supprimer l'article</a>
+        <td class="centrer"><a href="<?php echo root ?>/mesCommandes.php/mesCommandesSupprimer?id_article=<?php echo $o_produit['id_article']?>">supprimer l'article</a>
 <?php
         }
 ?>
@@ -123,14 +123,3 @@ if ($to_commande != null and $to_commande != array()) {
 <?php
 }
 ?>
-<!--
-<script type="text/javascript">
-function calculPoidsTotal(){
-    var poidsTotal = 0.0;
-    var test = event.srcElement;
-    // quantité est la 10eme colonne
-    document.write(test);
-    var quantite = parseFloat(document.getElementById("t_article").rows[this.rowIndex].cells[10].innerHTML); 
-} 
-</script>
--->

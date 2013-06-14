@@ -72,13 +72,32 @@ class CampagneController extends Controller {
             header('Location: '.root.'/campagne.php/gererCampagne');
             return;
         }
-        /* Désafecte la campagne courante */
+        /* Désaffecte la campagne courante */
         Campagne::setCourant($i_idCampagneCourante, 0);
+        
+        /* Récupération des données pour la réaffection */ 
+        $i_idOldCamp = $i_idCampagneCourante;
+        $to_art = ArticleCampagne::getAllObjects();
+        
         /* Crée la nouvelle campagne */
         $s_dateDebut = date("Y-m-d", time());
         $b_etat = 1;
         $b_courant = 1;
         $i_idCampagneCourante = Campagne::create($s_dateDebut, $b_etat, $b_courant);
+
+
+        /* Réaffection des articles de la campagne précédente  */
+        foreach ($to_art as $o_art) {
+            $i_idArticle = $o_art['id_article'];
+            $i_idFournisseur = $o_art['id_fournisseur'];
+            $i_idTva = $o_art['id_tva'];
+            $f_poidsPaquetClient = $o_art['poids_paquet_client'];
+            $i_seuilMin = $o_art['seuil_min'];
+            $f_prixTtc = $o_art['prix_ttc'];
+
+            ArticleCampagne::create($i_idArticle,$i_idCampagneCourante,$i_idFournisseur, $i_idTva, $f_poidsPaquetClient, $i_seuilMin, $f_prixTtc);
+        }
+
         header('Location: '.root.'/campagne.php/gererCampagne');
     }
 

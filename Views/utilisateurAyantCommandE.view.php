@@ -18,7 +18,7 @@ if ($to_commande != null) {
     foreach($to_commande as $o_utilisateur) {
 ?>
     <tr class="ligne_article<?php echo $i_numLigne ?>">
-        <td><a href="../commande.php/commandeUtilisateur?idUtilisateur=<?php echo $o_utilisateur['id_utilisateur']?>">
+        <td><a href="<?php echo root ?>/commande.php/commandeUtilisateur?idUtilisateur=<?php echo $o_utilisateur['id_utilisateur']?>">
         <?php echo $o_utilisateur['login_utilisateur'] ?></a></td>
         <td class="centrer"><?php echo $o_utilisateur['montant_total'] ?>&euro;</td>
     </tr>
