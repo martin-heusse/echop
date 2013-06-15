@@ -3,6 +3,7 @@ require_once('def.php');
 require_once('Model/Rayon.php');
 require_once('Model/Administrateur.php');
 require_once('Model/Utilisateur.php');
+require_once('Model/Categorie.php');
 
 class RayonController extends Controller {
 
@@ -15,7 +16,8 @@ class RayonController extends Controller {
         // liste des rayons (à partir de la table rayon)
         // pour afficher la liste rayons
         $to_rayon = Rayon::getAllObjects();
-        $this->render('gererRayon', compact('to_rayon'));
+        $to_categorie = Categorie::getAllObjects();
+        $this->render('gererRayon', compact('to_rayon','to_categorie'));
     }
 
     public function creerRayon() {
