@@ -65,7 +65,6 @@ class CommanderArticleController extends Controller {
         /* Récupération de tous les attributs nécessaires d'un article */
         foreach($to_commande as &$o_article) {
             /* Attributs dépendant de l'article */
-            echo $o_article['id_campagne'];
             $i_idArticle = $o_article['id_article'];
             $o_article['id_rayon'] = Article::getIdRayon($i_idArticle);
             if ($o_article['id_rayon'] == $i_idRayon) {

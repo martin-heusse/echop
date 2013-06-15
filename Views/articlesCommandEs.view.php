@@ -8,8 +8,14 @@ Cliquez sur l'un des articles pour voir la liste de tous les utilisateurs l'ayan
 <table>
     <tr>
         <th>Article</th>
+<?php
+    if(Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
+?>
         <th>Quantité totale commandée</th>
         <th>Colisage</th>
+<?php
+    }
+?>
         <th>Manque</th>
     </tr>
 <?php
@@ -17,11 +23,36 @@ $i_numLigne = 0;
 foreach ($to_article as $o_article) {
 ?>
     <tr class="ligne_article<?php echo $i_numLigne?>">
-        <td><a href="<?php echo root ?>/commande.php/utilisateursAyantCommandECetArticle?idArticle=<?php echo $o_article['id_article']?>">
-        <?php echo $o_article['nom']?></a></td>
+        <td>
+<?php
+    if(Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
+?>
+<a href="<?php echo root ?>/commande.php/utilisateursAyantCommandECetArticle?idArticle=<?php echo $o_article['id_article']?>">
+<?php 
+}
+echo $o_article['nom'];
+    if(Administrateur::isAdministrateur($_SESSION['idUtilisateur'])){?></a>
+<?php }
+?>
+</td>
+<?php
+    if(Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
+?>
         <td class="centrer"><?php echo $o_article['quantite_totale'].$o_article['unite']?></td>
         <td class="centrer">multiple de <?php echo $o_article['colisage'].$o_article['unite']?></td>
-        <td class="centrer"><?php echo $o_article['manque'].$o_article['unite']?></td>
+<?php
+    }
+?>
+        <td class="centrer"><?php 
+if($o_article['manque']!= 0) {
+?> 
+<strong> 
+<?php echo $o_article['manque'].$o_article['unite']?></strong>
+<?php
+} else {
+    echo $o_article['manque'].$o_article['unite']; }?>
+
+</td>
     </tr>
 <?php
     $i_numLigne = ($i_numLigne + 1) % 2;

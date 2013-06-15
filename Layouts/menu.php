@@ -19,17 +19,24 @@ if (Utilisateur::isLogged()) {
         <li><a href="<?php echo root ?>/accueil.php/accueil">Accueil</a></li>
         <li><a href="<?php echo root ?>/connexion.php/deconnexion">Se déconnecter</a></li>
     </ul>
-<?php
-    if(Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
-?>
     <!-- Menu administrateur -->
     <h1 class="titre_menu">Campagne n°<?php echo Campagne::getIdCampagneCourante() ?></h1>
     <ul>
+<?php
+    if(Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
+?>
         <li><a href="<?php echo root ?>/campagne.php/gererCampagne">Gérer les campagnes</a></li>
         <li><a href="<?php echo root ?>/commande.php/utilisateurAyantCommandE">Utilisateurs ayant commandés</a></li>
-        <li><a href="<?php echo root ?>/commande.php/articlesCommandEs">Articles commandés</a></li>
         <li><a href="<?php echo root ?>/fournisseur.php/fournisseursChoisis">Commandes par fournisseur</a></li>
+<?php 
+    }
+?>
+        <li><a href="<?php echo root ?>/commande.php/articlesCommandEs">Articles commandés</a></li>
     </ul>
+<?php
+    if(Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
+?>
+
     <h1 class="titre_menu">Administration</h1>
     <ul>
         <li><a href="<?php echo root ?>/article.php/afficherArticle">Gérer articles</a></li>

@@ -280,12 +280,6 @@ class ArticleFournisseur {
         return $b_result;
     }
 
-    public static function setCode($i_id, $b_ventePaquetUnite) {
-        $sql_query = "update article_fournisseur set vente_paquet_unite='$b_ventePaquetUnite' 
-            where id=$i_id";
-        $b_result =  mysql_query($sql_query);
-        return $b_result;
-    }
     /* Deleters */
 
     public static function delete($i_id) {
