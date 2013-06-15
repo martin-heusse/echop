@@ -182,8 +182,7 @@ class CommandeController extends Controller {
             $this->render('authenticationRequired');
             return;
         }
-        $o_campagne = Campagne::getCampagneCourante();
-        $i_idCampagne = $o_campagne['id'];
+        $i_idCampagne = Campagne::getIdCampagneCourante();
         $to_article = Commande::getIdArticleByIdCampagne($i_idCampagne);
         foreach ($to_article as &$o_row) {
             $o_row['nom'] = Article::getNom($o_row['id_article']);
@@ -191,7 +190,7 @@ class CommandeController extends Controller {
             $o_row['quantite_totale'] = 0;
             $i_idUnite = Article::getIdUnite($i_idArticle); 
             $o_row['unite'] = Unite::getUnite($i_idUnite);
-            $to_commande = Commande::getObjectsByIdArticle($i_idArticle);
+            $to_commande = Commande::getObjectsByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
             $i_idArticleCampagne = ArticleCampagne::getIdByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
             $i_poidsPaquetClient = ArticleCampagne::getPoidsPaquetClient($i_idArticleCampagne);
             $i_poidsPaquetFournisseur = Article::getPoidsPaquetFournisseur($i_idArticle);
@@ -203,7 +202,7 @@ class CommandeController extends Controller {
                 $o_row['quantite_totale'] += $i_quantite;
             }
             $i_manque = $o_row['quantite_totale'] % $o_row['colisage'];
-            $o_row['manque'] = $o_row['colisage'] - $i_manque;
+            $o_row['manque'] = ($o_row['colisage'] - $i_manque) % $o_row['colisage'];
         }
         $this->render('articlesCommandEs', compact('to_article'));
     }
@@ -245,7 +244,7 @@ class CommandeController extends Controller {
 
         }
         $i_manque = $i_quantiteTotale % $i_colisage;
-        $i_manque = $i_colisage - $i_manque;
+        $i_manque = ($i_colisage - $i_manque) % $i_colisage;
         $s_nomArticle = Article::getNom($i_idArticle);
         $i_idArticle = htmlentities($_GET['idArticle']);
         $this->render('utilisateursAyantCommandECetArticle', compact('i_idArticle', 'to_utilisateur', 'i_colisage', 's_nomArticle', 'i_quantiteTotale', 's_unite', 'i_manque'));

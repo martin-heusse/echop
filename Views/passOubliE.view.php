@@ -4,7 +4,7 @@
 if ($b_success == 0) {
     if($b_erreurLogin == 1) {
 ?>
-<p>Le login saisie n'existe pas.</p>
+<p class="erreur">Le login saisi n'existe pas.</p>
 <?php
     } else if ($b_erreurLogin == 0) {
 ?>
