@@ -19,9 +19,9 @@ class ArticleCampagne {
 
     /* Creaters */
 
-    public static function create($i_idArticle, $i_idCampagne, $i_idFournisseur, $i_idTva, $f_poidsPaquetClient, $i_seuilMin, $f_prixTtc) {
-        $sql_query = "insert into article_campagne(id_article, id_campagne, id_fournisseur, id_tva, poids_paquet_client, seuil_min, prix_ttc) 
-            values('$i_idArticle', '$i_idCampagne', '$i_idFournisseur', '$i_idTva', '$f_poidsPaquetClient', '$i_seuilMin', '$f_prixTtc')";
+    public static function create($i_idArticle, $i_idCampagne, $i_idFournisseur, $i_idTva, $f_poidsPaquetClient, $i_seuilMin, $f_prixTtc, $b_Envente) {
+        $sql_query = "insert into article_campagne(id_article, id_campagne, id_fournisseur, id_tva, poids_paquet_client, seuil_min, prix_ttc, en_vente) 
+            values('$i_idArticle', '$i_idCampagne', '$i_idFournisseur', '$i_idTva', '$f_poidsPaquetClient', '$i_seuilMin', '$f_prixTtc', '$b_Envente')";
         mysql_query($sql_query);
         $i_result = mysql_insert_id();
         return $i_result;
@@ -317,6 +317,16 @@ class ArticleCampagne {
         return $i_result;
     }
 
+    public static function getEnVente($i_id) {
+        $sql_query = "select id_article from en_vente where id=$i_id";
+        $sql_tmp = mysql_query($sql_query);
+        $b_result = null;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité et création du résultat */
+            $b_result = htmlentities($o_row['en_vente']);
+        }
+        return $b_result;
+    }
 
     public static function getIdCampagne($i_id) {
         $sql_query = "select id_campagne from article_campagne where id=$i_id";
@@ -402,8 +412,8 @@ class ArticleCampagne {
 
     /* Setters */
 
-    public static function set($i_id, $i_idArticle, $i_idCampagne, $i_idFournisseur, $i_idTva, $f_poidsPaquetClient, $i_seuilMin, $f_prixTtc) {
-        $sql_query = "update article_campagne set id_article='$i_idArticle', id_campagne='$i_idCampagne', id_fournisseur='$i_idFournisseur', id_tva='$i_idTva', poids_paquet_colis='$f_poidsPaquetColis', seuil_min='$i_seuilMin', prix_ttc='$f_prixTtc' 
+    public static function set($i_id, $i_idArticle, $i_idCampagne, $i_idFournisseur, $i_idTva, $f_poidsPaquetClient, $i_seuilMin, $f_prixTtc, $b_enVente) {
+        $sql_query = "update article_campagne set id_article='$i_idArticle', id_campagne='$i_idCampagne', id_fournisseur='$i_idFournisseur', id_tva='$i_idTva', poids_paquet_colis='$f_poidsPaquetColis', seuil_min='$i_seuilMin', prix_ttc='$f_prixTtc', en_vente='$b_enVente' 
             where id=$i_id";
         $b_result =  mysql_query($sql_query);
         return $b_result;
@@ -411,6 +421,13 @@ class ArticleCampagne {
 
     public static function setIdArticle($i_id, $i_idArticle) {
         $sql_query = "update article_campagne set id_article='$i_idArticle' 
+            where id=$i_id";
+        $b_result =  mysql_query($sql_query);
+        return $b_result;
+    }
+
+    public static function setEnVente($i_id, $b_enVente) {
+        $sql_query = "update article_campagne set en_vente='$b_enVente' 
             where id=$i_id";
         $b_result =  mysql_query($sql_query);
         return $b_result;
@@ -431,7 +448,7 @@ class ArticleCampagne {
     }
 
     public static function setPoidsPaquetClient($i_id, $f_poidsPaquetClient) {
-        $sql_query = "update article_campagne set poids_paquet_client='$f_poidsPaquetClient' 
+        $sql_query = "update article_campagne set poids_paquet_client='$f_poidsPaquetClient'
             where id=$i_id";
         $b_result =  mysql_query($sql_query);
         return $b_result;

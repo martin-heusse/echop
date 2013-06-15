@@ -46,15 +46,17 @@ a:hover {
     display: inline-block;
     margin-top: 15px;
     margin-left: 20px;
+    float: left;
 }
 
 #titre_banniere {
     color: #666666;
-    font-family: arial;
-    font-size: 34px;
+    font-family: Arial;
     display: inline-block;
-    margin-top: 220px;
-    margin-left: 50px;
+    font-size: 34px;
+    margin-top: 40px;
+    margin-left: 20px;
+    float: left;
 }
 
 /* ========================================================================== */

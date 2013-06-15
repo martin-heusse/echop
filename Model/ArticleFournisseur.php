@@ -4,9 +4,9 @@ class ArticleFournisseur {
 
     /* Creaters */
 
-    public static function create($i_idArticle, $i_idFournisseur, $f_prixHt, $f_prixTtc, $s_code) {
-        $sql_query = "insert into article_fournisseur(id_article, id_fournisseur, prix_ht, prix_ttc, code)
-            values('$i_idArticle', '$i_idFournisseur', '$f_prixHt', '$f_prixTtc', '$s_code')";
+    public static function create($i_idArticle, $i_idFournisseur, $f_prixHt, $f_prixTtc, $s_code, $b_prix_ttc_ht, $b_vente_paquet_client) {
+        $sql_query = "insert into article_fournisseur(id_article, id_fournisseur, prix_ht, prix_ttc, code, prix_ttc_ht, vente_paquet_client)
+            values('$i_idArticle', '$i_idFournisseur', '$f_prixHt', '$f_prixTtc', '$s_code', '$b_prix_ttc_ht, $b_vente_paquet_client)";
         mysql_query($sql_query);
         $i_result = mysql_insert_id();
         return $i_result;
@@ -207,9 +207,31 @@ class ArticleFournisseur {
         return $s_result;
     }
 
+    public static function getPrixTtcHt($i_id) {
+        $sql_query = "select pix_ttc_ht from article_fournisseur where id=$i_id";
+        $sql_tmp = mysql_query($sql_query);
+        $b_result = null;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité et création du résultat */
+            $b_result = htmlentities($o_row['prix_ttc_ht']);
+        }
+        return $b_result;
+    }
+
+    public static function getVentePaquetUnite($i_id) {
+        $sql_query = "select vente_paquet_unite from article_fournisseur where id=$i_id";
+        $sql_tmp = mysql_query($sql_query);
+        $b_result = null;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité et création du résultat */
+            $b_result = htmlentities($o_row['vente_paquet_unite']);
+        }
+        return $b_result;
+    }
+
     /* Setters */
 
-    public static function set($i_id, $i_idArticle, $i_idFournisseur, $f_prixHt, $f_prixTtc) {
+    public static function set($i_id, $i_idArticle, $i_idFournisseur, $f_prixHt, $f_prixTtc, $b_prixTtcHt, $b_ventePaquetUnite) {
         $sql_query = "update article_fournisseur set id_article='$i_idArticle', id_fournisseur='$i_idFournisseur', prix_ht='$f_prixHt', prix_ttc='$f_prixTtc'
             where id=$i_id";
         $b_result =  mysql_query($sql_query);
@@ -246,6 +268,13 @@ class ArticleFournisseur {
 
     public static function setCode($i_id, $s_code) {
         $sql_query = "update article_fournisseur set code='$s_code' 
+            where id=$i_id";
+        $b_result =  mysql_query($sql_query);
+        return $b_result;
+    }
+
+    public static function setPrixTtcHt($i_id, $b_prixTtcHt) {
+        $sql_query = "update article_fournisseur set prix_ttc_ht='$b_prixTtcHt' 
             where id=$i_id";
         $b_result =  mysql_query($sql_query);
         return $b_result;

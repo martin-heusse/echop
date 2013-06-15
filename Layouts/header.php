@@ -9,16 +9,18 @@ if (!isset($titre_page)) {
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <title> <?php echo $titre_page ?> </title>
+        <!-- Favicon -->
+        <link href="<?php echo root ?>/Layouts/images/favicon.ico" rel="icon" type="image/x-icon"/>    
         <!-- Style -->
         <link rel="stylesheet" type="text/css" href="<?php echo root ?>/css/style.css" />
     </head>
 <body>
 <div id="banniere">
-    <!--
+    
     <a href="<?php echo root ?>/index.php">
-    <img id="logo" src="<?php echo root ?>/Layouts/images/banniere.png" alt="<?php echo $titre_page ?>"/></a>
-    <p>L'échoppe d'ici et d'ailleurs</p>
-    -->
+        <img id="logo" src="<?php echo root ?>/Layouts/images/logo_90x90.png" alt="<?php echo $titre_page ?>" /></a>
+    <p id="titre_banniere">L'Échoppe d'ici et d'ailleurs</p>
+    
 </div><!-- id="banniere" -->
 
 <?php include($this->root().'/Layouts/menu.php') ?>
