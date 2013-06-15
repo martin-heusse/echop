@@ -9,6 +9,7 @@ require_once('Model/Unite.php');
 require_once('Model/ArticleCampagne.php');
 require_once('Model/Rayon.php');
 require_once('Model/Fournisseur.php');
+require_once('Util.php');
 
 /*
  * Gère les campagnes.
@@ -76,16 +77,25 @@ class CampagneController extends Controller {
         }
         /* Désaffecte la campagne courante */
         Campagne::setCourant($i_idCampagneCourante, 0);
-        
+
         /* Récupération des données pour la réaffection */ 
         $i_idOldCampagne = $i_idCampagneCourante;
         $to_article = ArticleCampagne::getObjectsByIdCampagne($i_idOldCampagne);
-        
+
         /* Crée la nouvelle campagne */
         $s_dateDebut = date("Y-m-d", time());
         $b_etat = 1;
         $b_courant = 1;
         $i_idCampagneCourante = Campagne::create($s_dateDebut, $b_etat, $b_courant);
+
+        /* envoi d'un mail à tous les utilisateurs */
+        $to_utilisateur = Utilisateur::getAllObjects();
+        $s_subject = "[L'Échoppe d'ici et d'ailleurs] Campagne ouverte";
+        $s_message = "Une campagne vient d'être ouverte, venez sur le site pour effectuer vos achats" ;
+        foreach($to_utilisateur as $o_utilisateur) {
+            $s_destinataire = $o_utilisateur['email'];
+            Util::sendEmail($s_destinataire, $s_subject, $s_message);   
+        }
 
         /* Réaffection des articles de la campagne précédente  */
         foreach ($to_article as $o_article) {
