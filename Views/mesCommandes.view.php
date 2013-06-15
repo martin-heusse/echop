@@ -95,7 +95,7 @@ if ($to_commande != null and $to_commande != array()) {
    }
 ?>  
     <tr>
-        <th colspan=9>Montant Total = </th>
+        <th colspan=10 class="right">Montant Total = </th>
         <td class="centrer"><strong><?php echo $f_montantTotal ?>&euro;</strong></td>
 <?php
     /* Afficher ou non la dernière colonne dans la ligne "Montant total" */

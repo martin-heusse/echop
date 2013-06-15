@@ -5,7 +5,7 @@ class Rayon {
 
     public static function create($s_nom, $f_marge) {
         $sql_query = "insert into rayon(nom, marge) 
-            values('$s_nom', '$f_marge)";
+            values('$s_nom', '$f_marge')";
         mysql_query($sql_query);
         $i_result = mysql_insert_id();
         return $i_result;

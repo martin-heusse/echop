@@ -1,5 +1,6 @@
 <p><a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a></p>
 
+<h1>Commander des articles</h1>
 <?php
 /* Indique si la campagne est ouverte ou non */
 if ($b_etat == 1) {
