@@ -21,28 +21,34 @@ class RayonController extends Controller {
     public function creerRayon() {
         $i_rayonSet = 0;
         $i_errName = 0;
+        $i_errMarge = 0;
         if (!Utilisateur::isLogged()) {
             header('Location: '.root.'/authentificationRequired');
         }
 
-        if (isset($_POST['nomRayon']) && $_POST['nomRayon'] != "") {
+        if (isset($_POST['nomRayon']) && $_POST['nomRayon'] != "" && isset($_POST['marge'])) {
+            $f_marge = $_POST['marge'];
             $s_nomRayon = $_POST['nomRayon'];
 
-            /* Vérification de la disponibilité du nom */
             $o_nom = Rayon::getObjectByNom($s_nomRayon);
-
-            if ($o_nom != array()) {
-                $i_errName = 1;
+            if($o_nom != array() || $f_marge > 100 || $f_marge < 0 ) {
+                /* Vérification que la marge est compris entre 0 et 1 */
+                if ($_POST['marge']<0 || $_POST['marge']>100) {
+                    $i_errMarge = 1;
+                }
+            /* Vérification de la disponibilité du nom */
+                if ($o_nom != array()) {
+                    $i_errName = 1;
+                }
             } else {
-
                 $i_rayonSet = 1;
-                Rayon::create($s_nomRayon);
+                $f_marge=$f_marge/100;
+                Rayon::create($s_nomRayon, $f_marge);
                 $to_rayon = Rayon::getAllObjects();
                 $this->render('gererRayon', compact('to_rayon'));
             }
         }
-
-        $this->render('creerRayon',compact('i_rayonSet','i_errName'));
+        $this->render('creerRayon',compact('i_rayonSet','i_errName', 'i_errMarge'));
     }
 
     public function modifierRayon() {
@@ -68,7 +74,7 @@ class RayonController extends Controller {
             $s_nomRayon = $_POST['newNomRayon'];
             $i_id = $_POST['idRayon'];
             $f_marge = 100 * Rayon::getMarge($i_id);
-            
+
             /* Vérification de la disponibilité du nom */ 
             $o_nom = Rayon::getObjectByNom($s_nomRayon);
 
