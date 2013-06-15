@@ -17,24 +17,20 @@ method = "post">
     </p>
 </form>
 
-<p>
     <table>
     <tr>
     <th>Valeur</th>
-    <th>Modifier</th>
     </tr>
 <?php
         foreach ($to_val as $o_val) {
 ?>
     <tr>
     <td><?php echo $o_val['valeur'] ?></td>
-    <td><a href="<?php echo root ?>/tva.php/supprimerTva?tva=<?php echo $o_val['id'] ?>">Supprimer</a></td>
     </tr>
 <?php
         }
 ?>
     </table>
-</p>
 <?php
-        }
+    }
 ?>
