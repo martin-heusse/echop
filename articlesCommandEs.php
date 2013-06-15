@@ -162,8 +162,15 @@ class ArticlesCommandEsController extends Controller {
                 $o_commande['quantite'] = $i_quantite;
                 $o_row['quantite_totale'] += $i_quantite;
             }
+            $f_float = $o_row['quantite_totale']-floor($o_row['quantite_totale']);
             $i_manque = $o_row['quantite_totale'] % $o_row['colisage'];
             $o_row['manque'] = ($o_row['colisage'] - $i_manque) % $o_row['colisage'];
+            if($o_row['manque']-$f_float < 0){
+                $o_row['manque'] += $o_row['colisage'] - $f_float;
+            } else {
+                $o_row['manque'] += -$f_float;
+            }
+
         }
         $this->render('articlesCommandEs', compact('to_article', 'b_historique', 'i_idCampagne'));	
     }
@@ -215,8 +222,14 @@ class ArticlesCommandEsController extends Controller {
             $i_quantiteTotale += $o_row['quantite'];
 
         }
+        $f_float = $i_quantiteTotale-floor($i_quantiteTotale);
         $i_manque = $i_quantiteTotale % $i_colisage;
-        $i_manque = ($i_colisage - $i_manque) % $i_colisage;
+        $i_manque = ($i_colisage - $i_manque) % $i_colisage + $i_colisage - $f_float;
+            if($i_manque-$f_float < 0){
+                $i_manque += $i_colisage - $f_float;
+            } else {
+                $i_manque += -$f_float;
+            }
         $s_nomArticle = Article::getNom($i_idArticle);
         $i_idArticle = htmlentities($_GET['idArticle']);
         $this->render('utilisateursAyantCommandECetArticle', compact('i_idArticle', 'to_utilisateur', 'i_colisage', 's_nomArticle', 'i_quantiteTotale', 's_unite', 'i_manque', 'b_historique', 'i_idCampagne'));

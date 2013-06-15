@@ -62,8 +62,9 @@ $i_idArticleCampagne = $o_descriptionArticle['id'];
                 <!-- Mettre en vente -->
                 <td align="center">
                     <select name="en_vente[]">
-                        <option value="vrai" <?php if($o_descriptionArticle['en_vente']){echo 'selected="true"';}?>>En vente</option>
-                        <option value="faux" <?php if(!$o_descriptionArticle['en_vente']){echo 'selected="true"';}?>>Pas en vente</option>
+                        <?php echo $o_descriptionArticle['en_vente']; ?>
+                        <option value="vrai" <?php if($o_descriptionArticle['en_vente'] == '1'){echo 'selected="true"';}?>>En vente</option>
+                        <option value="faux" <?php if($o_descriptionArticle['en_vente'] == '0'){echo 'selected="true"';}?>>Pas en vente</option>
                     </select>
                 </td>
                 <!-- Nom du produit -->
