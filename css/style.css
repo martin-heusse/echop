@@ -210,6 +210,14 @@ form .input_valider {
 }
 
 /* ========================================================================== */
+/* Erreur */
+
+.erreur {
+    font-weight:bold;
+    color: red;
+}
+
+/* ========================================================================== */
 /* Autre */
 
 /* Pour que les flottants ne dépassent pas de leur conteneur */
