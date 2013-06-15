@@ -1,12 +1,34 @@
-<p><a class="action_navigation" href="<?php echo root ?>/articlesCommandEs.php/utilisateursAyantCommandECetArticle?idArticle=<?php echo $i_idArticle ?>">Retour aux utilisateurs ayant commandé cet article</a></p>
+<p><a class="action_navigation" href="<?php echo root ?>/articlesCommandEs.php/utilisateursAyantCommandECetArticle?idArticle=<?php echo $i_idArticle ?>
+<?php
+/* Si navigation dans l'historique */
+if ($b_historique == 1) {
+    echo "?idOldCampagne=".$i_idCampagne;
+}
+?>
+">Retour aux utilisateurs ayant commandé cet article</a></p>
 
+<?php
+/* Si navigation dans l'historique */
+if ($b_historique == 1) {
+?>
+    <span class="historique">[Historique de la campagne n°<?php echo $i_idCampagne ?>]</span>
+<?php
+}
+?>
 <h1>Commande de <?php echo $s_login ?> pour cet article</h1>
 
 <?php
 if ($o_commande != null and $o_commande != array()) {
 ?>
 
-<form method="post" action="articlesCommandEs.php/modifierQuantiteUtilisateur?idArticle=<?php echo $i_idArticle ?>&idUtilisateur=<?php echo $i_idUtilisateur ?>">
+<form method="post" action="articlesCommandEs.php/modifierQuantiteUtilisateur?idArticle=<?php echo $i_idArticle ?>&idUtilisateur=<?php echo $i_idUtilisateur ?>
+<?php
+/* Si navigation dans l'historique */
+if ($b_historique == 1) {
+    echo "&idOldCampagne=".$i_idCampagne;
+}
+?>
+">
 <table>
     <tr>
         <th>Produit</th>
@@ -45,7 +67,14 @@ if ($o_commande != null and $o_commande != array()) {
         <td><input class="input_quantite" type="text" name="quantite[<?php echo $o_commande['id_article']?>]" value="<?php echo $o_commande['quantite'] ?>"/></td>
         <td class="centrer col_coloree"><?php echo $o_commande['quantite_totale'] ?><?php echo $o_commande['unite'] ?></td>
         <td class="centrer col_coloree"><?php echo $o_commande['total_ttc'] ?>&euro;</td>
-        <td class="centrer"><a href="../articlesCommandEs.php/supprimerArticleUtilisateur?idUtilisateur=<?php echo $i_idUtilisateur ?>&id_article=<?php echo $o_commande['id_article']?>">supprimer l'article</a>
+        <td class="centrer"><a href="<?php echo root ?>/articlesCommandEs.php/supprimerArticleUtilisateur?idUtilisateur=<?php echo $i_idUtilisateur ?>&idArticle=<?php echo $o_commande['id_article']?>
+<?php
+/* Si navigation dans l'historique */
+if ($b_historique == 1) {
+    echo "&idOldCampagne=".$i_idCampagne;
+}
+?>
+">supprimer l'article</a>
     </tr>
 <?php
     $i_numLigne = ($i_numLigne + 1) % 2;

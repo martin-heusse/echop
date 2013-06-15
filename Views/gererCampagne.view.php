@@ -63,8 +63,8 @@ foreach ($to_oldCampagne as $o_oldCampagne) {
 <?php
     }
 ?>
-    <a href="<?php echo root ?>/commande.php/utilisateurAyantCommandE?idOldCampagne=<?php echo $o_oldCampagne['id'] ?>">Utilisateurs ayant commandés</a> |
-    <a href="<?php echo root ?>/commande.php/articlesCommandEs?idOldCampagne=<?php echo $o_oldCampagne['id'] ?>">Articles commandés</a> |
+    <a href="<?php echo root ?>/utilisateurAyantCommandE.php/utilisateurAyantCommandE?idOldCampagne=<?php echo $o_oldCampagne['id'] ?>">Utilisateurs ayant commandés</a> |
+    <a href="<?php echo root ?>/articlesCommandEs.php/articlesCommandEs?idOldCampagne=<?php echo $o_oldCampagne['id'] ?>">Articles commandés</a> |
     <a href="<?php echo root ?>/fournisseur.php/fournisseursChoisis?idOldCampagne=<?php echo $o_oldCampagne['id'] ?>">Fournisseurs choisis</a> |
     <a href="<?php echo root ?>/article.php/afficherArticle?idOldCampagne=<?php echo $o_oldCampagne['id'] ?>">Gérer les articles</a>
 </p>
