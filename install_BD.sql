@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS administrateur;
 DROP TABLE IF EXISTS campagne;
 DROP TABLE IF EXISTS rayon;
 DROP TABLE IF EXISTS unite;
+DROP TABLE IF EXISTS categorie;
 DROP TABLE IF EXISTS article;
 DROP TABLE IF EXISTS fournisseur;
 DROP TABLE IF EXISTS tva;
@@ -59,10 +60,18 @@ CREATE TABLE unite (
     constraint pk_tva primary key(id)
 ) ENGINE = INNODB;
 
+CREATE TABLE categorie (
+    id integer not null auto_increment,
+    nom varchar(255),
+
+    constraint pk_categorie primary key(id)
+) ENGINE = INNODB;
+
 CREATE TABLE article (
     id integer not null auto_increment,
     id_rayon integer not null,
     id_unite integer not null,
+    id_categorie integer not null,
     nom varchar(255),
     poids_paquet_fournisseur float,
     nb_paquet_colis integer,
@@ -75,9 +84,11 @@ CREATE TABLE article (
     references rayon(id) on delete cascade,
 
     constraint fk_article_2 foreign key(id_unite) 
-    references unite(id) on delete cascade
-) ENGINE = INNODB;
+    references unite(id) on delete cascade,
 
+    constraint fk_article_3 foreign key(id_categorie)
+    references categorie(id) on delete cascade
+) ENGINE = INNODB;
 
 CREATE TABLE fournisseur (
     id integer not null auto_increment,
@@ -170,4 +181,3 @@ CREATE TABLE commande (
     constraint fk_commande_3 foreign key(id_utilisateur) 
     references utilisateur(id) on delete cascade
 ) ENGINE = INNODB;
-
