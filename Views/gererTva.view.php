@@ -7,12 +7,17 @@
 
 <?php
         } else { 
+            if ($i_errTVA == 1) {
+?>
+ <p class="erreur"> Erreur : Vous ne pouvez pas ajouter une valeur de la TVA qui est déjà existante <p>
+<?php
+            }
 ?>
 <form
 action="<?php echo root ?>/tva.php/gererTva"
 enctype ="multipart/form-data"
 method = "post">
-    <p><span class="form_col"><label>Ajouter une TVA: (en %)</label></span><input type="text" name="id_tva"/>
+    <p><span><label>Ajouter une TVA (en %): &nbsp;</label></span><input type="text" name="id_tva"/>
     <input type ="submit" value="Valider"/>
     </p>
 </form>
