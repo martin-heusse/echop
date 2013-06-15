@@ -1,4 +1,16 @@
+<?php
+/* Si navigation dans l'historique */
+if ($b_historique == 1) {
+?>
+<p><a class="action_navigation" href="<?php echo root ?>/campagne.php/gererCampagne">Retour à la gestion des campagnes</a></p>
+<?php
+} else {
+?>
 <p><a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a></p>
+<?php
+}
+?>
+
 
 <?php
 /* Si navigation dans l'historique */
