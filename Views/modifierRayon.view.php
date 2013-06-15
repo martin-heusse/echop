@@ -47,8 +47,10 @@ action="<?php echo root ?>/rayon.php/modifierRayon"
 enctype="multipart/form-data"
 method="post">
     <p> Ancien nom : <?php echo $s_Rayon ?> </p>
-    <p><span class="form_col"><label>Nouveau nom du rayon</label></span><input type="text" name="newNomRayon" required/></p>
+    <p><span class="form_col"><label>Nouveau nom du rayon</label></span><input type="text" name="newNomRayon"/></p>
     <p><span class="form_col"></span><input type="hidden" name="idRayon" value="<?php echo $i_idRayon ?>"</p>
+    <p> Marge actuelle : <?php echo $f_marge ?> %</p>
+    <p><span class="form_col"><label>Nouvelle marge (%) :</label></span><input type="number" name="marge" /></p>
 
 <?php
         }
