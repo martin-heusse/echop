@@ -61,6 +61,7 @@ class RayonController extends Controller {
             $s_Rayon = Rayon::getNom($i_idRayon); 
             $f_marge = 100 * Rayon::getMarge($i_idRayon);
             $this->render('modifierRayon',compact('f_marge','s_Rayon','i_idRayon','i_oldRayonSet','i_errNewName','to_rayon'));
+            return;
         }
 
         if (isset($_POST['newNomRayon']) && $_POST['newNomRayon'] != "") {
@@ -76,11 +77,14 @@ class RayonController extends Controller {
                 $i_oldRayonSet = 1;
                 $s_Rayon = Rayon::getNom($i_id);
                 $this->render('modifierRayon',compact('f_marge','i_errNewName','i_oldRayonSet','s_Rayon'));
+                return;
             } else {
                 Rayon::setNom($i_id,$s_nomRayon);
                 $to_rayon = Rayon::getAllObjects();
                 $this->render('gererRayon', compact('to_rayon'));
+                return;
             }
+
         }
 
         if (isset($_POST['marge']) && $_POST['marge'] != "") {
@@ -89,9 +93,11 @@ class RayonController extends Controller {
             Rayon::setMarge($i_id,$f_marge);
             $to_rayon = Rayon::getAllObjects();
             $this->render('gererRayon', compact('to_rayon'));
+            return;
         }
 
         $this->render('modifierRayon',compact('to_rayon','i_oldRayonSet','i_errNewName'));
+        return;
     }
 
     public function defaultAction() {
