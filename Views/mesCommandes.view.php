@@ -31,8 +31,8 @@ if ($to_commande != null and $to_commande != array()) {
 <table id="t_article">
     <tr>
         <th>Produit</th>
-        <th>Description courte</th>
-        <th>Description longue</th>
+        <th>Description</th>
+        <!--<th>Description longue</th>-->
         <th>Poids du paquet du fournisseur</th>
         <!-- <th>Unité</th> -->
         <th>Nombre de paquets par colis</th>
@@ -58,9 +58,9 @@ if ($to_commande != null and $to_commande != array()) {
 ?>
     <tr class="ligne_article<?php echo $i_numLigne ?>">
         <td><?php echo $o_produit['nom'] ?></td>
-        <td><?php echo $o_produit['description_courte'] ?></td>
-        <td><?php echo $o_produit['description_longue'] ?></td>
-        <td class="centrer"><?php echo $o_produit['poids_paquet_fournisseur'] ?><?php echo $o_produit['unite'] ?></td>
+        <td title="<?php echo $o_produit['description_longue']?>"><?php echo $o_produit['description_courte'] ?></td>
+        <!--<td><?php echo $o_produit['description_longue'] ?></td>-->
+        <td class="centrer"><?php echo $o_produit['poids_paquet_fournisseur'].$o_produit['unite'] ?></td>
         <!-- <td class="centrer"><?php echo $o_produit['unite'] ?></td> -->
         <td class="centrer"><?php echo $o_produit['nb_paquet_colis'] ?></td>
         <td class="centrer"><?php echo $o_produit['prix_ttc'] ?>&euro;</td>

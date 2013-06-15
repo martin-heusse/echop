@@ -203,7 +203,7 @@ class CommandeController extends Controller {
                 $o_row['quantite_totale'] += $i_quantite;
             }
             $i_manque = $o_row['quantite_totale'] % $o_row['colisage'];
-            $o_row['manque'] = $o_row['colisage'] - $i_manque;
+            $o_row['manque'] = ($o_row['colisage'] - $i_manque) % $o_row['colisage'];
         }
         $this->render('articlesCommandEs', compact('to_article'));
     }
@@ -245,7 +245,7 @@ class CommandeController extends Controller {
 
         }
         $i_manque = $i_quantiteTotale % $i_colisage;
-        $i_manque = $i_colisage - $i_manque;
+        $i_manque = ($i_colisage - $i_manque) % $i_colisage;
         $s_nomArticle = Article::getNom($i_idArticle);
         $i_idArticle = htmlentities($_GET['idArticle']);
         $this->render('utilisateursAyantCommandECetArticle', compact('i_idArticle', 'to_utilisateur', 'i_colisage', 's_nomArticle', 'i_quantiteTotale', 's_unite', 'i_manque'));
