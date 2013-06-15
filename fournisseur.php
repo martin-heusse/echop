@@ -126,6 +126,28 @@ class FournisseurController extends Controller {
     }
 
     /*
+     *  Gère les fournisseurs
+     */
+    public function gererFournisseur() {
+
+        if (isset($_POST['nom_fournisseur']) && $_POST['nom_fournisseur'] != "") {
+
+            $s_nom = $_POST['nom_fournisseur'];
+
+            /* Vérification de la pré-existence */
+            $o_fournisseur = Fournisseur::getObjectByNom($s_nom);
+            var_dump($o_fournisseur);
+            if ($o_fournisseur == array()) {
+                Fournisseur::create($s_nom);
+            }
+            
+        }
+            $to_nom = Fournisseur::GetAllObjects();
+            $this->render('gererFournisseur', compact('to_nom'));
+            return;
+    }
+
+    /*
      * Action par défaut.
      */
     public function defaultAction() {

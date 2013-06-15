@@ -28,6 +28,24 @@ class Fournisseur {
         return $to_result;
     }
 
+    public static function getObjectByNom($s_nom) {
+        $sql_query = "select * from fournisseur where nom='$s_nom'";
+        $sql_tmp = mysql_query($sql_query);
+        $o_result =  null;
+
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+
+            /* Sécurité */
+            foreach ($o_row as &$column) {
+                $column = htmlentities($column);
+            }
+
+            /* Création du résultat */
+            $o_result = $o_row;
+        }
+        return $o_result;
+    }
+        
     public static function getNom($i_id) {
         $sql_query = "select nom from fournisseur where id=$i_id";
         $sql_tmp = mysql_query($sql_query);
