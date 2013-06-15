@@ -10,9 +10,9 @@ if ($to_commande != null and $to_commande != array()) {
 <table>
     <tr>
         <th>Produit</th>
+        <th>Description</th>
         <!--
-        <th>Description courte</th>
-        <th>Description longue</th>
+         <th>Description longue</th>
          -->
         <th>Poids du paquet du fournisseur</th>
         <!-- <th>Unité</th> -->
@@ -32,10 +32,7 @@ if ($to_commande != null and $to_commande != array()) {
 ?>
     <tr class="ligne_article<?php echo $i_numLigne ?>">
         <td><?php echo $o_produit['nom'] ?></td>
-        <!--
-        <td><?php echo $o_produit['description_courte'] ?></td>
-        <td><?php echo $o_produit['description_longue'] ?></td>
-        --> 
+        <td title="<?php echo $o_produit['description_longue']?> "><?php echo $o_produit['description_courte'] ?></td>
         <td class="centrer"><?php echo $o_produit['poids_paquet_fournisseur'] ?><?php echo $o_produit['unite'] ?></td>
         <!-- <td class="centrer"><?php echo $o_produit['unite'] ?></td> -->
         <td class="centrer"><?php echo $o_produit['nb_paquet_colis'] ?></td>
@@ -53,7 +50,7 @@ if ($to_commande != null and $to_commande != array()) {
    }
 ?>  
     <tr>
-        <th colspan=9>Montant Total = </th>
+        <th colspan=10 class="right">Montant Total = </th>
         <td class="centrer"><strong><?php echo $f_montantTotal ?>&euro;</strong></td>
         <td>&nbsp;</td>
     </tr>

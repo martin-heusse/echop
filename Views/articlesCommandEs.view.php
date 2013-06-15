@@ -42,14 +42,15 @@ echo $o_article['nom'];
         <td class="centrer">multiple de <?php echo $o_article['colisage'].$o_article['unite']?></td>
 <?php
     }
-?>
-        <td class="centrer"><?php 
 if($o_article['manque']!= 0) {
 ?> 
+        <td class="centrer col_coloree"> 
 <strong> 
 <?php echo $o_article['manque'].$o_article['unite']?></strong>
 <?php
 } else {
+?>
+        <td class="centrer"><?php 
     echo $o_article['manque'].$o_article['unite']; }?>
 
 </td>
