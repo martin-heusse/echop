@@ -41,12 +41,30 @@ class Tva {
             foreach ($o_row as &$column) {
                 $column = htmlentities($column);
             }
+
+            /* Formattage des nombres */
+            $o_row['valeur'] = number_format($o_row['valeur'], 2, '.', ' ');
             /* Création du résultat */
             $o_result = $o_row;
         }
-        /* Formattage des nombres */
-        foreach ($to_result as &$o_row) {
+        return $o_result;
+    }
+
+    public static function getObjectByValeur($f_valeur) {
+        $sql_query = "select * from tva where valeur=$f_valeur";
+        $sql_tmp = mysql_query($sql_query);
+        $o_result = null;
+
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité */
+            foreach ($o_row as &$column) {
+                $column = htmlentities($column);
+            }
+
+            /* Formattage des nombres */
             $o_row['valeur'] = number_format($o_row['valeur'], 2, '.', ' ');
+            /* Création du résultat */
+            $o_result = $o_row;
         }
         return $o_result;
     }
