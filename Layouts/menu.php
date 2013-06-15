@@ -26,12 +26,12 @@ if (Utilisateur::isLogged()) {
     if(Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
 ?>
         <li><a href="<?php echo root ?>/campagne.php/gererCampagne">Gérer les campagnes</a></li>
-        <li><a href="<?php echo root ?>/commande.php/utilisateurAyantCommandE">Utilisateurs ayant commandés</a></li>
+        <li><a href="<?php echo root ?>/utilisateurAyantCommandE.php/utilisateurAyantCommandE">Utilisateurs ayant commandés</a></li>
         <li><a href="<?php echo root ?>/fournisseur.php/fournisseursChoisis">Commandes par fournisseur</a></li>
 <?php 
     }
 ?>
-        <li><a href="<?php echo root ?>/commande.php/articlesCommandEs">Articles commandés</a></li>
+        <li><a href="<?php echo root ?>/articlesCommandEs.php/articlesCommandEs">Articles commandés</a></li>
     </ul>
 <?php
     if(Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {

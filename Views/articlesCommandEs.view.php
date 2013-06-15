@@ -27,7 +27,7 @@ foreach ($to_article as $o_article) {
 <?php
     if(Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
 ?>
-<a href="<?php echo root ?>/commande.php/utilisateursAyantCommandECetArticle?idArticle=<?php echo $o_article['id_article']?>">
+<a href="<?php echo root ?>/articlesCommandEs.php/utilisateursAyantCommandECetArticle?idArticle=<?php echo $o_article['id_article']?>">
 <?php 
 }
 echo $o_article['nom'];
