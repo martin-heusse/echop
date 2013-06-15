@@ -107,10 +107,10 @@ class ArticleController extends Controller {
             for ($i=0; $i<$i_nbArticleCampagne; $i++) {
                 $i_idArticleCampagne = $ti_idArticleCampagne[$i];
                 // modification du en vente
-                if($tb_enVente[$i] == "true"){
-                    $b_enVente = true;
+                if($tb_enVente[$i] == "vrai"){
+                    $b_enVente = '1';
                 } else {
-                    $b_enVente = false;
+                    $b_enVente = '0';
                 }
                 ArticleCampagne::setEnVente($i_idArticleCampagne, $b_enVente);
                 // modification du poids paquet client
