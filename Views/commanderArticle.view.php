@@ -28,8 +28,8 @@ if ($b_etat == 1) {
         <table id="t_article">
         <tr>
         <th>Produit</th>
+        <th>Description</th>
         <!--
-        <th>Description courte</th>
         <th>Description longue</th>
         -->
         <th>Poids du paquet du fournisseur</th>
@@ -57,8 +57,8 @@ foreach($to_commande as $o_produit) {
     if($o_produit['id_rayon']==$i_idRayon){	?>
             <tr class="ligne_article<?php echo $i_numLigne ?>">
             <td><?php echo $o_produit['nom'] ?></td>
+            <td title="<?php echo $o_produit['description_longue'] ?>"><?php echo $o_produit['description_courte'] ?></td>
             <!--
-            <td><?php echo $o_produit['description_courte'] ?></td>
             <td><?php echo $o_produit['description_longue'] ?></td>
             --> 
             <td class="centrer"><?php echo $o_produit['poids_paquet_fournisseur'] ?><?php echo $o_produit['unite'] ?></td>
@@ -97,7 +97,7 @@ foreach($to_commande as $o_produit) {
 }
 ?>  
         <tr>
-        <th colspan=9>Montant Total = </th>
+        <th colspan=10 class="right">Montant Total = </th>
         <td class="centrer"><strong><?php echo $f_montantTotal ?>&euro;</strong></td>
 <?php
 /* Afficher ou non la dernière colonne dans la ligne "Montant total" */
