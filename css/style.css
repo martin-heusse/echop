@@ -160,8 +160,12 @@ table .col_coloree {
 }
 
 /* Centre */
-table .centrer {
+table .centrer, table .center {
     text-align: center;
+}
+
+table .right, table .gauche {
+    text-align: right;
 }
 
 /* ========================================================================== */
