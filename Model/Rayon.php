@@ -66,7 +66,7 @@ class Rayon {
     }
 
     public static function getNom($i_id) {
-        $sql_query = "select nom from rayon where id=$i_id";
+        $sql_query = "select nom from rayon where id='$i_id'";
         $sql_tmp = mysql_query($sql_query);
         $s_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
@@ -77,7 +77,7 @@ class Rayon {
     } 
 
     public static function getMarge($i_id) {
-        $sql_query = "select marge from rayon where id=$i_id";
+        $sql_query = "select marge from rayon where id='$i_id'";
         $sql_tmp = mysql_query($sql_query);
         $f_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
