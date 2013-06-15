@@ -10,8 +10,8 @@ if ($o_commande != null and $o_commande != array()) {
 <table>
     <tr>
         <th>Produit</th>
+        <th>Description</th>
         <!--
-        <th>Description courte</th>
         <th>Description longue</th>
          -->
         <th>Poids du paquet du fournisseur</th>
@@ -31,8 +31,8 @@ if ($o_commande != null and $o_commande != array()) {
 ?>
     <tr class="ligne_article<?php echo $i_numLigne ?>">
         <td><?php echo $o_commande['nom'] ?></td>
+        <td title="<?php echo $o_commande['description_longue']?>"><?php echo $o_commande['description_courte'] ?></td>
         <!--
-        <td><?php echo $o_commande['description_courte'] ?></td>
         <td><?php echo $o_commande['description_longue'] ?></td>
         --> 
         <td class="centrer"><?php echo $o_commande['poids_paquet_fournisseur'] ?><?php echo $o_commande['unite'] ?></td>
