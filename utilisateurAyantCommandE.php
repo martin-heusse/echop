@@ -27,7 +27,24 @@ class UtilisateurAyantCommandEController extends Controller {
      * dans la campagne courante.
      */
     public function utilisateurAyantCommandE(){  
-        $i_idCampagne = Campagne::getIdCampagneCourante();
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if (!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
+        /* Navigation dans l'historique ou non */
+        $b_historique = 0;
+        if (isset($_GET['idOldCampagne'])) {
+            $i_idCampagne = $_GET['idOldCampagne'];
+            $b_historique = 1;
+        } else {
+            $i_idCampagne = Campagne::getIdCampagneCourante();
+        }
         $to_commande = Commande::getIdUtilisateurUniqueByIdCampagne($i_idCampagne);
         foreach($to_commande as &$o_article) {
             $i_idUtilisateur = $o_article['id_utilisateur'];
@@ -54,7 +71,7 @@ class UtilisateurAyantCommandEController extends Controller {
             $o_article['montant_total'] = number_format($o_article['montant_total'], 2, '.', ' ');
             } 
         }
-        $this->render('utilisateurAyantCommandE', compact('to_commande'));	
+        $this->render('utilisateurAyantCommandE', compact('to_commande', 'b_historique', 'i_idCampagne'));	
     }
 
     /*
@@ -67,8 +84,19 @@ class UtilisateurAyantCommandEController extends Controller {
             $this->render('authenticationRequired');
             return;
         }
-        /* Récupération de l'identifiant de la campagne courante */
-        $i_idCampagne = Campagne::getIdCampagneCourante();
+        /* Doit être un administrateur */
+        if (!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
+        /* Navigation dans l'historique ou non */
+        $b_historique = 0;
+        if (isset($_GET['idOldCampagne'])) {
+            $i_idCampagne = $_GET['idOldCampagne'];
+            $b_historique = 1;
+        } else {
+            $i_idCampagne = Campagne::getIdCampagneCourante();
+        }
         /* Récupération de l'état de la campagne */
         $b_etat = Campagne::getEtat($i_idCampagne);
         /* Récupération des articles commandés par l'utilisateur */
@@ -113,21 +141,37 @@ class UtilisateurAyantCommandEController extends Controller {
         }
         // recherche du login 
         $s_login = Utilisateur::getLogin($i_idUtilisateur);
-        $this->render('commandeUtilisateur', compact('to_commande', 'b_etat', 'f_montantTotal', 'i_idUtilisateur', 's_login'));
+        $this->render('commandeUtilisateur', compact('to_commande', 'b_etat', 'f_montantTotal', 'i_idUtilisateur', 's_login', 'b_historique', 'i_idCampagne'));	
     }
 
     /*
      * Gère la modification des quantités dans la commande d'un utilisateur.
      */
     public function modifierQuantiteUtilisateur() {
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if (!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
         /* Récupération des articles commandés par l'utilisateur */
         if (!isset($_GET['idUtilisateur'])) {
             header('Location: '.root.'/utilisateurAyantCommandE.php/utilisateurAyantCommandE');
             return;
         }
         $i_idUtilisateur = $_GET['idUtilisateur']; 
-        /* Récupération de l'identifiant de la campagne courante */
-        $i_idCampagne = Campagne::getIdCampagneCourante();
+        /* Navigation dans l'historique ou non */
+        $b_historique = 0;
+        if (isset($_GET['idOldCampagne'])) {
+            $i_idCampagne = $_GET['idOldCampagne'];
+            $b_historique = 1;
+        } else {
+            $i_idCampagne = Campagne::getIdCampagneCourante();
+        }
         /* Récupération de l'état de la campagne */
         $b_etat = Campagne::getEtat($i_idCampagne);
         /* Récupération des articles de l'utilisateur */
@@ -149,20 +193,40 @@ class UtilisateurAyantCommandEController extends Controller {
             }	
         }
         /* Redirection */
-        header('Location: '.root.'/utilisateurAyantCommandE.php/commandeUtilisateur?idUtilisateur='.$i_idUtilisateur);
+        if ($i_idCampagne == Campagne::getIdCampagneCourante()) {
+            header('Location: '.root.'/utilisateurAyantCommandE.php/commandeUtilisateur?idUtilisateur='.$i_idUtilisateur);
+        } else {
+            header('Location: '.root.'/utilisateurAyantCommandE.php/commandeUtilisateur?idUtilisateur='.$i_idUtilisateur.'&idOldCampagne='.$i_idCampagne);
+        }
     }
 
     /*
      * Supprime l'article d'un utilisateur.
      */
     public function supprimerArticleUtilisateur() {
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if (!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
         /* Récupération des articles commandés par l'utilisateur */
         if (!isset($_GET['idUtilisateur'])) {
             header('Location: '.root.'/utilisateurAyantCommandE.php/utilisateurAyantCommandE');
         }
         $i_idUtilisateur = $_GET['idUtilisateur']; 
-        /* Récupération de l'identifiant de la campagne courante */
-        $i_idCampagne = Campagne::getIdCampagneCourante();
+        /* Navigation dans l'historique ou non */
+        $b_historique = 0;
+        if (isset($_GET['idOldCampagne'])) {
+            $i_idCampagne = $_GET['idOldCampagne'];
+            $b_historique = 1;
+        } else {
+            $i_idCampagne = Campagne::getIdCampagneCourante();
+        }
         /* Récupération de l'état de la campagne */
         $b_etat = Campagne::getEtat($i_idCampagne);
         /* Récupération de l'id article à supprimer */
@@ -170,7 +234,11 @@ class UtilisateurAyantCommandEController extends Controller {
         $i_idCommande = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
         Commande::delete($i_idCommande);
         /* Redirection */
-        header('Location: '.root.'/utilisateurAyantCommandE.php/commandeUtilisateur?idUtilisateur='.$i_idUtilisateur);
+        if ($i_idCampagne == Campagne::getIdCampagneCourante()) {
+            header('Location: '.root.'/utilisateurAyantCommandE.php/commandeUtilisateur?idUtilisateur='.$i_idUtilisateur);
+        } else {
+            header('Location: '.root.'/utilisateurAyantCommandE.php/commandeUtilisateur?idUtilisateur='.$i_idUtilisateur.'&idOldCampagne='.$i_idCampagne);
+        }
     }
 
     /*

@@ -1,13 +1,33 @@
+<?php
+/* Si navigation dans l'historique */
+if ($b_historique == 1) {
+?>
+<p><a class="action_navigation" href="<?php echo root ?>/campagne.php/gererCampagne">Retour à la gestion des campagnes</a></p>
+<?php
+} else {
+?>
 <p><a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a></p>
+<?php
+}
+?>
+
+<?php
+/* Si navigation dans l'historique */
+if ($b_historique == 1) {
+?>
+    <span class="historique">[Historique de la campagne n°<?php echo $i_idCampagne ?>]</span>
+<?php
+}
+?>
 
 <h1>Liste des utilisateurs ayant commandé</h1>
-
-<p>Liste des utilisateurs ayant passé une commande pour la campagne courante.<br/>
-Cliquez sur un nom d'utilisateur pour voir la liste des produits qu'il a commandé.</p>
 
 <?php
 if ($to_commande != null) {
 ?> 
+<p>Liste des utilisateurs ayant passé une commande pour la campagne courante.<br/>
+Cliquez sur un nom d'utilisateur pour voir la liste des produits qu'il a commandé.</p>
+
 <table>
     <tr>
         <th>Utilisateur</th>
@@ -18,7 +38,14 @@ if ($to_commande != null) {
     foreach($to_commande as $o_utilisateur) {
 ?>
     <tr class="ligne_article<?php echo $i_numLigne ?>">
-        <td><a href="<?php echo root ?>/utilisateurAyantCommandE.php/commandeUtilisateur?idUtilisateur=<?php echo $o_utilisateur['id_utilisateur']?>">
+        <td><a href="<?php echo root ?>/utilisateurAyantCommandE.php/commandeUtilisateur?idUtilisateur=<?php echo $o_utilisateur['id_utilisateur']?>
+<?php
+/* Si navigation dans l'historique */
+if ($b_historique == 1) {
+    echo "&idOldCampagne=".$i_idCampagne;
+}
+?>
+">
         <?php echo $o_utilisateur['login_utilisateur'] ?></a></td>
         <td class="centrer"><?php echo $o_utilisateur['montant_total'] ?>&euro;</td>
     </tr>

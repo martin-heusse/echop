@@ -45,8 +45,24 @@ class FournisseurController extends Controller {
      * Affiche la liste des fournisseurs choisis pour la campagne courante.
      */
     public function fournisseursChoisis() {
-        $o_campagne = Campagne::getCampagneCourante();
-        $i_idCampagne = $o_campagne['id'];
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if (!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
+        /* Navigation dans l'historique ou non */
+        $b_historique = 0;
+        if (isset($_GET['idOldCampagne'])) {
+            $i_idCampagne = $_GET['idOldCampagne'];
+            $b_historique = 1;
+        } else {
+            $i_idCampagne = Campagne::getIdCampagneCourante();
+        }
         $to_fournisseur = ArticleCampagne::getIdFournisseurByIdCampagne($i_idCampagne);
         foreach ($to_fournisseur as &$o_fournisseur) {
             $i_idFournisseur = $o_fournisseur['id_fournisseur'];
@@ -83,7 +99,7 @@ class FournisseurController extends Controller {
             $o_fournisseur['montant_total'] = $f_montantTtc;
             $o_fournisseur['montant_total'] = number_format($o_fournisseur['montant_total'], 2, '.', ' ');
         }
-        $this->render('fournisseursChoisis', compact('to_fournisseur'));
+        $this->render('fournisseursChoisis', compact('to_fournisseur', 'b_historique', 'i_idCampagne'));
     }
 
     /*
@@ -91,13 +107,30 @@ class FournisseurController extends Controller {
      * campagne courante.
      */
     public function commandeFournisseur() {
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if (!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
+        /* Navigation dans l'historique ou non */
+        $b_historique = 0;
+        if (isset($_GET['idOldCampagne'])) {
+            $i_idCampagne = $_GET['idOldCampagne'];
+            $b_historique = 1;
+        } else {
+            $i_idCampagne = Campagne::getIdCampagneCourante();
+        }
         /* Paramètre GET nécessaire */
         if(!isset($_GET['idFournisseur'])) {
             header('Location: '.root.'/articleCampagne.php/fournisseursChoisis');
             return;
         }
         $i_idFournisseur = $_GET['idFournisseur'];
-        $i_idCampagne = Campagne::getIdCampagneCourante();
         $to_article = ArticleCampagne::getObjectsByIdCampagneIdFournisseur($i_idCampagne, $i_idFournisseur);
         foreach ($to_article as &$o_article) {
             /* pour chaque article, on récupère les données qui vont nous 
@@ -109,7 +142,7 @@ class FournisseurController extends Controller {
             $i_nbreArticle = 0;
             /* pour chaque utilisateur, on regarde combien il a commandé*/
             foreach ($ti_idUtilisateur as $i_idUtilisateur) {
-                $i_nbreArticle ++;
+                $i_nbreArticle++;
                 // $i_idUtilisateur = $o_idUtilisateur['id_utilisateur'];
                 $i_id = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
                 $i_quantite = Commande::getQuantite($i_id);
@@ -124,7 +157,7 @@ class FournisseurController extends Controller {
             $i_idUnite = Article::getIdUnite($i_idArticle);
             $o_article['unite'] = Unite::getValeur($i_idUnite);
         }
-        $this->render('commandeFournisseur', compact('to_article', 'i_nbreArticle'));
+        $this->render('commandeFournisseur', compact('to_article', 'i_nbreArticle', 'b_historique', 'i_idCampagne'));
     }
 
     /*
