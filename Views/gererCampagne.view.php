@@ -1,18 +1,33 @@
 <p><a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a></p>
 
-<h1>Gérer la campagne courante</h1>
+<h1>Gérer les campagnes</h1>
 
 <p>Les utilisateurs peuvent commander des articles tant que la campagne est ouverte.<br/>
 Vous pouvez à tout moment bloquer les commandes ou les ré-ouvrir.<br/>
 Démarrer une nouvelle campagne archive la campagne en cours et en démarre une nouvelle.</p>
 
-<h2>Campagne courante</h2>
+<h2>Nouvelle campagne</h2>
 
+<?php
+if ($o_campagne['etat'] == 1) {
+?>
+<p><strong>Pour démarrer une nouvelle campagne, vous devez d'abord bloquer les commandes pour la campagne courante.</strong></p>
+<?php
+} else {
+?>
+<p><strong>Attention : démarrer une nouvelle campagne archivera celle-ci.</strong></p>
+<p><a href="<?php echo root ?>/campagne.php/nouvelleCampagne">Démarrer une nouvelle campagne</a></p>
+<?php
+}
+?>
+
+<h2>Campagne courante</h2>
 
 <p><span>Numéro : </span><?php echo $o_campagne['id'] ?><br/>
 <span>Début : </span><?php echo $o_campagne['date_debut'] ?><br/>
 <span>État : </span>
 <?php 
+/* Etat ouverte ou fermée */
 if ($o_campagne['etat'] == 1) {
 ?>
     <span class="campagne_ouverte">ouverte</span>
@@ -28,17 +43,31 @@ if ($o_campagne['etat'] == 1) {
 }
 ?>
 
-<h2>Nouvelle campagne</h2>
+<h2>Campagnes précédentes</h2>
 
 <?php
-if ($o_campagne['etat'] == 1) {
+foreach ($to_oldCampagne as $o_oldCampagne) {
 ?>
-<p><strong>Pour démarrer une nouvelle campagne, vous devez d'abord bloquer les commandes pour la campagne courante.</strong></p>
+<h3><span>Campagne n° </span><?php echo $o_oldCampagne['id'] ?></h3>
+<p><span>Début : </span><?php echo $o_oldCampagne['date_debut'] ?><br/>
+<span>État : </span>
 <?php
-} else {
+    /* Etat ouverte ou fermée */
+    if ($o_oldCampagne['etat'] == 1) {
 ?>
-<p><strong>Attention : démarrer une nouvelle campagne archivera celle-ci.</strong></p>
-<p><a href="<?php echo root ?>/campagne.php/nouvelleCampagne">Démarrer une nouvelle campagne</a></p>
+    <span class="campagne_ouverte">ouverte</span><br/>
+<?php
+    } else {
+?>
+    <span class="campagne_fermee">fermée</span><br/>
+<?php
+    }
+?>
+    <a href="<?php echo root ?>/commande.php/utilisateurAyantCommandE?idOldCampagne=<?php echo $o_oldCampagne['id'] ?>">Utilisateurs ayant commandés</a> |
+    <a href="<?php echo root ?>/commande.php/articlesCommandEs?idOldCampagne=<?php echo $o_oldCampagne['id'] ?>">Articles commandés</a> |
+    <a href="<?php echo root ?>/fournisseur.php/fournisseursChoisis?idOldCampagne=<?php echo $o_oldCampagne['id'] ?>">Fournisseurs choisis</a> |
+    <a href="<?php echo root ?>/article.php/afficherArticle?idOldCampagne=<?php echo $o_oldCampagne['id'] ?>">Gérer les articles</a>
+</p>
 <?php
 }
 ?>

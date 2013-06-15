@@ -182,8 +182,7 @@ class CommandeController extends Controller {
             $this->render('authenticationRequired');
             return;
         }
-        $o_campagne = Campagne::getCampagneCourante();
-        $i_idCampagne = $o_campagne['id'];
+        $i_idCampagne = Campagne::getIdCampagneCourante();
         $to_article = Commande::getIdArticleByIdCampagne($i_idCampagne);
         foreach ($to_article as &$o_row) {
             $o_row['nom'] = Article::getNom($o_row['id_article']);
@@ -191,7 +190,7 @@ class CommandeController extends Controller {
             $o_row['quantite_totale'] = 0;
             $i_idUnite = Article::getIdUnite($i_idArticle); 
             $o_row['unite'] = Unite::getUnite($i_idUnite);
-            $to_commande = Commande::getObjectsByIdArticle($i_idArticle);
+            $to_commande = Commande::getObjectsByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
             $i_idArticleCampagne = ArticleCampagne::getIdByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
             $i_poidsPaquetClient = ArticleCampagne::getPoidsPaquetClient($i_idArticleCampagne);
             $i_poidsPaquetFournisseur = Article::getPoidsPaquetFournisseur($i_idArticle);

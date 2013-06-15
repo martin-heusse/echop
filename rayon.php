@@ -59,7 +59,8 @@ class RayonController extends Controller {
             $i_oldRayonSet = 1;
             $i_idRayon = $_GET['idRayon'];
             $s_Rayon = Rayon::getNom($i_idRayon); 
-            $this->render('modifierRayon',compact('s_Rayon','i_idRayon','i_errNewName','i_oldRayonSet','to_rayon'));
+            $f_marge = Rayon::getMarge($i_idRayon);
+            $this->render('modifierRayon',compact('f_marge','s_Rayon','i_idRayon','i_errNewName','i_oldRayonSet','to_rayon'));
         }
 
         if (isset($_POST['newNomRayon']) && $_POST['newNomRayon'] != "") {
