@@ -25,6 +25,7 @@ if(isset($i_erreur)){
 <table style="font-size:10px;">
     <thead> <!-- En-tête du tableau -->
         <tr>
+            <th>Mettre en vente auprès du client</th>
             <th>Produit</th>
             <th>Description courte</th>
             <th>Description longue</th>
@@ -58,6 +59,13 @@ $i_idArticleCampagne = $o_descriptionArticle['id'];
             <tr>
                 <!-- En variable cachée id_article_campagne -->
                 <input type="hidden" name="id_article_campagne[]" value="<?php echo $i_idArticleCampagne ?>"/>
+                <!-- Mettre en vente -->
+                <td align="center">
+                    <select name="en_vente[]">
+                        <option value="vrai" <?php if($o_descriptionArticle['en_vente']){echo 'selected="true"';}?>>En vente</option>
+                        <option value="faux" <?php if(!$o_descriptionArticle['en_vente']){echo 'selected="true"';}?>>Pas en vente</option>
+                    </select>
+                </td>
                 <!-- Nom du produit -->
                 <td align="center" title="Produit : Le nom du produit"><?php echo $o_descriptionArticle['nom'] ?></td>
                 <!-- Description courte -->
@@ -69,7 +77,7 @@ $i_idArticleCampagne = $o_descriptionArticle['id'];
                 <!-- Poids du paquet fournisseur -->
                 <td align="center" title="Poids du paquet fournisseur" ><?php echo $o_descriptionArticle['poids_paquet_fournisseur'] ?>&nbsp;<?php echo $o_descriptionArticle['unite'] ?></td>
                 <!-- Poids du paquet client -->
-                <td align="center" title="Poids du paquet client"><div><input class="input_quantite" type="text" name="poids_paquet_client[]" value="<?php echo $o_descriptionArticle['poids_paquet_client'] ?>"/>&nbsp;<?php echo $o_descriptionArticle['unite'] ?></div></td>
+                <td align="center" title="Poids du paquet client"><input class="input_quantite" type="text" name="poids_paquet_client[]" value="<?php echo $o_descriptionArticle['poids_paquet_client'] ?>"/>&nbsp;<?php echo $o_descriptionArticle['unite'] ?></td>
                 <!-- Seuil min -->
                 <td align="center" title="Seuil min que peut choisir le client"><input class="input_quantite" type="text" name="seuil_min[]" value="<?php echo $o_descriptionArticle['seuil_min'] ?>"/></td>
 

@@ -30,25 +30,14 @@ class TvaController extends COntroller {
 
             $to_val = Tva::GetAllObjects(); 
             $this->render('gererTva',compact('to_val'));
+            return;
         }
+
 
         $to_val = Tva::GetAllObjects(); 
         $this->render('gererTva',compact('to_val'));
         return;
     }
-
-    public function supprimerTva() {
-
-
-        if (isset($_GET['tva']) && $_GET['tva']) {
-            $f_idTva = $_GET['tva']; 
-            Tva::delete($_GET['tva']);
-        }
-
-        $to_val = Tva::GetAllObjects(); 
-        $this->render('gererTva',compact('to_val'));
-    }
-
 
     public function defaultAction() {
         header('Location : '.root.'/tva.php/gererTva');
