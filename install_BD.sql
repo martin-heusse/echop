@@ -48,7 +48,7 @@ CREATE TABLE campagne (
 CREATE TABLE rayon (
     id integer not null auto_increment,
     nom varchar(255),
-    marge float,
+    marge decimal(6,3),
 
     constraint pk_rayon primary key(id)
 ) ENGINE = INNODB;
@@ -73,7 +73,7 @@ CREATE TABLE article (
     id_unite integer not null,
     id_categorie integer not null,
     nom varchar(255),
-    poids_paquet_fournisseur float,
+    poids_paquet_fournisseur decimal(6,3),
     nb_paquet_colis integer,
     description_courte varchar(255),
     description_longue varchar(255),
@@ -99,7 +99,7 @@ CREATE TABLE fournisseur (
 
 CREATE TABLE tva (
     id integer not null auto_increment,
-    valeur float,
+    valeur decimal(6,3),
 
     constraint pk_tva primary key(id)
 ) ENGINE = INNODB;
@@ -108,8 +108,8 @@ CREATE TABLE article_fournisseur (
     id integer not null auto_increment,
     id_article integer not null,
     id_fournisseur integer not null,
-    prix_ht float,
-    prix_ttc float,
+    prix_ht decimal(6,3),
+    prix_ttc decimal(6,3),
     code varchar(255),
     prix_ttc_ht boolean,
     vente_paquet_unite boolean,
@@ -129,9 +129,9 @@ CREATE TABLE article_campagne (
     id_campagne integer not null,
     id_fournisseur integer,
     id_tva integer not null,
-    poids_paquet_client float,
-    seuil_min float,
-    prix_ttc float,
+    poids_paquet_client decimal(6,3),
+    seuil_min decimal(6,3),
+    prix_ttc decimal(6,3),
     en_vente boolean,
 
     constraint pk_article_campagne primary key(id),

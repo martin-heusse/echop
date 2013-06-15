@@ -17,25 +17,25 @@ class TvaController extends COntroller {
     public function gererTva () {
 
         $f_idTva = 0;
-
+        $i_errTVA = 0;
         if (isset($_POST['id_tva']) && $_POST['id_tva']) {
             $f_idTva = $_POST['id_tva'];
-       
+            /* TODO valeur à accepter */      
             /* Vérification de la pré-existence */ 
             $o_tva = Tva::getObjectByValeur($f_idTva);
-
             if ($o_tva == array()) {
                 Tva::create($f_idTva);
+            } else {
+                $i_errTVA = 1;
             }
-
             $to_val = Tva::GetAllObjects(); 
-            $this->render('gererTva',compact('to_val'));
+            $this->render('gererTva',compact('to_val', 'i_errTVA'));
             return;
         }
 
 
         $to_val = Tva::GetAllObjects(); 
-        $this->render('gererTva',compact('to_val'));
+        $this->render('gererTva',compact('to_val', 'i_errTVA'));
         return;
     }
 
