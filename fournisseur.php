@@ -106,9 +106,11 @@ class FournisseurController extends Controller {
             $i_idArticle = $o_article['id_article'];
             $f_poidsPaquetClient = $o_article['poids_paquet_client'];
             $ti_idUtilisateur = Commande::getIdUtilisateurByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+            $i_nbreArticle = 0;
             /* pour chaque utilisateur, on regarde combien il a commandé*/
-            foreach ($ti_idUtilisateur as $o_idUtilisateur) {
-                $i_idUtilisateur = $o_idUtilisateur['id_utilisateur'];
+            foreach ($ti_idUtilisateur as $i_idUtilisateur) {
+                $i_nbreArticle ++;
+                // $i_idUtilisateur = $o_idUtilisateur['id_utilisateur'];
                 $i_id = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
                 $i_quantite = Commande::getQuantite($i_id);
                 $i_quantiteTotale += $i_quantite;
@@ -122,7 +124,29 @@ class FournisseurController extends Controller {
             $i_idUnite = Article::getIdUnite($i_idArticle);
             $o_article['unite'] = Unite::getValeur($i_idUnite);
         }
-        $this->render('commandeFournisseur', compact('to_article'));
+        $this->render('commandeFournisseur', compact('to_article', 'i_nbreArticle'));
+    }
+
+    /*
+     *  Gère les fournisseurs
+     */
+    public function gererFournisseur() {
+
+        if (isset($_POST['nom_fournisseur']) && $_POST['nom_fournisseur'] != "") {
+
+            $s_nom = $_POST['nom_fournisseur'];
+
+            /* Vérification de la pré-existence */
+            $o_fournisseur = Fournisseur::getObjectByNom($s_nom);
+            var_dump($o_fournisseur);
+            if ($o_fournisseur == array()) {
+                Fournisseur::create($s_nom);
+            }
+            
+        }
+            $to_nom = Fournisseur::GetAllObjects();
+            $this->render('gererFournisseur', compact('to_nom'));
+            return;
     }
 
     /*

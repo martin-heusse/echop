@@ -16,6 +16,14 @@ if(isset($i_erreur)){
     <fieldset><legend>Créer un article</legend>
         <p>Les Champs avec * sont obligatoires.</p>
         <p><span class="form_col"><label>Produit<sup>&nbsp *</sup></label></span><input type="text" name="nom_produit" value=""/></p>
+        <p><span class="form_col"><label>Categorie</label></span><select name="id_categorie">
+<?php foreach($to_categorie as $o_categorie){
+?>
+        <option value="<?php echo $o_categorie['id'] ?>"><?php echo $o_categorie['nom'] ?></option>
+<?php
+}
+?>
+        </select></p> <!-- fin de choix muliple unite -->
         <p><span class="form_col"><label>Description courte</label></span><input type="text" name="description_courte" value=""/></p>
         <p><span class="form_col"><label>Description longue</label></span><input type="text" name="description_longue" value=""/></p>
         <p><span class="form_col"><label>Poids du paquet fournisseur</label></span><input type="text" name="poids_paquet_fournisseur" value=""/></p>

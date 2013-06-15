@@ -1,4 +1,4 @@
-<p><a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a></p>
+<p><a class="action_navigation" href="<?php echo root ?>/commanderArticle.php/afficherRayon">Retour aux rayons</a></p>
 
 <h1>Commander un article</h1>
 
@@ -18,12 +18,20 @@ if ($b_etat == 1) {
 
 <?php
 if ($to_commande != null and $to_commande != array()) {
-/* Affiche ou non le formulaire */
-if ($b_etat == 1) {
+    /* si aucun article est en vente, on affiche rien */
+
+    $i_nbreArticleRayon = 0;
+    foreach($to_commande as $o_produit){
+        $i_nbreArticleRayon += $o_produit['nbre_article'];
+    } 
+    if ($i_nbreArticleRayon !=0){
+
+        /* Affiche ou non le formulaire */
+        if ($b_etat == 1) {
 ?>
                 <form method="post" action="<?php echo root ?>/commanderArticle.php/commanderArticleModifier?idRayon=<?php echo $i_idRayon?>">
 <?php
-}
+        }
 ?>
         <table id="t_article">
         <tr>
@@ -43,18 +51,18 @@ if ($b_etat == 1) {
         <th>Quantité totale commandée</th>
         <th>Total TTC</th>
 <?php
-/* Affiche ou non la colonne de suppression */
-if ($b_etat == 1) {
+        /* Affiche ou non la colonne de suppression */
+        if ($b_etat == 1) {
 ?>
                 <th>Suppression d'un article</th>
 <?php
-}
+        }
 ?>
         </tr>
 <?php 
-$i_numLigne = 0;
-foreach($to_commande as $o_produit) {
-    if($o_produit['id_rayon']==$i_idRayon){	?>
+        $i_numLigne = 0;
+        foreach($to_commande as $o_produit) {
+            if($o_produit['id_rayon']==$i_idRayon){	?>
             <tr class="ligne_article<?php echo $i_numLigne ?>">
             <td><?php echo $o_produit['nom'] ?></td>
             <td title="<?php echo $o_produit['description_longue'] ?>"><?php echo $o_produit['description_courte'] ?></td>
@@ -69,59 +77,63 @@ foreach($to_commande as $o_produit) {
             <td class="centrer"><?php echo $o_produit['poids_paquet_client'] ?><?php echo $o_produit['unite'] ?></td>
             <td class="centrer"><?php echo $o_produit['seuil_min'] ?></td>
 <?php
-        /* Bloquer ou autoriser la modification de la quantité */
-        if ($b_etat == 1) {
+                /* Bloquer ou autoriser la modification de la quantité */
+                if ($b_etat == 1) {
 ?>
                     <td><input class="input_quantite" type="text" name="quantite[<?php echo $o_produit['id_article']?>]" value="<?php echo $o_produit['quantite'] ?>"/></td>
 <?php
-        } else {
+                } else {
 ?>
                     <td class="centrer"><?php echo $o_produit['quantite'] ?></td>
 <?php
-        }
+                }
 ?>
             <td class="centrer col_coloree"><?php echo $o_produit['quantite_totale'] ?><?php echo $o_produit['unite'] ?></td>
             <td class="centrer col_coloree"><?php echo $o_produit['total_ttc'] ?>&euro;</td>
 <?php
-    /* Affiche ou non le lien de suppression */
-    if ($b_etat == 1) {
+            /* Affiche ou non le lien de suppression */
+            if ($b_etat == 1) {
 ?>
                     <td class="centrer"><a href="<?php echo root ?>/commanderArticle.php/commanderArticleSupprimer?id_article=<?php echo $o_produit['id_article']?>&idRayon=<?php echo $i_idRayon?>">supprimer l'article</a>
 <?php
-    }
+            }
 ?>
             </tr>
 <?php
-    $i_numLigne = ($i_numLigne + 1) % 2;
-    }
-}
+            $i_numLigne = ($i_numLigne + 1) % 2;
+            }
+        }
 ?>  
         <tr>
         <th colspan=10 class="right">Montant Total = </th>
         <td class="centrer"><strong><?php echo $f_montantTotal ?>&euro;</strong></td>
 <?php
-/* Afficher ou non la dernière colonne dans la ligne "Montant total" */
-if ($b_etat == 1) {
+        /* Afficher ou non la dernière colonne dans la ligne "Montant total" */
+        if ($b_etat == 1) {
 ?>
                 <td>&nbsp;</td>
 <?php
-}
+        }
 ?>
         </tr>
         </table>
 <?php
-/* Affiche ou non le bouton de mise à jour */
-if ($b_etat == 1) {
+        /* Affiche ou non le bouton de mise à jour */
+        if ($b_etat == 1) {
 ?>
                 <input class="input_valider" type="submit" value="Mettre à jour les quantités"/>
                 </form>
 <?php
-}
+        }
+    } else {
 ?>
+    Aucun article n'est en vente dans ce rayon.
 <?php
+    }
 } else { 
 ?>
     <p>Vous n'avez pas de commande en cours.</p>
-<?php
+<?php 
 }
+
 ?>

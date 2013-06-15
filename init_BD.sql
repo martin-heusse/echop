@@ -35,6 +35,10 @@ insert into unite(valeur) values('g');
 insert into unite(valeur) values('L');
 insert into unite(valeur) values('Pack');
 
+-- CREATION DES CATEGORIES
+insert into categorie(nom) values('RIZ');
+insert into categorie(nom) values('PATES');
+
 -- CREATION DES FOURNISSEURS
 insert into fournisseur(nom) values('RAPUNZEL');
 insert into fournisseur(nom) values('PICHARD');
@@ -47,58 +51,58 @@ insert into tva(valeur) values(19.60);
 insert into tva(valeur) values(5.50);
 
 -- CREATION DES ARTICLES
-insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1, 'Riz long 1/2 complet', 5, 1, 1, 'Riz de camargue', 'markal');
-insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1, 'Riz long 1/2 complet', 25, 1, 1, 'Riz de camargue', 'markal');
-insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1, 'Riz long blanc', 5, 1, 1, 'Camargue', '');
-insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1, 'riz rond 1/2 complet', 5, 1, 1, 'Italie', '');
-insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1, 'riz rond complet', 25, 1, 1, 'Italie', '');
-insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1, 'riz thai 1/2 complet', 5, 1, 1, 'thailande', '');
-insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1, 'riz thai 1/2 complet', 25, 1, 1, 'thailande', '');
-insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1, 'riz thai blanc', 5, 1, 1, '', '');
-insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1, 'riz thai blanc', 25, 1, 1, '', '');
-insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1, 'riz basmati 1/2 complet', 5, 1, 1, '', '');
-insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1, 'riz basmati 1/2 complet', 25, 1, 1, '', '');
-insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1, 'riz basmati blanc', 5, 1, 1, 'thailande', '');
-insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1, 'riz basmati blanc', 25, 1, 1, 'inde', '');
-insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1, 'coquillette 1/2 complete', 5, 1, 1, '', '');
-insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1, 'macaroni 1/2 complete', 5, 1, 1, '', '');
-insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1, 'nouille 1/2 complete', 5, 1, 1, '', '');
-insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1, 'spaghettis 1/2 complete', 5, 1, 1, '', '');
-insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1, 'coquillette complete', 5, 1, 1, '', '');
-insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1, 'coquillette blanche', 5, 1, 1, '', '');
-insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1, 'macaroni blanche', 5, 1, 1, 'macaroni blanche', '');
-insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1, 'spaghetti blanche', 5, 1, 1, '', '');
-insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1, 'spirale trois couleurs', 5, 1, 1, '', '');
-insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1, 'spaghetti quinoa persil ail', 0.5, 1, 12, '', '');
-insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1, 'mini crete de coq', 0.5, 1, 12, '', '');
-insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1, 'penne 1/2 complet', 0.5, 1, 12, '', '');
-insert into article(id_rayon, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1, 'Lasagnes', 0.25, 1, 12, '', '');
+insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1,1, 'Riz long 1/2 complet', 5, 1, 1, 'Riz de camargue', 'markal');
+insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1,1, 'Riz long 1/2 complet', 25, 1, 1, 'Riz de camargue', 'markal');
+insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1,1, 'Riz long blanc', 5, 1, 1, 'Camargue', '');
+insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1,1, 'riz rond 1/2 complet', 5, 1, 1, 'Italie', '');
+insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1,1, 'riz rond complet', 25, 1, 1, 'Italie', '');
+insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1,1, 'riz thai 1/2 complet', 5, 1, 1, 'thailande', '');
+insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1,1, 'riz thai 1/2 complet', 25, 1, 1, 'thailande', '');
+insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1,1, 'riz thai blanc', 5, 1, 1, '', '');
+insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1,1, 'riz thai blanc', 25, 1, 1, '', '');
+insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1,1, 'riz basmati 1/2 complet', 5, 1, 1, '', '');
+insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1,1, 'riz basmati 1/2 complet', 25, 1, 1, '', '');
+insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1,1, 'riz basmati blanc', 5, 1, 1, 'thailande', '');
+insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1,1, 'riz basmati blanc', 25, 1, 1, 'inde', '');
+insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1,2, 'coquillette 1/2 complete', 5, 1, 1, '', '');
+insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1,2, 'macaroni 1/2 complete', 5, 1, 1, '', '');
+insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1,2, 'nouille 1/2 complete', 5, 1, 1, '', '');
+insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1,2, 'spaghettis 1/2 complete', 5, 1, 1, '', '');
+insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1,2, 'coquillette complete', 5, 1, 1, '', '');
+insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1,2, 'coquillette blanche', 5, 1, 1, '', '');
+insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1,2, 'macaroni blanche', 5, 1, 1, 'macaroni blanche', '');
+insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1,2, 'spaghetti blanche', 5, 1, 1, '', '');
+insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1,2, 'spirale trois couleurs', 5, 1, 1, '', '');
+insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1,2, 'spaghetti quinoa persil ail', 0.5, 1, 12, '', '');
+insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1,2, 'mini crete de coq', 0.5, 1, 12, '', '');
+insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1,2, 'penne 1/2 complet', 0.5, 1, 12, '', '');
+insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(1,2, 'Lasagnes', 0.25, 1, 12, '', '');
 
 
 insert into article_fournisseur(id_article,id_fournisseur, prix_ht, prix_ttc,

@@ -1,4 +1,4 @@
-<p><a class="action_navigation" href="<?php echo root ?>/commande.php/articlesCommandEs">Retour aux articles commandés</a></p>
+<p><a class="action_navigation" href="<?php echo root ?>/articlesCommandEs.php/articlesCommandEs">Retour aux articles commandés</a></p>
 
 <h1>Utilisateurs ayant commandé cet article</h1>
 
@@ -22,7 +22,7 @@ Cliquez sur un nom pour voir ses commandes.</p>
     foreach ($to_utilisateur as $o_utilisateur) {
 ?>
     <tr class="ligne_article<?php echo $i_numLigne ?>">
-        <td><a href="<?php echo root ?>/commande.php/commandeUtilisateurPourCetArticle?idArticle=<?php echo $i_idArticle ?>&idUtilisateur=<?php echo $o_utilisateur['id']?>"><?php echo $o_utilisateur['login'] ?></a></td>
+        <td><a href="<?php echo root ?>/articlesCommandEs.php/commandeUtilisateurPourCetArticle?idArticle=<?php echo $i_idArticle ?>&idUtilisateur=<?php echo $o_utilisateur['id']?>"><?php echo $o_utilisateur['login'] ?></a></td>
         <td class="centrer"><?php echo $o_utilisateur['quantite'].$s_unite ?></td>
     </tr>
 <?php
@@ -30,15 +30,15 @@ Cliquez sur un nom pour voir ses commandes.</p>
     }
 ?>
     <tr>
-        <th class="left">Quantité totale commandée = </th>
+        <th class="left">Quantité totale commandée</th>
         <td class="centrer"><?php echo $i_quantiteTotale.$s_unite?> </td>
     </tr>
     <tr>
-        <th class="left">Quantité pour le colisage =</th>
+        <th class="left">Quantité pour le colisage </th>
         <td class="centrer">multiple de <?php echo $i_colisage.$s_unite ?> </td>
     </tr>
     <tr>
-        <th class="left">Quantité manquante =</th>
+        <th class="left">Quantité manquante </th>
         <td class="centrer"><?php echo $i_manque.$s_unite ?></td>
     </tr>
 </table>
