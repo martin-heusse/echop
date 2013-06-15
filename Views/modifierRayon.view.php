@@ -28,7 +28,7 @@ method="get">
 
         if ($i_errNewName == 1) {
 ?>
-    <p> Erreur : Ce rayon existe déjà </p>
+    <p class="erreur"> Erreur : Ce rayon existe déjà </p>
 
 <form 
 name="formulaire"

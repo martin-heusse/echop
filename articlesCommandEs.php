@@ -110,7 +110,8 @@ class ArticlesCommandEsController extends Controller {
                 $o_commande['quantite'] = $i_quantite;
                 $o_row['quantite_totale'] += $i_quantite;
             }
-            $f_float = $o_row['quantite_totale']-floor($o_row['quantite_totale']);
+    
+        $f_float = $o_row['quantite_totale']-floor($o_row['quantite_totale']);
             $i_manque = $o_row['quantite_totale'] % $o_row['colisage'];
             $o_row['manque'] = ($o_row['colisage'] - $i_manque) % $o_row['colisage'];
             if($o_row['manque']-$f_float < 0){

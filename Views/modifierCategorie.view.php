@@ -1,4 +1,4 @@
-<p><a class="action_navigation" href="<?php echo root ?>/categorie.php/afficherRayon">Retour à gérer categorie</a></p>
+<p><a class="action_navigation" href="<?php echo root ?>/rayon.php/afficherRayon">Retour à gérer categorie</a></p>
 
 <h1>Modifier un categorie</h1>
 
@@ -28,7 +28,7 @@ method="get">
 
         if ($i_errNewName == 1) {
 ?>
-    <p> Erreur : Cette categorie existe déjà </p>
+    <p class="erreur"> Erreur : Cette categorie existe déjà </p>
 
 <form 
 name="formulaire"

@@ -1,4 +1,4 @@
-<p><a class="action_navigation" href="<?php echo root ?>/categorie.php/afficherRayon">Retour à gérer categorie</a></p>
+<p><a class="action_navigation" href="<?php echo root ?>/rayon.php/afficherRayon">Retour à gérer categorie</a></p>
 
 <h1>Créer une categorie</h1>
 
