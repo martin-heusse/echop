@@ -10,7 +10,7 @@ require_once('Model/ArticleCampagne.php');
 require_once('Model/Fournisseur.php');
 require_once('Model/Administrateur.php');
 require_once('Model/Utilisateur.php');
-
+require_once('Model/Categorie.php');
 
 // Gère les articles.
 class ArticleController extends Controller {
@@ -138,7 +138,8 @@ class ArticleController extends Controller {
         $to_tva = Tva::getAllObjects();
         $to_unite = Unite::getAllObjects();
         $to_fournisseur = Fournisseur::getAllObjects();
-        $this->render('creerArticle',compact('to_tva', 'to_unite', 'to_fournisseur'));
+        $to_categorie = Categorie::getAllObjects();
+        $this->render('creerArticle',compact('to_tva', 'to_unite', 'to_fournisseur','to_categorie'));
     }
 
     public function creerArticle() {
@@ -151,6 +152,7 @@ class ArticleController extends Controller {
             or !isset($_POST['poids_paquet_fournisseur'])
             or !isset($_POST['poids_paquet_client'])
             or !isset($_POST['id_unite'])
+            or !isset($_POST['id_categorie'])
             or !isset($_POST['nb_paquet_colis'])
             or !isset($_POST['seuil_min'])
             // gestion des fournisseurs
@@ -174,6 +176,7 @@ class ArticleController extends Controller {
         $f_poidsPaquetFournisseur = $_POST['poids_paquet_fournisseur'];
         $f_poidsPaquetClient = $_POST['poids_paquet_client'];
         $i_idUnite = $_POST['id_unite'];
+        $i_idCategorie = $_POST['id_categorie'];
         $i_nbPaquetColis = $_POST['nb_paquet_colis'];
         $i_seuilMin = $_POST['seuil_min'];
             // liste des fournisseurs A FAIRE
@@ -189,7 +192,7 @@ class ArticleController extends Controller {
         $s_descriptionLongue = $_POST['description_longue'];
         // par défaut on choisi le rayon 1
         $i_idRayon = 1;
-        $i_idArticle = Article::create($i_idRayon, $s_nomProduit, $f_poidsPaquetFournisseur,$i_idUnite, $i_nbPaquetColis, $s_descriptionCourte, $s_descriptionLongue);
+        $i_idArticle = Article::create($i_idRayon, $i_idCategorie, $s_nomProduit, $f_poidsPaquetFournisseur,$i_idUnite, $i_nbPaquetColis, $s_descriptionCourte, $s_descriptionLongue);
         $i_idCampagne = Campagne::getIdCampagneCourante();
         // $i_idFournisseurChoisi est l'identifiant du fournisseur choisi par l'échoppe
         ArticleCampagne::create($i_idArticle, $i_idCampagne, $i_idFournisseurChoisi, $i_idTva, $f_poidsPaquetClient, $i_seuilMin, $f_prixTtcEchoppe);

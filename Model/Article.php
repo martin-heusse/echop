@@ -3,10 +3,10 @@ class Article {
 
     /*Creaters*/
     
-    public static function create($i_idRayon, $s_nom, $f_poidsPaquetFournisseur,
+    public static function create($i_idRayon, $i_idCategorie, $s_nom, $f_poidsPaquetFournisseur,
           $i_idUnite, $i_nbPaquetColis, $s_descriptionCourte, $s_descriptionLongue) {
-        $sql_query = "insert into article(id_rayon,nom,poids_paquet_fournisseur,id_unite,nb_paquet_colis,description_courte,description_longue) 
-            values('$i_idRayon', '$s_nom', '$f_poidsPaquetFournisseur',
+        $sql_query = "insert into article(id_rayon,id_categorie,nom,poids_paquet_fournisseur,id_unite,nb_paquet_colis,description_courte,description_longue) 
+            values('$i_idRayon','$i_idCategorie', '$s_nom', '$f_poidsPaquetFournisseur',
            '$i_idUnite', '$i_nbPaquetColis', '$s_descriptionCourte', '$s_descriptionLongue')";
         mysql_query($sql_query);
         $i_result = mysql_insert_id();
@@ -69,6 +69,26 @@ class Article {
         return $to_result;
     }
 
+
+    public static function getObjectsByIdCategorie($i_idCategorie) {
+        $sql_query = "select * from article where id_rayon='$i_idCategorie'";
+        $sql_tmp = mysql_query($sql_query);
+        $to_result = array();
+        while ($o_row = mysql_fetch_assoc($sql_tmp)) {
+        /* Sécurité */
+            foreach ($o_row as &$column) {
+                $column = htmlentities($column);
+            }
+        /* Création du résultat */
+        $to_result[] = $o_row;
+        }
+        /* Formattage des nombres */
+        foreach ($to_result as &$o_row) {
+            $o_row['poids_paquet_fournisseur'] = number_format($o_row['poids_paquet_fournisseur'], 2, '.', ' ');
+        }
+        return $to_result;
+    }
+
     public static function getNom($i_id) {
         $sql_query = "select nom from article where id=$i_id";
         $sql_tmp = mysql_query($sql_query);
@@ -82,6 +102,17 @@ class Article {
 
     public static function getIdRayon($i_id) {
         $sql_query = "select id_rayon from article where id=$i_id";
+        $sql_tmp = mysql_query($sql_query);
+        $i_result = 0;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité et création du résultat */
+            $i_result = htmlentities($o_row['id_rayon']);
+        }
+        return $i_result;
+    }
+
+    public static function getIdCategorie($i_id) {
+        $sql_query = "select id_categorie from article where id=$i_id";
         $sql_tmp = mysql_query($sql_query);
         $i_result = 0;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
@@ -151,9 +182,9 @@ class Article {
 
     /* Setters */
 
-    public static function set($i_id, $i_idRayon, $s_nom, $f_poidsPaquetFournisseur,
+    public static function set($i_id, $i_idCategorie, $i_idRayon, $s_nom, $f_poidsPaquetFournisseur,
                   $i_idUnite, $i_nbPaquetColis, $s_descriptionCourte, $s_descriptionLongue) {
-      $sql_query = "update article set id_rayon = '$i_idRayon',
+      $sql_query = "update article set id_rayon = '$i_idRayon', id_categorie = '$i_idCategorie',
       nom ='$s_nom', poids_paquet_fournisseur = '$f_poidsPaquetFournisseur', id_unite = '$i_idUnite', nb_paquet_colis = '$i_nbPaquetColis', description_courte = '$s_descriptionCourte', description_longue = '$s_descriptionLongue' where id=$i_id";
       $b_result =  mysql_query($sql_query);
       return $b_result;
@@ -166,6 +197,13 @@ class Article {
         return $b_result;
     }
 
+    public static function setIdCategorie($i_id, $i_idCategorie) {
+        $sql_query = "update article set id_categorie ='$i_idCategorie' 
+            where id=$i_id";
+        $b_result =  mysql_query($sql_query);
+        return $b_result;
+    }
+    
     public static function setIdUnite($i_id, $i_idUnite) {
         $sql_query = "update article set id_unite ='$i_idUnite' 
             where id=$i_id";
@@ -211,7 +249,7 @@ class Article {
 
     /* Deleters */
 
-    public static function delete($i_id, $i_idRayon, $s_nom, $f_poidsPaquetFournisseur,
+    public static function delete($i_id, $i_idRayon, $i_idCategorie, $s_nom, $f_poidsPaquetFournisseur,
                   $i_idUnite, $i_nbPaquetColis, $s_descriptionCourte, $s_descriptionLongue) {
         $sql_query = "delete from article where id=$i_id";
         $b_result =  mysql_query($sql_query);
