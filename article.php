@@ -86,6 +86,7 @@ class ArticleController extends Controller {
     public function modifierArticle() {
         $i_erreur = null;
         if( !isset($_POST['id_article_campagne'])
+            or !isset($_POST['en_vente'])
             or !isset($_POST['poids_paquet_client'])
             or !isset($_POST['seuil_min'])
             // a faire à régler
@@ -97,6 +98,7 @@ class ArticleController extends Controller {
         } else {
             // si toutes les variables sont définies on les récupère
             $ti_idArticleCampagne = $_POST['id_article_campagne'];
+            $tb_enVente = $_POST['en_vente'];
             $tf_poidsPaquetClient = $_POST['poids_paquet_client'];
             $ti_seuilMin = $_POST['seuil_min'];
             $ti_idTva = $_POST['id_tva'];
@@ -104,6 +106,13 @@ class ArticleController extends Controller {
             $i_nbArticleCampagne = count($ti_idArticleCampagne);
             for ($i=0; $i<$i_nbArticleCampagne; $i++) {
                 $i_idArticleCampagne = $ti_idArticleCampagne[$i];
+                // modification du en vente
+                if($tb_enVente[$i] == "true"){
+                    $b_enVente = true;
+                } else {
+                    $b_enVente = false;
+                }
+                ArticleCampagne::setEnVente($i_idArticleCampagne, $b_enVente);
                 // modification du poids paquet client
                 $f_poidsPaquetClient = $tf_poidsPaquetClient[$i];
                 ArticleCampagne::setPoidsPaquetClient($i_idArticleCampagne, $f_poidsPaquetClient);
