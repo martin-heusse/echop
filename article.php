@@ -136,6 +136,8 @@ class ArticleController extends Controller {
 
     public function afficherCreerArticle() {
         $to_tva = Tva::getAllObjects();
+        var_dump($to_tva);
+        return;
         $to_unite = Unite::getAllObjects();
         $to_fournisseur = Fournisseur::getAllObjects();
         $this->render('creerArticle',compact('to_tva', 'to_unite', 'to_fournisseur'));
