@@ -67,7 +67,9 @@ class CommanderArticleController extends Controller {
             /* Attributs dépendant de l'article */
             $i_idArticle = $o_article['id_article'];
             $o_article['id_rayon'] = Article::getIdRayon($i_idArticle);
+            $o_article['nbre_article'] = 0;
             if ($o_article['id_rayon'] == $i_idRayon) {
+                $o_article['nbre_article'] ++;
                 $o_article['nom'] = Article::getNom($i_idArticle);
                 $o_article['poids_paquet_fournisseur'] = Article::getPoidsPaquetFournisseur($i_idArticle);
                 $i_idUnite = Article::getIdUnite($i_idArticle);

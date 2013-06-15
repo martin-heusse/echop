@@ -20,14 +20,24 @@ class TvaController extends COntroller {
 
         if (isset($_POST['id_tva']) && $_POST['id_tva']) {
             $f_idTva = $_POST['id_tva'];
-       
+            /* TODO valeur à accepter */      
             /* Vérification de la pré-existence */ 
+            $to = Tva::GetAllObjects();
             $o_tva = Tva::getObjectByValeur($f_idTva);
-
+            var_dump($o_tva); return;
+            //echo $f_idTva;
+            var_dump($o_tva); 
+            echo $o_tva['valeur'];
+            return;
+ //           if ($o_tva == 0) {
+   //             echo 'zero';
+     //           Tva::create($f_idTva);
+      /*      }
             if ($o_tva == array()) {
+                echo 'coucou';
                 Tva::create($f_idTva);
             }
-
+       */
             $to_val = Tva::GetAllObjects(); 
             $this->render('gererTva',compact('to_val'));
             return;
