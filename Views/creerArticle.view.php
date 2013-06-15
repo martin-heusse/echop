@@ -6,7 +6,9 @@ if(isset($i_erreur)){
         echo "Votre article a été crée !";
     }
     if($i_erreur==1){
-        echo "Erreur de saisie, l'article n'a pas été crée !";
+?>
+<p class="erreur"> Erreur de saisie, l'article n'a pas été crée ! </p>
+<?php
     }
 }
 ?>

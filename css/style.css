@@ -160,8 +160,15 @@ table .col_coloree {
 }
 
 /* Centre */
-table .centrer {
+table .center, table .centrer {
     text-align: center;
+}
+
+table .left, table .gauche {
+    text-align: left;
+}
+table .right, table .droite {
+    text-align: right;
 }
 
 /* ========================================================================== */
@@ -207,6 +214,14 @@ form .input_valider {
     font-weight: bold;
     font-size: 20px;
     margin-bottom: 30px;
+}
+
+/* ========================================================================== */
+/* Erreur */
+
+.erreur {
+    font-weight:bold;
+    color: red;
 }
 
 /* ========================================================================== */

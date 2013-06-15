@@ -31,6 +31,21 @@ class Campagne {
         return $i_result;
     }
 
+    public static function getAllAncienneCampagne() {
+        $sql_query = "select * from campagne where courant=0 order by id desc";
+        $sql_tmp = mysql_query($sql_query);
+        $to_result = array();
+        while ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité */
+            foreach ($o_row as &$column) {
+                $column = htmlentities($column);
+            }
+            /* Création du résultat */
+            $to_result[] = $o_row;
+        }
+        return $to_result;
+    }
+
     /* Creaters */
 
     public static function create($s_dateDebut, $b_etat, $b_courant) {

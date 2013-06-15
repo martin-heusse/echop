@@ -7,7 +7,7 @@ enctype="multipart/form-data"
 method="post">
     <p><span class="form_col"><label>Login</label></span><input type="text" name="login"/></p>
     <p><span class="form_col"><label>Mot de passe</label></span><input type="password" name="motDePasse"/></p>
-<p>
+<p class="erreur">
 <br>
 <?php
 if($i_errConnexion == 1) {

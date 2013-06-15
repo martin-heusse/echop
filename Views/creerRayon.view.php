@@ -15,7 +15,7 @@ method="post">
 <?php
         if ($i_errName == 1) {
 ?>
-    <p> Erreur : Ce rayon existe déjà </p>
+    <p class"erreur"> Erreur : Ce rayon existe déjà </p>
 <?php
         }
 ?>
