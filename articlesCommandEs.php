@@ -131,11 +131,6 @@ class ArticlesCommandEsController extends Controller {
             $this->render('authenticationRequired');
             return;
         }
-        /* Doit être un administrateur */
-        if (!$_SESSION['isAdministrateur']) {
-            $this->render('adminRequired');
-            return;
-        }
         /* Navigation dans l'historique ou non */
         $b_historique = 0;
         if (isset($_GET['idOldCampagne'])) {

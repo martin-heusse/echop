@@ -2,7 +2,7 @@
 <?php
 /* Si navigation dans l'historique */
 if ($b_historique == 1) {
-    echo "?idOldCampagne=".$i_idCampagne;
+    echo "&idOldCampagne=".$i_idCampagne;
 }
 ?>
 ">Retour aux utilisateurs ayant commandé cet article</a></p>

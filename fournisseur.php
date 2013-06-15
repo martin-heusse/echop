@@ -142,7 +142,7 @@ class FournisseurController extends Controller {
             $i_nbreArticle = 0;
             /* pour chaque utilisateur, on regarde combien il a commandé*/
             foreach ($ti_idUtilisateur as $i_idUtilisateur) {
-                $i_nbreArticle ++;
+                $i_nbreArticle++;
                 // $i_idUtilisateur = $o_idUtilisateur['id_utilisateur'];
                 $i_id = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
                 $i_quantite = Commande::getQuantite($i_id);
