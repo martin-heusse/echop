@@ -1,15 +1,20 @@
 <?php
 require_once('def.php');
-require_once('Model/Tva.php');
+
+require_once('Model/Administrateur.php');
+require_once('Model/Utilisateur.php');
+
 require_once('Model/Rayon.php');
+require_once('Model/Tva.php');
+
 require_once('Model/Unite.php');
 require_once('Model/Article.php');
 require_once('Model/Campagne.php');
+
+require_once('Model/GererArticle.php');
 require_once('Model/ArticleFournisseur.php');
 require_once('Model/ArticleCampagne.php');
 require_once('Model/Fournisseur.php');
-require_once('Model/Administrateur.php');
-require_once('Model/Utilisateur.php');
 require_once('Model/Categorie.php');
 
 // Gère les articles.
@@ -22,65 +27,46 @@ class ArticleController extends Controller {
     }
 
     public function afficherArticle() {
+        // liste de tous les rayons
+        $to_rayon = Rayon::getAllObjects();
         if(isset($_GET['i_erreur'])){
             $i_erreur = $_GET['i_erreur'];
         } else {
             $i_erreur = null;
         }
-        // liste de tous les fournisseurs
-        $to_fournisseur = Fournisseur::getAllObjects();
-        // liste de toutes les tva
-        $to_tva = Tva::getAllObjects();
-        // liste des descriptions des articles (à partir des tables  :
-        // article, article_fournisseur et article_campagne)
-        $to_descriptionArticle = array();
-        $ts_nomFourniseur = array();
-        $i_idCampagneEnCours = Campagne::getIdCampagneCourante();
-        $to_descriptionArticle = ArticleCampagne::getObjectsByIdCampagne($i_idCampagneEnCours);
-        foreach($to_descriptionArticle as &$o_descriptionArticle){
-            $i_idArticle = $o_descriptionArticle['id_article'];
-            $i_idArticleCampagne = $o_descriptionArticle['id'];
-            $o_article = Article::getObject($i_idArticle);
-            $i_idUnite = $o_article['id_unite'];
-            $o_descriptionArticle['unite'] = Unite::getUnite($i_idUnite);
-            $o_descriptionArticle['nom'] = $o_article['nom'];
-            $o_descriptionArticle['poids_paquet_fournisseur'] = $o_article['poids_paquet_fournisseur'];
-            $o_descriptionArticle['nb_paquet_colis'] = $o_article['nb_paquet_colis'];
-            $o_descriptionArticle['description_longue'] = $o_article['description_longue'];
-            $o_descriptionArticle['description_courte'] = $o_article['description_courte'];
-            // retourne le nom de tous les fournisseurs
-            // obtenir le prix et le code de chaque fournisseur
-            $to_articleFournisseur = ArticleFournisseur::getObjectsByIdArticle($i_idArticle);
-            foreach($to_articleFournisseur as &$o_articleFournisseur){
-                $i_idFournisseur = $o_articleFournisseur['id_fournisseur'];
-                $o_descriptionArticle[$i_idFournisseur]['code'] = $o_articleFournisseur['code'];
-                $o_descriptionArticle[$i_idFournisseur]['prix_ht'] = $o_articleFournisseur['prix_ht'];
-                $o_descriptionArticle[$i_idFournisseur]['prix_ttc'] = $o_articleFournisseur['prix_ttc'];
+        if(!isset($_GET['i_idRayon'])){
+            $s_message = "Choissisez votre rayon !";
+            $i_idRayon = null;
+            $to_fournisseur = null;
+            $to_descriptionArticle = null;
+            $to_tva = null;
+            $to_unite = null;
+        } else {
+            $s_message = null;
+            // liste de toutes les descriptions d'un article d'un rayon de la campagne courante
+            $i_idRayon = $_GET['i_idRayon'];
+            $i_idCampagneEnCours = Campagne::getIdCampagneCourante();
+            $to_descriptionArticle = GererArticle::descriptionArticle($i_idCampagneEnCours,$i_idRayon);
+                // liste de tous les fournisseurs
+            $to_fournisseur = GererArticle::fournisseurArticle($i_idCampagneEnCours,$i_idRayon);
+            foreach ($to_descriptionArticle as &$o_descriptionArticle){
+                $i_idArticleCampagne = $o_descriptionArticle['id_article_campagne'];
+                foreach($to_fournisseur as $o_fournisseur){
+                    $i_idFournisseur = $o_fournisseur['id_fournisseur'];
+                    $o_articleFournisseur = ArticleFournisseur::getObjectByIdArticleCampagneIdFournisseur($i_idArticleCampagne,$i_idFournisseur);
+                    $o_descriptionArticle[$i_idFournisseur]['code'] = $o_articleFournisseur['code'];
+                    $o_descriptionArticle[$i_idFournisseur]['prix_fournisseur'] = $o_articleFournisseur['prix_ht']; // prix_ht A CHANGER
+                    $o_descriptionArticle[$i_idFournisseur]['prix_ttc_ht'] = $o_articleFournisseur['prix_ttc_ht'];
+                    $o_descriptionArticle[$i_idFournisseur]['vente_paquet_unite'] = $o_articleFournisseur['vente_paquet_unite'];
+                    $o_descriptionArticle[$i_idFournisseur]['prix_ttc'] = $o_articleFournisseur['prix_ttc'];
+                }
             }
-            // on considère que le montant tva dépend de l'article
-            $o_descriptionArticle['id_tva_choisi'] = ArticleCampagne::getIdTva($i_idArticleCampagne);
-            // colonnes composées renvoyées à la vue et formatage des nombres
-            $o_descriptionArticle['prix_echoppe_ttc_unite'] = number_format($o_descriptionArticle['prix_ttc']/$o_descriptionArticle['poids_paquet_fournisseur'], 2, '.', ' ');
+            // liste de toutes les tva
+            $to_tva = Tva::getAllObjects();
+            // liste de toutes les unités
+            $to_unite = Unite::getAllObjects();
         }
-        $this->render('gererArticle', compact('to_rayon', 'to_fournisseur', 'i_idRayon', 'to_descriptionArticle', 'to_tva','i_erreur'));
-        /*
-        // Campagne courante
-        $i_idCampagneCourante = Campagne::getIdCampagneCourante();
-        // Articles de la campagne courante
-        $ti_idArticle = ArticleCampagne::getIdArticleByIdCampagne($i_idCampagnecourante);
-        // Tableau final qui va contenir tous les articles avec les infos
-        $to_articleCampagne = array();
-        foreach ($ti_idArticle as $i_idArticle) {
-            // idArticleCampagne de l'article
-            $i_idArticleCampagne = ArticleCampagne::getIdByIdArticleIdCampagne($i_idArticle, $i_idCampagneCourante);
-            // Données dans ArticleCampagne
-            $o_articleCampagne = ArticleCampagne::getObjects($i_idArticleCampagne);
-            // Données dans Article
-            // Ajout dans le tableau
-            $to_articleCampagne[] = $o_articleCampagne;
-        }
-        $this->render('gererArticle', compact('to_articleCampagne'));
-         */
+        $this->render('gererArticle', compact('to_rayon', 'i_idRayon', 'to_fournisseur', 'to_descriptionArticle', 'to_tva', 'to_unite', 's_message', 'i_erreur'));
     }
 
     public function modifierArticle() {

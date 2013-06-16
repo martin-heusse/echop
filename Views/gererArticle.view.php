@@ -14,11 +14,40 @@ if(isset($i_erreur)){
 
 <h1>Gérer tous les articles</h1>
 
+
+
+<!-- Affichage de la liste des rayons -->
+<?php
+foreach($to_rayon as $o_rayon){
+?>
+    <a <?php if($o_rayon['id']==$i_idRayon){ echo "style=\"background-color: grey;\"";} ?> href="<?php echo root; ?>/article.php/afficherArticle?i_idRayon=<?php echo $o_rayon['id']; ?>"><?php echo $o_rayon['nom']; ?></a>
+<?php
+}
+?>
+
+<?php
+if(isset($s_message)){
+?>
+    <p><?php echo $s_message; ?></p>
+<?php
+    return;
+}
+?>
+
+<p><a href="<?php echo root ?>/article.php/afficherCreerArticle?i_idRayon=<?php echo $i_idRayon; ?>">Créer un article</a></p>
+
+<?php
+if($to_descriptionArticle == array()){ 
+?>
+    <p><?php echo "Pas d'article pour ce rayon !"; ?></p>
+<?php 
+    return;
+}
+?>
+
 <!-- Création d'un formulaire englobant tout le tableau -->
 <form method="post" action="<?php echo root ?>/article.php/modifierArticle">
 
-<p>La liste des actions :
-<a href="<?php echo root ?>/article.php/afficherCreerArticle">Créer un article</a>
 <input align="middle" type="submit" class="input_valider" value="Mettre à jour les articles"/>
 </p>
 
@@ -29,6 +58,7 @@ if(isset($i_erreur)){
             <th>Produit</th>
             <th>Description courte</th>
             <th>Description longue</th>
+            <th>Unité</th>
             <th>Nombre de paquets par colis</th>
             <th>Poids du paquet fournisseur</th>
             <th>Poids du paquet client</th>
@@ -37,13 +67,13 @@ if(isset($i_erreur)){
 foreach($to_fournisseur as $o_fournisseur){
 //boucle pour afficher le nom de tous les fournisseurs
 ?>
-            <th><?php echo $o_fournisseur['nom'] ?></th>
+            <th><?php echo $o_fournisseur['nom_fournisseur'] ?></th>
 <?php
 }
 ?>
             <th>TVA</th>
             <!-- colonne informative attention aux arrondis -->
-            <th>Prix TTC choisi par l'échoppe rapporté au colis du fournisseur vendu au client</th>
+            <th>Prix TTC choisi par l'échoppe rapporté au paquet du fournisseur vendu au client</th>
             <!-- colonne informative -->
             <th>Prix TTC rapporté à l'unité echoppe</th>
          </tr>
@@ -54,7 +84,7 @@ foreach($to_fournisseur as $o_fournisseur){
 $i_numLigne = 0;
 foreach ($to_descriptionArticle as $o_descriptionArticle) {
 // boucle pour affcher tous les produits
-$i_idArticleCampagne = $o_descriptionArticle['id'];
+$i_idArticleCampagne = $o_descriptionArticle['id_article_campagne'];
 ?>
             <tr>
                 <!-- En variable cachée id_article_campagne -->
@@ -62,7 +92,6 @@ $i_idArticleCampagne = $o_descriptionArticle['id'];
                 <!-- Mettre en vente -->
                 <td align="center">
                     <select name="en_vente[]">
-                        <?php echo $o_descriptionArticle['en_vente']; ?>
                         <option value="vrai" <?php if($o_descriptionArticle['en_vente'] == '1'){echo 'selected="true"';}?>>En vente</option>
                         <option value="faux" <?php if($o_descriptionArticle['en_vente'] == '0'){echo 'selected="true"';}?>>Pas en vente</option>
                     </select>
@@ -73,47 +102,54 @@ $i_idArticleCampagne = $o_descriptionArticle['id'];
                 <td align="center" title="Description courte : présentation brève du produit" class="input_quantite"><?php echo $o_descriptionArticle['description_courte'] ?></td>
                 <!--Description longue -->
                 <td align="center" title="Description longue : présentation plus détaillée du produit"><?php echo $o_descriptionArticle['description_longue'] ?></td>
+                <!-- Unité -->
+                <td align="center" title="Unite" ><select name="id_unite[]">
+<?php
+    foreach($to_unite as $o_unite){
+        $i_idUnite = $o_unite['id'];
+        $f_valeurUnite = $o_unite['valeur'];
+        $i_idUniteChoisi = $o_descriptionArticle['id_unite_choisi'];
+?>
+                    <option value="<?php echo $i_idUnite ?>" <?php if($i_idUnite==$i_idUniteChoisi){echo 'selected="true"';} ?>> <?php echo $f_valeurUnite ?></option>
+<?php
+    }
+?>
+                </select></td>
                 <!-- Nombre de paquets par colis fournisseur -->
                 <td align="center" title="Nombre de paquets par colis"><?php echo $o_descriptionArticle['nb_paquet_colis'] ?></td>
                 <!-- Poids du paquet fournisseur -->
-                <td align="center" title="Poids du paquet fournisseur" ><?php echo $o_descriptionArticle['poids_paquet_fournisseur'] ?>&nbsp;<?php echo $o_descriptionArticle['unite'] ?></td>
+                <td align="center" title="Poids du paquet fournisseur" ><?php echo $o_descriptionArticle['poids_paquet_fournisseur'] ?>&nbsp;<?php echo $o_descriptionArticle['valeur_unite_choisi'] ?></td>
                 <!-- Poids du paquet client -->
-                <td align="center" title="Poids du paquet client"><input class="input_quantite" type="text" name="poids_paquet_client[]" value="<?php echo $o_descriptionArticle['poids_paquet_client'] ?>"/>&nbsp;<?php echo $o_descriptionArticle['unite'] ?></td>
+                <td align="center" title="Poids du paquet client"><input class="input_quantite" type="text" name="poids_paquet_client[]" value="<?php echo $o_descriptionArticle['poids_paquet_client'] ?>"/>&nbsp;<?php echo $o_descriptionArticle['valeur_unite_choisi'] ?></td>
                 <!-- Seuil min -->
                 <td align="center" title="Seuil min que peut choisir le client"><input class="input_quantite" type="text" name="seuil_min[]" value="<?php echo $o_descriptionArticle['seuil_min'] ?>"/></td>
 
                 <!-- Boucle pour afficher les fournisseurs disponibles -->
 <?php
-   $i_idFournisseurChoisi = $o_descriptionArticle['id_fournisseur'];
+   $i_idFournisseurChoisi = $o_descriptionArticle['id_fournisseur_choisi'];
     foreach($to_fournisseur as $o_fournisseur){
-        $i_idFournisseur = $o_fournisseur['id'];
-        if(isset($o_descriptionArticle[$i_idFournisseur])){
-            if($o_descriptionArticle[$i_idFournisseur]['prix_ht'] == ""){
-                $prix_fournisseur = $o_descriptionArticle[$i_idFournisseur]['prix_ttc'];
-             } else {
-                $prix_fournisseur = $o_descriptionArticle[$i_idFournisseur]['prix_ht'];
-            }
+        $i_idFournisseur = $o_fournisseur['id_fournisseur'];
 ?>
-                <td title="Fournisseur : <?php echo $o_fournisseur['nom']; ?>">
+                <td title="Fournisseur : <?php echo $o_fournisseur['nom_fournisseur']; ?>">
                     <table style="width:100%; font-size:9px;">
                         <th>code</th>
-                        <th>prix</th>
+                        <th>prix donnée par le fournisseur</th>
                         <th>prix ttc</th>
                         <th>Choisir</th>
                         <tr>
                             <td><?php echo $o_descriptionArticle[$i_idFournisseur]['code'] ?></td>
-                            <td><?php echo $prix_fournisseur ?>&nbsp;&euro;</td>
-                            <td><?php echo $o_descriptionArticle[$i_idFournisseur]['prix_ttc'] ?>&nbsp;&euro;</td>
+                            <td>
+                                <!-- montant -->
+                                montant : <?php echo $o_descriptionArticle[$i_idFournisseur]['prix_fournisseur'] ?>&nbsp;&euro;<br />
+                                <!-- ht ou ttc -->
+                                <!-- unite ou paquet -->
+                            </td>
+                            <td><?php echo $o_descriptionArticle[$i_idFournisseur]['prix_fournisseur'] ?>&nbsp;&euro;</td>
                             <td><input type="radio" name="id_fournisseur_choisi[<?php echo $i_idArticleCampagne ?>]" value="<?php echo $i_idFournisseur ?>"  <?php if($i_idFournisseur==$i_idFournisseurChoisi){echo 'checked="true"';} ?>></td>
                         </tr>
                     </table>
                  </td>
 <?php
-        } else {
-?>
-                <td align="center" title="Fournisseur : <?php echo $o_fournisseur['nom']; ?>"> </td>
-<?php
-        }
     }
 ?>
                 <!-- TVA -->
@@ -130,9 +166,9 @@ $i_idArticleCampagne = $o_descriptionArticle['id'];
 ?>
                 </select></td>
                 <!-- Prix TTC choisi par l'échoppe rapporté au colis du fournisseur vendu au client -->
-                <td align="center" title="Prix TTC choisi par l'échoppe rapporté au colis du fournisseur vendu au client"><input class="input_quantite" type="text" name="prix_ttc_echoppe[]" value="<?php echo $o_descriptionArticle['prix_ttc'] ?>"/>&nbsp;&euro;</td>
+                <td align="center" title="Prix TTC choisi par l'échoppe rapporté au colis du fournisseur vendu au client"><input class="input_quantite" type="text" name="prix_ttc_echoppe[]" value="<?php echo $o_descriptionArticle['prix_echoppe'] ?>"/>&nbsp;&euro;</td>
                 <!-- Prix TTC rapporté à l'unité echoppe -->
-                <td align="center" title="Prix TTC rapporté à l'unité echoppe"><?php echo $o_descriptionArticle['prix_echoppe_ttc_unite'] ?>&nbsp;&euro;/<?php echo $o_descriptionArticle['unite'] ?></td>
+                <td align="center" title="Prix TTC rapporté à l'unité echoppe"><?php echo $o_descriptionArticle['prix_echoppe_unite'] ?>&nbsp;&euro;/<?php echo $o_descriptionArticle['valeur_unite_choisi'] ?></td>
           </tr>
 <?php
 }

@@ -4,9 +4,9 @@ class ArticleFournisseur {
 
     /* Creaters */
 
-    public static function create($i_idArticle, $i_idFournisseur, $f_prixHt, $f_prixTtc, $s_code, $b_prix_ttc_ht, $b_vente_paquet_client) {
-        $sql_query = "insert into article_fournisseur(id_article, id_fournisseur, prix_ht, prix_ttc, code, prix_ttc_ht, vente_paquet_client)
-            values('$i_idArticle', '$i_idFournisseur', '$f_prixHt', '$f_prixTtc', '$s_code', '$b_prix_ttc_ht, $b_vente_paquet_client)";
+    public static function create($i_idArticleCampagne, $i_idFournisseur, $f_prixHt, $f_prixTtc, $s_code, $b_prix_ttc_ht, $b_vente_paquet_client) {
+        $sql_query = "insert into article_fournisseur(id_article_campagne, id_fournisseur, prix_ht, prix_ttc, code, prix_ttc_ht, vente_paquet_client)
+            values('$i_idArticleCampagne', '$i_idFournisseur', '$f_prixHt', '$f_prixTtc', '$s_code', '$b_prix_ttc_ht, $b_vente_paquet_client)";
         mysql_query($sql_query);
         $i_result = mysql_insert_id();
         return $i_result;
@@ -34,8 +34,8 @@ class ArticleFournisseur {
         return $to_result;
     }
 
-    public static function getObjectsByIdArticle($i_idArticle) {
-        $sql_query = "select * from article_fournisseur where id_article=$i_idArticle";
+    public static function getObjectsByIdArticleCampagne($i_idArticleCampagne) {
+        $sql_query = "select * from article_fournisseur where id_article_campagne=$i_idArticleCampagne";
         $sql_tmp = mysql_query($sql_query);
         $to_result = array();
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
@@ -116,6 +116,24 @@ class ArticleFournisseur {
         return $to_result;
     }
 
+    public static function getObjectByIdArticleCampagneIdFournisseur($i_idArticleCampagne,$i_idFournisseur) {
+        $sql_query = "select * from article_fournisseur where id_article_campagne=$i_idArticleCampagne and id_fournisseur=$i_idFournisseur";
+        $sql_tmp = mysql_query($sql_query);
+        $o_result = null;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Formattage des nombres */
+            $o_row['prix_ht']  = number_format($o_row['prix_ht'],  2, '.', ' ');
+            $o_row['prix_ttc'] = number_format($o_row['prix_ttc'], 2, '.', ' ');
+            /* Sécurité */
+            foreach ($o_row as &$column) {
+                $column = htmlentities($column);
+            }
+            /* Création du résultat */
+            $o_result = $o_row;
+        }
+        return $o_result;
+    }
+
     public static function getObject($i_id) {
         $sql_query = "select * from article_fournisseur where id=$i_id";
         $sql_tmp = mysql_query($sql_query);
@@ -134,13 +152,13 @@ class ArticleFournisseur {
         return $o_result;
     }
 
-    public static function getIdArticle($i_id) {
-        $sql_query = "select id_article from article_fournisseur where id=$i_id";
+    public static function getIdArticleCampagne($i_id) {
+        $sql_query = "select id_article_campagne from article_fournisseur where id=$i_id";
         $sql_tmp = mysql_query($sql_query);
         $i_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $i_result = htmlentities($o_row['id_article']);
+            $i_result = htmlentities($o_row['id_article_campagne']);
         }
         return $i_result;
     }
@@ -169,8 +187,8 @@ class ArticleFournisseur {
         return $i_result;
     }
 
-    public static function getPrixTtcByIdArticleIdFournisseur($i_idArticle, $i_idFournisseur) {
-        $sql_query = "select prix_ttc from article_fournisseur where id_article=$i_idArticle and id_fournisseur=$i_idFournisseur ";
+    public static function getPrixTtcByIdArticleCampagneIdFournisseur($i_idArticleCampagne, $i_idFournisseur) {
+        $sql_query = "select prix_ttc from article_fournisseur where id_article_campagne=$i_idArticleCampagne and id_fournisseur=$i_idFournisseur ";
         $sql_tmp = mysql_query($sql_query);
         $i_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
@@ -194,7 +212,6 @@ class ArticleFournisseur {
         }
         return $i_result;
     }
-
 
     public static function getCode($i_id) {
         $sql_query = "select code from article_fournisseur where id=$i_id";
@@ -231,15 +248,15 @@ class ArticleFournisseur {
 
     /* Setters */
 
-    public static function set($i_id, $i_idArticle, $i_idFournisseur, $f_prixHt, $f_prixTtc, $b_prixTtcHt, $b_ventePaquetUnite) {
-        $sql_query = "update article_fournisseur set id_article='$i_idArticle', id_fournisseur='$i_idFournisseur', prix_ht='$f_prixHt', prix_ttc='$f_prixTtc'
+    public static function set($i_id, $i_idArticleCampagne, $i_idFournisseur, $f_prixHt, $f_prixTtc, $b_prixTtcHt, $b_ventePaquetUnite) {
+        $sql_query = "update article_fournisseur set id_article_campagne='$i_idArticleCampagne', id_fournisseur='$i_idFournisseur', prix_ht='$f_prixHt', prix_ttc='$f_prixTtc'
             where id=$i_id";
         $b_result =  mysql_query($sql_query);
         return $b_result;
     }
 
-    public static function setIdArticle($i_id, $i_idArticle) {
-        $sql_query = "update article_fournisseur set id_article='$i_idArticle' 
+    public static function setIdArticle($i_id, $i_idArticleCampagne) {
+        $sql_query = "update article_fournisseur set id_article_campagne='$i_idArticleCampagne' 
             where id=$i_id";
         $b_result =  mysql_query($sql_query);
         return $b_result;
@@ -252,14 +269,14 @@ class ArticleFournisseur {
         return $b_result;
     }
 
-    public static function setPrixHt($i_id, $i_idArticle) {
+    public static function setPrixHt($i_id, $f_prixHt) {
         $sql_query = "update article_fournisseur set prix_ht='$f_prixHt'
             where id=$i_id";
         $b_result =  mysql_query($sql_query);
         return $b_result;
     }
 
-    public static function setPrixTtc($i_id, $i_idArticle) {
+    public static function setPrixTtc($i_id, $f_prixTtc) {
         $sql_query = "update article_fournisseur set prix_ttc='$f_prixTtc'
             where id=$i_id";
         $b_result =  mysql_query($sql_query);

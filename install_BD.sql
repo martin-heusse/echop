@@ -31,6 +31,13 @@ CREATE TABLE campagne (
     constraint pk_campagne primary key(id)
 ) ENGINE = INNODB;
 
+CREATE TABLE unite (
+    id integer not null auto_increment,
+    valeur varchar(255),
+
+    constraint pk_tva primary key(id)
+) ENGINE = INNODB;
+
 CREATE TABLE rayon (
     id integer not null auto_increment,
     nom varchar(255),
@@ -39,18 +46,25 @@ CREATE TABLE rayon (
     constraint pk_rayon primary key(id)
 ) ENGINE = INNODB;
 
-CREATE TABLE unite (
-    id integer not null auto_increment,
-    valeur varchar(255),
-
-    constraint pk_tva primary key(id)
-) ENGINE = INNODB;
-
 CREATE TABLE categorie (
     id integer not null auto_increment,
     nom varchar(255),
 
     constraint pk_categorie primary key(id)
+) ENGINE = INNODB;
+
+CREATE TABLE fournisseur (
+    id integer not null auto_increment,
+    nom varchar(255),
+
+    constraint pk_fournisseur primary key(id)
+) ENGINE = INNODB;
+
+CREATE TABLE tva (
+    id integer not null auto_increment,
+    valeur decimal(6,3),
+
+    constraint pk_tva primary key(id)
 ) ENGINE = INNODB;
 
 CREATE TABLE article (
@@ -76,18 +90,30 @@ CREATE TABLE article (
     references categorie(id) on delete cascade
 ) ENGINE = INNODB;
 
-CREATE TABLE fournisseur (
+CREATE TABLE article_campagne (
     id integer not null auto_increment,
-    nom varchar(255),
+    id_article integer not null,
+    id_campagne integer not null,
+    id_fournisseur integer,
+    id_tva integer not null,
+    poids_paquet_client decimal(6,3),
+    seuil_min integer,
+    prix_ttc decimal(6,3),
+    en_vente boolean,
 
-    constraint pk_fournisseur primary key(id)
-) ENGINE = INNODB;
+    constraint pk_article_campagne primary key(id),
 
-CREATE TABLE tva (
-    id integer not null auto_increment,
-    valeur decimal(6,3),
+    constraint fk_article_campagne_1 foreign key(id_article) 
+    references article(id) on delete cascade,
 
-    constraint pk_tva primary key(id)
+    constraint fk_article_campagne_2 foreign key(id_campagne) 
+    references campagne(id) on delete cascade,
+
+    constraint fk_article_campagne_3 foreign key(id_tva) 
+    references tva(id) on delete cascade,
+
+    constraint fk_article_campagne_4 foreign key(id_fournisseur) 
+    references fournisseur(id) on delete cascade
 ) ENGINE = INNODB;
 
 CREATE TABLE article_fournisseur (
@@ -108,33 +134,6 @@ CREATE TABLE article_fournisseur (
     constraint fk_article_fournisseur_2 foreign key(id_fournisseur) 
     references fournisseur(id) on delete cascade
 ) ENGINE = INNODB;
-
-CREATE TABLE article_campagne (
-    id integer not null auto_increment,
-    id_article integer not null,
-    id_campagne integer not null,
-    id_fournisseur integer,
-    id_tva integer not null,
-    poids_paquet_client decimal(6,3),
-    seuil_min decimal(6,3),
-    prix_ttc decimal(6,3),
-    en_vente boolean,
-
-    constraint pk_article_campagne primary key(id),
-
-    constraint fk_article_campagne_1 foreign key(id_article) 
-    references article(id) on delete cascade,
-
-    constraint fk_article_campagne_2 foreign key(id_campagne) 
-    references campagne(id) on delete cascade,
-
-    constraint fk_article_campagne_3 foreign key(id_tva) 
-    references tva(id) on delete cascade,
-
-    constraint fk_article_campagne_4 foreign key(id_fournisseur) 
-    references fournisseur(id) on delete cascade
-) ENGINE = INNODB;
-
 
 CREATE TABLE commande (
     id integer not null auto_increment,
