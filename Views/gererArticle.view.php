@@ -20,11 +20,11 @@ if(isset($i_erreur)){
 <?php
 foreach($to_rayon as $o_rayon){
 ?>
-    <a <?php if($o_rayon['id']==$i_idRayon){ echo "style=\"background-color: grey;\"";} ?> href="<?php echo root; ?>/article.php/afficherArticle?i_idRayon=<?php echo $o_rayon['id']; ?>"><?php echo $o_rayon['nom']; ?></a>
+    <a <?php if($o_rayon['id']==$i_idRayon){ echo "style=\"background-color: grey;\"";} ?> href="<?php echo root; ?>/article.php/afficherArticle?i_idRayon=<?php echo $o_rayon['id']; ?>"><?php echo $o_rayon['nom']; ?></a>&nbsp;
 <?php
 }
 ?>
-
+    <hr>
 <?php
 if(isset($s_message)){
 ?>
@@ -92,8 +92,8 @@ $i_idArticleCampagne = $o_descriptionArticle['id_article_campagne'];
                 <!-- Mettre en vente -->
                 <td align="center">
                     <select name="en_vente[]">
-                        <option value="vrai" <?php if($o_descriptionArticle['en_vente'] == '1'){echo 'selected="true"';}?>>En vente</option>
-                        <option value="faux" <?php if($o_descriptionArticle['en_vente'] == '0'){echo 'selected="true"';}?>>Pas en vente</option>
+                        <option value="1" <?php if($o_descriptionArticle['en_vente'] == '1'){echo 'selected="true"';}?>>En vente</option>
+                        <option value="0" <?php if($o_descriptionArticle['en_vente'] == '0'){echo 'selected="true"';}?>>Pas en vente</option>
                     </select>
                 </td>
                 <!-- Nom du produit -->
@@ -129,6 +129,9 @@ $i_idArticleCampagne = $o_descriptionArticle['id_article_campagne'];
    $i_idFournisseurChoisi = $o_descriptionArticle['id_fournisseur_choisi'];
     foreach($to_fournisseur as $o_fournisseur){
         $i_idFournisseur = $o_fournisseur['id_fournisseur'];
+        $f_prixFournisseur = $o_descriptionArticle[$i_idFournisseur]['prix_fournisseur'];
+        $b_prixTtcHt = $o_descriptionArticle[$i_idFournisseur]['prix_ttc_ht'];
+        $b_ventePaquetUnite = $o_descriptionArticle[$i_idFournisseur]['vente_paquet_unite'];
 ?>
                 <td title="Fournisseur : <?php echo $o_fournisseur['nom_fournisseur']; ?>">
                     <table style="width:100%; font-size:9px;">
@@ -140,9 +143,19 @@ $i_idArticleCampagne = $o_descriptionArticle['id_article_campagne'];
                             <td><?php echo $o_descriptionArticle[$i_idFournisseur]['code'] ?></td>
                             <td>
                                 <!-- montant -->
-                                montant : <?php echo $o_descriptionArticle[$i_idFournisseur]['prix_fournisseur'] ?>&nbsp;&euro;<br />
+                                montant : <?php echo $f_prixFournisseur; ?>&nbsp;&euro;
+                                <br />
                                 <!-- ht ou ttc -->
+                                <select name="prix_ttc_ht[<?php echo $i_idArticleCampagne ?>][<?php echo $i_idFournisseur ?>]">
+                                    <option value="1" <?php if($b_prixTtcHt == '1'){echo 'selected="true"';} ?>>TTC</option>
+                                    <option value="0" <?php if($b_prixTtcHt == '0'){echo 'selected="true"';} ?>>HT</option>
+                                </select>
+                                <br />
                                 <!-- unite ou paquet -->
+                                <select name="vente_paquet_unite[<?php echo $i_idArticleCampagne ?>][<?php echo $i_idFournisseur ?>]">
+                                    <option value="1" <?php if($b_ventePaquetUnite == '1'){echo 'selected="true"';} ?>>paquet</option>
+                                    <option value="0" <?php if($b_ventePaquetUnite == '0'){echo 'selected="true"';} ?>><?php echo $o_descriptionArticle['valeur_unite_choisi'] ?></option>
+                                </select>
                             </td>
                             <td><?php echo $o_descriptionArticle[$i_idFournisseur]['prix_fournisseur'] ?>&nbsp;&euro;</td>
                             <td><input type="radio" name="id_fournisseur_choisi[<?php echo $i_idArticleCampagne ?>]" value="<?php echo $i_idFournisseur ?>"  <?php if($i_idFournisseur==$i_idFournisseurChoisi){echo 'checked="true"';} ?>></td>
