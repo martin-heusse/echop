@@ -93,10 +93,11 @@ class CampagneController extends Controller {
         $s_subject = "[L'Échoppe d'ici et d'ailleurs] Campagne ouverte";
         $s_message = "Une campagne vient d'être ouverte, venez sur le site pour effectuer vos achats" ;
         foreach($to_utilisateur as $o_utilisateur) {
-            $s_destinataire = $o_utilisateur['email'];
+            if($o_utilisateur['validite'] == 1 ) {
+                $s_destinataire = $o_utilisateur['email'];
             Util::sendEmail($s_destinataire, $s_subject, $s_message);   
         }
-
+        }
         /* Réaffection des articles de la campagne précédente  */
         foreach ($to_article as $o_article) {
             $i_idArticle = $o_article['id_article'];

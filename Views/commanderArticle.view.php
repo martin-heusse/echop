@@ -62,7 +62,9 @@ if ($to_commande != null and $to_commande != array()) {
 <?php 
         $i_numLigne = 0;
         foreach($to_commande as $o_produit) {
-            if($o_produit['id_rayon']==$i_idRayon){	?>
+            foreach ($to_categorie as $o_categorie) {
+        /*Afficher la catégorie TODO*/
+        if($o_produit['id_rayon']==$i_idRayon && $o_produit['categorie'] == $o_categorie['nom'] && $o_produit['en_vente'] == 1){	?>
             <tr class="ligne_article<?php echo $i_numLigne ?>">
             <td><?php echo $o_produit['nom'] ?></td>
             <td title="<?php echo $o_produit['description_longue'] ?>"><?php echo $o_produit['description_courte'] ?></td>
@@ -101,6 +103,7 @@ if ($to_commande != null and $to_commande != array()) {
             </tr>
 <?php
             $i_numLigne = ($i_numLigne + 1) % 2;
+            }
             }
         }
 ?>  

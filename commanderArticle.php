@@ -6,6 +6,7 @@ require_once('Model/Administrateur.php');
 require_once('Model/Utilisateur.php');
 require_once('Model/Article.php');
 require_once('Model/Unite.php');
+require_once('Model/Categorie.php');
 require_once('Model/ArticleCampagne.php');
 require_once('Model/Rayon.php');
 require_once('Model/Fournisseur.php');
@@ -59,6 +60,8 @@ class CommanderArticleController extends Controller {
             return;
         }
         $i_idRayon = $_GET['idRayon'];
+        /* Récupération des catégories */
+        $to_categorie = Categorie::getAllObjects();
         $to_commande = ArticleCampagne::getObjectsByIdCampagne($i_idCampagne);
         /* Montant total */
         $f_montantTotal = 0;
@@ -77,6 +80,8 @@ class CommanderArticleController extends Controller {
                 $o_article['nb_paquet_colis'] = Article::getNbPaquetColis($i_idArticle);
                 $o_article['description_courte'] = Article::getDescriptionCourte($i_idArticle);
                 $o_article['description_longue'] = Article::getDescriptionLongue($i_idArticle);
+                $i_idCategorie = Article::getIdCategorie($i_idArticle);
+                $o_article['categorie'] = Categorie::getNom($i_idCategorie);
                 /* Quantité */
                 $i_idCommande = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
                 $o_article['quantite'] = Commande::getQuantite($i_idCommande); 
@@ -96,7 +101,7 @@ class CommanderArticleController extends Controller {
                 $f_montantTotal = number_format($f_montantTotal, 2, '.', ' ');
             }
         }
-        $this->render('commanderArticle', compact('to_commande', 'b_etat', 'f_montantTotal', 'to_rayon', 'i_idRayon'));
+        $this->render('commanderArticle', compact('to_commande', 'b_etat', 'f_montantTotal', 'to_rayon', 'i_idRayon', 'to_categorie'));
     }
 
     /*
