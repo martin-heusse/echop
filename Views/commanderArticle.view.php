@@ -64,10 +64,9 @@ if ($to_commande != null and $to_commande != array()) {
         foreach($to_commande as $o_produit) { echo 'premiere boucle';
             foreach ($to_categorie as $o_categorie) { echo 'deuxième boucle';
         /*Afficher la catégorie TODO*/
-        echo '1';
-        echo $o_produit['categorie'];
-        echo '2';
-        echo $o_categorie['nom'];
+?>
+    <td> <?php echo $o_categorie['nom']?> </td>
+<?php
         if($o_produit['id_rayon']==$i_idRayon && $o_produit['categorie'] == $o_categorie['nom'] && $o_produit['en_vente'] == 1){ echo 'dans produit';	?>
             <tr class="ligne_article<?php echo $i_numLigne ?>">
             <td><?php echo $o_produit['nom'] ?></td>
