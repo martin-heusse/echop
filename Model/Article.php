@@ -117,7 +117,7 @@ class Article {
         $i_result = 0;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $i_result = htmlentities($o_row['id_rayon']);
+            $i_result = htmlentities($o_row['id_categorie']);
         }
         return $i_result;
     }
