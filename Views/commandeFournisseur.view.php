@@ -1,4 +1,20 @@
-<p><a class="action_navigation" href="<?php echo root ?>/fournisseur.php/fournisseursChoisis">Retour aux commandes par fournisseur</a></p>
+<p><a class="action_navigation" href="<?php echo root ?>/fournisseur.php/fournisseursChoisis
+<?php
+/* Si navigation dans l'historique */
+if ($b_historique == 1) {
+    echo "?idOldCampagne=".$i_idCampagne;
+}
+?>
+">Retour aux commandes par fournisseur</a></p>
+
+<?php
+/* Si navigation dans l'historique */
+if ($b_historique == 1) {
+?>
+    <span class="historique">[Historique de la campagne n°<?php echo $i_idCampagne ?>]</span>
+<?php
+}
+?>
 
 <h1>Commande fournisseur</h1>
 <?php
@@ -26,7 +42,7 @@ foreach ($to_article as $o_article) {
 }
 } else {
 ?>
-Aucun produit n'a été commandé pour ce fournisseur.
+<p>Aucun produit n'a été commandé pour ce fournisseur.</p>
 <?php
 }
 ?>

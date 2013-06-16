@@ -14,24 +14,12 @@ body {
     margin-bottom: 0px;
     padding: 0px;
     font-family: arial;
-    -webkit-box-shadow: 0px 0px 10px 0px #000000;
-    -moz-box-shadow: 0px 0px 10px 0px #000000;
-    box-shadow: 0px 0px 10px 0px #000000;
 }
 
 /* ========================================================================== */
 /* Général */
-/*
-a {
-    color: #444444;
-    text-decoration: underline;
-}
 
-a:hover {
-    color: #aaaaaa;
-    text-decoration: underline;
-}
-*/
+
 /* ========================================================================== */
 /* Header */
 
@@ -214,6 +202,14 @@ form .input_valider {
     font-weight: bold;
     font-size: 20px;
     margin-bottom: 30px;
+}
+
+/* ========================================================================== */
+/* Historique */
+
+.historique {
+    font-weight: bold;
+    color: red;
 }
 
 /* ========================================================================== */

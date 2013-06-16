@@ -1,4 +1,20 @@
-<p><a class="action_navigation" href="<?php echo root ?>/articlesCommandEs.php/articlesCommandEs">Retour aux articles commandés</a></p>
+<p><a class="action_navigation" href="<?php echo root ?>/articlesCommandEs.php/articlesCommandEs
+<?php
+/* Si navigation dans l'historique */
+if ($b_historique == 1) {
+    echo "?idOldCampagne=".$i_idCampagne;
+}
+?>
+">Retour aux articles commandés</a></p>
+
+<?php
+/* Si navigation dans l'historique */
+if ($b_historique == 1) {
+?>
+    <span class="historique">[Historique de la campagne n°<?php echo $i_idCampagne ?>]</span>
+<?php
+}
+?>
 
 <h1>Utilisateurs ayant commandé cet article</h1>
 
@@ -22,7 +38,14 @@ Cliquez sur un nom pour voir ses commandes.</p>
     foreach ($to_utilisateur as $o_utilisateur) {
 ?>
     <tr class="ligne_article<?php echo $i_numLigne ?>">
-        <td><a href="<?php echo root ?>/articlesCommandEs.php/commandeUtilisateurPourCetArticle?idArticle=<?php echo $i_idArticle ?>&idUtilisateur=<?php echo $o_utilisateur['id']?>"><?php echo $o_utilisateur['login'] ?></a></td>
+        <td><a href="<?php echo root ?>/articlesCommandEs.php/commandeUtilisateurPourCetArticle?idArticle=<?php echo $i_idArticle ?>&idUtilisateur=<?php echo $o_utilisateur['id']?>
+<?php
+/* Si navigation dans l'historique */
+if ($b_historique == 1) {
+    echo "&idOldCampagne=".$i_idCampagne;
+}
+?>
+"><?php echo $o_utilisateur['login'] ?></a></td>
         <td class="centrer"><?php echo $o_utilisateur['quantite'].$s_unite ?></td>
     </tr>
 <?php

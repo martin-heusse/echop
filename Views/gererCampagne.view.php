@@ -46,28 +46,34 @@ if ($o_campagne['etat'] == 1) {
 <h2>Campagnes précédentes</h2>
 
 <?php
-foreach ($to_oldCampagne as $o_oldCampagne) {
+if ($to_oldCampagne == null or $to_oldCampagne == array()) {
+?>
+    <p>Il n'y a aucun campagne archivée.</p>
+<?php
+} else {
+    foreach ($to_oldCampagne as $o_oldCampagne) {
 ?>
 <h3><span>Campagne n° </span><?php echo $o_oldCampagne['id'] ?></h3>
 <p><span>Début : </span><?php echo $o_oldCampagne['date_debut'] ?><br/>
 <span>État : </span>
 <?php
-    /* Etat ouverte ou fermée */
-    if ($o_oldCampagne['etat'] == 1) {
+        /* Etat ouverte ou fermée */
+        if ($o_oldCampagne['etat'] == 1) {
 ?>
     <span class="campagne_ouverte">ouverte</span><br/>
 <?php
-    } else {
+        } else {
 ?>
     <span class="campagne_fermee">fermée</span><br/>
 <?php
-    }
+        }
 ?>
-    <a href="<?php echo root ?>/commande.php/utilisateurAyantCommandE?idOldCampagne=<?php echo $o_oldCampagne['id'] ?>">Utilisateurs ayant commandés</a> |
-    <a href="<?php echo root ?>/commande.php/articlesCommandEs?idOldCampagne=<?php echo $o_oldCampagne['id'] ?>">Articles commandés</a> |
+    <a href="<?php echo root ?>/utilisateurAyantCommandE.php/utilisateurAyantCommandE?idOldCampagne=<?php echo $o_oldCampagne['id'] ?>">Utilisateurs ayant commandés</a> |
+    <a href="<?php echo root ?>/articlesCommandEs.php/articlesCommandEs?idOldCampagne=<?php echo $o_oldCampagne['id'] ?>">Articles commandés</a> |
     <a href="<?php echo root ?>/fournisseur.php/fournisseursChoisis?idOldCampagne=<?php echo $o_oldCampagne['id'] ?>">Fournisseurs choisis</a> |
     <a href="<?php echo root ?>/article.php/afficherArticle?idOldCampagne=<?php echo $o_oldCampagne['id'] ?>">Gérer les articles</a>
 </p>
 <?php
+    }
 }
 ?>
