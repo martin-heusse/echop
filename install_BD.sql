@@ -2,20 +2,6 @@ DROP DATABASE IF EXISTS BdEchoppe;
 CREATE DATABASE IF NOT EXISTS BdEchoppe DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 use BdEchoppe;
 
-DROP TABLE IF EXISTS utilisateur;
-DROP TABLE IF EXISTS administrateur;
-DROP TABLE IF EXISTS campagne;
-DROP TABLE IF EXISTS rayon;
-DROP TABLE IF EXISTS unite;
-DROP TABLE IF EXISTS categorie;
-DROP TABLE IF EXISTS article;
-DROP TABLE IF EXISTS fournisseur;
-DROP TABLE IF EXISTS tva;
-DROP TABLE IF EXISTS article_fournisseur;
-DROP TABLE IF EXISTS article_campagne;
-DROP TABLE IF EXISTS campagne_rayon;
-DROP TABLE IF EXISTS commande;
-
 CREATE TABLE utilisateur (
     id integer not null auto_increment,
     login varchar(255),
@@ -106,7 +92,7 @@ CREATE TABLE tva (
 
 CREATE TABLE article_fournisseur (
     id integer not null auto_increment,
-    id_article integer not null,
+    id_article_campagne integer not null,
     id_fournisseur integer not null,
     prix_ht decimal(6,3),
     prix_ttc decimal(6,3),
@@ -116,8 +102,8 @@ CREATE TABLE article_fournisseur (
 
     constraint pk_article_fournisseur primary key(id),
 
-    constraint fk_article_fournisseur_1 foreign key(id_article)
-    references article(id) on delete cascade,
+    constraint fk_article_fournisseur_1 foreign key(id_article_campagne)
+    references article_campagne(id) on delete cascade,
 
     constraint fk_article_fournisseur_2 foreign key(id_fournisseur) 
     references fournisseur(id) on delete cascade
@@ -149,19 +135,6 @@ CREATE TABLE article_campagne (
     references fournisseur(id) on delete cascade
 ) ENGINE = INNODB;
 
-CREATE TABLE campagne_rayon (
-    id integer not null auto_increment,
-    id_campagne integer not null,
-    id_rayon integer not null,
-
-    constraint pk_campagne_rayon primary key(id),
-
-    constraint fk_campagne_rayon_1 foreign key(id_campagne) 
-    references campagne(id) on delete cascade,
-
-    constraint fk_campagne_rayon_2 foreign key(id_rayon) 
-    references rayon(id) on delete cascade
-) ENGINE = INNODB;
 
 CREATE TABLE commande (
     id integer not null auto_increment,
