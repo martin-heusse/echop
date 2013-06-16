@@ -49,7 +49,7 @@ insert into tva(valeur) values(5.50);
 
 -- CREATION DES ARTICLES
 insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1,1, 'Riz long 1/2 complet', 5, 1, 1, 'Riz de camargue', 'markal');
+    values(1,2, 'Riz long 1/2 complet', 5, 1, 1, 'Riz de camargue', 'markal');
 insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
     values(1,1, 'Riz long 1/2 complet', 25, 1, 1, 'Riz de camargue', 'markal');
 insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)

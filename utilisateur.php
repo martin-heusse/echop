@@ -138,9 +138,12 @@ class UtilisateurController extends Controller {
             $i_emailSent = 1;
             $s_subject = "[L'Échoppe d'ici et d'ailleurs] ".htmlentities($_POST['subject']);
             $s_message = htmlentities($_POST['message']); 
-            $ts_email = Utilisateur::getAllEmail();
-            foreach ($ts_email as $s_destinataire) {
-                Util::sendEmail($s_destinataire, $s_subject, $s_message);
+            $to_utilisateur = Utilisateur::getAllObjects();
+            foreach ($to_utilisateur as $o_destinataire) {
+                if($o_destinataire['validite'] == 1){
+                    $s_destinataire = $o_destinataire['email'];    
+                    Util::sendEmail($s_destinataire, $s_subject, $s_message);
+                }
             }
         }
         $this->render('envoiMail' ,compact('i_emailSent'));

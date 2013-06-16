@@ -61,8 +61,13 @@ if ($to_commande != null and $to_commande != array()) {
         </tr>
 <?php 
         $i_numLigne = 0;
-        foreach($to_commande as $o_produit) {
-            if($o_produit['id_rayon']==$i_idRayon){	?>
+        foreach ($to_categorie as $o_categorie) {
+?>
+    <td class="erreur"> <?php echo $o_categorie['nom']?> </td>
+<?php
+            foreach($to_commande as $o_produit) {
+                /*Afficher la catégorie TODO*/
+                if($o_produit['id_rayon']==$i_idRayon && $o_produit['categorie'] == $o_categorie['nom'] && $o_produit['en_vente'] == 1){ 	?>
             <tr class="ligne_article<?php echo $i_numLigne ?>">
             <td><?php echo $o_produit['nom'] ?></td>
             <td title="<?php echo $o_produit['description_longue'] ?>"><?php echo $o_produit['description_courte'] ?></td>
@@ -77,30 +82,31 @@ if ($to_commande != null and $to_commande != array()) {
             <td class="centrer"><?php echo $o_produit['poids_paquet_client'] ?><?php echo $o_produit['unite'] ?></td>
             <td class="centrer"><?php echo $o_produit['seuil_min'] ?></td>
 <?php
-                /* Bloquer ou autoriser la modification de la quantité */
-                if ($b_etat == 1) {
+                    /* Bloquer ou autoriser la modification de la quantité */
+                    if ($b_etat == 1) {
 ?>
                     <td><input class="input_quantite" type="text" name="quantite[<?php echo $o_produit['id_article']?>]" value="<?php echo $o_produit['quantite'] ?>"/></td>
 <?php
-                } else {
+                    } else {
 ?>
                     <td class="centrer"><?php echo $o_produit['quantite'] ?></td>
 <?php
-                }
+                    }
 ?>
             <td class="centrer col_coloree"><?php echo $o_produit['quantite_totale'] ?><?php echo $o_produit['unite'] ?></td>
             <td class="centrer col_coloree"><?php echo $o_produit['total_ttc'] ?>&euro;</td>
 <?php
-            /* Affiche ou non le lien de suppression */
-            if ($b_etat == 1) {
+                /* Affiche ou non le lien de suppression */
+                if ($b_etat == 1) {
 ?>
                     <td class="centrer"><a href="<?php echo root ?>/commanderArticle.php/commanderArticleSupprimer?id_article=<?php echo $o_produit['id_article']?>&idRayon=<?php echo $i_idRayon?>">supprimer l'article</a>
 <?php
-            }
+                }
 ?>
             </tr>
 <?php
-            $i_numLigne = ($i_numLigne + 1) % 2;
+                $i_numLigne = ($i_numLigne + 1) % 2;
+                }
             }
         }
 ?>  
