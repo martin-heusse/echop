@@ -82,10 +82,6 @@ class CommanderArticleController extends Controller {
                 $o_article['description_longue'] = Article::getDescriptionLongue($i_idArticle);
                 $i_idCategorie = Article::getIdCategorie($i_idArticle);
                 $o_article['categorie'] = Categorie::getNom($i_idCategorie);
-                echo 'dans contreol';
-                echo $i_idCategorie;
-                echo 'ty';
-                echo $o_article['categorie'];
                 /* Quantité */
                 $i_idCommande = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
                 $o_article['quantite'] = Commande::getQuantite($i_idCommande); 
