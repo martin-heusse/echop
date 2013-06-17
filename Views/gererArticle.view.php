@@ -99,11 +99,11 @@ $i_idArticleCampagne = $o_descriptionArticle['id_article_campagne'];
                     </select>
                 </td>
                 <!-- Nom du produit -->
-                <td align="center" title="Produit : Le nom du produit"><?php echo $o_descriptionArticle['nom'] ?></td>
+                <td align="center" title="Produit : Le nom du produit"><input class="input_quantite" type="text" name="nom_produit[]" value="<?php echo $o_descriptionArticle['nom']?>" required /></td>
                 <!-- Description courte -->
-                <td align="center" title="Description courte : présentation brève du produit" class="input_quantite"><?php echo $o_descriptionArticle['description_courte'] ?></td>
+                <td align="center" title="Description courte : présentation brève du produit" ><input class="input_quantite" type="text" name="description_courte[]" value="<?php echo $o_descriptionArticle['description_courte']?>" required /></td>
                 <!--Description longue -->
-                <td align="center" title="Description longue : présentation plus détaillée du produit"><?php echo $o_descriptionArticle['description_longue'] ?></td>
+                <td align="center" title="Description longue : présentation plus détaillée du produit"><input class="input_quantite" type="text" name="description_longue[]" value="<?php echo $o_descriptionArticle['description_longue']?>" required /></td>
                 <!-- Unité -->
                 <td align="center" title="Unite" ><select name="id_unite[]">
 <?php
@@ -118,13 +118,13 @@ $i_idArticleCampagne = $o_descriptionArticle['id_article_campagne'];
 ?>
                 </select></td>
                 <!-- Nombre de paquets par colis fournisseur -->
-                <td align="center" title="Nombre de paquets par colis"><?php echo $o_descriptionArticle['nb_paquet_colis'] ?></td>
+                <td align="center" title="Nombre de paquets par colis"><input class="input_quantite" type="text" name="nb_paquet_colis[]" value="<?php echo $o_descriptionArticle['nb_paquet_colis']?>" required /></td>
                 <!-- Poids du paquet fournisseur -->
-                <td align="center" title="Poids du paquet fournisseur" ><?php echo $o_descriptionArticle['poids_paquet_fournisseur'] ?>&nbsp;<?php echo $o_descriptionArticle['valeur_unite_choisi'] ?></td>
+                <td align="center" title="Poids du paquet fournisseur" ><input class="input_quantite" type="text" name="poids_paquet_fournisseur[]" value="<?php echo $o_descriptionArticle['poids_paquet_fournisseur']?>" required />&nbsp;<?php echo $o_descriptionArticle['valeur_unite_choisi'] ?></td>
                 <!-- Poids du paquet client -->
-                <td align="center" title="Poids du paquet client"><input class="input_quantite" type="text" name="poids_paquet_client[]" value="<?php echo $o_descriptionArticle['poids_paquet_client'] ?>"/>&nbsp;<?php echo $o_descriptionArticle['valeur_unite_choisi'] ?></td>
+                <td align="center" title="Poids du paquet client"><input class="input_quantite" type="text" name="poids_paquet_client[]" value="<?php echo $o_descriptionArticle['poids_paquet_client'] ?>" required />&nbsp;<?php echo $o_descriptionArticle['valeur_unite_choisi'] ?></td>
                 <!-- Seuil min -->
-                <td align="center" title="Seuil min que peut choisir le client"><input class="input_quantite" type="text" name="seuil_min[]" value="<?php echo $o_descriptionArticle['seuil_min'] ?>"/></td>
+                <td align="center" title="Seuil min que peut choisir le client"><input class="input_quantite" type="text" name="seuil_min[]" value="<?php echo $o_descriptionArticle['seuil_min'] ?>" required /></td>
 
                 <!-- Boucle pour afficher les fournisseurs disponibles -->
 <?php

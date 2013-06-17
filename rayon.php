@@ -47,7 +47,8 @@ class RayonController extends Controller {
                 $f_marge=$f_marge/100;
                 Rayon::create($s_nomRayon, $f_marge);
                 $to_rayon = Rayon::getAllObjects();
-                $this->render('gererRayon', compact('to_rayon'));
+                $to_categorie = Categorie::getAllObjects();
+                $this->render('gererRayon', compact('to_rayon','to_categorie'));
             }
         }
         $this->render('creerRayon',compact('i_rayonSet','i_errName', 'i_errMarge'));
@@ -89,7 +90,8 @@ class RayonController extends Controller {
             } else {
                 Rayon::setNom($i_id,$s_nomRayon);
                 $to_rayon = Rayon::getAllObjects();
-                $this->render('gererRayon', compact('to_rayon'));
+                $to_categorie = Categorie::getAllObjects();
+                $this->render('gererRayon', compact('to_rayon','to_categorie'));
                 return;
             }
 
