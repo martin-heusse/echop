@@ -89,16 +89,17 @@ class CommanderArticleController extends Controller {
                 /* Valeurs calculées */
                 /* Calcul poids unitaire */
                 $o_article['prix_unitaire'] = $o_article['prix_ttc'] / $o_article['poids_paquet_fournisseur'];
-                $o_article['prix_unitaire'] = number_format($o_article['prix_unitaire'], 2, '.', ' ');
                 /* Calcul quantité totale */
                 $o_article['quantite_totale'] = $o_article['quantite'] * $o_article['poids_paquet_client'];
-                $o_article['quantite_totale'] = number_format($o_article['quantite_totale'], 2, '.', ' ');
                 /* Calcul total TTC */
                 $o_article['total_ttc'] = $o_article['quantite_totale'] * $o_article['prix_ttc'] / $o_article['poids_paquet_fournisseur'];
-                $o_article['total_ttc'] = number_format($o_article['total_ttc'], 2, '.', ' ');
                 /* Calcul du montant total */
                 $f_montantTotal += $o_article['total_ttc'];
-                $f_montantTotal = number_format($f_montantTotal, 2, '.', ' ');
+                /* Formattage des nombres */
+                $o_article['prix_unitaire'] = number_format($o_article['prix_unitaire'], 2, '.', '');
+                $o_article['quantite_totale'] = number_format($o_article['quantite_totale'], 2, '.', '');
+                $o_article['total_ttc'] = number_format($o_article['total_ttc'], 2, '.', '');
+                $f_montantTotal = number_format($f_montantTotal, 2, '.', '');
             }
         }
         $this->render('commanderArticle', compact('to_commande', 'b_etat', 'f_montantTotal', 'to_rayon', 'i_idRayon', 'to_categorie'));
@@ -144,17 +145,16 @@ class CommanderArticleController extends Controller {
                     $ti_quantite = $_POST['quantite'];
                     $i_quantite = $ti_quantite[$i_idArticle];
                     if($i_quantite != 0) {
-                        /* Vérifie si l'article dont la quantité a été modifié est déjà présent dans la commande 
-                         * sinon crée la commande */
-                        $i_idCommande = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
-                        if ($i_idCommande == 0) {
-                            Commande::create($i_idArticle, $i_idCampagne, $i_idUtilisateur, 0);
-                        }
                         $i_seuilMin = ArticleCampagne::getSeuilMinByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
                         /* Si la quantité est supérieur au seuil min et non nulle, on 
                          * actualise, sinon on ne fait rien */
                         if ($i_quantite >= $i_seuilMin) {
+                            /* Vérifie si l'article dont la quantité a été modifié est déjà présent dans la commande 
+                             * sinon crée la commande */
                             $i_idCommande = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
+                            if ($i_idCommande == 0) {
+                                Commande::create($i_idArticle, $i_idCampagne, $i_idUtilisateur, 0);
+                            }
                             Commande::setQuantite($i_idCommande, $i_quantite);
                         }
                     }	

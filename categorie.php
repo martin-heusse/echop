@@ -18,8 +18,6 @@ class CategorieController extends Controller {
      * Crée une catégorie d'articles
      */
     public function creerCategorie() {
-        $i_categorieSet = 0;
-        $i_errName = 0;
 
         /* Authentication required */
         if (!Utilisateur::isLogged()) {
@@ -33,6 +31,8 @@ class CategorieController extends Controller {
             return;
         }
 
+        $i_categorieSet = 0;
+        $i_errName = 0;
         /* Gestion des requetes */
         if (isset($_POST['nomCategorie']) && $_POST['nomCategorie'] != "") {
             $s_nomCategorie = $_POST['nomCategorie'];
@@ -58,10 +58,6 @@ class CategorieController extends Controller {
      * Modifie le om d'une catégorie existente 
      */
     public function modifierCategorie() {
-        $i_errNewName = 0;
-        $i_oldCategorieSet = 0;
-        $to_categorie = Categorie::getAllObjects();
-        $i_idCategorie = 0;
 
         /* Authentication required */
         if (!Utilisateur::isLogged()) {
@@ -75,6 +71,10 @@ class CategorieController extends Controller {
             return;
         }
 
+        $i_errNewName = 0;
+        $i_oldCategorieSet = 0;
+        $to_categorie = Categorie::getAllObjects();
+        $i_idCategorie = 0;
         /* Gestion du choix de la catégorie */
         if (isset($_GET['idCategorie']) && $_GET['idCategorie'] != "") {
             $i_oldCategorieSet = 1;

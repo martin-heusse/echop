@@ -100,13 +100,12 @@ class FournisseurController extends Controller {
                 $i_poidsPaquetFournisseur = Article::getPoidsPaquetFournisseur($i_idArticle);
                 $f_prixTotaleArticle = $i_quantiteTotaleArticleReelle * $f_prixTtcArticle / $i_poidsPaquetFournisseur;
                 $f_montantTtc += $f_prixTotaleArticle;
-                /* Formattage des nombres */
-                $f_prixTotaleArticle = number_format($f_prixTotaleArticle, 2, '.', ' ');
-                $f_montantTtc = number_format($f_montantTtc, 2, '.', ' ');
             }
             $o_fournisseur['montant_total'] = $f_montantTtc;
+            /* Formattage des nombres */
             $o_fournisseur['montant_total'] = number_format($o_fournisseur['montant_total'], 2, '.', ' ');
         }
+        /* Render */
         $this->render('fournisseursChoisis', compact('to_fournisseur', 'b_historique', 'i_idCampagne'));
     }
 
@@ -174,16 +173,6 @@ class FournisseurController extends Controller {
      */
     public function gererFournisseur() {
 
-        /* Authentication required */
-        if (!Utilisateur::isLogged()) {
-            $this->render('authenticationRequired');
-            return;
-        }
-        /* Doit être un administrateur */
-        if (!$_SESSION['isAdministrateur']) {
-            $this->render('adminRequired');
-            return;
-        }
         if (isset($_POST['nom_fournisseur']) && $_POST['nom_fournisseur'] != "") {
 
             $s_nom = $_POST['nom_fournisseur'];
@@ -193,11 +182,11 @@ class FournisseurController extends Controller {
             if ($o_fournisseur == array()) {
                 Fournisseur::create($s_nom);
             }
-
+            
         }
-        $to_nom = Fournisseur::GetAllObjects();
-        $this->render('gererFournisseur', compact('to_nom'));
-        return;
+            $to_nom = Fournisseur::GetAllObjects();
+            $this->render('gererFournisseur', compact('to_nom'));
+            return;
     }
 
     /*
