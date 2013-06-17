@@ -1,6 +1,7 @@
 <?php
 require_once('def.php');
 require_once('Model/Tva.php');
+require_once('Model/Utilisateur.php');
 
 class TvaController extends COntroller {
 
