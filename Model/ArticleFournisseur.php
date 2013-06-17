@@ -26,11 +26,6 @@ class ArticleFournisseur {
             /* Création du résultat */
             $to_result[] = $o_row;
         }
-        /* Formattage des nombres */
-        foreach ($to_result as &$o_row) {
-            $o_row['prix_ht']  = number_format($o_row['prix_ht'],  2, '.', ' ');
-            $o_row['prix_ttc'] = number_format($o_row['prix_ttc'], 2, '.', ' ');
-        }
         return $to_result;
     }
 
@@ -46,12 +41,6 @@ class ArticleFournisseur {
             /* Création du résultat */
             $to_result[] = $o_row;
         }
-        /* Formattage des nombres */
-        foreach ($to_result as &$o_row) {
-            $o_row['prix_ht']  = number_format((double)$o_row['prix_ht'], 2, '.', ' ');
-            $o_row['prix_ttc'] = number_format((double)$o_row['prix_ttc'], 2, '.', ' ');
-
-        }
         return $to_result;
     }
 
@@ -66,11 +55,6 @@ class ArticleFournisseur {
             }
             /* Création du résultat */
             $to_result[] = $o_row;
-        }
-        /* Formattage des nombres */
-        foreach ($to_result as &$o_row) {
-            $o_row['prix_ht']  = number_format($o_row['prix_ht'],  2, '.', ' ');
-            $o_row['prix_ttc'] = number_format($o_row['prix_ttc'], 2, '.', ' ');
         }
         return $to_result;
     }
@@ -88,11 +72,6 @@ class ArticleFournisseur {
             /* Création du résultat */
             $to_result[] = $o_row;
         }
-        /* Formattage des nombres */
-        foreach ($to_result as &$o_row) {
-            $o_row['prix_ht']  = number_format($o_row['prix_ht'],  2, '.', ' ');
-            $o_row['prix_ttc'] = number_format($o_row['prix_ttc'], 2, '.', ' ');
-        }
         return $to_result;
     }
 
@@ -108,11 +87,6 @@ class ArticleFournisseur {
             /* Création du résultat */
             $to_result[] = $o_row;
         }
-        /* Formattage des nombres */
-        foreach ($to_result as &$o_row) {
-            $o_row['prix_ht']  = number_format($o_row['prix_ht'],  2, '.', ' ');
-            $o_row['prix_ttc'] = number_format($o_row['prix_ttc'], 2, '.', ' ');
-        }
         return $to_result;
     }
 
@@ -121,9 +95,6 @@ class ArticleFournisseur {
         $sql_tmp = mysql_query($sql_query);
         $o_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
-            /* Formattage des nombres */
-            $o_row['prix_ht']  = number_format($o_row['prix_ht'],  2, '.', ' ');
-            $o_row['prix_ttc'] = number_format($o_row['prix_ttc'], 2, '.', ' ');
             /* Sécurité */
             foreach ($o_row as &$column) {
                 $column = htmlentities($column);
@@ -139,9 +110,6 @@ class ArticleFournisseur {
         $sql_tmp = mysql_query($sql_query);
         $o_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
-            /* Formattage des nombres */
-            $o_row['prix_ht']  = number_format($o_row['prix_ht'],  2, '.', ' ');
-            $o_row['prix_ttc'] = number_format($o_row['prix_ttc'], 2, '.', ' ');
             /* Sécurité */
             foreach ($o_row as &$column) {
                 $column = htmlentities($column);
@@ -179,8 +147,6 @@ class ArticleFournisseur {
         $sql_tmp = mysql_query($sql_query);
         $i_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
-            /* Formattage des nombres */
-            $o_row['prix_ttc'] = number_format($o_row['prix_ttc'], 2, '.', ' ');
             /* Sécurité et création du résultat */
             $i_result = htmlentities($o_row['prix_ttc']);
         }
@@ -192,8 +158,6 @@ class ArticleFournisseur {
         $sql_tmp = mysql_query($sql_query);
         $i_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
-            /* Formattage des nombres */
-            $o_row['prix_ttc'] = number_format($o_row['prix_ttc'], 2, '.', ' ');
             /* Sécurité et création du résultat */
             $i_result = htmlentities($o_row['prix_ttc']);
         }
@@ -205,8 +169,6 @@ class ArticleFournisseur {
         $sql_tmp = mysql_query($sql_query);
         $i_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
-            /* Formattage des nombres */
-            $o_row['prix_ht'] = number_format($o_row['prix_ht'], 2, '.', ' ');
             /* Sécurité et création du résultat */
             $i_result = htmlentities($o_row['prix_ht']);
         }

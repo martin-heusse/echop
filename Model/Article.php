@@ -27,10 +27,6 @@ class Article {
             /* Création du résultat */
             $to_result[] = $o_row;
         }
-    /* Formattage des nombres */
-            foreach ($to_result as &$o_row) {
-            $o_row['poids_paquet_fournisseur']    = number_format($o_row['poids_paquet_fournisseur'], 2, '.', ' ');
-            }
         return $to_result;
     }
     public static function getObject($i_id) {
@@ -42,8 +38,6 @@ class Article {
             foreach ($o_row as &$column) {
                 $column = htmlentities($column);
             }
-            /* Formattage des nombres */
-            $o_row['poids_paquet_fournisseur'] = number_format($o_row['poids_paquet_fournisseur'], 2, '.', ' ');
             /* Création du résultat */
             $o_result = $o_row;
         }
@@ -62,10 +56,6 @@ class Article {
         /* Création du résultat */
         $to_result[] = $o_row;
         }
-        /* Formattage des nombres */
-        foreach ($to_result as &$o_row) {
-            $o_row['poids_paquet_fournisseur'] = number_format($o_row['poids_paquet_fournisseur'], 2, '.', ' ');
-        }
         return $to_result;
     }
 
@@ -81,10 +71,6 @@ class Article {
             }
         /* Création du résultat */
         $to_result[] = $o_row;
-        }
-        /* Formattage des nombres */
-        foreach ($to_result as &$o_row) {
-            $o_row['poids_paquet_fournisseur'] = number_format($o_row['poids_paquet_fournisseur'], 2, '.', ' ');
         }
         return $to_result;
     }
@@ -127,9 +113,6 @@ class Article {
         $sql_tmp = mysql_query($sql_query);
         $f_result = 0;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
-        /* Formattage des nombres */
-            $o_row['poids_paquet_fournisseur']    = number_format($o_row['poids_paquet_fournisseur']   , 2, '.', ' ');
-            /* Sécurité et création du résultat */
             $f_result = htmlentities($o_row['poids_paquet_fournisseur']);
         }
         return $f_result;

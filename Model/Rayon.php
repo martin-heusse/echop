@@ -25,9 +25,6 @@ class Rayon {
             /* Création du résultat */
             $to_result[] = $o_row;
         }
-        foreach ($to_result as &$o_row) {
-            $o_row['marge'] = number_format($o_row['marge'], 2, '.', ' ');
-        }
         return $to_result;
     }
 
@@ -36,8 +33,6 @@ class Rayon {
         $sql_tmp = mysql_query($sql_query);
         $o_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
-            /* Formattage des nombres */
-            $o_row['marge']    = number_format($o_row['marge']   , 2, '.', ' ');
             /* Sécurité */
             foreach ($o_row as &$column) {
                 $column = htmlentities($column);
@@ -53,8 +48,6 @@ class Rayon {
         $sql_tmp = mysql_query($sql_query);
         $o_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
-            /* Formattage des nombres */
-            $o_row['marge']    = number_format($o_row['marge']   , 2, '.', ' ');
             /* Sécurité */
             foreach ($o_row as &$column) {
                 $column = htmlentities($column);
@@ -81,8 +74,6 @@ class Rayon {
         $sql_tmp = mysql_query($sql_query);
         $f_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
-            /* Formattage des nombres */
-            $o_row['marge']    = number_format($o_row['marge']   , 2, '.', ' ');
             /* Sécurité et création du résultat */
             $f_result = htmlentities($o_row['marge']);
         }
