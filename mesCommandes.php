@@ -60,16 +60,17 @@ class MesCommandesController extends Controller {
             /* Valeurs calculées */
             /* Calcul poids unitaire */
             $o_article['prix_unitaire'] = $o_article['prix_ttc'] / $o_article['poids_paquet_fournisseur'];
-            $o_article['prix_unitaire'] = number_format($o_article['prix_unitaire'], 2, '.', ' ');
             /* Calcul quantité totale */
             $o_article['quantite_totale'] = $o_article['quantite'] * $o_article['poids_paquet_client'];
-            $o_article['quantite_totale'] = number_format($o_article['quantite_totale'], 2, '.', ' ');
             /* Calcul total TTC */
             $o_article['total_ttc'] = $o_article['quantite_totale'] * $o_article['prix_ttc'] / $o_article['poids_paquet_fournisseur'];
-            $o_article['total_ttc'] = number_format($o_article['total_ttc'], 2, '.', ' ');
             /* Calcul du montant total */
             $f_montantTotal += $o_article['total_ttc'];
-            $f_montantTotal = number_format($f_montantTotal, 2, '.', ' ');
+            /* Formattage des nombres */
+            $o_article['prix_unitaire'] = number_format($o_article['prix_unitaire'], 2, '.', '');
+            $o_article['quantite_totale'] = number_format($o_article['quantite_totale'], 2, '.', '');
+            $o_article['total_ttc'] = number_format($o_article['total_ttc'], 2, '.', '');
+            $f_montantTotal = number_format($f_montantTotal, 2, '.', '');
         }
         $this->render('mesCommandes', compact('to_commande', 'b_etat', 'f_montantTotal'));
     }
