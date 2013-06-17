@@ -144,17 +144,16 @@ class CommanderArticleController extends Controller {
                     $ti_quantite = $_POST['quantite'];
                     $i_quantite = $ti_quantite[$i_idArticle];
                     if($i_quantite != 0) {
-                        /* Vérifie si l'article dont la quantité a été modifié est déjà présent dans la commande 
-                         * sinon crée la commande */
-                        $i_idCommande = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
-                        if ($i_idCommande == 0) {
-                            Commande::create($i_idArticle, $i_idCampagne, $i_idUtilisateur, 0);
-                        }
                         $i_seuilMin = ArticleCampagne::getSeuilMinByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
                         /* Si la quantité est supérieur au seuil min et non nulle, on 
                          * actualise, sinon on ne fait rien */
                         if ($i_quantite >= $i_seuilMin) {
+                            /* Vérifie si l'article dont la quantité a été modifié est déjà présent dans la commande 
+                             * sinon crée la commande */
                             $i_idCommande = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
+                            if ($i_idCommande == 0) {
+                                Commande::create($i_idArticle, $i_idCampagne, $i_idUtilisateur, 0);
+                            }
                             Commande::setQuantite($i_idCommande, $i_quantite);
                         }
                     }	
