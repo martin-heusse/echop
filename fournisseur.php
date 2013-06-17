@@ -171,7 +171,6 @@ class FournisseurController extends Controller {
 
             /* Vérification de la pré-existence */
             $o_fournisseur = Fournisseur::getObjectByNom($s_nom);
-            var_dump($o_fournisseur);
             if ($o_fournisseur == array()) {
                 Fournisseur::create($s_nom);
             }
