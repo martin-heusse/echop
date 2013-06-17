@@ -25,10 +25,6 @@ class Tva {
             /* Création du résultat */
             $to_result[] = $o_row;
         }
-        /* Formattage des nombres */
-        foreach ($to_result as &$o_row) {
-            $o_row['valeur'] = number_format($o_row['valeur'], 2, '.', ' ');
-        }
         return $to_result;
     }
 
@@ -42,8 +38,6 @@ class Tva {
                 $column = htmlentities($column);
             }
 
-            /* Formattage des nombres */
-            $o_row['valeur'] = number_format($o_row['valeur'], 2, '.', ' ');
             /* Création du résultat */
             $o_result = $o_row;
         }
@@ -61,8 +55,6 @@ class Tva {
                 $column = htmlentities($column);
             }
 
-            /* Formattage des nombres */
-            $o_row['valeur'] = number_format($o_row['valeur'], 2, '.', ' ');
             /* Création du résultat */
             $o_result = $o_row;
         }
@@ -74,8 +66,6 @@ class Tva {
         $sql_tmp = mysql_query($sql_query);
         $f_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
-            /* Formattage des nombres */
-            $o_row['valeur'] = number_format($o_row['valeur'], 2, '.', ' ');
             /* Sécurité et création du résultat */
             $f_result = htmlentities($o_row['valeur']);
         }
