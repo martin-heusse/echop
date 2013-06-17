@@ -48,6 +48,7 @@ insert into fournisseur(nom) values('PROBA BIO');
 insert into tva(valeur) values(19.60);
 insert into tva(valeur) values(5.50);
 
+
 -- CREATION DES ARTICLES
 insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
     values(1,1, 'Riz long 1/2 complet', 5, 1, 1, 'Riz de camargue', 'markal');
@@ -313,7 +314,7 @@ insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, pri
     values(26, 5,0.98, 0.98, 'E100', true, true);
 --insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
   --  code, prix_ttc_ht, vente_paquet_unite)
-    --values(27, 5,0.93, 0.98, 'E100', false, true);
+    --values(27, 5,0.93, 0.98, 'E100', true, true);
 
 -- CREATION DES COMMANDES DES UTILISATEURS POUR UNE CAMPAGNE ET UN ARTICLE
 insert into commande(id_article, id_campagne, id_utilisateur, quantite)
