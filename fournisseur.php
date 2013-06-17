@@ -63,12 +63,19 @@ class FournisseurController extends Controller {
         } else {
             $i_idCampagne = Campagne::getIdCampagneCourante();
         }
+        /* on récupère l'ensemble des fournisseurs choisis pour la campagne 
+         * donnée */
         $to_fournisseur = ArticleCampagne::getIdFournisseurByIdCampagne($i_idCampagne);
+ //       var_dump($to_fournisseur);return;
+        /* Pour chaque fournisseur on va chercher les infos nécéssaires pour 
+         * connaitre la somme due au fournisseur */
+
         foreach ($to_fournisseur as &$o_fournisseur) {
             $i_idFournisseur = $o_fournisseur['id_fournisseur'];
             $o_fournisseur['id'] = $i_idFournisseur;
             $o_fournisseur['nom'] = Fournisseur::getNom($i_idFournisseur);
             $to_articleFournisseur = ArticleCampagne::getObjectsByIdCampagneIdFournisseur($i_idCampagne, $i_idFournisseur);
+   //         var_dump($to_articleFournisseur);return;
             $f_montantTtc = 0;
             $f_montantHt = 0;
             /* pour un fournisseur donné, on récupère tous les articles 
@@ -89,7 +96,8 @@ class FournisseurController extends Controller {
                 }
                 $i_quantiteTotaleArticleReelle = $i_quantiteTotaleArticle * $f_poidsPaquetClient;
                 /* on cherche le prix du paquet fournisseur*/
-                $f_prixTtcArticle = ArticleFournisseur::getPrixTtcByIdArticleIdFournisseur($i_idArticle, $i_idFournisseur);
+                $i_idArticleCampagne = ArticleCampagne::getIdByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+                $f_prixTtcArticle = ArticleFournisseur::getPrixTtcByIdArticleCampagneIdFournisseur($i_idArticleCampagne, $i_idFournisseur);
                 $i_poidsPaquetFournisseur = Article::getPoidsPaquetFournisseur($i_idArticle);
                 $f_prixTotaleArticle = $i_quantiteTotaleArticleReelle * $f_prixTtcArticle / $i_poidsPaquetFournisseur;
                 $f_prixTotaleArticle = number_format($f_prixTotaleArticle, 2, '.', ' ');
@@ -150,7 +158,8 @@ class FournisseurController extends Controller {
             }
             $o_article['quantite_totale'] = $i_quantiteTotale * $f_poidsPaquetClient;
             /* on cherche le prix du paquet fournisseur*/
-            $f_prixTtcArticle = ArticleFournisseur::getPrixTtcByIdArticleIdFournisseur($i_idArticle, $i_idFournisseur);
+            $i_idArticleCampagne = ArticleCampagne::getIdByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+            $f_prixTtcArticle = ArticleFournisseur::getPrixTtcByIdArticleCampagneIdFournisseur($i_idArticleCampagne, $i_idFournisseur);
             $i_poidsPaquetFournisseur = Article::getPoidsPaquetFournisseur($i_idArticle);
             $o_article['montant_total'] = $o_article['quantite_totale'] * $f_prixTtcArticle / $i_poidsPaquetFournisseur;
             $o_article['nom'] = Article::getNom($i_idArticle);
