@@ -31,8 +31,13 @@ if ($to_article == null or $to_article == array()) {
 } else {
 ?>
 <p>Liste de tous les articles commandés par les utilisateurs pendant la campagne en cours.<br/>
+<?php
+    if(Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
+?>
 Cliquez sur l'un des articles pour voir la liste de tous les utilisateurs l'ayant commandé.</p>
-
+<?php
+    }
+?>
 <table>
     <tr>
         <th>Article</th>

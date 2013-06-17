@@ -109,6 +109,25 @@ class CampagneController extends Controller {
             $b_enVente = 0;
             ArticleCampagne::create($i_idArticle, $i_idCampagneCourante, $i_idFournisseur, $i_idTva, $f_poidsPaquetClient, $i_seuilMin, $f_prixTtc, $b_enVente);
         }
+        /* Réaffecte le prix des articles des fournisseurs */
+        $ti_idOldArticleCampagne = ArticleCampagne::getIdByIdCampagne($i_idOldCampagne);
+        foreach ($ti_idOldArticleCampagne as $i_idOldArticleCampagne) {
+            $to_fournisseur = ArticleFournisseur::getObjectsByIdArticleCampagne();
+            foreach ($to_fournisseur as $o_fournisseur) {
+                /* Atribut de ArticleFournisseur */
+                $i_idFournisseur = $o_fournisseur['id_fournisseur'];
+                $f_prixHt = $o_fournisseur['prix_ht'];
+                $f_prixTtc = $o_fournisseur['prix_ttc'];
+                $s_code = $o_fournisseur['code'];
+                $b_prixTtcHt = $o_fournisseur['prix_ttc_ht'];
+                $b_ventePaquetUnite = $o_fournisseur['vente_paquet_unite'];
+                /* Récupération de l'idArticle précédemment créé */
+                $i_idArticle = ArticleCampagne::getIdArticleByIdCampagne($i_idCampagneCourante);
+                $i_idArticleCampagne = ArticleCampagne::getIdByIdArticleIdCampagne($i_idArticle, $i_idCampagneCourante);
+                /* Création */
+                ArticleFournisseur::create($i_idArticleCampagne, $i_idFournisseur, $f_prixHt, $f_prixTtc, $s_code, $b_prixTtcHt, $b_ventePaquetUnite);
+            }
+        }
         header('Location: '.root.'/campagne.php/gererCampagne');
     }
 

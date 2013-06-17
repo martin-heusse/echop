@@ -41,7 +41,7 @@ CREATE TABLE unite (
 CREATE TABLE rayon (
     id integer not null auto_increment,
     nom varchar(255),
-    marge decimal(6,3),
+    marge decimal(6,2),
 
     constraint pk_rayon primary key(id)
 ) ENGINE = INNODB;
@@ -62,7 +62,7 @@ CREATE TABLE fournisseur (
 
 CREATE TABLE tva (
     id integer not null auto_increment,
-    valeur decimal(6,3),
+    valeur decimal(6,2),
 
     constraint pk_tva primary key(id)
 ) ENGINE = INNODB;
@@ -98,7 +98,7 @@ CREATE TABLE article_campagne (
     id_tva integer not null,
     poids_paquet_client decimal(6,3),
     seuil_min integer,
-    prix_ttc decimal(6,3),
+    prix_ttc decimal(6,2),
     en_vente boolean,
 
     constraint pk_article_campagne primary key(id),
@@ -120,8 +120,8 @@ CREATE TABLE article_fournisseur (
     id integer not null auto_increment,
     id_article_campagne integer not null,
     id_fournisseur integer not null,
-    prix_ht decimal(6,3),
-    prix_ttc decimal(6,3),
+    prix_ht decimal(6,2),
+    prix_ttc decimal(6,2),
     code varchar(255),
     prix_ttc_ht boolean,
     vente_paquet_unite boolean,
