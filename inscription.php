@@ -6,6 +6,9 @@ require_once('Model/Administrateur.php');
 
 class InscriptionController extends Controller {
 
+    /*
+     * Constructeur
+     */
     public function __construct() {
         parent::__construct();
     }

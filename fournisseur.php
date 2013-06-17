@@ -145,7 +145,7 @@ class FournisseurController extends Controller {
                 $i_nbreArticle++;
                 // $i_idUtilisateur = $o_idUtilisateur['id_utilisateur'];
                 $i_id = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
-echo "coucou"; return;
+                echo "coucou"; return;
                 $i_quantite = Commande::getQuantite($i_id);
                 $i_quantiteTotale += $i_quantite;
             }
@@ -175,11 +175,11 @@ echo "coucou"; return;
             if ($o_fournisseur == array()) {
                 Fournisseur::create($s_nom);
             }
-            
+
         }
-            $to_nom = Fournisseur::GetAllObjects();
-            $this->render('gererFournisseur', compact('to_nom'));
-            return;
+        $to_nom = Fournisseur::GetAllObjects();
+        $this->render('gererFournisseur', compact('to_nom'));
+        return;
     }
 
     /*
