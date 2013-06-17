@@ -50,7 +50,7 @@ insert into tva(valeur) values(5.50);
 
 -- CREATION DES ARTICLES
 insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1,2, 'Riz long 1/2 complet', 5, 1, 1, 'Riz de camargue', 'markal');
+    values(1,1, 'Riz long 1/2 complet', 5, 1, 1, 'Riz de camargue', 'markal');
 insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
     values(1,1, 'Riz long 1/2 complet', 25, 1, 1, 'Riz de camargue', 'markal');
 insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
@@ -76,31 +76,31 @@ insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_uni
 insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
     values(1,1, 'riz basmati blanc', 25, 1, 1, 'inde', '-');
 insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1,2, 'coquillette 1/2 complete', 5, 1, 1, '-', '-');
+    values(2,2, 'coquillette 1/2 complete', 5, 1, 1, '-', '-');
 insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1,2, 'macaroni 1/2 complete', 5, 1, 1, '-', '-');
+    values(2,2, 'macaroni 1/2 complete', 5, 1, 1, '-', '-');
 insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1,2, 'nouille 1/2 complete', 5, 1, 1, '-', '-');
+    values(2,2, 'nouille 1/2 complete', 5, 1, 1, '-', '-');
 insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1,2, 'spaghettis 1/2 complete', 5, 1, 1, '-', '-');
+    values(2,2, 'spaghettis 1/2 complete', 5, 1, 1, '-', '-');
 insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1,2, 'coquillette complete', 5, 1, 1, '-', '-');
+    values(2,2, 'coquillette complete', 5, 1, 1, '-', '-');
 insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1,2, 'coquillette blanche', 5, 1, 1, '-', '-');
+    values(2,2, 'coquillette blanche', 5, 1, 1, '-', '-');
 insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1,2, 'macaroni blanche', 5, 1, 1, 'macaroni blanche', '-');
+    values(2,2, 'macaroni blanche', 5, 1, 1, 'macaroni blanche', '-');
 insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1,2, 'spaghetti blanche', 5, 1, 1, '-', '-');
+    values(2,2, 'spaghetti blanche', 5, 1, 1, '-', '-');
 insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1,2, 'spirale trois couleurs', 5, 1, 1, '-', '-');
+    values(2,2, 'spirale trois couleurs', 5, 1, 1, '-', '-');
 insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1,2, 'spaghetti quinoa persil ail', 0.5, 1, 12, '-', '-');
+    values(2,2, 'spaghetti quinoa persil ail', 0.5, 1, 12, '-', '-');
 insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1,2, 'mini crete de coq', 0.5, 1, 12, '-', '-');
+    values(2,2, 'mini crete de coq', 0.5, 1, 12, '-', '-');
 insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1,2, 'penne 1/2 complet', 0.5, 1, 12, '-', '-');
+    values(2,2, 'penne 1/2 complet', 0.5, 1, 12, '-', '-');
 insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-    values(1,2, 'Lasagnes', 0.25, 1, 12, '-', '-');
+    values(2,2, 'Lasagnes', 0.25, 1, 12, '-', '-');
 --insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
   --  values(2,3, 'Thé vert', 25, 3, 12, '-', '-');
 
