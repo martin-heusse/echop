@@ -173,6 +173,16 @@ class FournisseurController extends Controller {
      */
     public function gererFournisseur() {
 
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if (!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
         if (isset($_POST['nom_fournisseur']) && $_POST['nom_fournisseur'] != "") {
 
             $s_nom = $_POST['nom_fournisseur'];

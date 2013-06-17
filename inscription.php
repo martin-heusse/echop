@@ -14,7 +14,9 @@ class InscriptionController extends Controller {
     }
 
     public function inscription() {
-        if (Utilisateur::isLogged()) {    
+        /* L'utilisateur doit être déconnecté */
+        if (Utilisateur::isLogged()) {
+            header('Location: '.root.'/index.php');
             return;
         }
         /* Variables d'inscription */
@@ -62,6 +64,11 @@ class InscriptionController extends Controller {
      * Affiche la page d'oublie de mot de passe.
      */
     public function passOubliE() {
+        /* L'utilisateur doit être déconnecté */
+        if (Utilisateur::isLogged()) {
+            header('Location: '.root.'/index.php');
+            return;
+        }
         $b_erreurLogin = 0;
         $b_success = 0;
         if(!isset($_POST['login'])) {

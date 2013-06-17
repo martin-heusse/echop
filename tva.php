@@ -15,6 +15,16 @@ class TvaController extends COntroller {
      * Affiche et gère l'ajout de toutes les TVA
      */
     public function gererTva () {
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if(!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
 
         $f_idTva = 0;
         $i_errTVA = 0;

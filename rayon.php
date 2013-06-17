@@ -18,6 +18,11 @@ class RayonController extends Controller {
      * Affiche tous les rayons 
      */
     public function afficherRayon() {
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
         // liste des rayons (à partir de la table rayon)
         // pour afficher la liste rayons
         $to_rayon = Rayon::getAllObjects();
@@ -29,13 +34,20 @@ class RayonController extends Controller {
      * Crée un rayon 
      */
     public function creerRayon() {
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if(!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
+
         $i_rayonSet = 0;
         $i_errName = 0;
         $i_errMarge = 0;
-
-        if (!Utilisateur::isLogged()) {
-            header('Location: '.root.'/authentificationRequired');
-        }
 
         /* Gestion de la requete de création du rayon */
         if (isset($_POST['nomRayon']) && $_POST['nomRayon'] != "" && isset($_POST['marge'])) {
@@ -69,13 +81,20 @@ class RayonController extends Controller {
      * Modifie un rayon existant
      */
     public function modifierRayon() {
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if(!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
         $i_errNewName = 0;
         $i_oldRayonSet = 0;
         $to_rayon = Rayon::getAllObjects();
         $i_idRayon = 0;
-        if (!Utilisateur::isLogged()) {
-            header('Location: '.root.'/authentificationRequired');
-        }
 
         /* Gestion du choix du rayon */
         if (isset($_GET['idRayon']) && $_GET['idRayon'] != "") {

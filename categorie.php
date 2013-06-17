@@ -21,9 +21,16 @@ class CategorieController extends Controller {
         $i_categorieSet = 0;
         $i_errName = 0;
 
-        /* Vérification du login */
+        /* Authentication required */
         if (!Utilisateur::isLogged()) {
-            header('Location: '.root.'/authentificationRequired');
+            $this->render('authenticationRequired');
+            return;
+        }
+
+        /* Doit être un administrateur */
+        if(!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
         }
 
         /* Gestion des requetes */
@@ -56,9 +63,16 @@ class CategorieController extends Controller {
         $to_categorie = Categorie::getAllObjects();
         $i_idCategorie = 0;
 
-        /* Vérification du login */
+        /* Authentication required */
         if (!Utilisateur::isLogged()) {
-            header('Location: '.root.'/authentificationRequired');
+            $this->render('authenticationRequired');
+            return;
+        }
+
+        /* Doit être un administrateur */
+        if(!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
         }
 
         /* Gestion du choix de la catégorie */

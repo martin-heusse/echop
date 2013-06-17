@@ -13,7 +13,7 @@
 <?php 
         if ($i_errLogin == 1) {
 ?>
-    <p class="ereur">Login déjà existant</p>
+    <p class="erreur">Erreur: Login déjà existant</p>
 <?php
         }
 ?>
