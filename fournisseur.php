@@ -140,6 +140,7 @@ class FournisseurController extends Controller {
         }
         $i_idFournisseur = $_GET['idFournisseur'];
         $to_article = ArticleCampagne::getObjectsByIdCampagneIdFournisseur($i_idCampagne, $i_idFournisseur);
+            $i_nbreArticle = 0;
         foreach ($to_article as &$o_article) {
             /* pour chaque article, on récupère les données qui vont nous 
              * permettre de connaître la quantité totale et le prix */
@@ -147,13 +148,11 @@ class FournisseurController extends Controller {
             $i_idArticle = $o_article['id_article'];
             $f_poidsPaquetClient = $o_article['poids_paquet_client'];
             $ti_idUtilisateur = Commande::getIdUtilisateurByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
-            $i_nbreArticle = 0;
             /* pour chaque utilisateur, on regarde combien il a commandé*/
             foreach ($ti_idUtilisateur as $i_idUtilisateur) {
                 $i_nbreArticle++;
                 // $i_idUtilisateur = $o_idUtilisateur['id_utilisateur'];
                 $i_id = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
-echo "coucou"; return;
                 $i_quantite = Commande::getQuantite($i_id);
                 $i_quantiteTotale += $i_quantite;
             }
