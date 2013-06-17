@@ -17,6 +17,21 @@ class ArticleCampagne {
         return $o_result;
     }
 
+    public static function getIdByIdCampagne($i_idCampagne) {
+        $sql_query = "select distinct id from article_campagne where id_campagne=$i_idCampagne";
+        $sql_tmp = mysql_query($sql_query);
+        $to_result = array();
+        while ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité */
+            foreach ($o_row as &$column) {
+                $column = htmlentities($column);
+            }
+            /* Création du résultat */
+            $to_result[] = htmlentities($o_row['id']);
+        }
+        return $to_result;
+    }
+
     /* Creaters */
 
     public static function create($i_idArticle, $i_idCampagne, $i_idFournisseur, $i_idTva, $f_poidsPaquetClient, $i_seuilMin, $f_prixTtc, $b_Envente) {
@@ -256,7 +271,7 @@ class ArticleCampagne {
                 $column = htmlentities($column);
             }
             /* Création du résultat */
-            $to_result[] = $o_row;
+            $to_result[] = $o_row['id_article'];
         }
         return $to_result;
     }

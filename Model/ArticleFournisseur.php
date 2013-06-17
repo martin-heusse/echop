@@ -4,9 +4,9 @@ class ArticleFournisseur {
 
     /* Creaters */
 
-    public static function create($i_idArticleCampagne, $i_idFournisseur, $f_prixHt, $f_prixTtc, $s_code, $b_prix_ttc_ht, $b_vente_paquet_client) {
-        $sql_query = "insert into article_fournisseur(id_article_campagne, id_fournisseur, prix_ht, prix_ttc, code, prix_ttc_ht, vente_paquet_client)
-            values('$i_idArticleCampagne', '$i_idFournisseur', '$f_prixHt', '$f_prixTtc', '$s_code', '$b_prix_ttc_ht, $b_vente_paquet_client)";
+    public static function create($i_idArticleCampagne, $i_idFournisseur, $f_prixHt, $f_prixTtc, $s_code, $b_prixTtcHt, $b_ventePaquetUnite) {
+        $sql_query = "insert into article_fournisseur(id_article_campagne, id_fournisseur, prix_ht, prix_ttc, code, prix_ttc_ht, vente_paquet_unite)
+            values('$i_idArticleCampagne', '$i_idFournisseur', '$f_prixHt', '$f_prixTtc', '$s_code', '$b_prixTtcHt', '$b_ventePaquetUnite')";
         mysql_query($sql_query);
         $i_result = mysql_insert_id();
         return $i_result;

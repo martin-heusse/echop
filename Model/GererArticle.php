@@ -9,6 +9,7 @@ class GererArticle {
                             "a.description_courte, " .
                             "a.description_longue, " .
                             "a.nb_paquet_colis, " .
+                            "a.id_categorie, " .
                             "a.id_unite AS id_unite_choisi, " .
                             "u.valeur AS valeur_unite_choisi, " .
                             "a.poids_paquet_fournisseur, " .

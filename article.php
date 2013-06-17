@@ -10,6 +10,7 @@ require_once('Model/Tva.php');
 require_once('Model/Unite.php');
 require_once('Model/Article.php');
 require_once('Model/Campagne.php');
+require_once('Model/Categorie.php');
 
 require_once('Model/GererArticle.php');
 require_once('Model/ArticleFournisseur.php');
@@ -75,8 +76,10 @@ class ArticleController extends Controller {
             $to_tva = Tva::getAllObjects();
             // liste de toutes les unités
             $to_unite = Unite::getAllObjects();
+            /* AJOUT liste de toutes les catégories */
+            $to_categorie = Categorie::getAllObjects();
         }
-        $this->render('gererArticle', compact('to_rayon', 'i_idRayon', 'to_fournisseur', 'to_descriptionArticle', 'to_tva', 'to_unite', 's_message', 'i_erreur'));
+        $this->render('gererArticle', compact('to_rayon', 'i_idRayon', 'to_fournisseur', 'to_descriptionArticle', 'to_tva', 'to_unite', 'to_categorie', 's_message', 'i_erreur'));
     }
 
     public function modifierArticle() {
