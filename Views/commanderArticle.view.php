@@ -64,7 +64,7 @@ if ($to_commande != null and $to_commande != array()) {
         foreach ($to_categorie as $o_categorie) {
 ?>
     <tr class="erreur"> <td><?php echo $o_categorie['nom']?></td> </tr>
-</br>
+<br/>
 <?php
             foreach($to_commande as $o_produit) {
                 /*Afficher la catégorie TODO*/

@@ -67,7 +67,7 @@ if($to_descriptionArticle == array()){
             <th>Seuil min</th>
 <?php
 foreach($to_fournisseur as $o_fournisseur){
-//boucle pour afficher le nom de tous les fournisseurs
+    //boucle pour afficher le nom de tous les fournisseurs
 ?>
             <th><?php echo $o_fournisseur['nom_fournisseur'] ?></th>
 <?php
@@ -84,9 +84,17 @@ foreach($to_fournisseur as $o_fournisseur){
 <?php
 // $i_numLigne représente pair ou impair pour l'affichage une ligne sur deux
 $i_numLigne = 0;
-foreach ($to_descriptionArticle as $o_descriptionArticle) {
-// boucle pour affcher tous les produits
-$i_idArticleCampagne = $o_descriptionArticle['id_article_campagne'];
+
+/* AJOUT catégorie*/
+foreach($to_categorie as $o_categorie) {
+?>
+    <tr class="erreur"> <td><?php echo $o_categorie['nom']?></td> </tr>
+<?php
+    foreach ($to_descriptionArticle as $o_descriptionArticle) {
+        /* AJOUT condition pour la catégorie */
+        if ($o_descriptionArticle['id_categorie'] == $o_categorie['id']) { 
+            // boucle pour affcher tous les produits
+            $i_idArticleCampagne = $o_descriptionArticle['id_article_campagne'];
 ?>
             <tr>
                 <!-- En variable cachée id_article_campagne -->
@@ -107,14 +115,14 @@ $i_idArticleCampagne = $o_descriptionArticle['id_article_campagne'];
                 <!-- Unité -->
                 <td align="center" title="Unite" ><select name="id_unite[]">
 <?php
-    foreach($to_unite as $o_unite){
-        $i_idUnite = $o_unite['id'];
-        $f_valeurUnite = $o_unite['valeur'];
-        $i_idUniteChoisi = $o_descriptionArticle['id_unite_choisi'];
+            foreach($to_unite as $o_unite){
+                $i_idUnite = $o_unite['id'];
+                $f_valeurUnite = $o_unite['valeur'];
+                $i_idUniteChoisi = $o_descriptionArticle['id_unite_choisi'];
 ?>
                     <option value="<?php echo $i_idUnite ?>" <?php if($i_idUnite==$i_idUniteChoisi){echo 'selected="true"';} ?>> <?php echo $f_valeurUnite ?></option>
 <?php
-    }
+            }
 ?>
                 </select></td>
                 <!-- Nombre de paquets par colis fournisseur -->
@@ -128,12 +136,12 @@ $i_idArticleCampagne = $o_descriptionArticle['id_article_campagne'];
 
                 <!-- Boucle pour afficher les fournisseurs disponibles -->
 <?php
-   $i_idFournisseurChoisi = $o_descriptionArticle['id_fournisseur_choisi'];
-    foreach($to_fournisseur as $o_fournisseur){
-        $i_idFournisseur = $o_fournisseur['id_fournisseur'];
-        $f_prixFournisseur = $o_descriptionArticle[$i_idFournisseur]['prix_fournisseur'];
-        $b_prixTtcHt = $o_descriptionArticle[$i_idFournisseur]['prix_ttc_ht'];
-        $b_ventePaquetUnite = $o_descriptionArticle[$i_idFournisseur]['vente_paquet_unite'];
+            $i_idFournisseurChoisi = $o_descriptionArticle['id_fournisseur_choisi'];
+            foreach($to_fournisseur as $o_fournisseur){
+                $i_idFournisseur = $o_fournisseur['id_fournisseur'];
+                $f_prixFournisseur = $o_descriptionArticle[$i_idFournisseur]['prix_fournisseur'];
+                $b_prixTtcHt = $o_descriptionArticle[$i_idFournisseur]['prix_ttc_ht'];
+                $b_ventePaquetUnite = $o_descriptionArticle[$i_idFournisseur]['vente_paquet_unite'];
 ?>
                 <td title="Fournisseur : <?php echo $o_fournisseur['nom_fournisseur']; ?>">
                     <table style="width:100%; font-size:9px;">
@@ -165,19 +173,19 @@ $i_idArticleCampagne = $o_descriptionArticle['id_article_campagne'];
                     </table>
                  </td>
 <?php
-    }
+            }
 ?>
                 <!-- TVA -->
                 <td align="center" title="TVA" ><select name="id_tva[]">
 <?php
-    foreach($to_tva as $o_tva){
-        $i_idTva = $o_tva['id'];
-        $f_valeurTva = $o_tva['valeur'];
-        $i_idTvaChoisi = $o_descriptionArticle['id_tva_choisi'];
+            foreach($to_tva as $o_tva){
+                $i_idTva = $o_tva['id'];
+                $f_valeurTva = $o_tva['valeur'];
+                $i_idTvaChoisi = $o_descriptionArticle['id_tva_choisi'];
 ?>
                     <option value="<?php echo $i_idTva ?>" <?php if($i_idTva==$i_idTvaChoisi){echo 'selected="true"';} ?>> <?php echo $f_valeurTva ?>&nbsp;%</option>
 <?php
-    }
+            }
 ?>
                 </select></td>
                 <!-- Prix TTC choisi par l'échoppe rapporté au colis du fournisseur vendu au client -->
@@ -186,6 +194,8 @@ $i_idArticleCampagne = $o_descriptionArticle['id_article_campagne'];
                 <td align="center" title="Prix TTC rapporté à l'unité echoppe"><?php echo $o_descriptionArticle['prix_echoppe_unite'] ?>&nbsp;&euro;/<?php echo $o_descriptionArticle['valeur_unite_choisi'] ?></td>
           </tr>
 <?php
+        }
+    }
 }
 ?>
         </tbody>
