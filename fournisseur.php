@@ -99,8 +99,9 @@ class FournisseurController extends Controller {
                 $f_prixTtcArticle = ArticleFournisseur::getPrixTtcByIdArticleCampagneIdFournisseur($i_idArticleCampagne, $i_idFournisseur);
                 $i_poidsPaquetFournisseur = Article::getPoidsPaquetFournisseur($i_idArticle);
                 $f_prixTotaleArticle = $i_quantiteTotaleArticleReelle * $f_prixTtcArticle / $i_poidsPaquetFournisseur;
-                $f_prixTotaleArticle = number_format($f_prixTotaleArticle, 2, '.', ' ');
                 $f_montantTtc += $f_prixTotaleArticle;
+                /* Formattage des nombres */
+                $f_prixTotaleArticle = number_format($f_prixTotaleArticle, 2, '.', ' ');
                 $f_montantTtc = number_format($f_montantTtc, 2, '.', ' ');
             }
             $o_fournisseur['montant_total'] = $f_montantTtc;

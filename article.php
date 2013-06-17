@@ -45,6 +45,14 @@ class ArticleController extends Controller {
         } else {
             $i_erreur = null;
         }
+        /* Navigation dans l'historique ou non */
+        $b_historique = 0;
+        if (isset($_GET['idOldCampagne'])) {
+            $i_idCampagne = $_GET['idOldCampagne'];
+            $b_historique = 1;
+        } else {
+            $i_idCampagne = Campagne::getIdCampagneCourante();
+        }
         if(!isset($_GET['i_idRayon'])){
             $s_message = "Choissisez votre rayon !";
             $i_idRayon = null;
@@ -56,10 +64,9 @@ class ArticleController extends Controller {
             $s_message = null;
             // liste de toutes les descriptions d'un article d'un rayon de la campagne courante
             $i_idRayon = $_GET['i_idRayon'];
-            $i_idCampagneEnCours = Campagne::getIdCampagneCourante();
-            $to_descriptionArticle = GererArticle::descriptionArticle($i_idCampagneEnCours,$i_idRayon);
+            $to_descriptionArticle = GererArticle::descriptionArticle($i_idCampagne,$i_idRayon);
                 // liste de tous les fournisseurs
-            $to_fournisseur = GererArticle::fournisseurArticle($i_idCampagneEnCours,$i_idRayon);
+            $to_fournisseur = GererArticle::fournisseurArticle($i_idCampagne,$i_idRayon);
             foreach ($to_descriptionArticle as &$o_descriptionArticle){
                 $i_idArticleCampagne = $o_descriptionArticle['id_article_campagne'];
                 foreach($to_fournisseur as $o_fournisseur){
@@ -79,7 +86,7 @@ class ArticleController extends Controller {
             /* AJOUT liste de toutes les catégories */
             $to_categorie = Categorie::getAllObjects();
         }
-        $this->render('gererArticle', compact('to_rayon', 'i_idRayon', 'to_fournisseur', 'to_descriptionArticle', 'to_tva', 'to_unite', 'to_categorie', 's_message', 'i_erreur'));
+        $this->render('gererArticle', compact('to_rayon', 'i_idRayon', 'to_fournisseur', 'to_descriptionArticle', 'to_tva', 'to_unite', 'to_categorie', 's_message', 'i_erreur', 'b_historique', 'i_idCampagne'));
     }
 
     public function modifierArticle() {
@@ -92,6 +99,14 @@ class ArticleController extends Controller {
         if(!$_SESSION['isAdministrateur']) {
             $this->render('adminRequired');
             return;
+        }
+        /* Navigation dans l'historique ou non */
+        $b_historique = 0;
+        if (isset($_GET['idOldCampagne'])) {
+            $i_idCampagne = $_GET['idOldCampagne'];
+            $b_historique = 1;
+        } else {
+            $i_idCampagne = Campagne::getIdCampagneCourante();
         }
         $i_erreur = null;
         if( !isset($_POST['i_idRayon'])
@@ -111,7 +126,12 @@ class ArticleController extends Controller {
             or !isset($_POST['prix_ttc_echoppe']) ) {
             // si une des variables n'est pas définie
             $i_erreur = 1;
-            header("Location: ".root."/article.php/afficherArticle?i_erreur=$i_erreur");
+            /* Redirection */
+            if ($i_idCampagne == Campagne::getIdCampagneCourante()) {
+                header('Location: '.root.'/article.php/afficherArticle?i_erreur='.$i_erreur);
+            } else {
+                header('Location: '.root.'/article.php/afficherArticle?i_erreur='.$i_erreur.'&idOldCampagne='.$i_idCampagne);
+            }
         } else {
             // si toutes les variables sont définies on les récupère
             $i_idRayon = $_POST['i_idRayon'];
@@ -170,7 +190,12 @@ class ArticleController extends Controller {
                 $i_erreur = 0;
             }
         }
-        header("Location: ".root."/article.php/afficherArticle?i_erreur=$i_erreur&i_idRayon=$i_idRayon");
+        /* Redirection */
+        if ($i_idCampagne == Campagne::getIdCampagneCourante()) {
+            header('Location: '.root.'/article.php/afficherArticle?i_erreur='.$i_erreur.'&i_idRayon='.$i_idRayon);
+        } else {
+            header('Location: '.root.'/article.php/afficherArticle?i_erreur='.$i_erreur.'&i_idRayon='.$i_idRayon.'&idOldCampagne='.$i_idCampagne);
+        }
     }
 
     public function afficherCreerArticle() {

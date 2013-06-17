@@ -286,15 +286,17 @@ class ArticlesCommandEsController extends Controller {
         /* Valeurs calculées */
         /* Calcul poids unitaire */
         $o_commande['prix_unitaire'] = $o_commande['prix_ttc'] / $o_commande['poids_paquet_fournisseur'];
-        $o_commande['prix_unitaire'] = number_format($o_commande['prix_unitaire'], 2, '.', ' ');
         /* Calcul quantité totale */
         $o_commande['quantite_totale'] = $o_commande['quantite'] * $o_commande['poids_paquet_client'];
-        $o_commande['quantite_totale'] = number_format($o_commande['quantite_totale'], 2, '.', ' ');
         /* Calcul total TTC */
         $o_commande['total_ttc'] = $o_commande['quantite_totale'] * $o_commande['prix_ttc'] / $o_commande['poids_paquet_fournisseur'];
-        $o_commande['total_ttc'] = number_format($o_commande['total_ttc'], 2, '.', ' ');
         // recherche du login 
         $s_login = Utilisateur::getLogin($i_idUtilisateur);
+        /* Formattage des nombres */
+        $o_commande['prix_unitaire'] = number_format($o_commande['prix_unitaire'], 2, '.', '');
+        $o_commande['quantite_totale'] = number_format($o_commande['quantite_totale'], 2, '.', '');
+        $o_commande['total_ttc'] = number_format($o_commande['total_ttc'], 2, '.', '');
+        /* Render */
         $this->render('commandeUtilisateurPourCetArticle', compact('i_idArticle', 'o_commande', 'b_etat', 'i_idUtilisateur', 's_login', 'b_historique', 'i_idCampagne'));
     }
 

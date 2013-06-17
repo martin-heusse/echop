@@ -62,15 +62,17 @@ class UtilisateurAyantCommandEController extends Controller {
                 $i_idPoidsPaquetFournisseur = Article::getPoidsPaquetFournisseur($i_idArticle);
             /* Calcul quantité totale */
             $i_quantiteTotale = $i_quantite * $i_poidsPaquetClient;
-            $i_quantiteTotale = number_format($i_quantiteTotale, 2, '.', ' ');
             /* Calcul total TTC */
             $i_totalTtc = $i_quantiteTotale * $i_prixTtc / $i_idPoidsPaquetFournisseur;
-            $i_totalTtc = number_format($i_totalTtc, 2, '.', ' ');
             /* Calcul du montant total */
             $o_article['montant_total'] += $i_totalTtc;
-            $o_article['montant_total'] = number_format($o_article['montant_total'], 2, '.', ' ');
             } 
-        }
+            /* Formattage des nombres */
+            $i_quantiteTotale = number_format($i_quantiteTotale, 2, '.', '');
+            $i_totalTtc = number_format($i_totalTtc, 2, '.', '');
+            $o_article['montant_total'] = number_format($o_article['montant_total'], 2, '.', '');
+        } 
+        /* Render */
         $this->render('utilisateurAyantCommandE', compact('to_commande', 'b_historique', 'i_idCampagne'));	
     }
 
@@ -128,19 +130,22 @@ class UtilisateurAyantCommandEController extends Controller {
             /* Valeurs calculées */
             /* Calcul poids unitaire */
             $o_article['prix_unitaire'] = $o_article['prix_ttc'] / $o_article['poids_paquet_fournisseur'];
-            $o_article['prix_unitaire'] = number_format($o_article['prix_unitaire'], 2, '.', ' ');
             /* Calcul quantité totale */
             $o_article['quantite_totale'] = $o_article['quantite'] * $o_article['poids_paquet_client'];
-            $o_article['quantite_totale'] = number_format($o_article['quantite_totale'], 2, '.', ' ');
             /* Calcul total TTC */
             $o_article['total_ttc'] = $o_article['quantite_totale'] * $o_article['prix_ttc'] / $o_article['poids_paquet_fournisseur'];
-            $o_article['total_ttc'] = number_format($o_article['total_ttc'], 2, '.', ' ');
             /* Calcul du montant total */
-            $f_montantTotal += $o_article['total_ttc'];
-            $f_montantTotal = number_format($f_montantTotal, 2, '.', ' ');
+            $f_montantTotal += (float) $o_article['total_ttc'];
+            /* Formattage des nombres */
+            $o_article['prix_unitaire'] = number_format($o_article['prix_unitaire'], 2, '.', '');
+            $o_article['quantite_totale'] = number_format($o_article['quantite_totale'], 2, '.', '');
+            $o_article['total_ttc'] = number_format($o_article['total_ttc'], 2, '.', '');
         }
         // recherche du login 
         $s_login = Utilisateur::getLogin($i_idUtilisateur);
+        /* Formattage des nombres */
+        $f_montantTotal = number_format($f_montantTotal, 2, '.', '');
+        /* Render */
         $this->render('commandeUtilisateur', compact('to_commande', 'b_etat', 'f_montantTotal', 'i_idUtilisateur', 's_login', 'b_historique', 'i_idCampagne'));	
     }
 

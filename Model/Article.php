@@ -27,7 +27,7 @@ class Article {
             /* Création du résultat */
             $to_result[] = $o_row;
         }
-    /* Formattage des nombres */
+        /* Formattage des nombres */
             foreach ($to_result as &$o_row) {
             $o_row['poids_paquet_fournisseur']    = number_format($o_row['poids_paquet_fournisseur'], 2, '.', ' ');
             }
