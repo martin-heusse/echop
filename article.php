@@ -27,6 +27,16 @@ class ArticleController extends Controller {
     }
 
     public function afficherArticle() {
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if(!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
         // liste de tous les rayons
         $to_rayon = Rayon::getAllObjects();
         if(isset($_GET['i_erreur'])){
@@ -70,8 +80,19 @@ class ArticleController extends Controller {
     }
 
     public function modifierArticle() {
+       /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if(!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
         $i_erreur = null;
-        if( !isset($_POST['id_article_campagne'])
+        if( !isset($_POST['i_idRayon'])
+            or !isset($_POST['id_article_campagne'])
             or !isset($_POST['en_vente'])
             or !isset($_POST['poids_paquet_client'])
             or !isset($_POST['seuil_min'])
@@ -81,8 +102,10 @@ class ArticleController extends Controller {
             or !isset($_POST['prix_ttc_echoppe']) ) {
             // si une des variables n'est pas définie
             $i_erreur = 1;
+            header("Location: ".root."/article.php/afficherArticle?i_erreur=$i_erreur");
         } else {
             // si toutes les variables sont définies on les récupère
+            $i_idRayon = $_POST['i_idRayon'];
             $ti_idArticleCampagne = $_POST['id_article_campagne'];
             $tb_enVente = $_POST['en_vente'];
             $tf_poidsPaquetClient = $_POST['poids_paquet_client'];
@@ -117,10 +140,20 @@ class ArticleController extends Controller {
                 $i_erreur = 0;
             }
         }
-        header("Location: ".root."/article.php/afficherArticle?i_erreur=$i_erreur");
+        header("Location: ".root."/article.php/afficherArticle?i_erreur=$i_erreur&i_idRayon=$i_idRayon");
     }
 
     public function afficherCreerArticle() {
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if(!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
         $to_tva = Tva::getAllObjects();
         var_dump($to_tva);
         return;
@@ -131,6 +164,16 @@ class ArticleController extends Controller {
     }
 
     public function creerArticle() {
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if(!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
         $i_erreur = null;
         $to_tva = Tva::getAllObjects();
         $to_unite = Unite::getAllObjects();

@@ -48,8 +48,10 @@ if($to_descriptionArticle == array()){
 <!-- Création d'un formulaire englobant tout le tableau -->
 <form method="post" action="<?php echo root ?>/article.php/modifierArticle">
 
+<!-- En variable cachée id_rayon -->
+<input type="hidden" name="i_idRayon" value="<?php echo $i_idRayon ?>"/>
+
 <input align="middle" type="submit" class="input_valider" value="Mettre à jour les articles"/>
-</p>
 
 <table style="font-size:10px;">
     <thead> <!-- En-tête du tableau -->
