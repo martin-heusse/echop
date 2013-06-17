@@ -14,7 +14,8 @@ if(isset($i_erreur)){
 ?>
     </p>
     <fieldset><legend>Créer un article</legend>
-        <p>Les Champs avec * sont obligatoires.</p>
+        <h3> Vous allez créer un article dans <?php echo $o_rayon['nom']?></h3>
+        <p>Les Champs avec * sont obligatoires. Si vous ne voulez rien mettre mettez un tiret.</p>
         <p><span class="form_col"><label>Produit<sup>&nbsp *</sup></label></span><input type="text" name="nom_produit" value=""/></p>
         <p><span class="form_col"><label>Categorie</label></span><select name="id_categorie">
 <?php foreach($to_categorie as $o_categorie){
