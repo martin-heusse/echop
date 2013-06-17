@@ -109,6 +109,12 @@ class CommanderArticleController extends Controller {
      * commande de l'utilisateur courant.
      */
     public function commanderArticleModifier() {
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+
         if (!isset($_GET['idRayon'])) {	
             $this->render('afficherRayon');
             return;
@@ -163,6 +169,11 @@ class CommanderArticleController extends Controller {
      * Supprime l'article de l'utilisateur courant.
      */
     public function commanderArticleSupprimer() {
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
         /* Récupération de l'identifiant de la campagne courante */
         $i_idCampagne = Campagne::getIdCampagneCourante();
         /* Récupération de l'état de la campagne */

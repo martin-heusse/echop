@@ -91,7 +91,7 @@ class UtilisateurController extends Controller {
             $s_mot_de_passe = Utilisateur::getMotDePasse($i_idUtilisateur);
             $s_destinataire = Utilisateur::getEmail($i_idUtilisateur);
             $s_subject = "[L'Échoppe d'ici et d'ailleurs] Inscription validée";
-            $s_message = "Votre inscription a été validée.\n Votre login :". $s_login. "\nVotre mot de passe :" . $s_mot_de_passe;
+            $s_message = "Votre inscription a été validée.<br/> Votre login :". $s_login. "<br/>Votre mot de passe :" . $s_mot_de_passe;
             Util::sendEmail($s_destinataire, $s_subject, $s_message);
         }
         header('Location: '.root.'/utilisateur.php/listeUtilisateurAValider');
@@ -127,9 +127,14 @@ class UtilisateurController extends Controller {
      * Permet l'envoi de mail à l'ensemble des utilisateurs.
      */
     public function envoiMail() {
-        /* Authentification required */
+        /* Authentication required */
         if (!Utilisateur::isLogged()) {
-            $this->render('authentificationRequired');
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if (!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
             return;
         }
         $i_emailSent = 0;
@@ -154,12 +159,13 @@ class UtilisateurController extends Controller {
      */
     public function profil() {
 
-        $i_editProfile = 0;  
-        
+        /* Authentication required */
         if (!Utilisateur::isLogged()) {
             $this->render('authentificationRequired');
             return;
         }
+        $i_editProfile = 0;  
+        
         /* Récupération des données du profil */ 
         $s_login = $_SESSION['login'];
         $o_profil = Utilisateur::getObjectByLogin($s_login);

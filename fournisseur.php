@@ -174,6 +174,16 @@ class FournisseurController extends Controller {
      */
     public function gererFournisseur() {
 
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if (!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
         if (isset($_POST['nom_fournisseur']) && $_POST['nom_fournisseur'] != "") {
 
             $s_nom = $_POST['nom_fournisseur'];
@@ -183,11 +193,11 @@ class FournisseurController extends Controller {
             if ($o_fournisseur == array()) {
                 Fournisseur::create($s_nom);
             }
-            
+
         }
-            $to_nom = Fournisseur::GetAllObjects();
-            $this->render('gererFournisseur', compact('to_nom'));
-            return;
+        $to_nom = Fournisseur::GetAllObjects();
+        $this->render('gererFournisseur', compact('to_nom'));
+        return;
     }
 
     /*

@@ -1,3 +1,6 @@
+<p>
+    <a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a>
+</p>
 <h1>Mon profil</h1>
 
 <form name="formulaire"

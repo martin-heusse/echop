@@ -6,12 +6,17 @@ require_once('Model/Administrateur.php');
 
 class InscriptionController extends Controller {
 
+    /*
+     * Constructeur
+     */
     public function __construct() {
         parent::__construct();
     }
 
     public function inscription() {
-        if (Utilisateur::isLogged()) {    
+        /* L'utilisateur doit être déconnecté */
+        if (Utilisateur::isLogged()) {
+            header('Location: '.root.'/index.php');
             return;
         }
         /* Variables d'inscription */
@@ -59,6 +64,11 @@ class InscriptionController extends Controller {
      * Affiche la page d'oublie de mot de passe.
      */
     public function passOubliE() {
+        /* L'utilisateur doit être déconnecté */
+        if (Utilisateur::isLogged()) {
+            header('Location: '.root.'/index.php');
+            return;
+        }
         $b_erreurLogin = 0;
         $b_success = 0;
         if(!isset($_POST['login'])) {
@@ -77,7 +87,7 @@ class InscriptionController extends Controller {
         $s_destinataire = $o_utilisateur['email'];
         $s_motDePasse = $o_utilisateur['mot_de_passe'];
         $s_subject = "[L'Échoppe d'ici et d'ailleurs] Oubli de mot de passe";
-        $s_message = "Votre login : ".$s_login."\nVotre mot de passe : ".$s_motDePasse;
+        $s_message = "Votre login : ".$s_login."<br/>Votre mot de passe : ".$s_motDePasse;
         Util::sendEmail($s_destinataire, $s_subject, $s_message);
         $b_success = 1;
         $this->render('passOubliE', compact('s_destinataire', 'b_erreurLogin', 'b_success'));

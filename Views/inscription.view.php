@@ -13,7 +13,7 @@
 <?php 
         if ($i_errLogin == 1) {
 ?>
-    <p class="ereur">Login déjà existant</p>
+    <p class="erreur">Erreur: Login déjà existant</p>
 <?php
         }
 ?>
@@ -26,7 +26,7 @@
 <?php
     } else {
 ?>
-        <p> Votre inscription a été soumise à la validation par un administrateur.</p>
+    <p> Votre inscription a été soumise à la validation par un administrateur.<br/> Vous recevrez un mail de confirmation d'un administrateur lorsque votre inscription aura été validée et ce n'est qu'à partir de ce moment là que vous pourrez accéder au site.</p>
 <?php
     }  
 ?>

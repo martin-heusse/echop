@@ -79,6 +79,11 @@ class MesCommandesController extends Controller {
      * de l'utilisateur courant.
      */
     public function mesCommandesModifier() {
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
         /* Récupération de l'identifiant de la campagne courante */
         $i_idCampagne = Campagne::getIdCampagneCourante();
         /* Récupération de l'état de la campagne */
@@ -116,6 +121,11 @@ class MesCommandesController extends Controller {
      * Supprime l'article de l'utilisateur courant.
      */
     public function mesCommandesSupprimer() {
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
         /* Récupération de l'identifiant de la campagne courante */
         $i_idCampagne = Campagne::getIdCampagneCourante();
         /* Récupération de l'état de la campagne */

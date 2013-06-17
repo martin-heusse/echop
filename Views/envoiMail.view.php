@@ -1,3 +1,6 @@
+<p>
+    <a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a>
+</p>
 <h1>Envoyer un mail à tous les utilisateurs</h1>
 
 <?php

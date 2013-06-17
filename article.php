@@ -27,6 +27,9 @@ class ArticleController extends Controller {
         parent::__construct();
     }
 
+    /*
+     * Affiche l'ensemble des articles d'un rayon 
+     */
     public function afficherArticle() {
         /* Authentication required */
         if (!Utilisateur::isLogged()) {

@@ -92,7 +92,7 @@ class CampagneController extends Controller {
         /* envoi d'un mail à tous les utilisateurs */
         $to_utilisateur = Utilisateur::getAllObjects();
         $s_subject = "[L'Échoppe d'ici et d'ailleurs] Campagne ouverte";
-        $s_message = "Une campagne vient d'être ouverte, venez sur le site pour effectuer vos achats" ;
+        $s_message = "Une campagne vient d'être ouverte, venez sur le site pour effectuer vos achats." ;
         foreach($to_utilisateur as $o_utilisateur) {
             if($o_utilisateur['validite'] == 1 ) {
                 $s_destinataire = $o_utilisateur['email'];

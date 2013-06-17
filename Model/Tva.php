@@ -51,7 +51,7 @@ class Tva {
     }
 
     public static function getObjectByValeur($f_valeur) {
-        $sql_query = "select * from tva where valeur=$f_valeur";
+        $sql_query = "select * from tva where valeur='$f_valeur'";
         $sql_tmp = mysql_query($sql_query);
         $o_result = null;
 
