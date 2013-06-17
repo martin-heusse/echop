@@ -71,7 +71,7 @@ if ($to_commande != null and $to_commande != array()) {
                 if($o_produit['id_rayon']==$i_idRayon && $o_produit['categorie'] == $o_categorie['nom'] && $o_produit['en_vente'] == 1){ 	?>
             <tr class="ligne_article<?php echo $i_numLigne ?>">
             <td><?php echo $o_produit['nom'] ?></td>
-            <td title="<?php echo $o_produit['description_longue'] ?>"><?php echo $o_produit['description_courte'] ?></td>
+            <td class="center" title="<?php echo $o_produit['description_longue'] ?>"><?php echo $o_produit['description_courte'] ?></td>
             <!--
             <td><?php echo $o_produit['description_longue'] ?></td>
             --> 
