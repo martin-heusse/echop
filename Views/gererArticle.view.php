@@ -1,5 +1,5 @@
 <p>
-    <a class="action_navigation" href="<?php echo root ?>">Retour</a>
+    <a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a>
 <?php
 if(isset($i_erreur)){
     if($i_erreur==0){
