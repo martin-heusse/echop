@@ -1,5 +1,26 @@
+<?php
+/* Si navigation dans l'historique */
+if ($b_historique == 1) {
+?>
+<p><a class="action_navigation" href="<?php echo root ?>/campagne.php/gererCampagne">Retour à la gestion des campagnes</a></p>
+<?php
+} else {
+?>
+<p><a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a></p>
+<?php
+}
+?>
+
+<?php
+/* Si navigation dans l'historique */
+if ($b_historique == 1) {
+?>
+    <span class="historique">[Historique de la campagne n°<?php echo $i_idCampagne ?>]</span>
+<?php
+}
+?>
+
 <p>
-    <a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a>
 <?php
 if(isset($i_erreur)){
     if($i_erreur==0){
@@ -20,7 +41,14 @@ if(isset($i_erreur)){
 <?php
 foreach($to_rayon as $o_rayon){
 ?>
-    <a <?php if($o_rayon['id']==$i_idRayon){ echo "style=\"background-color: grey;\"";} ?> href="<?php echo root; ?>/article.php/afficherArticle?i_idRayon=<?php echo $o_rayon['id']; ?>"><?php echo $o_rayon['nom']; ?></a>&nbsp;
+    <a <?php if($o_rayon['id']==$i_idRayon){ echo "style=\"background-color: grey;\"";} ?> href="<?php echo root; ?>/article.php/afficherArticle?i_idRayon=<?php echo $o_rayon['id']; ?>
+<?php
+/* Si navigation dans l'historique */
+if ($b_historique == 1) {
+    echo "&idOldCampagne=".$i_idCampagne;
+}
+?>
+"><?php echo $o_rayon['nom']; ?></a>&nbsp;
 <?php
 }
 ?>
@@ -34,7 +62,14 @@ if(isset($s_message)){
 }
 ?>
 
+<?php
+/* Si pas navigation dans l'historique */
+if ($b_historique == 0) {
+?>
 <p><a href="<?php echo root ?>/article.php/afficherCreerArticle?i_idRayon=<?php echo $i_idRayon; ?>">Créer un article</a></p>
+<?php
+}
+?>
 
 <?php
 if($to_descriptionArticle == array()){ 
@@ -46,7 +81,14 @@ if($to_descriptionArticle == array()){
 ?>
 
 <!-- Création d'un formulaire englobant tout le tableau -->
-<form method="post" action="<?php echo root ?>/article.php/modifierArticle">
+<form method="post" action="<?php echo root ?>/article.php/modifierArticle
+<?php
+/* Si navigation dans l'historique */
+if ($b_historique == 1) {
+    echo "?idOldCampagne=".$i_idCampagne;
+}
+?>
+">
 
 <!-- En variable cachée id_rayon -->
 <input type="hidden" name="i_idRayon" value="<?php echo $i_idRayon ?>"/>
