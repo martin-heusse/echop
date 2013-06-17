@@ -27,7 +27,8 @@ class GererArticle {
                              "ac.id = af.id_article_campagne AND " .
                              "a.id_unite = u.id AND " .
                              "ac.id_campagne=$i_idCampagne AND " .
-                             "a.id_rayon=$i_idRayon ";
+                             "a.id_rayon=$i_idRayon " .
+                        "ORDER BY ac.id ";
         $sql_tmp = mysql_query($sql_query);
         $to_result = array();
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
