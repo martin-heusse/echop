@@ -77,7 +77,7 @@ class InscriptionController extends Controller {
         $s_destinataire = $o_utilisateur['email'];
         $s_motDePasse = $o_utilisateur['mot_de_passe'];
         $s_subject = "[L'Échoppe d'ici et d'ailleurs] Oubli de mot de passe";
-        $s_message = "Votre login : ".$s_login."\nVotre mot de passe : ".$s_motDePasse;
+        $s_message = "Votre login : ".$s_login."<br/>Votre mot de passe : ".$s_motDePasse;
         Util::sendEmail($s_destinataire, $s_subject, $s_message);
         $b_success = 1;
         $this->render('passOubliE', compact('s_destinataire', 'b_erreurLogin', 'b_success'));

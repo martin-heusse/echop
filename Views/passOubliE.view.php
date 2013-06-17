@@ -9,7 +9,7 @@ if ($b_success == 0) {
     } else if ($b_erreurLogin == 0) {
 ?>
 <p>Pour récupérer votre mot de passe, saisissez votre login.<br/>
-Votre mot de passe vous sera renvoyé dans l'adresse email renseigné lors de votre inscription.</p>
+Votre mot de passe vous sera renvoyé dans l'adresse email renseignée lors de votre inscription.</p>
 
 <form name="formulaire" class="form_connexion"
 action="<?php echo root ?>/inscription.php/passOubliE"
