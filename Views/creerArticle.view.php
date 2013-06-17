@@ -1,5 +1,5 @@
 <form action="<?php echo root ?>/article.php/creerArticle" method="post" name="formulaire">
-    <p><a class="action_navigation" href="<?php echo root ?>/article.php/afficherArticle">Retour</a>
+    <p><a class="action_navigation" href="<?php echo root ?>/article.php/afficherArticle">Retour aux articles</a>
 <?php
 if(isset($i_erreur)){
     if($i_erreur==0){
