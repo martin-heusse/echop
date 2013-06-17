@@ -152,10 +152,6 @@ class FournisseurController extends Controller {
                 $i_nbreArticle++;
                 // $i_idUtilisateur = $o_idUtilisateur['id_utilisateur'];
                 $i_id = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
-<<<<<<< HEAD
-                echo "coucou"; return;
-=======
->>>>>>> 4afe4fb2d4b21fe4daa53580587417fe2dd27011
                 $i_quantite = Commande::getQuantite($i_id);
                 $i_quantiteTotale += $i_quantite;
             }
