@@ -10,6 +10,7 @@ require_once('Model/Tva.php');
 require_once('Model/Unite.php');
 require_once('Model/Article.php');
 require_once('Model/Campagne.php');
+require_once('Model/Categorie.php');
 
 require_once('Model/GererArticle.php');
 require_once('Model/ArticleFournisseur.php');
@@ -78,8 +79,10 @@ class ArticleController extends Controller {
             $to_tva = Tva::getAllObjects();
             // liste de toutes les unités
             $to_unite = Unite::getAllObjects();
+            /* AJOUT liste de toutes les catégories */
+            $to_categorie = Categorie::getAllObjects();
         }
-        $this->render('gererArticle', compact('to_rayon', 'i_idRayon', 'to_fournisseur', 'to_descriptionArticle', 'to_tva', 'to_unite', 's_message', 'i_erreur'));
+        $this->render('gererArticle', compact('to_rayon', 'i_idRayon', 'to_fournisseur', 'to_descriptionArticle', 'to_tva', 'to_unite', 'to_categorie', 's_message', 'i_erreur'));
     }
 
     public function modifierArticle() {
@@ -97,6 +100,12 @@ class ArticleController extends Controller {
         if( !isset($_POST['i_idRayon'])
             or !isset($_POST['id_article_campagne'])
             or !isset($_POST['en_vente'])
+            or !isset($_POST['nom_produit'])
+            or !isset($_POST['description_courte'])
+            or !isset($_POST['description_longue'])
+            or !isset($_POST['id_unite'])
+            or !isset($_POST['nb_paquet_colis'])
+            or !isset($_POST['poids_paquet_fournisseur'])
             or !isset($_POST['poids_paquet_client'])
             or !isset($_POST['seuil_min'])
             // a faire à régler
@@ -111,6 +120,12 @@ class ArticleController extends Controller {
             $i_idRayon = $_POST['i_idRayon'];
             $ti_idArticleCampagne = $_POST['id_article_campagne'];
             $tb_enVente = $_POST['en_vente'];
+            $ts_nomProduit = $_POST['nom_produit'];
+            $ts_descriptionCourte = $_POST['description_courte'];
+            $ts_descriptionLongue = $_POST['description_longue'];
+            $ti_idUnite = $_POST['id_unite'];
+            $ti_nbPaquetColis = $_POST['nb_paquet_colis'];
+            $tf_poidsPaquetFournisseur = $_POST['poids_paquet_fournisseur'];
             $tf_poidsPaquetClient = $_POST['poids_paquet_client'];
             $ti_seuilMin = $_POST['seuil_min'];
             $ti_idTva = $_POST['id_tva'];
@@ -118,13 +133,28 @@ class ArticleController extends Controller {
             $i_nbArticleCampagne = count($ti_idArticleCampagne);
             for ($i=0; $i<$i_nbArticleCampagne; $i++) {
                 $i_idArticleCampagne = $ti_idArticleCampagne[$i];
-                // modification du en vente
-                if($tb_enVente[$i] == "vrai"){
-                    $b_enVente = '1';
-                } else {
-                    $b_enVente = '0';
-                }
+                $i_idArticle = ArticleCampagne::getIdArticle($i_idArticleCampagne);
+                // modification en vente ou pas
+                $b_enVente = $tb_enVente[$i];
                 ArticleCampagne::setEnVente($i_idArticleCampagne, $b_enVente);
+                // modification du nom du produit
+                $s_nomProduit = $ts_nomProduit[$i];
+                Article::setNom($i_idArticle,$s_nomProduit);
+                // modification de la description courte
+                $s_descriptionCourte = $ts_descriptionCourte[$i];
+                Article::setDescriptionCourte($i_idArticle,$s_descriptionCourte);
+                // modification de la description longue
+                $s_descriptionLongue = $ts_descriptionLongue[$i];
+                Article::setDescriptionLongue($i_idArticle,$s_descriptionLongue);
+                // modification de l'unité
+                $i_idUnite = $ti_idUnite[$i];
+                Article::setIdUnite($i_idArticle, $i_idUnite);
+                //// modification du nombre de paquet par colis
+                $i_nbPaquetColis = $ti_nbPaquetColis[$i];
+                Article::setNbPaquetColis($i_idArticle, $i_nbPaquetColis);
+                //// modification du poids du paquet fournisseur
+                $i_idUnite = $ti_idUnite[$i];
+                Article::setIdUnite($i_idArticle, $i_idUnite);
                 // modification du poids paquet client
                 $f_poidsPaquetClient = $tf_poidsPaquetClient[$i];
                 ArticleCampagne::setPoidsPaquetClient($i_idArticleCampagne, $f_poidsPaquetClient);
@@ -157,13 +187,13 @@ class ArticleController extends Controller {
             $this->render('adminRequired');
             return;
         }
+        $i_idRayon = $_GET['i_idRayon'];
+        $o_rayon = Rayon::getObject($i_idRayon);
         $to_tva = Tva::getAllObjects();
-        var_dump($to_tva);
-        return;
         $to_unite = Unite::getAllObjects();
         $to_fournisseur = Fournisseur::getAllObjects();
         $to_categorie = Categorie::getAllObjects();
-        $this->render('creerArticle',compact('to_tva', 'to_unite', 'to_fournisseur','to_categorie'));
+        $this->render('creerArticle',compact('o_rayon','to_tva', 'to_unite', 'to_fournisseur','to_categorie'));
     }
 
     public function creerArticle() {
@@ -180,6 +210,7 @@ class ArticleController extends Controller {
         $i_erreur = null;
         $to_tva = Tva::getAllObjects();
         $to_unite = Unite::getAllObjects();
+        // A CHANGER
         $to_fournisseur = Fournisseur::getAllObjects();
         // récupération des variables
         if( !isset($_POST['nom_produit']) or $_POST['nom_produit']==""

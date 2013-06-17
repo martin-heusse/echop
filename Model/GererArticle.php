@@ -9,6 +9,7 @@ class GererArticle {
                             "a.description_courte, " .
                             "a.description_longue, " .
                             "a.nb_paquet_colis, " .
+                            "a.id_categorie, " .
                             "a.id_unite AS id_unite_choisi, " .
                             "u.valeur AS valeur_unite_choisi, " .
                             "a.poids_paquet_fournisseur, " .
@@ -27,7 +28,8 @@ class GererArticle {
                              "ac.id = af.id_article_campagne AND " .
                              "a.id_unite = u.id AND " .
                              "ac.id_campagne=$i_idCampagne AND " .
-                             "a.id_rayon=$i_idRayon ";
+                             "a.id_rayon=$i_idRayon " .
+                        "ORDER BY ac.id ";
         $sql_tmp = mysql_query($sql_query);
         $to_result = array();
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {

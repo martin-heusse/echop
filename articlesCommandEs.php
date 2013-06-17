@@ -200,7 +200,7 @@ class ArticlesCommandEsController extends Controller {
             return;
         }
         $i_idArticle = $_GET['idArticle'];
-        $to_utilisateur = Commande::getIdUtilisateurByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+        $to_utilisateur = Commande::getObjectsByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
         $i_idUnite = Article::getIdUnite($i_idArticle); 
         $s_unite = Unite::getUnite($i_idUnite);
         $i_idArticleCampagne = ArticleCampagne::getIdByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
@@ -220,7 +220,7 @@ class ArticlesCommandEsController extends Controller {
         }
         $f_float = $i_quantiteTotale-floor($i_quantiteTotale);
         $i_manque = $i_quantiteTotale % $i_colisage;
-        $i_manque = ($i_colisage - $i_manque) % $i_colisage + $i_colisage - $f_float;
+        $i_manque = ($i_colisage - $i_manque) % $i_colisage;
             if($i_manque-$f_float < 0){
                 $i_manque += $i_colisage - $f_float;
             } else {

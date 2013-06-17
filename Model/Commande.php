@@ -106,16 +106,16 @@ class Commande {
     public static function getIdUtilisateurByIdArticleIdCampagne($i_idArticle, $i_idCampagne) {
         $sql_query = "select distinct id_utilisateur from commande where id_article=$i_idArticle and id_campagne=$i_idCampagne";
         $sql_tmp = mysql_query($sql_query);
-        $to_result = array();
-        while ($o_row = mysql_fetch_assoc($sql_tmp)) {
+        $ti_result = array();
+        while ($i_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
-            foreach ($o_row as &$column) {
+            foreach ($i_row as &$column) {
                 $column = htmlentities($column);
             }
             /* Création du résultat */
-            $to_result[] = $o_row;
+            $ti_result[] = $i_row['id_utilisateur'];
         }
-        return $to_result;
+        return $ti_result;
     }
 
     public static function getIdArticleByIdCampagne($i_idCampagne) {

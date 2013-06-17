@@ -304,7 +304,7 @@ insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, pri
     values(25, 5,0.95, 1.00, 'E100', false, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(25, 5,0.93, 0.98, 'E100', false, true);
+    values(26, 5,0.93, 0.98, 'E100', false, true);
 
 -- CREATION DES COMMANDES DES UTILISATEURS POUR UNE CAMPAGNE ET UN ARTICLE
 insert into commande(id_article, id_campagne, id_utilisateur, quantite)
