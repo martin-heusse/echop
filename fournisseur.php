@@ -182,11 +182,11 @@ class FournisseurController extends Controller {
             if ($o_fournisseur == array()) {
                 Fournisseur::create($s_nom);
             }
-            
+
         }
-            $to_nom = Fournisseur::GetAllObjects();
-            $this->render('gererFournisseur', compact('to_nom'));
-            return;
+        $to_nom = Fournisseur::GetAllObjects();
+        $this->render('gererFournisseur', compact('to_nom'));
+        return;
     }
 
     /*

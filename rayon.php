@@ -7,11 +7,16 @@ require_once('Model/Categorie.php');
 
 class RayonController extends Controller {
 
+    /*
+     * Constructeur
+     */
     public function __construct() {
         parent::__construct();
     }
 
-
+    /*
+     * Affiche tous les rayons 
+     */
     public function afficherRayon() {
         // liste des rayons (à partir de la table rayon)
         // pour afficher la liste rayons
@@ -20,19 +25,25 @@ class RayonController extends Controller {
         $this->render('gererRayon', compact('to_rayon','to_categorie'));
     }
 
+    /*
+     * Crée un rayon 
+     */
     public function creerRayon() {
         $i_rayonSet = 0;
         $i_errName = 0;
         $i_errMarge = 0;
+
         if (!Utilisateur::isLogged()) {
             header('Location: '.root.'/authentificationRequired');
         }
 
+        /* Gestion de la requete de création du rayon */
         if (isset($_POST['nomRayon']) && $_POST['nomRayon'] != "" && isset($_POST['marge'])) {
             $f_marge = $_POST['marge'];
             $s_nomRayon = $_POST['nomRayon'];
-
             $o_nom = Rayon::getObjectByNom($s_nomRayon);
+
+            /* Gestion de la marge */
             if($o_nom != array() || $f_marge > 100 || $f_marge < 0 ) {
                 /* Vérification que la marge est compris entre 0 et 1 */
                 if ($_POST['marge']<0 || $_POST['marge']>100) {
@@ -54,6 +65,9 @@ class RayonController extends Controller {
         $this->render('creerRayon',compact('i_rayonSet','i_errName', 'i_errMarge'));
     }
 
+    /*
+     * Modifie un rayon existant
+     */
     public function modifierRayon() {
         $i_errNewName = 0;
         $i_oldRayonSet = 0;
@@ -63,7 +77,7 @@ class RayonController extends Controller {
             header('Location: '.root.'/authentificationRequired');
         }
 
-
+        /* Gestion du choix du rayon */
         if (isset($_GET['idRayon']) && $_GET['idRayon'] != "") {
             $i_oldRayonSet = 1;
             $i_idRayon = $_GET['idRayon'];
@@ -73,6 +87,7 @@ class RayonController extends Controller {
             return;
         }
 
+        /* Gestion du nouveau nom du rayon */
         if (isset($_POST['newNomRayon']) && $_POST['newNomRayon'] != "") {
             $s_nomRayon = $_POST['newNomRayon'];
             $i_id = $_POST['idRayon'];
@@ -97,6 +112,7 @@ class RayonController extends Controller {
 
         }
 
+        /* Gestion de la modification de la marge */
         if (isset($_POST['marge']) && $_POST['marge'] != "") {
             $f_marge = (float)($_POST['marge']/100);
             $i_id = $_POST['idRayon'];

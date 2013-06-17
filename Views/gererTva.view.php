@@ -12,7 +12,12 @@
         } else { 
             if ($i_errTVA == 1) {
 ?>
- <p class="erreur"> Erreur : Vous ne pouvez pas ajouter une valeur de la TVA qui est déjà existante <p>
+ <p class="erreur"> Erreur : Vous ne pouvez pas ajouter une valeur de la TVA qui est déjà existante </p>
+<?php
+            } else if ($i_errFormat == 1) {
+?>
+
+<p class="erreur"> Erreur : Format incorrect. La TVA doit être un nombre compris entre 0 et 100. </p>
 <?php
             }
 ?>

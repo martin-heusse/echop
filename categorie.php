@@ -6,30 +6,39 @@ require_once('Model/Rayon.php');
 
 class CategorieController extends Controller {
 
+    /*
+     * Constructeur
+     */
     public function __construct() {
         parent::__construct();
     }
 
 
-
+    /*
+     * Crée une catégorie d'articles
+     */
     public function creerCategorie() {
         $i_categorieSet = 0;
         $i_errName = 0;
 
+        /* Vérification du login */
         if (!Utilisateur::isLogged()) {
             header('Location: '.root.'/authentificationRequired');
         }
 
+        /* Gestion des requetes */
         if (isset($_POST['nomCategorie']) && $_POST['nomCategorie'] != "") {
             $s_nomCategorie = $_POST['nomCategorie'];
 
-            $o_nom = Categorie::getObjectByNom($s_nomCategorie);
-            if($o_nom != array()) {
             /* Vérification de la disponibilité du nom */
+            $o_nom = Categorie::getObjectByNom($s_nomCategorie);
+            
+            if($o_nom != array()) {
                 $i_errName = 1;
             } else {
                 $i_categorieSet = 1;
                 Categorie::create($s_nomCategorie);
+            
                 $to_rayon = Rayon::getAllObjects();
                 $to_categorie = Categorie::getAllObjects();
                 $this->render('gererRayon', compact('to_rayon','to_categorie'));
@@ -38,17 +47,21 @@ class CategorieController extends Controller {
         $this->render('creerCategorie',compact('i_categorieSet','i_errName'));
     }
 
+    /*
+     * Modifie le om d'une catégorie existente 
+     */
     public function modifierCategorie() {
         $i_errNewName = 0;
         $i_oldCategorieSet = 0;
         $to_categorie = Categorie::getAllObjects();
         $i_idCategorie = 0;
 
+        /* Vérification du login */
         if (!Utilisateur::isLogged()) {
             header('Location: '.root.'/authentificationRequired');
         }
 
-
+        /* Gestion du choix de la catégorie */
         if (isset($_GET['idCategorie']) && $_GET['idCategorie'] != "") {
             $i_oldCategorieSet = 1;
             $i_idCategorie = $_GET['idCategorie'];
@@ -57,13 +70,14 @@ class CategorieController extends Controller {
             return;
         }
 
+        /* Gestion de la requête de remplacement du nom */
         if (isset($_POST['newNomCategorie']) && $_POST['newNomCategorie'] != "") {
             $s_nomCategorie = $_POST['newNomCategorie'];
             $i_id = $_POST['idCategorie'];
 
-            /* Vérification de la disponibilité du nom */ 
             $o_nom = Categorie::getObjectByNom($s_nomCategorie);
 
+            /* Vérification de la disponibilité du nom */ 
             if ($o_nom != array()) {
                 $i_errNewName = 1;
                 $i_oldCategorieSet = 1;
@@ -78,15 +92,6 @@ class CategorieController extends Controller {
                 return;
             }
 
-        }
-
-        if (isset($_POST['marge']) && $_POST['marge'] != "") {
-            $f_marge = (float)($_POST['marge']/100);
-            $i_id = $_POST['idCategorie'];
-            Categorie::setMarge($i_id,$f_marge);
-            $to_categorie = Categorie::getAllObjects();
-            $this->render('gererCategorie', compact('to_categorie'));
-            return;
         }
 
         $this->render('modifierCategorie',compact('to_categorie','i_oldCategorieSet','i_errNewName'));
