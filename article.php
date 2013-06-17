@@ -181,13 +181,13 @@ class ArticleController extends Controller {
             $this->render('adminRequired');
             return;
         }
+        $i_idRayon = $_GET['i_idRayon'];
+        $o_rayon = Rayon::getObject($i_idRayon);
         $to_tva = Tva::getAllObjects();
-        var_dump($to_tva);
-        return;
         $to_unite = Unite::getAllObjects();
         $to_fournisseur = Fournisseur::getAllObjects();
         $to_categorie = Categorie::getAllObjects();
-        $this->render('creerArticle',compact('to_tva', 'to_unite', 'to_fournisseur','to_categorie'));
+        $this->render('creerArticle',compact('o_rayon','to_tva', 'to_unite', 'to_fournisseur','to_categorie'));
     }
 
     public function creerArticle() {
@@ -204,6 +204,7 @@ class ArticleController extends Controller {
         $i_erreur = null;
         $to_tva = Tva::getAllObjects();
         $to_unite = Unite::getAllObjects();
+        // A CHANGER
         $to_fournisseur = Fournisseur::getAllObjects();
         // récupération des variables
         if( !isset($_POST['nom_produit']) or $_POST['nom_produit']==""
