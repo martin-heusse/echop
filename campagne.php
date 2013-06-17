@@ -7,6 +7,7 @@ require_once('Model/Utilisateur.php');
 require_once('Model/Article.php');
 require_once('Model/Unite.php');
 require_once('Model/ArticleCampagne.php');
+require_once('Model/ArticleFournisseur.php');
 require_once('Model/Rayon.php');
 require_once('Model/Fournisseur.php');
 require_once('Util.php');
@@ -112,7 +113,7 @@ class CampagneController extends Controller {
         /* Réaffecte le prix des articles des fournisseurs */
         $ti_idOldArticleCampagne = ArticleCampagne::getIdByIdCampagne($i_idOldCampagne);
         foreach ($ti_idOldArticleCampagne as $i_idOldArticleCampagne) {
-            $to_fournisseur = ArticleFournisseur::getObjectsByIdArticleCampagne();
+            $to_fournisseur = ArticleFournisseur::getObjectsByIdArticleCampagne($i_idOldArticleCampagne);
             foreach ($to_fournisseur as $o_fournisseur) {
                 /* Atribut de ArticleFournisseur */
                 $i_idFournisseur = $o_fournisseur['id_fournisseur'];
@@ -122,7 +123,7 @@ class CampagneController extends Controller {
                 $b_prixTtcHt = $o_fournisseur['prix_ttc_ht'];
                 $b_ventePaquetUnite = $o_fournisseur['vente_paquet_unite'];
                 /* Récupération de l'idArticle précédemment créé */
-                $i_idArticle = ArticleCampagne::getIdArticleByIdCampagne($i_idCampagneCourante);
+                $i_idArticle = ArticleCampagne::getIdArticle($i_idOldArticleCampagne);
                 $i_idArticleCampagne = ArticleCampagne::getIdByIdArticleIdCampagne($i_idArticle, $i_idCampagneCourante);
                 /* Création */
                 ArticleFournisseur::create($i_idArticleCampagne, $i_idFournisseur, $f_prixHt, $f_prixTtc, $s_code, $b_prixTtcHt, $b_ventePaquetUnite);
