@@ -220,7 +220,7 @@ class ArticlesCommandEsController extends Controller {
         }
         $f_float = $i_quantiteTotale-floor($i_quantiteTotale);
         $i_manque = $i_quantiteTotale % $i_colisage;
-        $i_manque = ($i_colisage - $i_manque) % $i_colisage + $i_colisage - $f_float;
+        $i_manque = ($i_colisage - $i_manque) % $i_colisage;
             if($i_manque-$f_float < 0){
                 $i_manque += $i_colisage - $f_float;
             } else {
