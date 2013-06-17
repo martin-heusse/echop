@@ -193,124 +193,124 @@ insert into article_campagne(id_article, id_campagne, id_fournisseur,
 -- CREATION DE ARTICLE_FOURNISSEUR 
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(1, 4,12.05, 12.54, '', false, false);
+    values(1, 4,12.54, 12.54, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(1, 5,null, 12.71, '', true, false);
+    values(1, 5,12.71, 12.71, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(2, 4,null, 30.5, 'E100', true, false);
+    values(2, 4,30.5, 30.5, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(3, 5,13.70, 14.45, 'E100', false, false);
+    values(3, 5,14.45, 14.45, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(4, 5,9.35, 9.86, 'E100', false, false);
+    values(4, 5,9.86, 9.86, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(5,4,null, 45.48, 'E100', true, false);
+    values(5,4,45.48, 45.48, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(5,5,44.25, 46.68, 'E100', false, false);
+    values(5,5,46.68, 46.68, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(6,4,null, 16.60, 'E100', true, false);
+    values(6,4,16.60, 16.60, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(6,5,17.25, 18.20, 'E100', false, false);
+    values(6,5,18.20, 18.20, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(7, 4,null, 78.94, 'E100', true, false);
+    values(7, 4,78.94, 78.94, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(7, 5,75.50, 79.65, 'E100', false, false);
+    values(7, 5,79.65, 79.65, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(8, 4,null, 16.68, 'E100', true, false);
+    values(8, 4,16.68, 16.68, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(8, 5,15.95, 16.83, 'E100', false, false);
+    values(8, 5,16.83, 16.83, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(9, 4,null, 79.46, 'E100', true, false);
+    values(9, 4,79.46, 79.46, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(10, 4,null, 19.54, 'E100', true, false);
+    values(10, 4,19.54, 19.54, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(10, 5,19.15, 20.20, 'E100', true, false);
+    values(10, 5,20.20, 20.20, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(11, 4,null, 82.80, 'E100', true, false);
+    values(11, 4,82.80, 82.80, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(11, 5,92.00, 97.06, 'E100', false, false);
+    values(11, 5,97.06, 97.06, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(12, 4,null, 23.10, 'E100', true, false);
+    values(12, 4,23.10, 23.10, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(12, 5,19.25, 20.31, 'E100', false, false);
+    values(12, 5,20.31, 20.31, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(13, 4,null, 94.35, 'E100', true, false);
+    values(13, 4,94.35, 94.35, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(13, 5,92.50, 97.59, 'E100', false, false);
+    values(13, 5,92.50, 92.50, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(14, 4,null, 8.60, 'E100', true, false);
+    values(14, 4,8.60, 8.60, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(14, 5,8.80, 9.28, 'E100', false, false);
+    values(14, 5,9.28, 9.28, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(15, 4,null, 8.60, 'E100', true, false);
+    values(15, 4,8.60, 8.60, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(15, 5,8.80, 9.28, 'E100', false, false);
+    values(15, 5,9.28, 9.28, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(16, 5,9.00, 9.50, 'E100', false, false);
+    values(16, 5,9.50, 9.50, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(17, 5,9.95, 10.50, 'E100', false, false);
+    values(17, 5,10.50, 10.50, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(18, 5,9.00, 9.50, 'E100', false, false);
+    values(18, 5,9.00, 9.50, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(19, 4, null, 8.60, 'E100', true, false);	
+    values(19, 4,  8.60, 8.60, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(19, 5,8.80, 9.28, 'E100', false, false);
+    values(19, 5,9.28, 9.28, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(20, 4,null, 8.60, 'E100', true, false);
+    values(20, 4,8.60, 8.60, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(20, 5,8.80, 9.28, 'E100', false, false);
+    values(20, 5,9.28, 9.28, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(21, 4,null, 8.60, 'E100', true, false);
+    values(21, 4,8.60, 8.60, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(21, 5,9.70, 10.23, 'E100', false, false);
+    values(21, 5,10.23, 10.23, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(22, 4,null, 14.39, 'E100', true, false);
+    values(22, 4,14.39, 14.39, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(23, 5,1.96, 2.07, 'E100', false, true);
+    values(23, 5,2.07, 2.07, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(24, 5, 0.95, 1.00, 'E100', false, true);
+    values(24, 5, 0.95, 0.95, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(25, 5,0.95, 1.00, 'E100', false, true);
+    values(25, 5,1.00, 1.00, 'E100', true, true);
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
-    values(26, 5,0.93, 0.98, 'E100', false, true);
+    values(26, 5,0.98, 0.98, 'E100', true, true);
 --insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
   --  code, prix_ttc_ht, vente_paquet_unite)
     --values(27, 5,0.93, 0.98, 'E100', false, true);
