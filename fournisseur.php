@@ -88,9 +88,7 @@ class FournisseurController extends Controller {
                 $f_poidsPaquetClient = $o_articleFournisseur['poids_paquet_client'];
                 $ti_idUtilisateur = Commande::getIdUtilisateurByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
                 /* pour chaque utilisateur, on regarde combien il a commandé*/
-                foreach ($ti_idUtilisateur as $o_idUtilisateur) {
-                    var_dump($o_idUtilisateur);
-                    $i_idUtilisateur = $o_idUtilisateur['id_utilisateur'];
+                foreach ($ti_idUtilisateur as $i_idUtilisateur) {
                     $i_id = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
                     $i_quantite = Commande::getQuantite($i_id);
                     $i_quantiteTotaleArticle += $i_quantite;
