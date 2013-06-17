@@ -200,7 +200,7 @@ class ArticlesCommandEsController extends Controller {
             return;
         }
         $i_idArticle = $_GET['idArticle'];
-        $to_utilisateur = Commande::getIdUtilisateurByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+        $to_utilisateur = Commande::getObjectsByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
         $i_idUnite = Article::getIdUnite($i_idArticle); 
         $s_unite = Unite::getUnite($i_idUnite);
         $i_idArticleCampagne = ArticleCampagne::getIdByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
