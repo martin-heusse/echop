@@ -71,6 +71,8 @@ class CommanderArticleController extends Controller {
             $i_idArticle = $o_article['id_article'];
             $o_article['id_rayon'] = Article::getIdRayon($i_idArticle);
             $o_article['nbre_article'] = 0;
+            $i_idCategorie = Article::getIdCategorie($i_idArticle);
+            $o_article['categorie'] = Categorie::getNom($i_idCategorie);
             if ($o_article['id_rayon'] == $i_idRayon) {
                 $o_article['nbre_article'] ++;
                 $o_article['nom'] = Article::getNom($i_idArticle);
@@ -80,8 +82,6 @@ class CommanderArticleController extends Controller {
                 $o_article['nb_paquet_colis'] = Article::getNbPaquetColis($i_idArticle);
                 $o_article['description_courte'] = Article::getDescriptionCourte($i_idArticle);
                 $o_article['description_longue'] = Article::getDescriptionLongue($i_idArticle);
-                $i_idCategorie = Article::getIdCategorie($i_idArticle);
-                $o_article['categorie'] = Categorie::getNom($i_idCategorie);
                 /* Quantité */
                 $i_idCommande = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
                 $o_article['quantite'] = Commande::getQuantite($i_idCommande); 
