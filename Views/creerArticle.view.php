@@ -130,7 +130,7 @@ if(isset($i_erreur)){
             </select>&nbsp; %
         </p>
         <p> <!-- Liste des fournisseurs  à choisir -->
-            Liste des fournisseurs (<sup>&nbsp;**</sup> obligatoire si le fournisseur est coché, on ne peut choisir qu'un fournisseur coché) : 
+            Liste des fournisseurs (<sup>&nbsp;**</sup> obligatoire si le fournisseur est coché, il faut au moins en cocher un, on ne peut choisir qu'un fournisseur coché) : 
         </p>
 <?php
 // forcer à cocher le premier fournisseur par sécurité
