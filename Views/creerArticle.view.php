@@ -11,12 +11,17 @@
 if(isset($i_erreur)){
     if($i_erreur==0){
 ?>
-    <p class="succes"> Votre article a été crée ! </p>
+    <p id="message" class="succes"> Votre article a été crée ! </p>
 <?php
     }
     if($i_erreur==1){
 ?>
-    <p class="erreur"> Erreur de saisie, l'article n'a pas été crée ! </p>
+    <p id="message" class="erreur"> Erreur de saisie, l'article n'a pas été crée, vous devez cocher au moins un fournisseur ! </p>
+<?php
+    }
+    if($i_erreur==2){
+?>
+    <p id="message" class="erreur"> Erreur de saisie, l'article n'a pas été crée, vous devez choisir un fournisseur coché ! </p>
 <?php
     }
 }
@@ -25,7 +30,7 @@ if(isset($i_erreur)){
     <!-- Message de consignes -->
     <fieldset><legend>Créer un article</legend>
         <h3> Vous allez créer un article dans <?php echo $o_rayon['nom']?> .</h3>
-        <p>Les Champs avec * sont obligatoires. Si vous ne voulez rien mettre mettez un tiret.</p>
+        <p>Les Champs avec * sont obligatoires. Si vous ne voulez rien, mettez un tiret.</p>
         <!-- Rayon choisi en variable cachée -->
         <input  type="hidden"
                 name="id_rayon"
@@ -124,43 +129,62 @@ if(isset($i_erreur)){
 ?>
             </select>&nbsp; %
         </p>
-        <p> Liste des fournisseurs (<sup>&nbsp;**</sup> obligatoire si le fournisseur est coché, on ne peut choisir qu'un fournisseur coché) : </p> <!-- Liste des fournisseurs  à choisir -->
+        <p> <!-- Liste des fournisseurs  à choisir -->
+            Liste des fournisseurs (<sup>&nbsp;**</sup> obligatoire si le fournisseur est coché, on ne peut choisir qu'un fournisseur coché) : 
+        </p>
 <?php
-// cocher le premier fournisseur
+// forcer à cocher le premier fournisseur par sécurité
 $estChoisi = TRUE;
 foreach($to_fournisseur as $o_fournisseur){
+/* Les identifiant fournisseur */
+$i_idFournisseur = $o_fournisseur['id'];
 ?>
         <p>
-            <input type="checkbox" name="id_fournisseur[]" value="<?php echo $o_fournisseur['id']; ?>"> 
+            <!-- Les cases à cocher -->
+            <input type="checkbox" 
+                    name="id_fournisseur_coche[]" 
+                    value="<?php echo $i_idFournisseur; ?>" 
+                    />
+            <!-- Le nom des fournisseurs -->
             <span class="form_col"><label><?php echo $o_fournisseur['nom']; ?></label></span>
-            <!--<input type="hidden" name="id_fournisseur[]" value="<?php echo $o_fournisseur['id']; ?>"/> -->
-            <label>Code<sup>&nbsp;**</sup></label> <!-- Le Code -->
-                <input  class="input_quantite"
+             <!-- Le Code -->
+            <label>Code<sup>&nbsp;**</sup></label>
+                <input  class="input_quantite" 
                         type="text" 
-                        name="code[]" 
-                        value=""
-                        />&nbsp;--&nbsp;
-            <label>Montant<sup>&nbsp;**</sup></label> <!-- Le Montant -->
-            <input  class="input_quantite"
+                        name="code[<?php echo $i_idFournisseur; ?>]" 
+                        value="" 
+                        />
+                        &nbsp;--&nbsp;
+             <!-- Le Montant -->
+            <label>Montant<sup>&nbsp;**</sup></label>
+            <input  class="input_quantite" 
                     type="text" 
-                    name="prix_donne_fournisseur[]" 
-                    value=""
-                    /> &euro;&nbsp;/&nbsp;
-            <select name="vente_paquet_unite[]"> <!-- paquet ou unite -->
-                    <option> Paquet </option>
-                    <option> Unite </option>
-            </select> &nbsp;en&nbsp;
-            <select name="prix_ttc_ht[]"> <!-- TTC ou HT -->
-                    <option> Prix HT </option>
-                    <option> Prix TTC </option>
-            </select> &nbsp;--&nbsp;
-            <label>Prix TTC</label> <!-- Le Prix TTC calculé -->
+                    name="montant[<?php echo $i_idFournisseur; ?>]" 
+                    value="" 
+                    />
+             &euro;&nbsp;/&nbsp;
+             <!-- paquet ou unite -->
+            <select name="vente_paquet_unite[<?php echo $i_idFournisseur; ?>]">
+                    <option value="1"> Paquet </option>
+                    <option value="0"> Unite </option>
+            </select>
+            &nbsp;en&nbsp;
+            <!-- TTC ou HT -->
+            <select name="prix_ttc_ht[<?php echo $i_idFournisseur; ?>]">
+                    <option value="0"> Prix HT </option>
+                    <option value="1"> Prix TTC </option>
+            </select>
+            &nbsp;--&nbsp;
+             <!-- Le Prix TTC calculé -->
+            <label>Prix TTC</label>
             <input  class="input_quantite"
                     type="text" 
                     name="prix_ttc_fournisseur[]" 
                     value=""
                     disabled
-                    /> &euro;/paquet fournisseur&nbsp;--&nbsp;
+                    /> 
+            &euro;/paquet fournisseur&nbsp;--&nbsp;
+            <!-- Choisir -->
             <label>Choisir</label>
                 <input type="radio" 
                        name="id_fournisseur_choisi" 
@@ -186,7 +210,7 @@ foreach($to_fournisseur as $o_fournisseur){
                     name="prix_ttc_echoppe" 
                     value=""
                     disabled
-                    />&euro;/paquet fournisseur
+                    />&euro;/paquet fournisseur choisi
         </p>
         <p> <!-- Prix client unitaire TTC calculé de façon automatique -->
             <span class="form_col"><label>Prix client unitaire TTC</label></span>
