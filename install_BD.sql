@@ -141,6 +141,7 @@ CREATE TABLE commande (
     id_campagne integer not null,
     id_utilisateur integer not null,
     quantite integer,
+    est_livre boolean,
 
     constraint pk_commande primary key(id),
 

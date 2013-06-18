@@ -34,9 +34,9 @@ class ArticleCampagne {
 
     /* Creaters */
 
-    public static function create($i_idArticle, $i_idCampagne, $i_idFournisseur, $i_idTva, $f_poidsPaquetClient, $i_seuilMin, $f_prixTtc, $b_envente) {
+    public static function create($i_idArticle, $i_idCampagne, $i_idFournisseur, $i_idTva, $f_poidsPaquetClient, $i_seuilMin, $f_prixTtc, $b_enVente) {
         $sql_query = "insert into article_campagne(id_article, id_campagne, id_fournisseur, id_tva, poids_paquet_client, seuil_min, prix_ttc, en_vente) 
-            values('$i_idArticle', '$i_idCampagne', '$i_idFournisseur', '$i_idTva', '$f_poidsPaquetClient', '$i_seuilMin', '$f_prixTtc', '$b_envente')";
+            values('$i_idArticle', '$i_idCampagne', '$i_idFournisseur', '$i_idTva', '$f_poidsPaquetClient', '$i_seuilMin', '$f_prixTtc', '$b_enVente')";
         mysql_query($sql_query);
         $i_result = mysql_insert_id();
         return $i_result;

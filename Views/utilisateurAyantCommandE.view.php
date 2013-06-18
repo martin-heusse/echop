@@ -32,6 +32,7 @@ Cliquez sur un nom d'utilisateur pour voir la liste des produits qu'il a command
     <tr>
         <th>Utilisateur</th>
         <th>Prix total TTC</th>
+        <th>Livré</th>
     </tr>
 <?php
     $i_numLigne = 0;
@@ -48,6 +49,17 @@ if ($b_historique == 1) {
 ">
         <?php echo $o_utilisateur['login_utilisateur'] ?></a></td>
         <td class="centrer"><?php echo $o_utilisateur['montant_total'] ?>&euro;</td>
+<?php
+if ($o_utilisateur['tout_livre'] == 1) {
+?>
+        <td class="center">livré</td>
+<?php
+} else {
+?>
+        <td class="center col_coloree">non livré</td>
+<?php
+}
+?>
     </tr>
 <?php
     $i_numLigne = ($i_numLigne + 1) % 2;
