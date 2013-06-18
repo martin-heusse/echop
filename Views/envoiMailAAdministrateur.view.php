@@ -1,14 +1,14 @@
 <p>
     <a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a>
 </p>
-<h1>Envoyer un mail à tous les utilisateurs</h1>
+<h1>Envoyer un mail aux administrateurs</h1>
 
 <?php
     if ($i_emailSent == 0) {
 ?>
 
     <form name="formulaire" 
-    action="<?php echo root ?>/utilisateur.php/envoiMail"
+    action="<?php echo root ?>/utilisateur.php/envoiMailAAdministrateur"
     enctype="multipart/form-data"
     method="post">
     
@@ -19,8 +19,7 @@
 <?php 
     } else {
 ?>
-    <p class="succes"> Le message a été envoyé à tous les utilisateurs.</p>
+    <p class="succes"> Le message a été envoyé aux administrateurs.</p>
 <?php
     }
 ?>
-

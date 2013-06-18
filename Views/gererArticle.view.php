@@ -24,10 +24,14 @@ if ($b_historique == 1) {
 <?php
 if(isset($i_erreur)){
     if($i_erreur==0){
-        echo "Vos articles ont été modifiés !";
+?>
+<p class="succes">Vos articles ont été modifiés !</p>
+<?php
     }
     if($i_erreur==1){
-        echo "Erreur de saisie, les articles n'ont pas été modifiés !";
+?>
+<p class="erreur">Erreur de saisie, les articles n'ont pas été modifiés !</p>
+<?php
     }
 }
 ?>
@@ -44,10 +48,10 @@ foreach($to_rayon as $o_rayon){
     <a <?php if($o_rayon['id']==$i_idRayon){ echo "style=\"background-color: grey;\"";} ?> 
        href="<?php echo root; ?>/article.php/afficherArticle?i_idRayon=<?php echo $o_rayon['id']; ?>
 <?php
-/* Si navigation dans l'historique */
-if ($b_historique == 1) {
-    echo "&idOldCampagne=".$i_idCampagne;
-}
+    /* Si navigation dans l'historique */
+    if ($b_historique == 1) {
+        echo "&idOldCampagne=".$i_idCampagne;
+    }
 ?>
 "><?php echo $o_rayon['nom']; ?></a>&nbsp;
 <?php
@@ -94,11 +98,11 @@ if ($b_historique == 1) {
 <!-- En variable cachée id_rayon -->
 <input type="hidden" name="i_idRayon" value="<?php echo $i_idRayon ?>"/>
 
-<input align="middle" type="submit" class="input_valider" value="Mettre à jour les articles"/>
+<input type="submit" class="input_valider" value="Mettre à jour les articles"/>
 
-<table style="font-size:10px;">
+<table>
     <thead> <!-- En-tête du tableau -->
-        <tr>
+        <tr class="tab_article">
             <th>Mettre en vente auprès du client</th>
             <th>Produit</th>
             <th>Description courte</th>
@@ -131,21 +135,36 @@ foreach($to_fournisseur as $o_fournisseur){
 $i_numLigne = 0;
 
 /* AJOUT catégorie*/
-foreach($to_categorie as $o_categorie) {
-?>
-    <tr class="erreur"> <td><?php echo $o_categorie['nom']?></td> </tr>
-<?php
-    foreach ($to_descriptionArticle as $o_descriptionArticle) {
-        /* AJOUT condition pour la catégorie */
+foreach ($to_categorie as $o_categorie) {
+    $i_nbreArticleCategorie = 0;
+    foreach($to_descriptionArticle as $o_descriptionArticle) {
         if ($o_descriptionArticle['id_categorie'] == $o_categorie['id']) { 
-            // boucle pour affcher tous les produits
-            $i_idArticleCampagne = $o_descriptionArticle['id_article_campagne'];
+            $i_nbreArticleCategorie++;
+        }
+    }
+    if ($i_nbreArticleCategorie != 0) {
 ?>
-            <tr>
+    <tr class="cat"> <td><?php echo $o_categorie['nom']?></td> </tr>
+<?php
+        foreach ($to_descriptionArticle as $o_descriptionArticle) {
+            /* AJOUT condition pour la catégorie */
+            if ($o_descriptionArticle['id_categorie'] == $o_categorie['id']) { 
+                // boucle pour affcher tous les produits
+                $i_idArticleCampagne = $o_descriptionArticle['id_article_campagne'];
+                if ($o_descriptionArticle['en_vente']) {
+                    ?>
+            <tr class="ligne_article<?php echo $i_numLigne?>1">
+<?php 
+                } else {
+?>
+    <tr class="ligne_article<?php echo $i_numLigne?>2">
+<?php
+                }
+?>
                 <!-- En variable cachée id_article_campagne -->
                 <input type="hidden" name="id_article_campagne[]" value="<?php echo $i_idArticleCampagne ?>"/>
                 <!-- Mettre en vente -->
-                <td align="center" title="Mettre en vente auprès du client">
+                <td class="center tab_article"  title="Mettre en vente auprès du client">
                     <select name="en_vente[]">
                         <option value="1" 
                                 <?php if($o_descriptionArticle['en_vente'] == '1'){echo 'selected="true"';}?>
@@ -156,7 +175,7 @@ foreach($to_categorie as $o_categorie) {
                     </select>
                 </td>
                 <!-- Nom du produit -->
-                <td align="center" title="Produit : Le nom du produit">
+                <td class="center tab_article" title="Produit : Le nom du produit">
                     <input class="input_quantite" 
                            type="text" 
                            name="nom_produit[]" 
@@ -165,7 +184,7 @@ foreach($to_categorie as $o_categorie) {
                     />
                 </td>
                 <!-- Description courte -->
-                <td align="center" title="Description courte : présentation brève du produit" >
+                <td class="center tab_article" title="Description courte : présentation brève du produit" >
                     <input class="input_quantite" 
                            type="text" 
                            name="description_courte[]" 
@@ -174,7 +193,7 @@ foreach($to_categorie as $o_categorie) {
                      />
                 </td>
                 <!--Description longue -->
-                <td align="center" title="Description longue : présentation plus détaillée du produit">
+                <td class="center tab_article" title="Description longue : présentation plus détaillée du produit">
                     <input class="input_quantite" 
                        type="text" name="description_longue[]" 
                        value="<?php echo $o_descriptionArticle['description_longue']?>" 
@@ -182,22 +201,22 @@ foreach($to_categorie as $o_categorie) {
                      />
                  </td>
                 <!-- Unité -->
-                <td align="center" title="Unite" ><select name="id_unite[]">
+                <td class="center tab_article" title="Unite" ><select name="id_unite[]">
 <?php
-            foreach($to_unite as $o_unite){
-                $i_idUnite = $o_unite['id'];
-                $f_valeurUnite = $o_unite['valeur'];
-                $i_idUniteChoisi = $o_descriptionArticle['id_unite_choisi'];
+                foreach($to_unite as $o_unite){
+                    $i_idUnite = $o_unite['id'];
+                    $f_valeurUnite = $o_unite['valeur'];
+                    $i_idUniteChoisi = $o_descriptionArticle['id_unite_choisi'];
 ?>
                     <option value="<?php echo $i_idUnite ?>" 
                            <?php if($i_idUnite==$i_idUniteChoisi){echo 'selected="true"';} ?>
                     > <?php echo $f_valeurUnite ?></option>
 <?php
-            }
+                }
 ?>
                 </select></td>
                 <!-- Nombre de paquets par colis fournisseur -->
-                <td align="center" title="Nombre de paquets par colis">
+                <td class="center tab_article" title="Nombre de paquets par colis">
                    <input class="input_quantite" 
                           type="text" 
                           name="nb_paquet_colis[]" 
@@ -207,7 +226,7 @@ foreach($to_categorie as $o_categorie) {
                     <br /> paquet/colis fournisseur
                 </td>
                 <!-- Poids du paquet fournisseur -->
-                <td align="center" title="Poids du paquet fournisseur" >
+                <td class="center tab_article" title="Poids du paquet fournisseur" >
                    <input class="input_quantite" 
                           type="text" 
                           name="poids_paquet_fournisseur[]" 
@@ -217,7 +236,7 @@ foreach($to_categorie as $o_categorie) {
                     <br />&nbsp;<?php echo $o_descriptionArticle['valeur_unite_choisi'] ?>
                 </td>
                 <!-- Poids du paquet client -->
-                <td align="center" title="Poids du paquet client">
+                <td class="center tab_article" title="Poids du paquet client">
                    <input class="input_quantite" 
                           type="text" 
                           name="poids_paquet_client[]" 
@@ -227,7 +246,7 @@ foreach($to_categorie as $o_categorie) {
                     <br />&nbsp;<?php echo $o_descriptionArticle['valeur_unite_choisi'] ?>
                 </td>
                 <!-- Seuil min -->
-                <td align="center" title="Seuil min que peut choisir le client">
+                <td class="center tab_article" title="Seuil min que peut choisir le client">
                      <input class="input_quantite" 
                             type="text" name="seuil_min[]" 
                             value="<?php echo $o_descriptionArticle['seuil_min'] ?>" 
@@ -235,32 +254,32 @@ foreach($to_categorie as $o_categorie) {
                      />
                 </td>
                 <!-- TVA -->
-                <td align="center" title="TVA" ><select name="id_tva[]">
+                <td aclass="center tab_article";;lign="center" title="TVA" ><select name="id_tva[]">
 <?php
-            foreach($to_tva as $o_tva){
-                $i_idTva = $o_tva['id'];
-                $f_valeurTva = $o_tva['valeur'];
-                $i_idTvaChoisi = $o_descriptionArticle['id_tva_choisi'];
+                foreach($to_tva as $o_tva){
+                    $i_idTva = $o_tva['id'];
+                    $f_valeurTva = $o_tva['valeur'];
+                    $i_idTvaChoisi = $o_descriptionArticle['id_tva_choisi'];
 ?>
                     <option value="<?php echo $i_idTva ?>" <?php if($i_idTva==$i_idTvaChoisi){echo 'selected="true"';} ?>> 
                        <?php echo $f_valeurTva ?>&nbsp;%
                     </option>
 <?php
-            }
+                }
 ?>
                 </select></td>
                 <!-- Boucle pour afficher les fournisseurs disponibles du rayon-->
 <?php
-            $i_idFournisseurChoisi = $o_descriptionArticle['id_fournisseur_choisi'];
-            foreach($to_fournisseur as $o_fournisseur){
-                $i_idFournisseur = $o_fournisseur['id_fournisseur'];
-                if(isset($o_descriptionArticle[$i_idFournisseur]['prix_fournisseur'])){
-                    $f_prixFournisseur = $o_descriptionArticle[$i_idFournisseur]['prix_fournisseur'];
-                    $b_prixTtcHt = $o_descriptionArticle[$i_idFournisseur]['prix_ttc_ht'];
-                    $b_ventePaquetUnite = $o_descriptionArticle[$i_idFournisseur]['vente_paquet_unite'];
+                $i_idFournisseurChoisi = $o_descriptionArticle['id_fournisseur_choisi'];
+                foreach($to_fournisseur as $o_fournisseur){
+                    $i_idFournisseur = $o_fournisseur['id_fournisseur'];
+                    if(isset($o_descriptionArticle[$i_idFournisseur]['prix_fournisseur'])){
+                        $f_prixFournisseur = $o_descriptionArticle[$i_idFournisseur]['prix_fournisseur'];
+                        $b_prixTtcHt = $o_descriptionArticle[$i_idFournisseur]['prix_ttc_ht'];
+                        $b_ventePaquetUnite = $o_descriptionArticle[$i_idFournisseur]['vente_paquet_unite'];
 ?>
-                <td title="Fournisseur : <?php echo $o_fournisseur['nom_fournisseur']; ?>">
-                    <table style="font-size:9px;">
+                <td class="center tab_article" title="Fournisseur : <?php echo $o_fournisseur['nom_fournisseur']; ?>">
+                    <table class="tab_tab_article">
                         <th>Code</th>
                         <th>Prix donnée par le fournisseur</th>
                         <th>Prix TTC</th>
@@ -315,16 +334,16 @@ foreach($to_categorie as $o_categorie) {
                     </table>
                  </td>
 <?php 
-                } else {
+                    } else {
 ?>
             <td></td>
 
 <?php
+                    }
                 }
-            }
 ?>
                 <!-- Prix client TTC  -->
-                <td align="center" title="Prix TTC choisi par l'échoppe rapporté au colis du fournisseur vendu au client">
+                <td class="center tab_article" title="Prix TTC choisi par l'échoppe rapporté au colis du fournisseur vendu au client">
                     <input class="input_quantite" 
                            type="text" 
                            name="prix_ttc_echoppe[]" 
@@ -333,7 +352,7 @@ foreach($to_categorie as $o_categorie) {
                     <br />&nbsp;&euro;/paquet fournisseur
                 </td>
                 <!-- Prix client unitaire TTC -->
-                <td align="center" title="Prix TTC rapporté à l'unité echoppe">
+                <td class="center tab_article" title="Prix TTC rapporté à l'unité echoppe">
                   <input class="input_quantite" 
                          value="<?php echo $o_descriptionArticle['prix_echoppe_unite'] ?>"
                          disabled
@@ -342,6 +361,8 @@ foreach($to_categorie as $o_categorie) {
                 </td>
           </tr>
 <?php
+                $i_numLigne = ($i_numLigne + 1) % 2;
+            }
         }
     }
 }

@@ -26,7 +26,7 @@ if ($to_utilisateur != null) {
 <?php
 } else {
 ?>
-<p> Il n'y a aucun utilisateur inscrit</p>
+<p class="message"> Il n'y a aucun utilisateur inscrit</p>
 <?php
 }
 ?>

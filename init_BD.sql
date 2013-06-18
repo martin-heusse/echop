@@ -187,7 +187,8 @@ insert into article_campagne(id_article, id_campagne, id_fournisseur,
 insert into article_campagne(id_article, id_campagne, id_fournisseur,
     poids_paquet_client, id_tva, seuil_min, prix_ttc, en_vente)
     values(26, 1, 5, 0.25, 2, 1, 1.09, 1);
-insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc, en_vente)
+insert into article_campagne(id_article, id_campagne, id_fournisseur, 
+    poids_paquet_client, id_tva, seuil_min, prix_ttc, en_vente)
     values(27, 1, 5, 0.25, 2, 1, 1.09, 1);
 
 -- CREATION DE ARTICLE_FOURNISSEUR 
@@ -315,13 +316,13 @@ insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, pri
     values(27, 5,0.93, 0.98, 'E100', false, true);
 
 -- CREATION DES COMMANDES DES UTILISATEURS POUR UNE CAMPAGNE ET UN ARTICLE
-insert into commande(id_article, id_campagne, id_utilisateur, quantite)
-    values(1, 1, 1, 5);
-insert into commande(id_article, id_campagne, id_utilisateur, quantite)
-    values(2, 1, 1, 6);
-insert into commande(id_article, id_campagne, id_utilisateur, quantite)
-    values(1, 1, 4, 9);
-insert into commande(id_article, id_campagne, id_utilisateur, quantite)
-    values(1, 1, 2, 5);
+insert into commande(id_article, id_campagne, id_utilisateur, quantite, est_livre)
+    values(1, 1, 1, 5, 0);
+insert into commande(id_article, id_campagne, id_utilisateur, quantite, est_livre)
+    values(2, 1, 1, 6, 0);
+insert into commande(id_article, id_campagne, id_utilisateur, quantite, est_livre)
+    values(1, 1, 4, 9, 0);
+insert into commande(id_article, id_campagne, id_utilisateur, quantite, est_livre)
+    values(1, 1, 2, 5, 0);
 
 
