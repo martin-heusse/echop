@@ -197,12 +197,8 @@ $i_idFournisseur = $o_fournisseur['id'];
 ?>
         <p> <!--Prix client TTC calculé de façon automatique -->
             <span class="form_col"><label>Marge</label></span>
-            <input class="input_quantite"
-                   type="text" 
-                   name="marge" 
-                   value="<?php echo $o_rayon['marge']*100;?>"
-                   disabled
-                   />&nbsp;%&nbsp;
+                <?php echo $o_rayon['marge']*100; ?>
+        </p>
         <p> <!--Prix client TTC calculé de façon automatique -->
             <span class="form_col"><label>Prix client TTC</label></span>
             <input  class="input_quantite"
