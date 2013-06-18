@@ -32,7 +32,7 @@ if ($b_historique == 1) {
 ">
 <table>
     <tr>
-        <th>est livré</th>
+        <th>A réceptionné le produit</th>
         <th>Produit</th>
         <th>Description</th>
         <!--
