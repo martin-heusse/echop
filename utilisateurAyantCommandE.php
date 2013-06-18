@@ -51,7 +51,6 @@ class UtilisateurAyantCommandEController extends Controller {
         foreach($to_commande as &$o_article) {
             /* Pour chaque utilisateur, on récupère les données nécéssaires */
             $i_idUtilisateur = $o_article['id_utilisateur'];
-            echo "id=".$i_idUtilisateur."<br/>";
             $o_article['login_utilisateur'] = Utilisateur::getLogin($i_idUtilisateur);
             $to_article = Commande::getIdArticleByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur);
             /* A été livré ou non */
@@ -59,7 +58,6 @@ class UtilisateurAyantCommandEController extends Controller {
             if ($d = Commande::getCountByEstLivreForIdCampagneIdUtilisateur(0, $i_idCampagne, $i_idUtilisateur) == 0) {
                 $o_article['tout_livre'] = 1;
             }
-            var_dump($d);
 
             /* Montant total */
             $o_article['montant_total'] = 0;
