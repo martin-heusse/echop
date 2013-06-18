@@ -94,11 +94,11 @@ if ($b_historique == 1) {
 <!-- En variable cachée id_rayon -->
 <input type="hidden" name="i_idRayon" value="<?php echo $i_idRayon ?>"/>
 
-<input align="middle" type="submit" class="input_valider" value="Mettre à jour les articles"/>
+<input type="submit" class="input_valider" value="Mettre à jour les articles"/>
 
 <table style="font-size:10px;">
     <thead> <!-- En-tête du tableau -->
-        <tr>
+        <tr class="tab_article">
             <th>Mettre en vente auprès du client</th>
             <th>Produit</th>
             <th>Description courte</th>
@@ -149,18 +149,18 @@ foreach ($to_categorie as $o_categorie) {
                 $i_idArticleCampagne = $o_descriptionArticle['id_article_campagne'];
                 if ($o_descriptionArticle['en_vente']) {
                     ?>
-            <tr class="ligne_article<?php echo $i_numLigne?> en_vente">
+            <tr class="ligne_article<?php echo $i_numLigne?>1">
 <?php 
                 } else {
 ?>
-    <tr class="ligne_article<?php echo $i_numLigne?> pas_en_vente">
+    <tr class="ligne_article<?php echo $i_numLigne?>2">
 <?php
                 }
 ?>
                 <!-- En variable cachée id_article_campagne -->
                 <input type="hidden" name="id_article_campagne[]" value="<?php echo $i_idArticleCampagne ?>"/>
                 <!-- Mettre en vente -->
-                <td align="center" title="Mettre en vente auprès du client">
+                <td class="center tab_article"  title="Mettre en vente auprès du client">
                     <select name="en_vente[]">
                         <option value="1" 
                                 <?php if($o_descriptionArticle['en_vente'] == '1'){echo 'selected="true"';}?>
@@ -171,7 +171,7 @@ foreach ($to_categorie as $o_categorie) {
                     </select>
                 </td>
                 <!-- Nom du produit -->
-                <td align="center" title="Produit : Le nom du produit">
+                <td class="center tab_article" title="Produit : Le nom du produit">
                     <input class="input_quantite" 
                            type="text" 
                            name="nom_produit[]" 
@@ -180,7 +180,7 @@ foreach ($to_categorie as $o_categorie) {
                     />
                 </td>
                 <!-- Description courte -->
-                <td align="center" title="Description courte : présentation brève du produit" >
+                <td class="center tab_article" title="Description courte : présentation brève du produit" >
                     <input class="input_quantite" 
                            type="text" 
                            name="description_courte[]" 
@@ -189,7 +189,7 @@ foreach ($to_categorie as $o_categorie) {
                      />
                 </td>
                 <!--Description longue -->
-                <td align="center" title="Description longue : présentation plus détaillée du produit">
+                <td class="center tab_article" title="Description longue : présentation plus détaillée du produit">
                     <input class="input_quantite" 
                        type="text" name="description_longue[]" 
                        value="<?php echo $o_descriptionArticle['description_longue']?>" 
@@ -197,7 +197,7 @@ foreach ($to_categorie as $o_categorie) {
                      />
                  </td>
                 <!-- Unité -->
-                <td align="center" title="Unite" ><select name="id_unite[]">
+                <td class="center tab_article" title="Unite" ><select name="id_unite[]">
 <?php
                 foreach($to_unite as $o_unite){
                     $i_idUnite = $o_unite['id'];
@@ -212,7 +212,7 @@ foreach ($to_categorie as $o_categorie) {
 ?>
                 </select></td>
                 <!-- Nombre de paquets par colis fournisseur -->
-                <td align="center" title="Nombre de paquets par colis">
+                <td class="center tab_article" title="Nombre de paquets par colis">
                    <input class="input_quantite" 
                           type="text" 
                           name="nb_paquet_colis[]" 
@@ -222,7 +222,7 @@ foreach ($to_categorie as $o_categorie) {
                     <br /> paquet/colis fournisseur
                 </td>
                 <!-- Poids du paquet fournisseur -->
-                <td align="center" title="Poids du paquet fournisseur" >
+                <td class="center tab_article" title="Poids du paquet fournisseur" >
                    <input class="input_quantite" 
                           type="text" 
                           name="poids_paquet_fournisseur[]" 
@@ -232,7 +232,7 @@ foreach ($to_categorie as $o_categorie) {
                     <br />&nbsp;<?php echo $o_descriptionArticle['valeur_unite_choisi'] ?>
                 </td>
                 <!-- Poids du paquet client -->
-                <td align="center" title="Poids du paquet client">
+                <td class="center tab_article" title="Poids du paquet client">
                    <input class="input_quantite" 
                           type="text" 
                           name="poids_paquet_client[]" 
@@ -242,7 +242,7 @@ foreach ($to_categorie as $o_categorie) {
                     <br />&nbsp;<?php echo $o_descriptionArticle['valeur_unite_choisi'] ?>
                 </td>
                 <!-- Seuil min -->
-                <td align="center" title="Seuil min que peut choisir le client">
+                <td arrlign="center" title="Seuil min que peut choisir le client">
                      <input class="input_quantite" 
                             type="text" name="seuil_min[]" 
                             value="<?php echo $o_descriptionArticle['seuil_min'] ?>" 

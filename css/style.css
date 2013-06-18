@@ -107,19 +107,37 @@ h1 {
 
 /* ========================================================================== */
 /* Tableau */
+/* Le comptage des lignes commence à zéro avec numLigne */ 
 
-/* Lignes paires */
+/* Lignes paires gris foncé*/
 .ligne_article0 {
     background-color: #dddddd;
 }
 
-/* Lignes impaires */
+/* Lignes impaires gris clair */
 .ligne_article1 {
     background-color: #f0f0f0;
 }
 
+/* Lignes impaires en vente vert clair*/
+.ligne_article11 {
+    background-color: #6ce3a1;
+}
+
+/* Lignes impaires pas en vente rouge clair*/
+.ligne_article12 {
+    background-color: #cd5c5c;
+}
+/* Lignes paires en vente vert foncé*/
+.ligne_article01 {
+    background-color: #3cb371;
+}
+/* Lignes paires pas en vente rouge foncé */
+.ligne_article02 {
+    background-color:  #ad3c3c;
+}
 /* Surligne au survol */
-.ligne_article0:hover, .ligne_article1:hover {
+.ligne_article0:hover, .ligne_article1:hover, .ligne_article11:hover, .ligne_article12:hover, .ligne_article01:hover, .ligne_article02:hover {
     background-color: #cccccc;
     /* cursor: pointer; */
 }
