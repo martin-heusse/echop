@@ -76,15 +76,15 @@ if ($to_commande != null and $to_commande != array()) {
 ?>
     <tr><td colspan=<?php echo $i_colspanCat ?>>
         <span class="cat"><?php echo $o_categorie['nom'] ?></span>
-        <span class="cat_bouton cacher_<?php echo $o_categorie['nom'] ?>">[Cacher]</span> 
-        <span class="cat_bouton montrer_<?php echo $o_categorie['nom'] ?>">[Montrer]</span> 
+        <span class="cat_bouton cacher_<?php echo $o_categorie['id'] ?>">[Cacher]</span> 
+        <span class="cat_bouton montrer_<?php echo $o_categorie['id'] ?>">[Montrer]</span> 
     </td></tr>
 <br/>
 <?php
                 foreach($to_commande as $o_produit) {
                     /*Afficher la catégorie TODO*/
                     if($o_produit['id_rayon']==$i_idRayon && $o_produit['categorie'] == $o_categorie['nom'] && $o_produit['en_vente'] == 1){ 	?>
-            <tr class="ligne_article<?php echo $i_numLigne ?> cat_<?php echo $o_categorie['nom'] ?>">
+            <tr class="ligne_article<?php echo $i_numLigne ?> cat_<?php echo $o_categorie['id'] ?>">
             <td><?php echo $o_produit['nom'] ?></td>
             <td class="center" title="<?php echo $o_produit['description_longue'] ?>"><?php echo $o_produit['description_courte'] ?></td>
             <!--
@@ -165,13 +165,13 @@ if ($to_commande != null and $to_commande != array()) {
 foreach ($to_categorie as $o_categorie) {
 ?>
     <script type="text/javascript">
-    $(".cacher_<?php echo $o_categorie['nom'] ?>").click(function () {
-        $(".cat_<?php echo $o_categorie['nom'] ?>").hide();
+    $(".cacher_<?php echo $o_categorie['id'] ?>").click(function () {
+        $(".cat_<?php echo $o_categorie['id'] ?>").hide();
     });
     </script>
     <script type="text/javascript">
-    $(".montrer_<?php echo $o_categorie['nom'] ?>").click(function () {
-        $(".cat_<?php echo $o_categorie['nom'] ?>").show();
+    $(".montrer_<?php echo $o_categorie['id'] ?>").click(function () {
+        $(".cat_<?php echo $o_categorie['id'] ?>").show();
     });
     </script>
 <?php
