@@ -148,38 +148,38 @@ class ArticlesCommandEsController extends Controller {
              * campagne */
         $to_article = Commande::getIdArticleByIdCampagne($i_idCampagne);
         /* On récupère les attributs nécéssaires pour chaque article */
-            foreach ($to_article as &$o_row) {
-                $o_row['nom'] = Article::getNom($o_row['id_article']);
-                $i_idArticle = $o_row['id_article'];
-                $o_row['quantite_totale'] = 0;
-                $i_idUnite = Article::getIdUnite($i_idArticle); 
-                $o_row['unite'] = Unite::getUnite($i_idUnite);
-                $to_commande = Commande::getObjectsByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
-                $i_idArticleCampagne = ArticleCampagne::getIdByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
-                $i_poidsPaquetClient = ArticleCampagne::getPoidsPaquetClient($i_idArticleCampagne);
-                $i_poidsPaquetFournisseur = Article::getPoidsPaquetFournisseur($i_idArticle);
-                $i_nbrePaquetColis = Article::getNbPaquetColis($i_idArticle);
-                $o_row['colisage'] = $i_poidsPaquetFournisseur * $i_nbrePaquetColis;
-                /* on récupère la quantité totale commandée par le produit */
-                foreach ($to_commande as $o_commande) {
-                    $i_quantite = $o_commande['quantite']*$i_poidsPaquetClient;
-                    $o_commande['quantite'] = $i_quantite;
-                    $o_row['quantite_totale'] += $i_quantite;
-                }
-                /* calcul pour le colisage */
-                /* $f_float stocke la partie décimale */
-                $f_float = $o_row['quantite_totale']-floor($o_row['quantite_totale']);
-                $i_manque = $o_row['quantite_totale'] % $o_row['colisage'];
-                $o_row['manque'] = ($o_row['colisage'] - $i_manque) % $o_row['colisage'];
-                /* gestion de la partie décimale */
-                if ($o_row['manque']-$f_float < 0){
-                    $o_row['manque'] += $o_row['colisage'] - $f_float;
-                } else {
-                    $o_row['manque'] += -$f_float;
-                }
-
+        foreach ($to_article as &$o_row) {
+            $o_row['nom'] = Article::getNom($o_row['id_article']);
+            $i_idArticle = $o_row['id_article'];
+            $o_row['quantite_totale'] = 0;
+            $i_idUnite = Article::getIdUnite($i_idArticle); 
+            $o_row['unite'] = Unite::getUnite($i_idUnite);
+            $to_commande = Commande::getObjectsByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+            $i_idArticleCampagne = ArticleCampagne::getIdByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+            $i_poidsPaquetClient = ArticleCampagne::getPoidsPaquetClient($i_idArticleCampagne);
+            $i_poidsPaquetFournisseur = Article::getPoidsPaquetFournisseur($i_idArticle);
+            $i_nbrePaquetColis = Article::getNbPaquetColis($i_idArticle);
+            $o_row['colisage'] = $i_poidsPaquetFournisseur * $i_nbrePaquetColis;
+            /* on récupère la quantité totale commandée par le produit */
+            foreach ($to_commande as $o_commande) {
+                $i_quantite = $o_commande['quantite']*$i_poidsPaquetClient;
+                $o_commande['quantite'] = $i_quantite;
+                $o_row['quantite_totale'] += $i_quantite;
             }
-            $this->render('articlesCommandEs', compact('to_article', 'b_historique', 'i_idCampagne'));	
+            /* calcul pour le colisage */
+            /* $f_float stocke la partie décimale */
+            $f_float = $o_row['quantite_totale']-floor($o_row['quantite_totale']);
+            $i_manque = $o_row['quantite_totale'] % $o_row['colisage'];
+            $o_row['manque'] = ($o_row['colisage'] - $i_manque) % $o_row['colisage'];
+            /* gestion de la partie décimale */
+            if ($o_row['manque']-$f_float < 0){
+                $o_row['manque'] += $o_row['colisage'] - $f_float;
+            } else {
+                $o_row['manque'] += -$f_float;
+            }
+
+        }
+        $this->render('articlesCommandEs', compact('to_article', 'b_historique', 'i_idCampagne'));	
         }
 
         /*
@@ -211,7 +211,7 @@ class ArticlesCommandEsController extends Controller {
                 return;
             }
             $i_idArticle = $_GET['idArticle'];
-            /* On récupère les commandes */
+            /* On récupère les commandes-utilisateurs qui contiennent ce produit */
             $to_utilisateur = Commande::getObjectsByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
             $i_idUnite = Article::getIdUnite($i_idArticle); 
             $s_unite = Unite::getUnite($i_idUnite);
@@ -231,6 +231,7 @@ class ArticlesCommandEsController extends Controller {
                 $i_quantiteTotale += $o_row['quantite'];
 
             }
+            /* calcul du colisage */
             $f_float = $i_quantiteTotale-floor($i_quantiteTotale);
             $i_manque = $i_quantiteTotale % $i_colisage;
             $i_manque = ($i_colisage - $i_manque) % $i_colisage;
@@ -240,8 +241,17 @@ class ArticlesCommandEsController extends Controller {
                 $i_manque += -$f_float;
             }
             $s_nomArticle = Article::getNom($i_idArticle);
+            /* sécurité */
             $i_idArticle = htmlentities($_GET['idArticle']);
-            $this->render('utilisateursAyantCommandECetArticle', compact('i_idArticle', 'to_utilisateur', 'i_colisage', 's_nomArticle', 'i_quantiteTotale', 's_unite', 'i_manque', 'b_historique', 'i_idCampagne'));
+            $this->render('utilisateursAyantCommandECetArticle', compact('i_idArticle', 
+                'to_utilisateur', 
+                'i_colisage', 
+                's_nomArticle', 
+                'i_quantiteTotale', 
+                's_unite', 
+                'i_manque', 
+                'b_historique', 
+                'i_idCampagne'));
         }
 
         /*
@@ -258,9 +268,11 @@ class ArticlesCommandEsController extends Controller {
                 $this->render('adminRequired');
                 return;
             }
+            /* récupération de l'article */
             if (!isset($_GET['idArticle'])) {
                 return;
             }
+            $i_idArticle = $_GET['idArticle'];
             /* Navigation dans l'historique ou non */
             $b_historique = 0;
             if (isset($_GET['idOldCampagne'])) {
@@ -271,13 +283,13 @@ class ArticlesCommandEsController extends Controller {
             }
             /* Récupération de l'état de la campagne */
             $b_etat = Campagne::getEtat($i_idCampagne);
-            /* Récupération des articles commandés par l'utilisateur */
+            /* Récupération de l'utilisateur */
             if (!isset($_GET['idUtilisateur'])) {
                 header('Location: '.root.'/articlesCommandEs.php/utilisateurAyantCommandE');
                 return;
             }
             $i_idUtilisateur = $_GET['idUtilisateur'];
-            $i_idArticle = $_GET['idArticle'];
+            /* récupération de l'article commandé par l'utilisateur */
             $i_idCommande = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
             $o_commande = Commande::getObject($i_idCommande);
             /* Récupération de tous les attributs nécessaires d'un article */
