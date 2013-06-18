@@ -35,7 +35,6 @@ class ConnexionController extends Controller {
                 /* Initialisation des variables de session */
                 $_SESSION['idUtilisateur']   = $i_id;
                 $_SESSION['login']            = Utilisateur::getLogin($i_id);
-                $_SESSION['email']            = Utilisateur::getEmail($i_id);
                 $_SESSION['isAdministrateur'] = Administrateur::isAdministrateur($i_id);
                 /* Redirection vers les pages associées */
                 header('Location: '.root.'/accueil.php/accueil');

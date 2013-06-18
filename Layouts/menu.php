@@ -32,6 +32,7 @@ if (Utilisateur::isLogged()) {
     }
 ?>
         <li><a href="<?php echo root ?>/articlesCommandEs.php/articlesCommandEs">Articles commandés</a></li>
+        <li><a href="<?php echo root ?>/utilisateur.php/envoiMailAAdministrateur">Envoyer un mail aux administrateurs</a></li>
     </ul>
 <?php
     if(Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
