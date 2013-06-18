@@ -19,7 +19,7 @@
 <?php 
     } else {
 ?>
-    <p> Le message a été envoyé aux utilisateurs.</p>
+    <p class="succes"> Le message a été envoyé aux administrateurs.</p>
 <?php
     }
 ?>

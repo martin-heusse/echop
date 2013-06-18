@@ -18,7 +18,7 @@ method="post"
 <?php
 if ($i_editProfile != 0) {
 ?>
-<p>Votre profil a été mis à jour.</p>
+<p class="succes">Votre profil a été mis à jour.</p>
 
 <?php
 }

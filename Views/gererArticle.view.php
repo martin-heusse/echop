@@ -24,10 +24,14 @@ if ($b_historique == 1) {
 <?php
 if(isset($i_erreur)){
     if($i_erreur==0){
-        echo "Vos articles ont été modifiés !";
+?>
+<p class="succes">Vos articles ont été modifiés !</p>
+<?php
     }
     if($i_erreur==1){
-        echo "Erreur de saisie, les articles n'ont pas été modifiés !";
+?>
+<p class="erreur">Erreur de saisie, les articles n'ont pas été modifiés !</p>
+<?php
     }
 }
 ?>

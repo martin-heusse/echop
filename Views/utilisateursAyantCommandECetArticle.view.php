@@ -21,7 +21,7 @@ if ($b_historique == 1) {
 <?php
 if ($to_utilisateur == null or $to_utilisateur == array()) {
 ?>
-<p>Aucun utilisateur n'a commandé l'article <strong><?php echo $s_nomArticle ?></strong>.</p>
+<p class="message">Aucun utilisateur n'a commandé l'article <strong><?php echo $s_nomArticle ?></strong>.</p>
 <?php
 } else {
 ?>

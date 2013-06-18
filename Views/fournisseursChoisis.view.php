@@ -24,7 +24,7 @@ if ($b_historique == 1) {
 <?php
 if ($to_fournisseur == null or $to_fournisseur == array()) {
 ?>
-<p>Aucun fournisseur n'a été choisis pour les articles de cette campagne.</p>
+<p class="message">Aucun fournisseur n'a été choisis pour les articles de cette campagne.</p>
 <?php
 } else {
 ?>

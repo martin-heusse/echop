@@ -105,7 +105,7 @@ if ($b_historique == 1) {
 <?php
 } else {
 ?>
-<p>Vous n'avez pas de commande en cours.</p>
+<p class="message">Vous n'avez pas de commande en cours.</p>
 <?php
 }
 ?>
