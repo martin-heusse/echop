@@ -24,6 +24,8 @@ class ConnexionController extends Controller {
             header('Location: '.root.'/index.php');
             return;
         }
+        /* L'utilisateur doit être inscrit et validé */
+        
         $i_errConnexion = 0;
         /* Connexion */
         if (isset($_POST['login']) && $_POST['login'] != ""
