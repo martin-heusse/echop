@@ -45,8 +45,11 @@ class UtilisateurAyantCommandEController extends Controller {
         } else {
             $i_idCampagne = Campagne::getIdCampagneCourante();
         }
+        /* On récupère l'ensemble des utilisateurs qui ont passé des commandes 
+         */
         $to_commande = Commande::getIdUtilisateurUniqueByIdCampagne($i_idCampagne);
         foreach($to_commande as &$o_article) {
+            /* Pour chaque utilisateur, on récupère les données nécéssaires */
             $i_idUtilisateur = $o_article['id_utilisateur'];
             $o_article['login_utilisateur'] = Utilisateur::getLogin($i_idUtilisateur);
             $to_article = Commande::getIdArticleByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur);
@@ -59,6 +62,7 @@ class UtilisateurAyantCommandEController extends Controller {
             /* Montant total */
             $o_article['montant_total'] = 0;
             
+            /* A CONTINUER */
             foreach($to_article as $o_produit){
                 $i_idArticle = $o_produit['id_article'];
                 $i_quantite = Commande::getQuantiteByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);

@@ -55,7 +55,6 @@ class CommanderArticleController extends Controller {
         $i_idCampagne = Campagne::getIdCampagneCourante();
         /* Récupération de l'état de la campagne */
         $b_etat = Campagne::getEtat($i_idCampagne);
-        /* $to_rayon = Rayon::getAllObjects();*/
         /* Récupération des articles commandés par l'utilisateur courant */
         $i_idUtilisateur = $_SESSION['idUtilisateur'];
 
@@ -108,7 +107,7 @@ class CommanderArticleController extends Controller {
                 $f_montantTotal = number_format($f_montantTotal, 2, '.', '');
             }
         }
-        $this->render('commanderArticle', compact('to_commande', 'b_etat', 'f_montantTotal', /*'to_rayon',*/ 'i_idRayon', 'to_categorie'));
+        $this->render('commanderArticle', compact('to_commande', 'b_etat', 'f_montantTotal', 'i_idRayon', 'to_categorie'));
     }
 
     /*

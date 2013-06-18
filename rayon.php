@@ -15,8 +15,7 @@ class RayonController extends Controller {
      * Affiche tous les rayons et toutes les catégories
      */
     public function afficherRayon() {
-        // liste des rayons (à partir de la table rayon)
-        // pour afficher la liste rayons
+        /* liste des rayons à afficher */
         $to_categorie = Categorie::getAllObjects();
         $to_rayon = Rayon::getAllObjects();
         $this->render('gererRayon', compact('to_rayon','to_categorie'));
