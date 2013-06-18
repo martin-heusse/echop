@@ -58,7 +58,7 @@ if ($to_commande != null and $to_commande != array()) {
 ?>
     <tr class="ligne_article<?php echo $i_numLigne ?>">
         <td><?php echo $o_produit['nom'] ?></td>
-        <td title="<?php echo $o_produit['description_longue']?>"><?php echo $o_produit['description_courte'] ?></td>
+        <td class="center" title="<?php echo $o_produit['description_longue']?>"><?php echo $o_produit['description_courte'] ?></td>
         <!--<td><?php echo $o_produit['description_longue'] ?></td>-->
         <td class="centrer"><?php echo $o_produit['poids_paquet_fournisseur'].$o_produit['unite'] ?></td>
         <!-- <td class="centrer"><?php echo $o_produit['unite'] ?></td> -->
