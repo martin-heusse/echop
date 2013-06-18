@@ -14,7 +14,7 @@ if (!isset($titre_page)) {
         <!-- Style -->
         <link rel="stylesheet" type="text/css" href="<?php echo root ?>/css/style.css" />
         <!-- JQuery -->
-<script type="text/javascript" src="<?php echo root ?>/Libs/jquery-latest.min.js"></script>
+        <script type="text/javascript" src="<?php echo root ?>/Libs/jquery-latest.min.js"></script>
     </head>
 <body>
 <div id="banniere">
