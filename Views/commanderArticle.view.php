@@ -68,7 +68,7 @@ if ($to_commande != null and $to_commande != array()) {
         foreach ($to_categorie as $o_categorie) {
             $i_nbreArticleCategorie = 0;
             foreach($to_commande as $o_produit) {
-                if(($o_produit['categorie']) == ($o_categorie['nom']) && $o_produit['id_rayon']==$i_idRayon){
+                if(($o_produit['categorie']) == ($o_categorie['nom']) && $o_produit['id_rayon']==$i_idRayon && $o_produit['en_vente'] == 1){
                     $i_nbreArticleCategorie++;
                 }
             }
