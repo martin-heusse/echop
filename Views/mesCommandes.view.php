@@ -119,7 +119,7 @@ if ($to_commande != null and $to_commande != array()) {
 <?php
 } else {
 ?>
-<p>Vous n'avez pas de commande en cours.</p>
+<p class="message">Vous n'avez pas de commande en cours.</p>
 <?php
 }
 ?>

@@ -42,7 +42,7 @@ if($i_nbreArticle != 0) {
     }
 } else {
 ?>
-<p>Aucun produit n'a été commandé pour ce fournisseur.</p>
+<p class="message">Aucun produit n'a été commandé pour ce fournisseur.</p>
 <?php
 }
 ?>

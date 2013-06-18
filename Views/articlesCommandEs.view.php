@@ -26,7 +26,7 @@ if ($b_historique == 1) {
 <?php
 if ($to_article == null or $to_article == array()) {
 ?>
-    <p>Aucun article n'a été commandé.</p>
+    <p class="message">Aucun article n'a été commandé.</p>
 <?php
 } else {
 ?>

@@ -38,7 +38,7 @@ Il y a <?php echo $i_nombreUtilisateurAValider?> utilisateurs à valider :
 <?php
    } else {
 ?>
-<p> Il n'y a aucun utilisateur à valider</p>
+<p class="message"> Il n'y a aucun utilisateur à valider</p>
 <?php
    }
 ?>
