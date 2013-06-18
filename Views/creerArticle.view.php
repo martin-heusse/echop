@@ -23,16 +23,17 @@ if(isset($i_erreur)){
         <input  type="hidden"
                 name="id_rayon"
                 value="<?php echo $o_rayon['id']?>"
-        />
+                />
         <p> <!-- Nom du Produit à choisir-->
-            <span class="form_col"><label>Produit<sup>&nbsp *</sup></label></span>
+            <span class="form_col"><label>Produit<sup>&nbsp; *</sup></label></span>
             <input  type="text"  
                     name="nom_produit" 
                     value=""
-            />
+                    required
+                    />
         </p>
         <p> <!-- Liste des catégories à choisir -->
-            <span class="form_col"><label>Categorie</label></span>
+            <span class="form_col"><label>Categorie<sup>&nbsp; *</sup></label></span>
             <select name="id_categorie">
 <?php foreach($to_categorie as $o_categorie){
 ?>
@@ -43,35 +44,41 @@ if(isset($i_erreur)){
             </select>
         </p> 
         <p> <!-- Description courte à choisir-->
-            <span class="form_col"><label>Description courte</label></span>
+            <span class="form_col"><label>Description courte<sup>&nbsp; *</sup></label></span>
             <input  type="text" 
                     name="description_courte" 
                     value=""
-             />
+                    required
+                    />
         </p>
         <p> <!-- Description longue à choisir-->
-            <span class="form_col"><label>Description longue</label></span>
+            <span class="form_col"><label>Description longue<sup>&nbsp; *</sup></label></span>
             <input  type="text" 
                     name="description_longue" 
                     value=""
-             />
+                    required
+                    />
         </p>
         <p> <!-- Poids du paquet fournisseur à choisir-->
-            <span class="form_col"><label>Poids du paquet fournisseur</label></span>
-            <input  type="text" 
+            <span class="form_col"><label>Poids paquet fournisseur<sup>&nbsp;*</sup></label></span>
+            <input  class="input_quantite"
+                    type="text" 
                     name="poids_paquet_fournisseur" 
                     value=""
-             />
+                    required
+                    />
         </p>
         <p> <!-- Poids du paquet client à choisir-->
-            <span class="form_col"><label>Poids du paquet client</label></span>
-            <input  type="text" 
+            <span class="form_col"><label>Poids paquet client<sup>&nbsp; *</sup></label></span>
+            <input  class="input_quantite"
+                    type="text" 
                     name="poids_paquet_client" 
                     value=""
-            />
+                    required
+                    />
         </p>
         <p> <!-- Liste des unités à choisir -->
-            <span class="form_col"><label>Unité</label></span>
+            <span class="form_col"><label>Unité<sup>&nbsp; *</sup></label></span>
             <select name="id_unite">
 <?php foreach($to_unite as $o_unite){
 ?>
@@ -82,25 +89,29 @@ if(isset($i_erreur)){
             </select>
         </p>
         <p>  <!-- Nombre de paquets par colis fournisseur à choisir -->
-            <span class="form_col"><label>Nombre de paquets par colis fournisseur</label></span>
-            <input  type="text" 
+            <span class="form_col"><label>Nombre de paquets par colis fournisseur<sup>&nbsp; *</sup></label></span>
+            <input  class="input_quantite"
+                    type="text" 
                     name="nb_paquet_colis" 
                     value=""
-            />
+                    required
+                    />
         </p>
         <p> <!-- Seuil min à choisir -->
-            <span class="form_col"><label>Seuil min</label></span>
-            <input  type="text" 
+            <span class="form_col"><label>Seuil min<sup>&nbsp; *</sup></label></span>
+            <input  class="input_quantite"
+                    type="text" 
                     name="seuil_min" 
                     value=""
-            />
+                    required
+                    />
         </p>
         <p> <!-- Tva à choisir -->
-            <span class="form_col"><label>TVA</label></span>
+            <span class="form_col"><label>TVA<sup>&nbsp; *</sup></label></span>
                 <select name="id_tva">
 <?php foreach($to_tva as $o_tva){
 ?>
-        <option value="<?php echo $o_tva['id'] ?>"><?php echo $o_tva['valeur'] ?></option>
+        <option value="<?php echo $o_tva['id'] ?>"><?php echo $o_tva['valeur'] ?>&nbsp; %</option>
 <?php
 }
 ?>
@@ -116,28 +127,64 @@ foreach($to_fournisseur as $o_fournisseur){
             <input type="checkbox" name="id_fournisseur[]" value="<?php echo $o_fournisseur['id']; ?>"> 
             <span class="form_col"><label><?php echo $o_fournisseur['nom']; ?></label></span>
             <!--<input type="hidden" name="id_fournisseur[]" value="<?php echo $o_fournisseur['id']; ?>"/> -->
-            <label>Code</label><input type="text" name="code[]" value=""/>
-            <label>Prix TTC</label><input type="text" name="prix_ttc_fournisseur[]" value=""/>
-            <label>Prix HT</label><input type="text" name="prix_ht[]" value=""/>
-            <label>Choisir</label><input type="radio" name="id_fournisseur_choisi" value="<?php echo $o_fournisseur['id']; ?>" <?php if($estChoisi){$estChoisi = null; echo 'checked="true"';} ?>/>
+            <label>Code</label> <!-- Le Code -->
+                <input  class="input_quantite"
+                        type="text" 
+                        name="code[]" 
+                        value=""
+                        />&nbsp;--&nbsp;
+            <label>Montant</label> <!-- Le Montant -->
+            <input  class="input_quantite"
+                    type="text" 
+                    name="prix_donne_fournisseur[]" 
+                    value=""
+                    /> &euro;&nbsp;/&nbsp;
+            <select name="vente_paquet_unite[]"> <!-- paquet ou unite -->
+                    <option> Paquet </option>
+                    <option> Unite </option>
+            </select> &nbsp;en&nbsp;
+            <select name="prix_ttc_ht[]"> <!-- TTC ou HT -->
+                    <option> Prix HT </option>
+                    <option> Prix TTC </option>
+            </select> &nbsp;--&nbsp;
+            <label>Prix TTC</label> <!-- Le Prix TTC calculé -->
+            <input  class="input_quantite"
+                    type="text" 
+                    name="prix_ttc_fournisseur[]" 
+                    value=""
+                    disabled
+                    /> &euro;/paquet fournisseur&nbsp;--&nbsp;
+            <label>Choisir</label>
+                <input type="radio" 
+                       name="id_fournisseur_choisi" 
+                       value="<?php echo $o_fournisseur['id']; ?>" 
+                       <?php if($estChoisi){$estChoisi = null; echo 'checked="true"';} ?>
+                       />
         </p>
 <?php
 }
 ?>
-        <p> <!--Prix client TTC calculer de façon automatique -->
+        <p> <!--Prix client TTC calculé de façon automatique -->
+            <span class="form_col"><label>Marge</label></span>
+            <input type="text" 
+                   name="marge" 
+                   value=""
+                   disabled
+                   />&nbsp;%&nbsp;
+        <p> <!--Prix client TTC calculé de façon automatique -->
             <span class="form_col"><label>Prix client TTC</label></span>
             <input type="text" 
                    name="prix_ttc_echoppe" 
                    value=""
                    disabled
-            />
+                   />&euro;/paquet fournisseur
         </p>
         <p> <!-- Prix client unitaire TTC calculé de façon automatique -->
             <span class="form_col"><label>Prix client unitaire TTC</label></span>
             <input type="text" 
                    value="" 
                    disabled
-            />
+                   />&euro;/unite
         </p>
         <input type="submit" value="valider" />
     </fieldset>
