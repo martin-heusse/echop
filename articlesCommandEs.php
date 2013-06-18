@@ -160,17 +160,19 @@ class ArticlesCommandEsController extends Controller {
                 $i_poidsPaquetFournisseur = Article::getPoidsPaquetFournisseur($i_idArticle);
                 $i_nbrePaquetColis = Article::getNbPaquetColis($i_idArticle);
                 $o_row['colisage'] = $i_poidsPaquetFournisseur * $i_nbrePaquetColis;
-                /* on récupère la quantité*/
+                /* on récupère la quantité totale commandée par le produit */
                 foreach ($to_commande as $o_commande) {
                     $i_quantite = $o_commande['quantite']*$i_poidsPaquetClient;
                     $o_commande['quantite'] = $i_quantite;
                     $o_row['quantite_totale'] += $i_quantite;
                 }
-
+                /* calcul pour le colisage */
+                /* $f_float stocke la partie décimale */
                 $f_float = $o_row['quantite_totale']-floor($o_row['quantite_totale']);
                 $i_manque = $o_row['quantite_totale'] % $o_row['colisage'];
                 $o_row['manque'] = ($o_row['colisage'] - $i_manque) % $o_row['colisage'];
-                if($o_row['manque']-$f_float < 0){
+                /* gestion de la partie décimale */
+                if ($o_row['manque']-$f_float < 0){
                     $o_row['manque'] += $o_row['colisage'] - $f_float;
                 } else {
                     $o_row['manque'] += -$f_float;
@@ -203,12 +205,13 @@ class ArticlesCommandEsController extends Controller {
             } else {
                 $i_idCampagne = Campagne::getIdCampagneCourante();
             }
-            /* Paramètre GET nécessaire */
+            /* On récupère l'identifiant de l'article */
             if(!isset($_GET['idArticle'])) {
                 header('Location: '.root.'/articlesCommandEs.php/articlesCommandEs');
                 return;
             }
             $i_idArticle = $_GET['idArticle'];
+            /* On récupère les commandes */
             $to_utilisateur = Commande::getObjectsByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
             $i_idUnite = Article::getIdUnite($i_idArticle); 
             $s_unite = Unite::getUnite($i_idUnite);
@@ -218,6 +221,7 @@ class ArticlesCommandEsController extends Controller {
             $i_nbrePaquetColis = Article::getNbPaquetColis($i_idArticle);
             $i_colisage = $i_poidsPaquetFournisseur * $i_nbrePaquetColis;
             $i_quantiteTotale = 0;
+            /* On récupère tous les utilisateurs qui ont commandé cet article */
             foreach ($to_utilisateur as &$o_row) {
                 $o_row['login'] = Utilisateur::getLogin($o_row['id_utilisateur']);
                 $o_row['id'] = $o_row['id_utilisateur'];
