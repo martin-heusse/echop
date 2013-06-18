@@ -153,9 +153,10 @@ class CommanderArticleController extends Controller {
                              * sinon crée la commande */
                             $i_idCommande = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
                             if ($i_idCommande == 0) {
-                                Commande::create($i_idArticle, $i_idCampagne, $i_idUtilisateur, 0);
+                                Commande::create($i_idArticle, $i_idCampagne, $i_idUtilisateur, $i_quantite);
+                            } else {
+                                Commande::setQuantite($i_idCommande, $i_quantite);
                             }
-                            Commande::setQuantite($i_idCommande, $i_quantite);
                         }
                     }	
                 }
