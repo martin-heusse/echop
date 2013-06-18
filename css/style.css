@@ -142,6 +142,17 @@ h1 {
     /* cursor: pointer; */
 }
 
+/* Titre rayon dans commander article */
+.cat {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+/* Liens "cacher" "montrer" */
+.cat_bouton {
+    color: blue;
+}
+
 table {
     /* width: 80%; */
     border-collapse: collapse;

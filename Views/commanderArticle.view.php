@@ -1,5 +1,3 @@
-
-
 <p><a class="action_navigation" href="<?php echo root ?>/commanderArticle.php/afficherRayon">Retour aux rayons</a></p>
 
 <h1>Commander un article</h1>
@@ -77,8 +75,9 @@ if ($to_commande != null and $to_commande != array()) {
             if ($i_nbreArticleCategorie != 0){
 ?>
     <tr><td colspan=<?php echo $i_colspanCat ?>>
-        <span class="cacher_<?php echo $o_categorie['nom'] ?>">[Cacher]</span> <span class="montrer_<?php echo $o_categorie['nom'] ?>">[Montrer]</span> 
         <span class="cat"><?php echo $o_categorie['nom'] ?></span>
+        <span class="cat_bouton cacher_<?php echo $o_categorie['nom'] ?>">[Cacher]</span> 
+        <span class="cat_bouton montrer_<?php echo $o_categorie['nom'] ?>">[Montrer]</span> 
     </td></tr>
 <br/>
 <?php
