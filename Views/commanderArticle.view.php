@@ -166,12 +166,12 @@ foreach ($to_categorie as $o_categorie) {
 ?>
     <script type="text/javascript">
     $(".cacher_<?php echo $o_categorie['id'] ?>").click(function () {
-        $(".cat_<?php echo $o_categorie['id'] ?>").hide();
+        $(".cat_<?php echo $o_categorie['id'] ?>").hide("slow");
     });
     </script>
     <script type="text/javascript">
     $(".montrer_<?php echo $o_categorie['id'] ?>").click(function () {
-        $(".cat_<?php echo $o_categorie['id'] ?>").show();
+        $(".cat_<?php echo $o_categorie['id'] ?>").show("slow");
     });
     </script>
 <?php
