@@ -96,7 +96,7 @@ if ($b_historique == 1) {
 
 <input type="submit" class="input_valider" value="Mettre à jour les articles"/>
 
-<table style="font-size:10px;">
+<table>
     <thead> <!-- En-tête du tableau -->
         <tr class="tab_article">
             <th>Mettre en vente auprès du client</th>
@@ -140,7 +140,7 @@ foreach ($to_categorie as $o_categorie) {
     }
     if ($i_nbreArticleCategorie != 0) {
 ?>
-    <tr class="erreur"> <td><?php echo $o_categorie['nom']?></td> </tr>
+    <tr class="cat"> <td><?php echo $o_categorie['nom']?></td> </tr>
 <?php
         foreach ($to_descriptionArticle as $o_descriptionArticle) {
             /* AJOUT condition pour la catégorie */
@@ -275,7 +275,7 @@ foreach ($to_categorie as $o_categorie) {
                         $b_ventePaquetUnite = $o_descriptionArticle[$i_idFournisseur]['vente_paquet_unite'];
 ?>
                 <td class="center tab_article" title="Fournisseur : <?php echo $o_fournisseur['nom_fournisseur']; ?>">
-                    <table style="font-size:9px;">
+                    <table class="tab_tab_article">
                         <th>Code</th>
                         <th>Prix donnée par le fournisseur</th>
                         <th>Prix TTC</th>
