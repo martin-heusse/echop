@@ -20,6 +20,7 @@ class RayonController extends Controller {
         $to_categorie = Categorie::getAllObjects();
         $to_rayon = Rayon::getAllObjects();
         $this->render('gererRayon', compact('to_rayon','to_categorie'));
+        return;
     }
 
     public function creerRayon() {
