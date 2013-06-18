@@ -13,6 +13,8 @@ if (!isset($titre_page)) {
         <link href="<?php echo root ?>/Layouts/images/favicon.ico" rel="icon" type="image/x-icon"/>    
         <!-- Style -->
         <link rel="stylesheet" type="text/css" href="<?php echo root ?>/css/style.css" />
+        <!-- JQuery -->
+<script type="text/javascript" src="<?php echo root ?>/Libs/jquery-latest.min.js"></script>
     </head>
 <body>
 <div id="banniere">

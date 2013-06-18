@@ -33,6 +33,14 @@ if ($to_commande != null and $to_commande != array()) {
 <?php
         }
 ?>
+<button>Show it</button>
+      <p id="dd" >Hello  2</p>
+        <script>
+        $("button").click(function () {
+  $("#dd").hide("slow");
+});
+</script>
+
         <table id="t_article">
         <tr>
         <th>Produit</th>
