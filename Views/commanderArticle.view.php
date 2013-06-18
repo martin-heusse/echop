@@ -1,6 +1,6 @@
 <p><a class="action_navigation" href="<?php echo root ?>/commanderArticle.php/afficherRayon">Retour aux rayons</a></p>
 
-<h1>Commander un article</h1>
+<h1>Commander des articles</h1>
 
 <!-- Indication de campagne -->
 <?php
@@ -14,7 +14,10 @@ if ($b_etat == 1) {
         <div class="indication_campagne"><span class="campagne_fermee">Campagne fermée</span></div>
 <?php
 }
+
+/* Nom du Rayon */
 ?>
+    <h2><?php echo $s_Rayon?></h2>
 
 <?php
 if ($to_commande != null and $to_commande != array()) {

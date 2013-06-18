@@ -63,6 +63,7 @@ class CommanderArticleController extends Controller {
             return;
         }
         $i_idRayon = $_GET['idRayon'];
+        $s_Rayon = Rayon::getNom($i_idRayon);
         /* Récupération des catégories */
         $to_categorie = Categorie::getAllObjects();
         /* Récupération de tous les articles pour la campagne donnée */ 
@@ -107,7 +108,7 @@ class CommanderArticleController extends Controller {
                 $f_montantTotal = number_format($f_montantTotal, 2, '.', '');
             }
         }
-        $this->render('commanderArticle', compact('to_commande', 'b_etat', 'f_montantTotal', 'i_idRayon', 'to_categorie'));
+        $this->render('commanderArticle', compact('to_commande', 'b_etat', 'f_montantTotal', 's_Rayon', 'i_idRayon', 'to_categorie'));
     }
 
     /*
