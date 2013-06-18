@@ -480,6 +480,57 @@ class ArticleController extends Controller {
         header('Location: '.root.'/article.php/afficherCreerArticle?i_idRayon='.$i_idRayon.'&i_erreur='.$i_erreur);
     }
 
+/*
+ * Coche l'ensemble des articles d'un rayon 
+ */
+    public function cocherArticleVente () {
+
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if(!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
+        /* Récupération de l'identifiant du rayon à sélectionner */
+        if (isset($_GET['i_idRayon'])) {
+            $i_idRayon = htmlentities($_GET['i_idRayon']);
+
+            /* Récupéation de l'identifiant de la campagne courante */
+            $i_idCampagne = Campagne::getIdCampagneCourante();
+            GererArticle::setEnVenteByIdCampagneIdRayon(1, $i_idCampagne, $i_idRayon);
+        }
+        header('Location: '.root.'/article.php/afficherArticle?i_idRayon='.$i_idRayon);
+    } 
+
+/*
+ * Décoche l'ensemble des articles d'un rayon 
+ */
+    public function decocherArticleVente () {
+
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if(!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
+        /* Récupération de l'identifiant du rayon à sélectionner */
+        if (isset($_GET['i_idRayon'])) {
+            $i_idRayon = htmlentities($_GET['i_idRayon']);
+        /* Récupéation de l'identifiant de la campagne courante */
+        $i_idCampagne = Campagne::getIdCampagneCourante();
+        GererArticle::setEnVenteByIdCampagneIdRayon(0, $i_idCampagne, $i_idRayon);
+        }
+        header('Location: '.root.'/article.php/afficherArticle?i_idRayon='.$i_idRayon);
+    } 
+
 
     /* 
      * Action par défaut de ce controlleur 

@@ -66,18 +66,16 @@ class FournisseurController extends Controller {
         /* on récupère l'ensemble des fournisseurs choisis pour la campagne 
          * donnée */
         $to_fournisseur = ArticleCampagne::getIdFournisseurByIdCampagne($i_idCampagne);
- //       var_dump($to_fournisseur);return;
+        
         /* Pour chaque fournisseur on va chercher les infos nécéssaires pour 
          * connaitre la somme due au fournisseur */
-
         foreach ($to_fournisseur as &$o_fournisseur) {
+            /* Informations concernant chaque fournisseur */
             $i_idFournisseur = $o_fournisseur['id_fournisseur'];
             $o_fournisseur['id'] = $i_idFournisseur;
             $o_fournisseur['nom'] = Fournisseur::getNom($i_idFournisseur);
             $to_articleFournisseur = ArticleCampagne::getObjectsByIdCampagneIdFournisseur($i_idCampagne, $i_idFournisseur);
-   //         var_dump($to_articleFournisseur);return;
             $f_montantTtc = 0;
-            $f_montantHt = 0;
             /* pour un fournisseur donné, on récupère tous les articles 
              * commandés*/
             foreach ($to_articleFournisseur as &$o_articleFournisseur) {
@@ -87,12 +85,13 @@ class FournisseurController extends Controller {
                 $i_idArticle = $o_articleFournisseur['id_article'];
                 $f_poidsPaquetClient = $o_articleFournisseur['poids_paquet_client'];
                 $ti_idUtilisateur = Commande::getIdUtilisateurByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
-                /* pour chaque utilisateur, on regarde combien il a commandé*/
+                /* pour chaque utilisateur, on regarde combien il a commandé */
                 foreach ($ti_idUtilisateur as $i_idUtilisateur) {
                     $i_id = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
                     $i_quantite = Commande::getQuantite($i_id);
                     $i_quantiteTotaleArticle += $i_quantite;
                 }
+                /* On calcule la quantité totale commandée selon l'unité */
                 $i_quantiteTotaleArticleReelle = $i_quantiteTotaleArticle * $f_poidsPaquetClient;
                 /* on cherche le prix du paquet fournisseur*/
                 $i_idArticleCampagne = ArticleCampagne::getIdByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
@@ -101,11 +100,11 @@ class FournisseurController extends Controller {
                 $f_prixTotaleArticle = $i_quantiteTotaleArticleReelle * $f_prixTtcArticle / $i_poidsPaquetFournisseur;
                 $f_montantTtc += $f_prixTotaleArticle;
             }
+            /* Montant du aux fournisseurs */
             $o_fournisseur['montant_total'] = $f_montantTtc;
             /* Formattage des nombres */
             $o_fournisseur['montant_total'] = number_format($o_fournisseur['montant_total'], 2, '.', ' ');
         }
-        /* Render */
         $this->render('fournisseursChoisis', compact('to_fournisseur', 'b_historique', 'i_idCampagne'));
     }
 
@@ -132,13 +131,15 @@ class FournisseurController extends Controller {
         } else {
             $i_idCampagne = Campagne::getIdCampagneCourante();
         }
-        /* Paramètre GET nécessaire */
+        /* On récupère l'identifiant du fournisseur */
         if(!isset($_GET['idFournisseur'])) {
             header('Location: '.root.'/articleCampagne.php/fournisseursChoisis');
             return;
         }
         $i_idFournisseur = $_GET['idFournisseur'];
+        /* On récupère les articles qui vont être acheté aux fournisseurs */
         $to_article = ArticleCampagne::getObjectsByIdCampagneIdFournisseur($i_idCampagne, $i_idFournisseur);
+        /* On regarde le nombre d'article commandés à ce fournisseur */
             $i_nbreArticle = 0;
         foreach ($to_article as &$o_article) {
             /* pour chaque article, on récupère les données qui vont nous 
@@ -150,13 +151,12 @@ class FournisseurController extends Controller {
             /* pour chaque utilisateur, on regarde combien il a commandé*/
             foreach ($ti_idUtilisateur as $i_idUtilisateur) {
                 $i_nbreArticle++;
-                // $i_idUtilisateur = $o_idUtilisateur['id_utilisateur'];
                 $i_id = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
                 $i_quantite = Commande::getQuantite($i_id);
                 $i_quantiteTotale += $i_quantite;
             }
             $o_article['quantite_totale'] = $i_quantiteTotale * $f_poidsPaquetClient;
-            /* on cherche le prix du paquet fournisseur*/
+            /* on calcule le prix du paquet fournisseur*/
             $i_idArticleCampagne = ArticleCampagne::getIdByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
             $f_prixTtcArticle = ArticleFournisseur::getPrixTtcByIdArticleCampagneIdFournisseur($i_idArticleCampagne, $i_idFournisseur);
             $i_poidsPaquetFournisseur = Article::getPoidsPaquetFournisseur($i_idArticle);
@@ -173,17 +173,18 @@ class FournisseurController extends Controller {
      */
     public function gererFournisseur() {
 
+        /* On récupère le nom du fournisseur tapé par l'utilisateur */
         if (isset($_POST['nom_fournisseur']) && $_POST['nom_fournisseur'] != "") {
-
             $s_nom = $_POST['nom_fournisseur'];
 
-            /* Vérification de la pré-existence */
+            /* Vérification de la pré-existence: on interdit que le nom n'existe 
+                * pas déjà */
             $o_fournisseur = Fournisseur::getObjectByNom($s_nom);
             if ($o_fournisseur == array()) {
                 Fournisseur::create($s_nom);
             }
-            
         }
+        /* On récupère le nom de tous les fournisseurs pour les afficher */
             $to_nom = Fournisseur::GetAllObjects();
             $this->render('gererFournisseur', compact('to_nom'));
             return;

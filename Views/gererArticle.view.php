@@ -66,15 +66,20 @@ if(isset($s_message)){
     return;
 }
 ?>
-
+<p>
 <?php
 /* Si pas navigation dans l'historique */
 if ($b_historique == 0) {
 ?>
-<p><a href="<?php echo root ?>/article.php/afficherCreerArticle?i_idRayon=<?php echo $i_idRayon; ?>">Créer un article</a></p>
+    <a href="<?php echo root ?>/article.php/afficherCreerArticle?i_idRayon=<?php echo $i_idRayon; ?>">Créer un article</a> | 
 <?php
 }
+
+/* Tout cocher ou tout décocher */
 ?>
+    <a href="<?php echo root ?>/article.php/cocherArticleVente?i_idRayon=<?php echo $i_idRayon ?>">Mettre en vente tous les articles</a> | 
+    <a href="<?php echo root ?>/article.php/decocherArticleVente?i_idRayon=<?php echo $i_idRayon ?>">Retirer de la vente tous les articles</a></p>
+
 
 <?php
 if($to_descriptionArticle == array()){ 
@@ -131,6 +136,9 @@ foreach($to_fournisseur as $o_fournisseur){
     </thead>
     <tbody> <!-- Corps du tableau -->
 <?php
+        $i_colspanCat = 10;
+?>
+<?php
 /* $i_numLigne représente pair ou impair pour l'affichage une ligne sur deux */
 $i_numLigne = 0;
 
@@ -144,7 +152,11 @@ foreach ($to_categorie as $o_categorie) {
     }
     if ($i_nbreArticleCategorie != 0) {
 ?>
-    <tr class="cat"> <td><?php echo $o_categorie['nom']?></td> </tr>
+    <tr><td colspan=<?php echo $i_colspanCat ?>>
+        <span class="cat"><?php echo $o_categorie['nom'] ?></span>
+        <span class="cat_bouton cacher_<?php echo $o_categorie['id'] ?>">[Cacher]</span> 
+        <span class="cat_bouton montrer_<?php echo $o_categorie['id'] ?>">[Montrer]</span> 
+    </td></tr>
 <?php
         foreach ($to_descriptionArticle as $o_descriptionArticle) {
             /* AJOUT condition pour la catégorie */
@@ -153,11 +165,11 @@ foreach ($to_categorie as $o_categorie) {
                 $i_idArticleCampagne = $o_descriptionArticle['id_article_campagne'];
                 if ($o_descriptionArticle['en_vente']) {
                     ?>
-            <tr class="ligne_article<?php echo $i_numLigne?>1">
+            <tr class="ligne_article<?php echo $i_numLigne ?>1 cat_<?php echo $o_categorie['id'] ?>">
 <?php 
                 } else {
 ?>
-    <tr class="ligne_article<?php echo $i_numLigne?>2">
+    <tr class="ligne_article<?php echo $i_numLigne ?>2 cat_<?php echo $o_categorie['id'] ?>">
 <?php
                 }
 ?>
@@ -370,3 +382,19 @@ foreach ($to_categorie as $o_categorie) {
         </tbody>
 </table>
 <form>
+<?php
+foreach ($to_categorie as $o_categorie) {
+?>
+    <script type="text/javascript">
+    $(".cacher_<?php echo $o_categorie['id'] ?>").click(function () {
+        $(".cat_<?php echo $o_categorie['id'] ?>").hide("slow");
+    });
+    </script>
+    <script type="text/javascript">
+    $(".montrer_<?php echo $o_categorie['id'] ?>").click(function () {
+        $(".cat_<?php echo $o_categorie['id'] ?>").show("slow");
+    });
+    </script>
+<?php
+}
+?>

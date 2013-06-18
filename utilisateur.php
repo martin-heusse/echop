@@ -71,7 +71,9 @@ class UtilisateurController extends Controller {
         $this->render('listeUtilisateurAValider', compact('to_utilisateur','i_nombreUtilisateurAValider'));
     }
 
-    /* Permet de valider l'inscription d'un utilisateur */
+    /* 
+     * Permet de valider l'inscription d'un utilisateur 
+     */
 
     public function validerInscription (){
         /* Authentication required */
@@ -99,7 +101,9 @@ class UtilisateurController extends Controller {
     }
 
 
-    /* Permet de refuser l'inscription d'un utilisateur */
+    /* 
+     * Permet de refuser l'inscription d'un utilisateur 
+     */
 
     public function refuserInscription (){
         /* Authentication required */
@@ -138,13 +142,16 @@ class UtilisateurController extends Controller {
             $this->render('adminRequired');
             return;
         }
+        /* Pour savoir si le mail a été envoyé */
         $i_emailSent = 0;
         /* Récupération des données du mail et envoi */
         if (isset($_POST['subject']) && $_POST['subject'] != "" && isset($_POST['message']) && $_POST['message'] != "") { 
             $i_emailSent = 1;
+            /* On récupère les éléments nécésssaires à l'envoi d'un mail */
             $s_subject = "[L'Échoppe d'ici et d'ailleurs] ".htmlentities($_POST['subject']);
             $s_message = htmlentities($_POST['message']); 
             $to_utilisateur = Utilisateur::getAllObjects();
+            /* Pour chaque utilisateur, on envoie un mail */
             foreach ($to_utilisateur as $o_destinataire) {
                 if($o_destinataire['validite'] == 1){
                     $s_destinataire = $o_destinataire['email'];    
@@ -165,11 +172,14 @@ class UtilisateurController extends Controller {
         /* Récupération des données du mail et envoi */
         if (isset($_POST['subject']) && $_POST['subject'] != "" && isset($_POST['message']) && $_POST['message'] != "") { 
             $i_emailSent = 1;
+            /* On récupère les éléments nécésssaires à l'envoi d'un mail */
             $i_idUtilisateur = $_SESSION['idUtilisateur'];
             $s_email = Utilisateur::getEmail($i_idUtilisateur);
+            /* On ajoute l'adresse mail de l'utilisateur dans l'objet */
             $s_subject = "[Mail de : ".$s_email."] ".htmlentities($_POST['subject']);
             $s_message = htmlentities($_POST['message']); 
             $to_utilisateur = Utilisateur::getAllObjects();
+            /* Pour chaque administrateur, on envoie un mail */
             foreach ($to_utilisateur as $o_destinataire) {
                 if(Administrateur::isAdministrateur($o_destinataire['id'])){
                     $s_destinataire = $o_destinataire['email'];    
