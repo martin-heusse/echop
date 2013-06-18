@@ -78,7 +78,17 @@ if ($b_historique == 0) {
 /* Tout cocher ou tout décocher */
 ?>
     <a href="<?php echo root ?>/article.php/cocherArticleVente?i_idRayon=<?php echo $i_idRayon ?>">Mettre en vente tous les articles</a> | 
-    <a href="<?php echo root ?>/article.php/decocherArticleVente?i_idRayon=<?php echo $i_idRayon ?>">Retirer de la vente tous les articles</a></p>
+    <a href="<?php echo root ?>/article.php/decocherArticleVente?i_idRayon=<?php echo $i_idRayon ?>">Retirer de la vente tous les articles</a>
+</p>
+
+<?php
+/* Si pas navigation dans l'historique */
+if ($b_historique == 0) {
+?>
+    <span>Marge : <?php echo $marge; ?>&nbsp;%</span>
+<?php
+}
+?>
 
 
 <?php
@@ -355,7 +365,7 @@ foreach ($to_categorie as $o_categorie) {
                 }
 ?>
                 <!-- Prix client TTC  -->
-                <td class="center tab_article" title="Prix TTC choisi par l'échoppe rapporté au colis du fournisseur vendu au client">
+                <td class="center tab_article" title="Prix client TTC">
                     <input class="input_quantite" 
                            type="text" 
                            value="<?php echo $o_descriptionArticle['prix_echoppe'] ?>"
@@ -364,7 +374,7 @@ foreach ($to_categorie as $o_categorie) {
                     <br />&nbsp;&euro;/paquet fournisseur
                 </td>
                 <!-- Prix client unitaire TTC -->
-                <td class="center tab_article" title="Prix TTC rapporté à l'unité echoppe">
+                <td class="center tab_article" title="Prix client unitaire TTC">
                   <input class="input_quantite" 
                          value="<?php echo $o_descriptionArticle['prix_echoppe_unite'] ?>"
                          disabled

@@ -91,6 +91,7 @@ class ArticleController extends Controller {
             $s_message = null;
             /* liste de toutes les descriptions d'un article d'un rayon de la campagne courante */
             $i_idRayon = $_GET['i_idRayon'];
+            $marge = Rayon::getMarge($i_idRayon)*100;
             $to_descriptionArticle = GererArticle::descriptionArticle($i_idCampagne,$i_idRayon);
                 /* liste de tous les fournisseurs */
             $to_fournisseur = GererArticle::fournisseurArticle($i_idCampagne,$i_idRayon);
@@ -114,6 +115,7 @@ class ArticleController extends Controller {
             $to_categorie = Categorie::getAllObjects();
         }
         $this->render('gererArticle', compact('to_rayon', 
+                                                'marge', 
                                                'i_idRayon', 
                                                'to_fournisseur', 
                                                'to_descriptionArticle', 
