@@ -64,8 +64,7 @@ if ($to_commande != null and $to_commande != array()) {
         foreach ($to_categorie as $o_categorie) {
             $i_nbreArticleCategorie = 0;
             foreach($to_commande as $o_produit) {
-                //var_dump($o_produit['categorie']); return;
-                if(($o_produit['categorie']) == ($o_categorie['nom'])){
+                if(($o_produit['categorie']) == ($o_categorie['nom']) && $o_produit['id_rayon']==$i_idRayon){
                     $i_nbreArticleCategorie++;
                 }
             }
@@ -115,10 +114,10 @@ if ($to_commande != null and $to_commande != array()) {
             </tr>
 <?php
                     $i_numLigne = ($i_numLigne + 1) % 2;
-                    }
-                }
-        }
-        }
+                    } // fin if($o_produit['id_rayon']
+                } // fin foreach
+            } // fin if($i_nbArticleCatgorie
+        } // fin foreach($to_categorie
 ?>  
         <tr>
         <th colspan=10 class="right">Montant Total = </th>
@@ -141,6 +140,7 @@ if ($to_commande != null and $to_commande != array()) {
                 </form>
 <?php
         }
+
     } else {
 ?>
     Aucun article n'est en vente dans ce rayon.

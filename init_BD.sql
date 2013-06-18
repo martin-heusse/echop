@@ -101,8 +101,8 @@ insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_uni
     values(2,2, 'penne 1/2 complet', 0.5, 1, 12, '-', '-');
 insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
     values(2,2, 'Lasagnes', 0.25, 1, 12, '-', '-');
---insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
-  --  values(2,3, 'Thé vert', 25, 3, 12, '-', '-');
+insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_unite, nb_paquet_colis, description_courte, description_longue)
+    values(2,3, 'Thé vert', 25, 3, 12, '-', '-');
 
 
 -- CREATION DE ARTICLE_CAMPAGNE
@@ -186,9 +186,8 @@ insert into article_campagne(id_article, id_campagne, id_fournisseur,
 insert into article_campagne(id_article, id_campagne, id_fournisseur,
     poids_paquet_client, id_tva, seuil_min, prix_ttc, en_vente)
     values(26, 1, 5, 0.25, 2, 1, 1.09, 1);
---insert into article_campagne(id_article, id_campagne, id_fournisseur,
-  --  poids_paquet_client, id_tva, seuil_min, prix_ttc, en_vente)
-    --values(27, 1, 5, 0.25, 2, 1, 1.09, 1);
+insert into article_campagne(id_article, id_campagne, id_fournisseur, poids_paquet_client, id_tva, seuil_min, prix_ttc, en_vente)
+    values(27, 1, 5, 0.25, 2, 1, 1.09, 1);
 
 -- CREATION DE ARTICLE_FOURNISSEUR 
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
@@ -311,9 +310,8 @@ insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, pri
 insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
     code, prix_ttc_ht, vente_paquet_unite)
     values(26, 5,0.93, 0.98, 'E100', false, true);
---insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc,
-  --  code, prix_ttc_ht, vente_paquet_unite)
-    --values(27, 5,0.93, 0.98, 'E100', false, true);
+insert into article_fournisseur(id_article_campagne,id_fournisseur, prix_ht, prix_ttc, code, prix_ttc_ht, vente_paquet_unite)
+    values(27, 5,0.93, 0.98, 'E100', false, true);
 
 -- CREATION DES COMMANDES DES UTILISATEURS POUR UNE CAMPAGNE ET UN ARTICLE
 insert into commande(id_article, id_campagne, id_utilisateur, quantite)
