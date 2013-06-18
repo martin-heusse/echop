@@ -1,15 +1,22 @@
 <form action="<?php echo root ?>/article.php/creerArticle?i_idRayon=<?php echo $o_rayon['id']?>" method="post" name="formulaire">
     <!-- Le lien de retour -->
-    <p><a class="action_navigation" href="<?php echo root ?>/article.php/afficherArticle?i_idRayon=<?php echo $o_rayon['id']?>">Retour aux articles de <?php echo $o_rayon['nom']?></a>
+    <p>
+        <a  class="action_navigation" 
+            href="<?php echo root ?>/article.php/afficherArticle?i_idRayon=<?php echo $o_rayon['id']?>">
+            Retour aux articles de <?php echo $o_rayon['nom']?>
+        </a>
+    </p>
 <?php
 /* Gestion des erreurs A FAIRE */
 if(isset($i_erreur)){
     if($i_erreur==0){
-        echo "Votre article a été crée !";
+?>
+    <p class="succes"> Votre article a été crée ! </p>
+<?php
     }
     if($i_erreur==1){
 ?>
-<p class="erreur"> Erreur de saisie, l'article n'a pas été crée ! </p>
+    <p class="erreur"> Erreur de saisie, l'article n'a pas été crée ! </p>
 <?php
     }
 }
@@ -17,7 +24,7 @@ if(isset($i_erreur)){
     </p>
     <!-- Message de consignes -->
     <fieldset><legend>Créer un article</legend>
-        <h3> Vous allez créer un article dans <?php echo $o_rayon['nom']?> </h3>
+        <h3> Vous allez créer un article dans <?php echo $o_rayon['nom']?> .</h3>
         <p>Les Champs avec * sont obligatoires. Si vous ne voulez rien mettre mettez un tiret.</p>
         <!-- Rayon choisi en variable cachée -->
         <input  type="hidden"
@@ -33,7 +40,7 @@ if(isset($i_erreur)){
                     />
         </p>
         <p> <!-- Liste des catégories à choisir -->
-            <span class="form_col"><label>Categorie<sup>&nbsp; *</sup></label></span>
+            <span class="form_col"><label>Categorie</label></span>
             <select name="id_categorie">
 <?php foreach($to_categorie as $o_categorie){
 ?>
@@ -78,7 +85,7 @@ if(isset($i_erreur)){
                     />
         </p>
         <p> <!-- Liste des unités à choisir -->
-            <span class="form_col"><label>Unité<sup>&nbsp; *</sup></label></span>
+            <span class="form_col"><label>Unité</label></span>
             <select name="id_unite">
 <?php foreach($to_unite as $o_unite){
 ?>
@@ -107,17 +114,17 @@ if(isset($i_erreur)){
                     />
         </p>
         <p> <!-- Tva à choisir -->
-            <span class="form_col"><label>TVA<sup>&nbsp; *</sup></label></span>
+            <span class="form_col"><label>TVA</label></span>
                 <select name="id_tva">
 <?php foreach($to_tva as $o_tva){
 ?>
-        <option value="<?php echo $o_tva['id'] ?>"><?php echo $o_tva['valeur'] ?>&nbsp; %</option>
+        <option value="<?php echo $o_tva['id'] ?>"><?php echo $o_tva['valeur'] ?></option>
 <?php
 }
 ?>
-            </select>
+            </select>&nbsp; %
         </p>
-        <h5> Liste des fournisseurs </h5>         <!-- Liste des fournisseurs  à choisir -->
+        <p> Liste des fournisseurs (<sup>&nbsp;**</sup> obligatoire si le fournisseur est coché, on ne peut choisir qu'un fournisseur coché) : </p> <!-- Liste des fournisseurs  à choisir -->
 <?php
 // cocher le premier fournisseur
 $estChoisi = TRUE;
@@ -127,13 +134,13 @@ foreach($to_fournisseur as $o_fournisseur){
             <input type="checkbox" name="id_fournisseur[]" value="<?php echo $o_fournisseur['id']; ?>"> 
             <span class="form_col"><label><?php echo $o_fournisseur['nom']; ?></label></span>
             <!--<input type="hidden" name="id_fournisseur[]" value="<?php echo $o_fournisseur['id']; ?>"/> -->
-            <label>Code</label> <!-- Le Code -->
+            <label>Code<sup>&nbsp;**</sup></label> <!-- Le Code -->
                 <input  class="input_quantite"
                         type="text" 
                         name="code[]" 
                         value=""
                         />&nbsp;--&nbsp;
-            <label>Montant</label> <!-- Le Montant -->
+            <label>Montant<sup>&nbsp;**</sup></label> <!-- Le Montant -->
             <input  class="input_quantite"
                     type="text" 
                     name="prix_donne_fournisseur[]" 
@@ -166,25 +173,28 @@ foreach($to_fournisseur as $o_fournisseur){
 ?>
         <p> <!--Prix client TTC calculé de façon automatique -->
             <span class="form_col"><label>Marge</label></span>
-            <input type="text" 
+            <input class="input_quantite"
+                   type="text" 
                    name="marge" 
-                   value=""
+                   value="<?php echo $o_rayon['marge']*100;?>"
                    disabled
                    />&nbsp;%&nbsp;
         <p> <!--Prix client TTC calculé de façon automatique -->
             <span class="form_col"><label>Prix client TTC</label></span>
-            <input type="text" 
-                   name="prix_ttc_echoppe" 
-                   value=""
-                   disabled
-                   />&euro;/paquet fournisseur
+            <input  class="input_quantite"
+                    type="text" 
+                    name="prix_ttc_echoppe" 
+                    value=""
+                    disabled
+                    />&euro;/paquet fournisseur
         </p>
         <p> <!-- Prix client unitaire TTC calculé de façon automatique -->
             <span class="form_col"><label>Prix client unitaire TTC</label></span>
-            <input type="text" 
-                   value="" 
-                   disabled
-                   />&euro;/unite
+            <input  class="input_quantite"
+                    type="text" 
+                    value="" 
+                    disabled
+                    />&euro;/unite
         </p>
         <input type="submit" value="valider" />
     </fieldset>
