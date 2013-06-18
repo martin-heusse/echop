@@ -32,12 +32,7 @@ if ($b_historique == 1) {
 ">
 <table>
     <tr>
-<?php
-/* Si navigation dans l'historique */
-if ($b_historique == 1) {
-    echo "<th>est livré</th>";
-}
-?>
+        <th>est livré</th>
         <th>Produit</th>
         <th>Description</th>
         <!--
@@ -60,14 +55,16 @@ if ($b_historique == 1) {
     foreach($to_commande as $o_produit) {
 ?>
     <tr class="ligne_article<?php echo $i_numLigne ?>">
-<?php
-/* Si navigation dans l'historique */
-if ($b_historique == 1) {
+    <td class="centrer"><input type="checkbox" name="est_livre[<?php echo $o_produit['id_article']?>]" value="1"
+<?php 
+    /* est_livre checked */
+    if ($o_produit['est_livre'] == 1) {
 ?>
-    <td class="centrer"><input type="checkbox" name="est_livre[<?php echo $o_produit['id_article']?>]" value="1"></td>
+checked
 <?php
-}
+    }
 ?>
+        ></td>
         <td><?php echo $o_produit['nom'] ?></td>
         <td title="<?php echo $o_produit['description_longue']?> "><?php echo $o_produit['description_courte'] ?></td>
         <td class="centrer"><?php echo $o_produit['poids_paquet_fournisseur'] ?><?php echo $o_produit['unite'] ?></td>
@@ -95,17 +92,15 @@ if ($b_historique == 1) {
 ?>  
     <tr>
 <?php
-    $i_colspan = 10;
-    if ($b_historique == 1) {
-        $i_colspan++;
-    }
+    $i_colspan = 11;
 ?>
     <th colspan=<?php echo $i_colspan ?> class="right">Montant Total = </th>
         <td class="centrer"><strong><?php echo $f_montantTotal ?>&euro;</strong></td>
         <td>&nbsp;</td>
     </tr>
 </table>
-<input class="input_valider" type="submit" value="Mettre à jour les quantités"/>
+<input class="input_valider" type="submit" value="Mettre à jour<?php if ($b_historique == 0) { echo " les quantités"; } ?>
+"/>
 </form>
 <?php
 } else {

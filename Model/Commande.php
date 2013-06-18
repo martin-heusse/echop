@@ -17,10 +17,10 @@ class Commande {
     /* Creaters */
 
     public static function create($i_idArticle, $i_idCampagne,
-        $i_idUtilisateur, $i_quantite) {
+        $i_idUtilisateur, $i_quantite, $b_estLivre = 0) {
             $sql_query = "insert into commande(id_article, id_campagne, 
-                id_utilisateur, quantite) 
-                values('$i_idArticle', '$i_idCampagne', '$i_idUtilisateur', '$i_quantite')";
+                id_utilisateur, quantite, est_livre) 
+                values('$i_idArticle', '$i_idCampagne', '$i_idUtilisateur', '$i_quantite', '$b_estLivre')";
             mysql_query($sql_query);
             $i_result = mysql_insert_id();
             return $i_result;
@@ -101,6 +101,17 @@ class Commande {
             $to_result[] = $o_row;
         }
         return $to_result;
+    }
+
+    public static function getCountByEstLivreForUtilisateur($b_estLivre, $i_idUtilisateur) {
+        $sql_query = "select count(*) number from commande where est_livre=$b_estLivre and id_utilisateur=$i_idUtilisateur";
+        $sql_tmp = mysql_query($sql_query);
+        $i_result = 0;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité et création du résultat */
+            $i_result = htmlentities($o_row['number']);
+        }
+        return $i_result;
     }
 
     public static function getIdUtilisateurByIdArticleIdCampagne($i_idArticle, $i_idCampagne) {
@@ -248,6 +259,17 @@ class Commande {
         return $i_result;
     }
 
+    public static function getEstLivre($i_id) {
+        $sql_query = "select est_livre from commande where id=$i_id";
+        $sql_tmp = mysql_query($sql_query);
+        $b_result = null;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité et création du résultat */
+            $b_result = htmlentities($o_row['est_livre']);
+        }
+        return $b_result;
+    }
+
     /* Setters */
 
     public static function set($i_id,$i_idArticle,
@@ -283,6 +305,13 @@ class Commande {
 
     public static function setQuantite($i_id, $i_quantite) {
         $sql_query = "update commande set quantite='$i_quantite' 
+            where id=$i_id";
+        $b_result =  mysql_query($sql_query);
+        return $b_result;
+    }
+
+    public static function setEstLivre($i_id, $b_estLivre) {
+        $sql_query = "update commande set est_livre='$b_estLivre' 
             where id=$i_id";
         $b_result =  mysql_query($sql_query);
         return $b_result;

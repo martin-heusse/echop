@@ -50,6 +50,12 @@ class UtilisateurAyantCommandEController extends Controller {
             $i_idUtilisateur = $o_article['id_utilisateur'];
             $o_article['login_utilisateur'] = Utilisateur::getLogin($i_idUtilisateur);
             $to_article = Commande::getIdArticleByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur);
+            /* A été livré ou non */
+            $o_article['tout_livre'] = 0;
+            if (Commande::getCountByEstLivreForUtilisateur(0, $i_idUtilisateur) == 0) {
+                $o_article['tout_livre'] = 1;
+            }
+
             /* Montant total */
             $o_article['montant_total'] = 0;
             
@@ -196,6 +202,16 @@ class UtilisateurAyantCommandEController extends Controller {
                     Commande::setQuantite($i_idCommande, $i_quantite);
                 }
             }	
+            /* Modification de est_livre */
+            if (isset($_POST['est_livre'])) {
+                $tb_estLivre = $_POST['est_livre'];
+                $b_estLivre = $tb_estLivre[$i_idArticle];
+                if ($b_estLivre == 1) {
+                    Commande::setEstLivre($i_idCommande, 1);
+                } else {
+                    Commande::setEstLivre($i_idCommande, 0);
+                }
+            }
         }
         /* Redirection */
         if ($i_idCampagne == Campagne::getIdCampagneCourante()) {
