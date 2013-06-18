@@ -55,6 +55,7 @@ class UtilisateurAyantCommandEController extends Controller {
             $to_article = Commande::getIdArticleByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur);
             /* A été livré ou non */
             $o_article['tout_livre'] = 0;
+            //
             if ($d = Commande::getCountByEstLivreForIdCampagneIdUtilisateur(0, $i_idCampagne, $i_idUtilisateur) == 0) {
                 $o_article['tout_livre'] = 1;
             }
