@@ -30,6 +30,26 @@ class ArticleController extends Controller {
         parent::__construct();
     }
 
+    /* 
+     * Cette fonction permet de calculer le prix du fournisseur en fonction
+     * du montant donné en paquet ou unité, en TTC ou HT.
+     * La tva est en pourcentage.
+    */
+    private function calculerPrix($f_tva, $f_poidsPaquetFournisseur, $f_montant, $b_ventePaquetUnite, $b_prixTtcHt){
+        if(($b_ventePaquetUnite == '1') and ($b_prixTtcHt == '1')){
+            return $f_montant;
+        }
+        if(($b_ventePaquetUnite == '0') and ($b_prixTtcHt == '1')){
+            return $f_montant*$f_poidsPaquetFournisseur;
+        }
+        if(($b_ventePaquetUnite == '1') and ($b_prixTtcHt == '0')){
+            return $f_montant*(1+$tva/100);
+        }
+        if(($b_ventePaquetUnite == '0') and ($b_prixTtcHt == '0')){
+            return $f_montant*$f_poidsPaquetFournisseur*(1+$tva/100);
+        }
+     }
+
     /*
      * Affiche l'ensemble des articles d'un rayon déterminé et d'une campagne
      * déterminé en communicant ses données à la vue gererArticle.view.php.
@@ -342,25 +362,37 @@ class ArticleController extends Controller {
             }
             /* nouveau test le fournisseur choisi doit être un coché */
             $i_idFournisseurChoisi =  $_POST['id_fournisseur_choisi'];
+            //var_dump($i_idFournisseurChoisi);
+            //var_dump($ti_idFournisseurCoche);
+            //return;
             /* $ti_idFournisseurCoche déjà définie plus haut */
             /* $i_nbFournisseurCoche déjà définie plus haut */
-            $b_Trouve = false;
+            $b_trouve = false;
             for($i = 0; $i < $i_nbFournisseurCoche ; $i++){
                 $i_idFournisseur = $ti_idFournisseurCoche[$i];
-                if($i_idArticleFournisseur == $i_idFournisseurChoisi){
-                    $b_Trouve = true;
+                if($i_idFournisseur == $i_idFournisseurChoisi){
+                    $b_trouve = true;
+                    /* calcul du prix client ttc choisi par l'échoppe */
+                    $i_idTva = $_POST['id_tva'];
+                    $f_tva = Tva::getValeur($i_idTva);
+                    $f_poidsPaquetFournisseur = $_POST['poids_paquet_fournisseur'];
+                    $f_montant = $_POST['montant'][$i_idFournisseurChoisi];
+                    $b_prixTtcHt = $_POST['prix_ttc_ht'][$i_idFournisseurChoisi];
+                    $b_ventePaquetUnite = $_POST['vente_paquet_unite'][$i_idFournisseurChoisi];
+                    /* calcul de $f_prixTtcFournisseur */
+                    $f_prixTtcFournisseur = $this->calculerPrix($f_tva, $f_poidsPaquetFournisseur, $f_montant, $b_ventePaquetUnite, $b_prixTtcHt);
+                    $f_marge = $_POST['marge']/100;
+                    /* calcul de $f_prixTtcEchoppe */
+                    $f_prixTtcEchoppe = $f_prixTtcFournisseur*(1+$f_marge); // $_POST['prix_ttc_echoppe']; A mettre à jour une fois que article fournisseur est construit
                 }
             }
-            if(!$b_Trouve){
+            if(!$b_trouve){
                 $i_erreur = 2;
                 header('Location: '.root.'/article.php/afficherCreerArticle?i_idRayon='.$i_idRayon.'&i_erreur='.$i_erreur);
                 /* return par sécurité */
                 return;
             }
             /* ici toutes les variables sont définies */
-            /* calcul du prix client ttc choisi par l'échoppe */
-            $f_prixTtcFournisseur = 00.00;
-            $f_prixTtcEchoppe = 00.00; // $_POST['prix_ttc_echoppe']; A mettre à jour une fois que article fournisseur est construit
             /* création de l'entrée de la table article */
             $i_idRayon = $_POST['id_rayon'];
             $i_idCategorie = $_POST['id_categorie'];
