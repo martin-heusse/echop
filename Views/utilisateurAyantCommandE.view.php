@@ -32,7 +32,7 @@ Cliquez sur un nom d'utilisateur pour voir la liste des produits qu'il a command
     <tr>
         <th>Utilisateur</th>
         <th>Prix total TTC</th>
-        <th>Livré</th>
+        <th>A réceptionné toute sa commande</th>
     </tr>
 <?php
     $i_numLigne = 0;
@@ -52,11 +52,11 @@ if ($b_historique == 1) {
 <?php
 if ($o_utilisateur['tout_livre'] == 1) {
 ?>
-        <td class="center">livré</td>
+        <td class="center">oui</td>
 <?php
 } else {
 ?>
-        <td class="center col_coloree">non livré</td>
+        <td class="center col_coloree">non</td>
 <?php
 }
 ?>

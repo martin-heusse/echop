@@ -103,8 +103,8 @@ class Commande {
         return $to_result;
     }
 
-    public static function getCountByEstLivreForUtilisateur($b_estLivre, $i_idUtilisateur) {
-        $sql_query = "select count(*) number from commande where est_livre=$b_estLivre and id_utilisateur=$i_idUtilisateur";
+    public static function getCountByEstLivreForIdCampagneIdUtilisateur($b_estLivre, $i_idCampagne, $i_idUtilisateur) {
+        $sql_query = "select count(*) number from commande where est_livre=$b_estLivre and id_campagne=$i_idCampagne and id_utilisateur=$i_idUtilisateur";
         $sql_tmp = mysql_query($sql_query);
         $i_result = 0;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
