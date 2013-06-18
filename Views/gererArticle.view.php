@@ -66,19 +66,19 @@ if(isset($s_message)){
     return;
 }
 ?>
-
+<p>
 <?php
 /* Si pas navigation dans l'historique */
 if ($b_historique == 0) {
 ?>
-<p><a href="<?php echo root ?>/article.php/afficherCreerArticle?i_idRayon=<?php echo $i_idRayon; ?>">Créer un article</a></p>
+    <a href="<?php echo root ?>/article.php/afficherCreerArticle?i_idRayon=<?php echo $i_idRayon; ?>">Créer un article</a> | 
 <?php
 }
 
 /* Tout cocher ou tout décocher */
 ?>
-    <p><a href="<?php echo root ?>/article.php/cocherArticleVente?i_idRayon=<?php echo $i_idRayon ?>">Mettre en vente tous les article</a></p>
-    <p><a href="<?php echo root ?>/article.php/decocherArticleVente?i_idRayon=<?php echo $i_idRayon ?>">Retirer de la vente tous les article</a></p>
+    <a href="<?php echo root ?>/article.php/cocherArticleVente?i_idRayon=<?php echo $i_idRayon ?>">Mettre en vente tous les articles</a> | 
+    <a href="<?php echo root ?>/article.php/decocherArticleVente?i_idRayon=<?php echo $i_idRayon ?>">Retirer de la vente tous les articles</a></p>
 
 
 <?php
