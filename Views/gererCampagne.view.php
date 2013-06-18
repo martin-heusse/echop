@@ -68,9 +68,9 @@ if ($to_oldCampagne == null or $to_oldCampagne == array()) {
 <?php
         }
 ?>
-    <a href="<?php echo root ?>/utilisateurAyantCommandE.php/utilisateurAyantCommandE?idOldCampagne=<?php echo $o_oldCampagne['id'] ?>">Utilisateurs ayant commandés</a> |
+    <a href="<?php echo root ?>/utilisateurAyantCommandE.php/utilisateurAyantCommandE?idOldCampagne=<?php echo $o_oldCampagne['id'] ?>">Commandes Utilisateur</a> |
+    <a href="<?php echo root ?>/fournisseur.php/fournisseursChoisis?idOldCampagne=<?php echo $o_oldCampagne['id'] ?>">Commandes Fournisseur</a> |
     <a href="<?php echo root ?>/articlesCommandEs.php/articlesCommandEs?idOldCampagne=<?php echo $o_oldCampagne['id'] ?>">Articles commandés</a> |
-    <a href="<?php echo root ?>/fournisseur.php/fournisseursChoisis?idOldCampagne=<?php echo $o_oldCampagne['id'] ?>">Fournisseurs choisis</a> |
     <a href="<?php echo root ?>/article.php/afficherArticle?idOldCampagne=<?php echo $o_oldCampagne['id'] ?>">Gérer les articles</a>
 </p>
 <?php
