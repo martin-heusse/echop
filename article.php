@@ -43,10 +43,10 @@ class ArticleController extends Controller {
             return $f_montant*$f_poidsPaquetFournisseur;
         }
         if(($b_ventePaquetUnite == '1') and ($b_prixTtcHt == '0')){
-            return $f_montant*(1+$tva/100);
+            return $f_montant*(1+$f_tva/100);
         }
         if(($b_ventePaquetUnite == '0') and ($b_prixTtcHt == '0')){
-            return $f_montant*$f_poidsPaquetFournisseur*(1+$tva/100);
+            return $f_montant*$f_poidsPaquetFournisseur*(1+$f_tva/100);
         }
      }
 
@@ -380,10 +380,20 @@ class ArticleController extends Controller {
                     $b_prixTtcHt = $_POST['prix_ttc_ht'][$i_idFournisseurChoisi];
                     $b_ventePaquetUnite = $_POST['vente_paquet_unite'][$i_idFournisseurChoisi];
                     /* calcul de $f_prixTtcFournisseur */
+                    //echo 'f_tva'; var_dump($f_tva); echo "<br />";
+                    //echo 'f_poidsPaquetFournisseur'; var_dump($f_poidsPaquetFournisseur); echo "<br />";
+                    //echo 'f_montant'; var_dump($f_montant); echo "<br />";
+                    //echo 'b_ventePaquetUnite'; var_dump($b_ventePaquetUnite); echo "<br />";
+                    //echo 'b_prixTtcHt'; var_dump($b_prixTtcHt); echo "<br />";
                     $f_prixTtcFournisseur = $this->calculerPrix($f_tva, $f_poidsPaquetFournisseur, $f_montant, $b_ventePaquetUnite, $b_prixTtcHt);
-                    $f_marge = $_POST['marge']/100;
+                    //echo 'f_prixTtcFournisseur'; var_dump($f_prixTtcFournisseur); echo "<br />";
+                    //echo 'marge'; var_dump($_POST['marge']); echo "<br />";
+                    $f_marge = Rayon::getMarge($i_idRayon);
+                    //echo 'f_marge' ; var_dump($f_marge ); echo "<br />";
                     /* calcul de $f_prixTtcEchoppe */
                     $f_prixTtcEchoppe = $f_prixTtcFournisseur*(1+$f_marge); // $_POST['prix_ttc_echoppe']; A mettre à jour une fois que article fournisseur est construit
+                    //echo 'f_prixTtcEchoppe' ; var_dump($f_prixTtcEchoppe);
+                    //return;
                 }
             }
             if(!$b_trouve){
@@ -435,10 +445,13 @@ class ArticleController extends Controller {
                 /* $i_idArticleCampagne déjà calculé plus haut */
                 $i_idFournisseur = $ti_idFournisseurCoche[$i];
                 $f_montant = $_POST['montant'][$i_idFournisseur];
-                /* $f_prixTtcFournisseur déjà calculé plus haut */
                 $s_code = $_POST['code'][$i_idFournisseur];
                 $b_prixTtcHt = $_POST['prix_ttc_ht'][$i_idFournisseur];
                 $b_ventePaquetUnite = $_POST['vente_paquet_unite'][$i_idFournisseur];
+                /* calcul de $f_prixTtcFournisseur */
+                /* $f_tva déjà définie plus haut */
+                /* $f_poidsPaquetFournisseur déjà définie plus haut */
+                $f_prixTtcFournisseur = $this->calculerPrix($f_tva, $f_poidsPaquetFournisseur, $f_montant, $b_ventePaquetUnite, $b_prixTtcHt);
                 ArticleFournisseur::create($i_idArticleCampagne, 
                                            $i_idFournisseur, 
                                            $f_montant, 
