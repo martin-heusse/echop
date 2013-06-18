@@ -22,7 +22,7 @@ method="post">
     }
 } else if ($b_success == 1) {
 ?>
-    <p>Un email à été envoyé à l'adresse <?php echo $s_destinataire ?>.</p>
+    <p class="succes">Un email à été envoyé à l'adresse <?php echo $s_destinataire ?>.</p>
 <?php
 }
 ?>

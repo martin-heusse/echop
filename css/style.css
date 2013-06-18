@@ -257,12 +257,12 @@ form .input_valider {
     color: red;
 }
 
-succes {
+.succes {
     font-weight:bold;
     color: green;
 }
 
-message {
+.message {
     font-weight:bold;
     color: blue;
 }
