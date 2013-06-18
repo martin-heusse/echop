@@ -2,9 +2,6 @@
 
 <h1>Créer un rayon</h1>
 
-<?php 
-if ($i_rayonSet == 0) {
-?>
 
 <form name="formulaire"
 action="<?php echo root ?>/rayon.php/creerRayon"
@@ -31,6 +28,3 @@ method="post">
     <input type="submit" value="Valider"/></p>
 </form>
 
-<?php
-}
-?>

@@ -35,7 +35,7 @@ CREATE TABLE unite (
     id integer not null auto_increment,
     valeur varchar(255),
 
-    constraint pk_tva primary key(id)
+    constraint pk_unite primary key(id)
 ) ENGINE = INNODB;
 
 CREATE TABLE rayon (
@@ -62,7 +62,7 @@ CREATE TABLE fournisseur (
 
 CREATE TABLE tva (
     id integer not null auto_increment,
-    valeur decimal(6,2),
+    valeur decimal(6,1),
 
     constraint pk_tva primary key(id)
 ) ENGINE = INNODB;

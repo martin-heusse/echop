@@ -131,6 +131,17 @@ class ArticleFournisseur {
         return $i_result;
     }
 
+    public static function getIdByIdArticleCampagneIdFournisseur($i_idArticleCampagne, $i_idFournisseur) {
+        $sql_query = "select id from article_fournisseur where id_article_campagne=$i_idArticleCampagne and id_fournisseur=$i_idFournisseur";
+        $sql_tmp = mysql_query($sql_query);
+        $i_result = null;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité et création du résultat */
+            $i_result = htmlentities($o_row['id']);
+        }
+        return $i_result;
+    }
+
     public static function getIdFournisseur($i_id) {
         $sql_query = "select id_fournisseur from article_fournisseur where id=$i_id";
         $sql_tmp = mysql_query($sql_query);
@@ -254,6 +265,13 @@ class ArticleFournisseur {
 
     public static function setPrixTtcHt($i_id, $b_prixTtcHt) {
         $sql_query = "update article_fournisseur set prix_ttc_ht='$b_prixTtcHt' 
+            where id=$i_id";
+        $b_result =  mysql_query($sql_query);
+        return $b_result;
+    }
+
+    public static function setVentePaquetUnite($i_id, $b_ventePaquetUnite) {
+        $sql_query = "update article_fournisseur set vente_paquet_unite='$b_ventePaquetUnite' 
             where id=$i_id";
         $b_result =  mysql_query($sql_query);
         return $b_result;
