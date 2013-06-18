@@ -21,10 +21,14 @@ if ($to_commande != null and $to_commande != array()) {
     /* si aucun article est en vente, on affiche rien */
 
     $i_nbreArticleRayon = 0;
+    $i_nbreEnVente = 0;
     foreach($to_commande as $o_produit){
         $i_nbreArticleRayon += $o_produit['nbre_article'];
+        if ($o_produit['en_vente'] == 1 && $o_produit['id_rayon']==$i_idRayon) {
+            $i_nbreEnVente ++;
+        }
     } 
-    if ($i_nbreArticleRayon !=0){
+    if ($i_nbreArticleRayon !=0 && $i_nbreEnVente != 0){
 
         /* Affiche ou non le formulaire */
         if ($b_etat == 1) {
@@ -82,7 +86,6 @@ if ($to_commande != null and $to_commande != array()) {
 <br/>
 <?php
                 foreach($to_commande as $o_produit) {
-                    /*Afficher la catégorie TODO*/
                     if($o_produit['id_rayon']==$i_idRayon && $o_produit['categorie'] == $o_categorie['nom'] && $o_produit['en_vente'] == 1){ 	?>
             <tr class="ligne_article<?php echo $i_numLigne ?> cat_<?php echo $o_categorie['id'] ?>">
             <td><?php echo $o_produit['nom'] ?></td>

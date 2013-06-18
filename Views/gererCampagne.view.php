@@ -48,7 +48,7 @@ if ($o_campagne['etat'] == 1) {
 <?php
 if ($to_oldCampagne == null or $to_oldCampagne == array()) {
 ?>
-    <p class="message">Il n'y a aucun campagne archivée.</p>
+    <p class="message">Il n'y a aucune campagne archivée.</p>
 <?php
 } else {
     foreach ($to_oldCampagne as $o_oldCampagne) {
