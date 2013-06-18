@@ -342,6 +342,8 @@ class ArticleController extends Controller {
             }
             /* nouveau test le fournisseur choisi doit être un coché */
             $i_idFournisseurChoisi =  $_POST['id_fournisseur_choisi'];
+            /* $ti_idFournisseurCoche déjà définie plus haut */
+            /* $i_nbFournisseurCoche déjà définie plus haut */
             $b_Trouve = false;
             for($i = 0; $i < $i_nbFournisseurCoche ; $i++){
                 $i_idFournisseur = $ti_idFournisseurCoche[$i];
@@ -395,8 +397,7 @@ class ArticleController extends Controller {
                                                            $b_enVente);
             /* création des entrées de la table article_fournisseur correspondant à l'entrée d'article_campagne */
             /* $ti_idFournisseurCoche déjà définie plus haut */
-            //var_dump($ti_idFournisseurCoche);
-            //return;
+            /* $i_nbFournisseurCoche déjà définie plus haut */
             $i_nbFournisseurCoche = count($ti_idFournisseurCoche);
             for($i = 0; $i < $i_nbFournisseurCoche ; $i++){
                 /* $i_idArticleCampagne déjà calculé plus haut */
