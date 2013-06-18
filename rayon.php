@@ -11,7 +11,9 @@ class RayonController extends Controller {
         parent::__construct();
     }
 
-
+    /*
+     * Affiche tous les rayons et toutes les catégories
+     */
     public function afficherRayon() {
         // liste des rayons (à partir de la table rayon)
         // pour afficher la liste rayons
@@ -23,29 +25,46 @@ class RayonController extends Controller {
     public function creerRayon() {
         $i_rayonSet = 0;
         $i_errName = 0;
+        $i_errMarge = 0;
+
         if (!Utilisateur::isLogged()) {
             header('Location: '.root.'/authentificationRequired');
         }
 
-        if (isset($_POST['nomRayon']) && $_POST['nomRayon'] != "") {
+        if (isset($_POST['nomRayon']) && $_POST['nomRayon'] != "" && isset($_POST['marge']) && $_POST['marge'] != "") {
             $s_nomRayon = $_POST['nomRayon'];
+            $f_marge = $_POST['marge'];
 
             /* Vérification de la disponibilité du nom */
             $o_nom = Rayon::getObjectByNom($s_nomRayon);
 
             if ($o_nom != array()) {
                 $i_errName = 1;
+                $this->render('creerRayon',compact('i_errMarge','i_errName'));
+                return;
             } else {
-
                 $i_rayonSet = 1;
-                Rayon::create($s_nomRayon);
-                $to_rayon = Rayon::getAllObjects();
-        $to_rayon = Rayon::getAllObjects();
-        $this->render('gererRayon', compact('to_rayon','to_categorie'));
+
+                /* Vérification de la marge */
+                if ($f_marge < 0 || $f_marge > 100) {
+                    $i_errMarge = 1;
+                    $this->render('creerRayon',compact('i_errMarge','i_errName'));
+                    return;
+                } else {
+                    $f_marge /= 100;
+                    Rayon::create($s_nomRayon,$f_marge);
+                }
+
             }
+            $to_rayon = Rayon::getAllObjects();
+            $to_categorie = Categorie::getAllObjects();
+            $this->render('gererRayon', compact('i_errMarge','i_errName','to_rayon','to_categorie'));
+            return;
         }
 
-        $this->render('creerRayon',compact('i_rayonSet','i_errName'));
+
+        $this->render('creerRayon',compact('i_rayonSet','i_errName','i_errMarge'));
+        return;
     }
 
     public function modifierRayon() {
@@ -53,6 +72,9 @@ class RayonController extends Controller {
         $i_oldRayonSet = 0;
         $to_rayon = Rayon::getAllObjects();
         $i_idRayon = 0;
+        $i_errMarge = 0;
+        $i_change = 0;
+
         if (!Utilisateur::isLogged()) {
             header('Location: '.root.'/authentificationRequired');
         }
@@ -64,6 +86,20 @@ class RayonController extends Controller {
             $s_Rayon = Rayon::getNom($i_idRayon); 
             $f_marge = 100*Rayon::getMarge($i_idRayon);
             $this->render('modifierRayon',compact('f_marge','s_Rayon','i_idRayon','i_errNewName','i_oldRayonSet','to_rayon'));
+        }
+
+        if (isset($_POST['marge']) && $_POST['marge'] != "") {
+            $f_marge = $_POST['marge'];
+            $i_id = $_POST['idRayon'];
+
+            /* Vérification de la marge */
+            if ($f_marge < 0 || $f_marge > 100) {
+                $i_errMarge = 1;
+            } else {
+                $f_marge /= 100;
+                Rayon::setMarge($i_id,$f_marge);
+            }
+            $i_change = 1;
         }
 
         if (isset($_POST['newNomRayon']) && $_POST['newNomRayon'] != "") {
@@ -78,14 +114,19 @@ class RayonController extends Controller {
                 $i_oldRayonSet = 1;
             } else {
                 Rayon::setNom($i_id,$s_nomRayon);
-                $to_rayon = Rayon::getAllObjects();
-        $to_rayon = Rayon::getAllObjects();
-        $this->render('gererRayon', compact('to_rayon','to_categorie'));
             }
-
+            $i_change = 1;
         }
 
+        $to_rayon = Rayon::getAllObjects();
+
+        if ($i_change != 0 && $i_errMarge == 0 && $i_errNewName && $i_errMarge == 0) {    
+            $to_categorie = Categorie::getAllObjects();
+            $this->render('gererRayon', compact('to_rayon','to_categorie'));
+            return;
+        }
         $this->render('modifierRayon',compact('i_errNewName','i_oldRayonSet','to_rayon', 's_nomRayon'));
+        return;
     }
 
     public function defaultAction() {
