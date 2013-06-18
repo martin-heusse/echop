@@ -6,7 +6,7 @@
 <?php
         if ($to_nom == array()) {
 ?>
-    <p> Il n'y a aucun fournisseur défini pour l'instant </p>
+    <p class="message"> Il n'y a aucun fournisseur défini pour l'instant </p>
 
 <?php
         } else { 

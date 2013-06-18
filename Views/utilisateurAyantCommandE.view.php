@@ -69,7 +69,7 @@ if ($o_utilisateur['tout_livre'] == 1) {
 <?php
 } else {
 ?>
-<p> Aucun utilisateur n'a fait de commande pour la campagne courante.</p>
+<p class="message"> Aucun utilisateur n'a fait de commande pour la campagne courante.</p>
 <?php
 }
 ?>

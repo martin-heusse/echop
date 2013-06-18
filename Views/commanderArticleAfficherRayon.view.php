@@ -23,7 +23,7 @@ if ($to_rayon != 0 and $to_rayon != array()) {
     }
 } else {
 ?> 
-Il n'y a aucun rayon
+<p class="message">Il n'y a aucun rayon. </p>
 <?php
 }
 ?>

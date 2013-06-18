@@ -33,6 +33,8 @@ if ($to_commande != null and $to_commande != array()) {
 <?php
         }
 ?>
+
+
         <table id="t_article">
         <tr>
         <th>Produit</th>
@@ -51,8 +53,10 @@ if ($to_commande != null and $to_commande != array()) {
         <th>Quantité totale commandée</th>
         <th>Total TTC</th>
 <?php
+        $i_colspanCat = 11;
         /* Affiche ou non la colonne de suppression */
         if ($b_etat == 1) {
+            $i_colspanCat++;
 ?>
                 <th>Suppression d'un article</th>
 <?php
@@ -64,19 +68,23 @@ if ($to_commande != null and $to_commande != array()) {
         foreach ($to_categorie as $o_categorie) {
             $i_nbreArticleCategorie = 0;
             foreach($to_commande as $o_produit) {
-                if(($o_produit['categorie']) == ($o_categorie['nom']) && $o_produit['id_rayon']==$i_idRayon){
+                if(($o_produit['categorie']) == ($o_categorie['nom']) && $o_produit['id_rayon']==$i_idRayon && $o_produit['en_vente'] == 1){
                     $i_nbreArticleCategorie++;
                 }
             }
             if ($i_nbreArticleCategorie != 0){
 ?>
-    <tr class="erreur"> <td><?php echo $o_categorie['nom']?></td> </tr>
+    <tr><td colspan=<?php echo $i_colspanCat ?>>
+        <span class="cat"><?php echo $o_categorie['nom'] ?></span>
+        <span class="cat_bouton cacher_<?php echo $o_categorie['id'] ?>">[Cacher]</span> 
+        <span class="cat_bouton montrer_<?php echo $o_categorie['id'] ?>">[Montrer]</span> 
+    </td></tr>
 <br/>
 <?php
                 foreach($to_commande as $o_produit) {
                     /*Afficher la catégorie TODO*/
                     if($o_produit['id_rayon']==$i_idRayon && $o_produit['categorie'] == $o_categorie['nom'] && $o_produit['en_vente'] == 1){ 	?>
-            <tr class="ligne_article<?php echo $i_numLigne ?>">
+            <tr class="ligne_article<?php echo $i_numLigne ?> cat_<?php echo $o_categorie['id'] ?>">
             <td><?php echo $o_produit['nom'] ?></td>
             <td class="center" title="<?php echo $o_produit['description_longue'] ?>"><?php echo $o_produit['description_courte'] ?></td>
             <!--
@@ -114,10 +122,10 @@ if ($to_commande != null and $to_commande != array()) {
             </tr>
 <?php
                     $i_numLigne = ($i_numLigne + 1) % 2;
-                    } // fin if($o_produit['id_rayon']
-                } // fin foreach
-            } // fin if($i_nbArticleCatgorie
-        } // fin foreach($to_categorie
+                    }
+                } 
+            } 
+        } 
 ?>  
         <tr>
         <th colspan=10 class="right">Montant Total = </th>
@@ -143,13 +151,29 @@ if ($to_commande != null and $to_commande != array()) {
 
     } else {
 ?>
-    Aucun article n'est en vente dans ce rayon.
+    <p class="message">Aucun article n'est en vente dans ce rayon.</p>
 <?php
     }
 } else { 
 ?>
-    <p>Vous n'avez pas de commande en cours.</p>
+    <p class="message">Vous n'avez pas de commande en cours.</p>
 <?php 
 }
 
+?>
+<?php
+foreach ($to_categorie as $o_categorie) {
+?>
+    <script type="text/javascript">
+    $(".cacher_<?php echo $o_categorie['id'] ?>").click(function () {
+        $(".cat_<?php echo $o_categorie['id'] ?>").hide();
+    });
+    </script>
+    <script type="text/javascript">
+    $(".montrer_<?php echo $o_categorie['id'] ?>").click(function () {
+        $(".cat_<?php echo $o_categorie['id'] ?>").show();
+    });
+    </script>
+<?php
+}
 ?>

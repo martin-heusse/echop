@@ -6,7 +6,7 @@
 <?php
         if ($to_val == array()) {
 ?>
-    <p> Il n'y a aucune TVA définie pour l'instant </p>
+    <p class="message"> Il n'y a aucune TVA définie pour l'instant </p>
 
 <?php
         } else { 
