@@ -110,7 +110,7 @@ class ArticleController extends Controller {
             $to_tva = Tva::getAllObjects();
             /* liste de toutes les unités */
             $to_unite = Unite::getAllObjects();
-            /* AJOUT liste de toutes les catégories */
+            /* liste de toutes les catégories */
             $to_categorie = Categorie::getAllObjects();
         }
         $this->render('gererArticle', compact('to_rayon', 
@@ -165,8 +165,7 @@ class ArticleController extends Controller {
             or !isset($_POST['seuil_min'])
             or !isset($_POST['id_tva'])
             or !isset($_POST['id_Fournisseur_rayon'])
-            or !isset($_POST['id_fournisseur_choisi'])
-            or !isset($_POST['prix_ttc_echoppe']) ) {
+            or !isset($_POST['id_fournisseur_choisi'])) {
             /* si une des variables n'est pas définie */
             $i_erreur = 1;
             /* Redirection */
@@ -190,7 +189,6 @@ class ArticleController extends Controller {
             $ti_seuilMin = $_POST['seuil_min'];
             $ti_idTva = $_POST['id_tva'];
             $ti_idFournisseurRayon = $_POST['id_Fournisseur_rayon'];
-            $tf_prixTtcEchoppe = $_POST['prix_ttc_echoppe'];
             $i_nbArticleCampagne = count($ti_idArticleCampagne);
             for ($i=0; $i<$i_nbArticleCampagne; $i++) {
                 $i_idArticleCampagne = $ti_idArticleCampagne[$i];
@@ -214,8 +212,8 @@ class ArticleController extends Controller {
                 $i_nbPaquetColis = $ti_nbPaquetColis[$i];
                 Article::setNbPaquetColis($i_idArticle, $i_nbPaquetColis);
                 /* modification du poids du paquet fournisseur */
-                $i_idUnite = $ti_idUnite[$i];
-                Article::setIdUnite($i_idArticle, $i_idUnite);
+                $f_poidsPaquetFournisseur = $tf_poidsPaquetFournisseur[$i];
+                Article::setPoidsPaquetFournisseur($i_idArticle, $f_poidsPaquetFournisseur);
                 /* modification du poids paquet client */
                 $f_poidsPaquetClient = $tf_poidsPaquetClient[$i];
                 ArticleCampagne::setPoidsPaquetClient($i_idArticleCampagne, $f_poidsPaquetClient);
@@ -225,6 +223,9 @@ class ArticleController extends Controller {
                 /* modification de la tva */
                 $i_idTva = $ti_idTva[$i];
                 ArticleCampagne::setIdTva($i_idArticleCampagne, $i_idTva);
+                /* modification du fournisseur choisi */
+                $i_idFournisseurChoisi = $_POST["id_fournisseur_choisi"][$i_idArticleCampagne];
+                ArticleCampagne::setIdFournisseur($i_idArticleCampagne, $i_idFournisseurChoisi);
                 /* modification des champs d'un fournisseur */
                 foreach($ti_idFournisseurRayon as $i_idFournisseurRayon){
                     $i_idArticleFournisseur = ArticleFournisseur::getIdByIdArticleCampagneIdFournisseur($i_idArticleCampagne,$i_idFournisseurRayon);
@@ -232,23 +233,26 @@ class ArticleController extends Controller {
                     $s_code = $_POST['code'][$i_idFournisseurRayon][$i];
                     ArticleFournisseur::setCode($i_idArticleFournisseur,$s_code);
                     /* modification du montant */
-                    $f_prix_fournisseur = $_POST['montant'][$i_idFournisseurRayon][$i];
-                    ArticleFournisseur::setPrixHt($i_idArticleFournisseur,$f_prix_fournisseur);
+                    $f_prixFournisseur = $_POST['montant'][$i_idFournisseurRayon][$i];
+                    ArticleFournisseur::setPrixHt($i_idArticleFournisseur,$f_prixFournisseur);
                     /* modification de vente_paquet_unite */
                     $b_ventePaquetUnite = $_POST['vente_paquet_unite'][$i_idFournisseurRayon][$i];
                     ArticleFournisseur::setVentePaquetUnite($i_idArticleFournisseur,$b_ventePaquetUnite);
                     /* modification de prix_ttc_ht */
-                    $b_PrixTtcHt = $_POST['prix_ttc_ht'][$i_idFournisseurRayon][$i];
-                    ArticleFournisseur::setPrixTtcHt($i_idArticleFournisseur,$b_PrixTtcHt);
+                    $b_prixTtcHt = $_POST['prix_ttc_ht'][$i_idFournisseurRayon][$i];
+                    ArticleFournisseur::setPrixTtcHt($i_idArticleFournisseur,$b_prixTtcHt);
                     /* Calcul du prix ttc */
-                    
+                    $f_tva = Tva::getValeur($i_idTva);
+                    $f_montant = $f_prixFournisseur;
+                    $f_prixTtc = $this->calculerPrix($f_tva, $f_poidsPaquetFournisseur, $f_montant, $b_ventePaquetUnite, $b_prixTtcHt);
+                    ArticleFournisseur::setPrixTtc($i_idArticleFournisseur,$f_prixTtc);
+                    if($i_idFournisseurRayon==$i_idFournisseurChoisi ){
+                        /* modification du prix choisi par l'échoppe */
+                        $f_marge = Rayon::getMarge($i_idRayon);
+                        $f_prixTtcEchoppe = $f_prixTtc*(1+$f_marge);
+                        ArticleCampagne::setPrixTtc($i_idArticleCampagne, $f_prixTtcEchoppe);
+                    }
                 }
-                /* modification du fournisseur choisi */
-                $i_idFournisseurChoisi = $_POST["id_fournisseur_choisi"][$i_idArticleCampagne];
-                ArticleCampagne::setIdFournisseur($i_idArticleCampagne, $i_idFournisseurChoisi);
-                /* modification du prix choisi par l'échoppe */
-                $f_prixTtcEchoppe = $tf_prixTtcEchoppe[$i];
-                ArticleCampagne::setPrixTtc($i_idArticleCampagne, $f_prixTtcEchoppe);
                 $i_erreur = 0;
             }
         }

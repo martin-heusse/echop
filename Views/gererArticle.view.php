@@ -330,7 +330,7 @@ foreach ($to_categorie as $o_categorie) {
                             <td align="center"> <!-- Prix TTC -->
                                 <input class="input_quantite" 
                                        type="text"
-                                       value="<?php echo $o_descriptionArticle[$i_idFournisseur]['prix_fournisseur'] ?>"
+                                       value="<?php echo $o_descriptionArticle[$i_idFournisseur]['prix_ttc'] ?>"
                                        disabled
                                  />
                                  <br />&nbsp;&euro;/ paquet fournisseur
@@ -358,8 +358,8 @@ foreach ($to_categorie as $o_categorie) {
                 <td class="center tab_article" title="Prix TTC choisi par l'échoppe rapporté au colis du fournisseur vendu au client">
                     <input class="input_quantite" 
                            type="text" 
-                           name="prix_ttc_echoppe[]" 
                            value="<?php echo $o_descriptionArticle['prix_echoppe'] ?>"
+                           disabled
                     />
                     <br />&nbsp;&euro;/paquet fournisseur
                 </td>
