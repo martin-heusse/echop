@@ -23,15 +23,21 @@ class RayonController extends Controller {
         return;
     }
 
+    /*
+     * Crée un rayon et la marge associée
+     */
     public function creerRayon() {
+
         $i_rayonSet = 0;
         $i_errName = 0;
         $i_errMarge = 0;
 
+        /* Authentification required */
         if (!Utilisateur::isLogged()) {
             header('Location: '.root.'/authentificationRequired');
         }
 
+        /* Gestion du formulaire */
         if (isset($_POST['nomRayon']) && $_POST['nomRayon'] != "" && isset($_POST['marge']) && $_POST['marge'] != "") {
             $s_nomRayon = $_POST['nomRayon'];
             $f_marge = $_POST['marge'];
@@ -68,6 +74,10 @@ class RayonController extends Controller {
         return;
     }
 
+
+    /*
+     * Modifie le nom et/ou la marge d'un rayon
+     */
     public function modifierRayon() {
         $i_errNewName = 0;
         $i_oldRayonSet = 0;
@@ -76,11 +86,12 @@ class RayonController extends Controller {
         $i_errMarge = 0;
         $i_change = 0;
 
+        /* Authentification required */
         if (!Utilisateur::isLogged()) {
             header('Location: '.root.'/authentificationRequired');
         }
 
-
+        /* Récupération de l'id du rayon à modifier */
         if (isset($_GET['idRayon']) && $_GET['idRayon'] != "") {
             $i_oldRayonSet = 1;
             $i_idRayon = $_GET['idRayon'];
@@ -89,6 +100,7 @@ class RayonController extends Controller {
             $this->render('modifierRayon',compact('f_marge','s_Rayon','i_idRayon','i_errNewName','i_oldRayonSet','to_rayon'));
         }
 
+        /* Gestion de la modification de la marge */
         if (isset($_POST['marge']) && $_POST['marge'] != "") {
             $f_marge = $_POST['marge'];
             $i_id = $_POST['idRayon'];
@@ -103,6 +115,7 @@ class RayonController extends Controller {
             $i_change = 1;
         }
 
+        /* Gestion de la modification du nom */
         if (isset($_POST['newNomRayon']) && $_POST['newNomRayon'] != "") {
             $s_nomRayon = $_POST['newNomRayon'];
             $i_id = $_POST['idRayon'];
@@ -121,6 +134,7 @@ class RayonController extends Controller {
 
         $to_rayon = Rayon::getAllObjects();
 
+        /* Gestion des modifications et de leur conformité pour la vue */
         if ($i_change != 0 && $i_errMarge == 0 && $i_errNewName && $i_errMarge == 0) {    
             $to_categorie = Categorie::getAllObjects();
             $this->render('gererRayon', compact('to_rayon','to_categorie'));
@@ -130,6 +144,9 @@ class RayonController extends Controller {
         return;
     }
 
+    /*
+     * Action par défaut 
+     */
     public function defaultAction() {
         header('Location: '.root.'/rayon.php/creerRayon');
     }
