@@ -368,9 +368,6 @@ class ArticleController extends Controller {
             }
             /* nouveau test le fournisseur choisi doit être un coché */
             $i_idFournisseurChoisi =  $_POST['id_fournisseur_choisi'];
-            //var_dump($i_idFournisseurChoisi);
-            //var_dump($ti_idFournisseurCoche);
-            //return;
             /* $ti_idFournisseurCoche déjà définie plus haut */
             /* $i_nbFournisseurCoche déjà définie plus haut */
             $b_trouve = false;
@@ -386,20 +383,9 @@ class ArticleController extends Controller {
                     $b_prixTtcHt = $_POST['prix_ttc_ht'][$i_idFournisseurChoisi];
                     $b_ventePaquetUnite = $_POST['vente_paquet_unite'][$i_idFournisseurChoisi];
                     /* calcul de $f_prixTtcFournisseur */
-                    //echo 'f_tva'; var_dump($f_tva); echo "<br />";
-                    //echo 'f_poidsPaquetFournisseur'; var_dump($f_poidsPaquetFournisseur); echo "<br />";
-                    //echo 'f_montant'; var_dump($f_montant); echo "<br />";
-                    //echo 'b_ventePaquetUnite'; var_dump($b_ventePaquetUnite); echo "<br />";
-                    //echo 'b_prixTtcHt'; var_dump($b_prixTtcHt); echo "<br />";
                     $f_prixTtcFournisseur = $this->calculerPrix($f_tva, $f_poidsPaquetFournisseur, $f_montant, $b_ventePaquetUnite, $b_prixTtcHt);
-                    //echo 'f_prixTtcFournisseur'; var_dump($f_prixTtcFournisseur); echo "<br />";
-                    //echo 'marge'; var_dump($_POST['marge']); echo "<br />";
                     $f_marge = Rayon::getMarge($i_idRayon);
-                    //echo 'f_marge' ; var_dump($f_marge ); echo "<br />";
-                    /* calcul de $f_prixTtcEchoppe */
                     $f_prixTtcEchoppe = $f_prixTtcFournisseur*(1+$f_marge); // $_POST['prix_ttc_echoppe']; A mettre à jour une fois que article fournisseur est construit
-                    //echo 'f_prixTtcEchoppe' ; var_dump($f_prixTtcEchoppe);
-                    //return;
                 }
             }
             if(!$b_trouve){
@@ -466,29 +452,15 @@ class ArticleController extends Controller {
                                            $b_prixTtcHt, 
                                            $b_ventePaquetUnite);
             }
-            /* A Enlever si bug mis par défaut */
-            /*$i_idFournisseur = 2;
-            $f_prixFournisseur = 30.00;
-            $f_prixTtc = 30.00;
-            $s_code = 'E100';
-            $b_prixTtcHt =  '1';
-            $b_ventePaquetUnite = '1';
-            ArticleFournisseur::create($i_idArticleCampagne, 
-                                       $i_idFournisseur, 
-                                       $f_prixFournisseur, 
-                                       $f_prixTtc, 
-                                       $s_code, 
-                                       $b_prixTtcHt, 
-                                       $b_ventePaquetUnite);*/
             /* il n'y a pas d'erreurs */
             $i_erreur = 0;
         }
         header('Location: '.root.'/article.php/afficherCreerArticle?i_idRayon='.$i_idRayon.'&i_erreur='.$i_erreur);
     }
 
-/*
- * Coche l'ensemble des articles d'un rayon 
- */
+    /*
+     * Coche l'ensemble des articles d'un rayon 
+     */
     public function cocherArticleVente () {
 
         /* Authentication required */
@@ -512,9 +484,9 @@ class ArticleController extends Controller {
         header('Location: '.root.'/article.php/afficherArticle?i_idRayon='.$i_idRayon);
     } 
 
-/*
- * Décoche l'ensemble des articles d'un rayon 
- */
+    /*
+    * Décoche l'ensemble des articles d'un rayon 
+    */
     public function decocherArticleVente () {
 
         /* Authentication required */

@@ -2,6 +2,10 @@
 
 class GererArticle {
 
+    /* 
+     * Permet d'obtenir toutes les descriptions d'un article pour la gestion
+     * de l'administrateur.
+     */
     public static function descriptionArticle($i_idCampagne,$i_idRayon) {
         $sql_query = "SELECT DISTINCT ac.id AS id_article_campagne, " .
                                       "ac.en_vente, " .
@@ -42,7 +46,10 @@ class GererArticle {
         }
         return $to_result;
     }
-
+    
+    /*
+     * Permet de trouver tous les fournisseurs d'un rayon
+     */
     public static function fournisseurArticle($i_idCampagne,$i_idRayon) {
         $sql_query = "SELECT DISTINCT f.id AS id_fournisseur, " .
                                      "f.nom AS nom_fournisseur " .
@@ -68,6 +75,9 @@ class GererArticle {
         return $to_result;
     }
 
+    /* 
+     * Permet de mettre en vente ou de ne pas mettre en vente tous les articles d'un rayon 
+     */
     public static function setEnVenteByIdCampagneIdRayon($b_enVente, $i_idCampagne, $i_idRayon) {
         $sql_query = " update article, article_campagne " .
                      " set article_campagne.en_vente = $b_enVente " .
