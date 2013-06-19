@@ -97,6 +97,7 @@ class RayonController extends Controller {
             $s_Rayon = Rayon::getNom($i_idRayon); 
             $f_marge = 100*Rayon::getMarge($i_idRayon);
             $this->render('modifierRayon',compact('f_marge','s_Rayon','i_idRayon','i_errNewName','i_oldRayonSet','to_rayon'));
+            return;
         }
 
         /* Gestion de la modification de la marge */
