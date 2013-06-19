@@ -1,3 +1,4 @@
+<!-- interface de gestion des articles -->
 <?php
 /* Si navigation dans l'historique */
 if ($b_historique == 1) {

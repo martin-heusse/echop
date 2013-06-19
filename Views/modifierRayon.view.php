@@ -1,3 +1,4 @@
+<!-- interface de modification d'un rayon -->
 <p><a class="action_navigation" href="<?php echo root ?>/rayon.php/afficherRayon">Retour à gérer rayon</a></p>
 
 <h1>Modifier un rayon</h1>

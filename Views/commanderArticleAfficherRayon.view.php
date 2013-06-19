@@ -1,3 +1,4 @@
+<!--affiche les rayons pour que l'utilisateur puisse commander -->
 <p><a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a></p>
 
 <h1>Commander des articles</h1>
@@ -13,6 +14,7 @@ if ($b_etat == 1) {
 <?php
 }
 if ($to_rayon != 0 and $to_rayon != array()) {
+    /* affiche les rayons s'ils existent */
 ?>
         <ul>
 <?php 

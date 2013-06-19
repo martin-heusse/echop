@@ -1,3 +1,4 @@
+<!-- affiche la liste des fournisseurs choisis lors d'une campagne -->
 <?php
 /* Si navigation dans l'historique */
 if ($b_historique == 1) {
@@ -33,29 +34,30 @@ if ($to_fournisseur == null or $to_fournisseur == array()) {
 Cliquez sur un nom de fournisseur pour voir les commandes associées pour la campagne courante.</p>
 
 <table>
+<!-- affiche la liste des fournisseurs choisis ainsi que le montant du. -->
     <tr>
         <th>Fournisseur</th>
         <th>Prix total TTC</th>
     </tr>
 <?php
-$i_numLigne = 0;
-foreach ($to_fournisseur as $o_fournisseur) {
+    $i_numLigne = 0;
+    foreach ($to_fournisseur as $o_fournisseur) {
 ?>
     <tr class="ligne_article<?php echo $i_numLigne ?>">
         <td><a href="<?php echo root ?>/fournisseur.php/commandeFournisseur?idFournisseur=<?php echo $o_fournisseur['id'] ?>
 <?php
-/* Si navigation dans l'historique */
-if ($b_historique == 1) {
-    echo "&idOldCampagne=".$i_idCampagne;
-}
+        /* Si navigation dans l'historique */
+        if ($b_historique == 1) {
+            echo "&idOldCampagne=".$i_idCampagne;
+        }
 ?>
 ">
         <?php echo $o_fournisseur['nom'] ?></a></td>
         <td class="centrer"><?php echo $o_fournisseur['montant_total'] ?>&euro;</td>
     </tr>
 <?php
-    $i_numLigne = ($i_numLigne + 1) % 2;
-}
+        $i_numLigne = ($i_numLigne + 1) % 2;
+    }
 ?>
 </table>
 <?php

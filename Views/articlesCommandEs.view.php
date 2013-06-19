@@ -1,5 +1,5 @@
 <?php
-/* Si navigation dans l'historique */
+/* vérifie si on navigue dans l'historique ou non */
 if ($b_historique == 1) {
 ?>
 <p><a class="action_navigation" href="<?php echo root ?>/campagne.php/gererCampagne">Retour à la gestion des campagnes</a></p>
@@ -19,11 +19,13 @@ if ($b_historique == 1) {
     <span class="historique">[Historique de la campagne n°<?php echo $i_idCampagne ?>]</span>
 <?php
 }
-?>
 
+/* affiche l'ensemble des commandes utilisateurs */
+?>
 <h1>Articles commandés</h1>
 
 <?php
+/* si on a pas d'article commandés */
 if ($to_article == null or $to_article == array()) {
 ?>
     <p class="message">Aucun article n'a été commandé.</p>
@@ -32,11 +34,16 @@ if ($to_article == null or $to_article == array()) {
 ?>
 <p>Liste de tous les articles commandés par les utilisateurs pendant la campagne en cours.<br/>
 <?php
+    /* l'affichage diffère si on est un administrateur ou non
+     * un administrateur peut accèder à des pages annexes à partir de celle-ci 
+     * contrairement aux simples utilisateurs */
     if(Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
 ?>
 Cliquez sur l'un des articles pour voir la liste de tous les utilisateurs l'ayant commandé.</p>
 <?php
     }
+    /* tableau d'affichage des résultats, les colonnes diffèrent en fonction du 
+     * status de l'utilisateur */
 ?>
 <table>
     <tr>

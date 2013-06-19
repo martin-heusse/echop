@@ -1,3 +1,4 @@
+<!--affiche la liste des utilisateur qui ont commandé un article donné -->
 <p><a class="action_navigation" href="<?php echo root ?>/articlesCommandEs.php/articlesCommandEs
 <?php
 /* Si navigation dans l'historique */
@@ -20,6 +21,7 @@ if ($b_historique == 1) {
 
 <?php
 if ($to_utilisateur == null or $to_utilisateur == array()) {
+    /* on affiche la liste des utilisateurs si elle est non vide */
 ?>
 <p class="message">Aucun utilisateur n'a commandé l'article <strong><?php echo $s_nomArticle ?></strong>.</p>
 <?php

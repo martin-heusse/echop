@@ -1,3 +1,4 @@
+<!-- interface d'envoi de mail à tous les utilisateurs -->
 <p>
     <a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a>
 </p>

@@ -1,3 +1,4 @@
+<!-- interface de gestion des fournisseurs -->
 <p>
     <a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a>
 </p>

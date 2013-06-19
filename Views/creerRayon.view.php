@@ -1,3 +1,4 @@
+<!-- affiche l'interface de création de rayon -->
 <p><a class="action_navigation" href="<?php echo root ?>/rayon.php/afficherRayon">Retour à gérer rayon</a></p>
 
 <h1>Créer un rayon</h1>

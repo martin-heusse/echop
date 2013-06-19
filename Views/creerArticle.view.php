@@ -1,3 +1,4 @@
+<!-- affiche l'interface de création d'article -->
 <form action="<?php echo root ?>/article.php/creerArticle?i_idRayon=<?php echo $o_rayon['id']?>" method="post" name="formulaire">
     <!-- Le lien de retour -->
     <p>
@@ -137,8 +138,8 @@ if(isset($i_erreur)){
 // forcer à cocher le premier fournisseur par sécurité
 $estChoisi = TRUE;
 foreach($to_fournisseur as $o_fournisseur){
-/* Les identifiant fournisseur */
-$i_idFournisseur = $o_fournisseur['id'];
+    /* Les identifiant fournisseur */
+    $i_idFournisseur = $o_fournisseur['id'];
 ?>
         <p>
             <!-- Choisir -->

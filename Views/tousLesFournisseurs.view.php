@@ -1,3 +1,4 @@
+<!-- affiche la liste de tous les fournisseurs -->
 <p><a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a></p>
 
 <h1>Liste de tous les fournisseurs</h1>

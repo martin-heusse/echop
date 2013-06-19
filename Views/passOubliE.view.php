@@ -1,3 +1,4 @@
+<!-- interface de gestion de mot de passe oublié -->
 <h1>Mot de passe oublié</h1>
 
 <?php

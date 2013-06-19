@@ -1,3 +1,4 @@
+<!-- interface de gestion du profil (modification mot de passe et adresse mail-->
 <p>
     <a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a>
 </p>

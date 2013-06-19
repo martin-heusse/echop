@@ -1,3 +1,4 @@
+<!-- interface d'inscription -->
 <h1>Inscription</h1>
 
 <?php 

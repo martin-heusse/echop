@@ -1,3 +1,4 @@
+<!-- affiche l'intreface de commande pour l'utilisateur -->
 <p><a class="action_navigation" href="<?php echo root ?>/commanderArticle.php/afficherRayon">Retour aux rayons</a></p>
 
 <h1>Commander des articles</h1>
@@ -33,7 +34,8 @@ if ($to_commande != null and $to_commande != array()) {
     } 
     if ($i_nbreArticleRayon !=0 && $i_nbreEnVente != 0){
 
-        /* Affiche ou non le formulaire */
+        /* Affiche ou non le formulaire (affichage uniquement si la campagne est 
+            * ouverte) */
         if ($b_etat == 1) {
 ?>
                 <form method="post" action="<?php echo root ?>/commanderArticle.php/commanderArticleModifier?idRayon=<?php echo $i_idRayon?>">
@@ -46,11 +48,7 @@ if ($to_commande != null and $to_commande != array()) {
         <tr>
         <th>Produit</th>
         <th>Description</th>
-        <!--
-        <th>Description longue</th>
-        -->
         <th>Poids du paquet du fournisseur</th>
-        <!-- <th>Unité</th> -->
         <th>Nombre de paquets par colis</th>
         <th>Prix TTC</th>
         <th>Prix TTC unitaire (au kilo ou litre)</th>
@@ -72,6 +70,7 @@ if ($to_commande != null and $to_commande != array()) {
         </tr>
 <?php 
         $i_numLigne = 0;
+        /* l'affichage des produits se fait par catégorie */
         foreach ($to_categorie as $o_categorie) {
             $i_nbreArticleCategorie = 0;
             foreach($to_commande as $o_produit) {
@@ -79,25 +78,26 @@ if ($to_commande != null and $to_commande != array()) {
                     $i_nbreArticleCategorie++;
                 }
             }
+            /* on affiche la catégorie uniquement si elle contient des produits 
+             * */
             if ($i_nbreArticleCategorie != 0){
 ?>
     <tr><td colspan=<?php echo $i_colspanCat ?>>
         <span class="cat"><?php echo $o_categorie['nom'] ?></span>
+<!--gère le déroulement des catégories-->
         <span class="cat_bouton cacher_<?php echo $o_categorie['id'] ?>">[Cacher]</span> 
         <span class="cat_bouton montrer_<?php echo $o_categorie['id'] ?>">[Montrer]</span> 
     </td></tr>
 <br/>
 <?php
+                /* Avant l'affichage, on vérifie que le produit appartient au 
+                 * bon rayon, la bonne catégorie et qu'il est en vente */
                 foreach($to_commande as $o_produit) {
                     if($o_produit['id_rayon']==$i_idRayon && $o_produit['categorie'] == $o_categorie['nom'] && $o_produit['en_vente'] == 1){ 	?>
             <tr class="ligne_article<?php echo $i_numLigne ?> cat_<?php echo $o_categorie['id'] ?>">
             <td><?php echo $o_produit['nom'] ?></td>
             <td class="center" title="<?php echo $o_produit['description_longue'] ?>"><?php echo $o_produit['description_courte'] ?></td>
-            <!--
-            <td><?php echo $o_produit['description_longue'] ?></td>
-            --> 
             <td class="centrer"><?php echo $o_produit['poids_paquet_fournisseur'] ?><?php echo $o_produit['unite'] ?></td>
-            <!-- <td class="centrer"><?php echo $o_produit['unite'] ?></td> -->
             <td class="centrer"><?php echo $o_produit['nb_paquet_colis'] ?></td>
             <td class="centrer"><?php echo $o_produit['prix_ttc'] ?>&euro;</td>
             <td class="centrer"><?php echo $o_produit['prix_unitaire'] ?>&euro;/<?php echo $o_produit['unite'] ?></td>
@@ -169,6 +169,7 @@ if ($to_commande != null and $to_commande != array()) {
 ?>
 <?php
 foreach ($to_categorie as $o_categorie) {
+    /* script qui permet le déroulement par catégorie */
 ?>
     <script type="text/javascript">
     $(".cacher_<?php echo $o_categorie['id'] ?>").click(function () {

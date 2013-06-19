@@ -1,3 +1,4 @@
+<!-- interface de modification d'une catégorie-->
 <p><a class="action_navigation" href="<?php echo root ?>/rayon.php/afficherRayon">Retour à gérer categorie</a></p>
 
 <h1>Modifier un categorie</h1>

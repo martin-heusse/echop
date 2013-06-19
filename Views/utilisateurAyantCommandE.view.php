@@ -1,3 +1,4 @@
+<!-- affiche la liste de tous les utilisateurs qui ont passé une commande -->
 <?php
 /* Si navigation dans l'historique */
 if ($b_historique == 1) {

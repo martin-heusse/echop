@@ -1,3 +1,4 @@
+<!-- interface de gestion des rayons (ajouter, modifer) -->
 <p><a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a></p>
 
 <h1>Gérer les rayons</h1>

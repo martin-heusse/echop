@@ -1,3 +1,4 @@
+<!-- affichage de la commande d'un utilisateur pour un article donné-->
 <p><a class="action_navigation" href="<?php echo root ?>/articlesCommandEs.php/utilisateursAyantCommandECetArticle?idArticle=<?php echo $i_idArticle ?>
 <?php
 /* Si navigation dans l'historique */
@@ -19,6 +20,7 @@ if ($b_historique == 1) {
 
 <?php
 if ($o_commande != null and $o_commande != array()) {
+    /* on affiche la commande si elle existe */
 ?>
 
 <form method="post" action="articlesCommandEs.php/modifierQuantiteUtilisateur?idArticle=<?php echo $i_idArticle ?>&idUtilisateur=<?php echo $i_idUtilisateur ?>
@@ -33,11 +35,7 @@ if ($b_historique == 1) {
     <tr>
         <th>Produit</th>
         <th>Description</th>
-        <!--
-        <th>Description longue</th>
-         -->
         <th>Poids du paquet du fournisseur</th>
-        <!-- <th>Unité</th> -->
         <th>Nombre de paquets par colis</th>
         <th>Prix TTC</th>
         <th>Prix TTC unitaire (au kilo ou litre)</th>
@@ -54,11 +52,7 @@ if ($b_historique == 1) {
     <tr class="ligne_article<?php echo $i_numLigne ?>">
         <td><?php echo $o_commande['nom'] ?></td>
         <td title="<?php echo $o_commande['description_longue']?>"><?php echo $o_commande['description_courte'] ?></td>
-        <!--
-        <td><?php echo $o_commande['description_longue'] ?></td>
-        --> 
         <td class="centrer"><?php echo $o_commande['poids_paquet_fournisseur'] ?><?php echo $o_commande['unite'] ?></td>
-        <!-- <td class="centrer"><?php echo $o_commande['unite'] ?></td> -->
         <td class="centrer"><?php echo $o_commande['nb_paquet_colis'] ?></td>
         <td class="centrer"><?php echo $o_commande['prix_ttc'] ?>&euro;</td>
         <td class="centrer"><?php echo $o_commande['prix_unitaire'] ?>&euro;/<?php echo $o_commande['unite'] ?></td>
