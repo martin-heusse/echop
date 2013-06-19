@@ -45,20 +45,25 @@ class UtilisateurAyantCommandEController extends Controller {
         } else {
             $i_idCampagne = Campagne::getIdCampagneCourante();
         }
+        /* On récupère l'ensemble des utilisateurs qui ont passé des commandes 
+         */
         $to_commande = Commande::getIdUtilisateurUniqueByIdCampagne($i_idCampagne);
         foreach($to_commande as &$o_article) {
+            /* Pour chaque utilisateur, on récupère les données nécéssaires */
             $i_idUtilisateur = $o_article['id_utilisateur'];
             $o_article['login_utilisateur'] = Utilisateur::getLogin($i_idUtilisateur);
             $to_article = Commande::getIdArticleByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur);
             /* A été livré ou non */
             $o_article['tout_livre'] = 0;
-            if (Commande::getCountByEstLivreForUtilisateur(0, $i_idUtilisateur) == 0) {
+            if (Commande::getCountByEstLivreForIdCampagneIdUtilisateur(0, $i_idCampagne, $i_idUtilisateur) == 0) {
                 $o_article['tout_livre'] = 1;
             }
 
             /* Montant total */
             $o_article['montant_total'] = 0;
             
+            /* On récupère les attributs nécéssaires des articles commandés par 
+                * l'utilisateur */
             foreach($to_article as $o_produit){
                 $i_idArticle = $o_produit['id_article'];
                 $i_quantite = Commande::getQuantiteByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
@@ -78,7 +83,6 @@ class UtilisateurAyantCommandEController extends Controller {
             $i_totalTtc = number_format($i_totalTtc, 2, '.', '');
             $o_article['montant_total'] = number_format($o_article['montant_total'], 2, '.', '');
         } 
-        /* Render */
         $this->render('utilisateurAyantCommandE', compact('to_commande', 'b_historique', 'i_idCampagne'));	
     }
 
@@ -107,12 +111,13 @@ class UtilisateurAyantCommandEController extends Controller {
         }
         /* Récupération de l'état de la campagne */
         $b_etat = Campagne::getEtat($i_idCampagne);
-        /* Récupération des articles commandés par l'utilisateur */
+        /* Récupération de l'identifiant de l'utilisateur */
         if (!isset($_GET['idUtilisateur'])) {
             header('Location: '.root.'/utilisateurAyantCommandE.php/utilisateurAyantCommandE');
             return;
         }
         $i_idUtilisateur = $_GET['idUtilisateur'];
+        /* On recupère la commande d'un utilisateur */
         $to_commande = Commande::getObjectsByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur);
         /* Montant total */
         $f_montantTotal = 0;

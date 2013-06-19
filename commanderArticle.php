@@ -23,7 +23,9 @@ class CommanderArticleController extends Controller {
         parent::__construct();
     }
 
-    /* Affiche la liste des rayons */
+    /* 
+     * Affiche la liste des rayons
+    */
     public function afficherRayon() {
         /* Authentication required */
         if (!Utilisateur::isLogged()) {
@@ -34,9 +36,11 @@ class CommanderArticleController extends Controller {
         $i_idCampagne = Campagne::getIdCampagneCourante();
         /* Récupération de l'état de la campagne */
         $b_etat = Campagne::getEtat($i_idCampagne);
+        /* Récupération des rayons */
         $to_rayon = Rayon::getAllObjects();
         $this->render('commanderArticleAfficherRayon', compact('to_rayon','b_etat'));
     }
+
     /* 
      * Affiche la liste des articles par rayon.
      * L'utilisateur a la possibilité de commander des articles.
@@ -51,7 +55,6 @@ class CommanderArticleController extends Controller {
         $i_idCampagne = Campagne::getIdCampagneCourante();
         /* Récupération de l'état de la campagne */
         $b_etat = Campagne::getEtat($i_idCampagne);
-        $to_rayon = Rayon::getAllObjects();
         /* Récupération des articles commandés par l'utilisateur courant */
         $i_idUtilisateur = $_SESSION['idUtilisateur'];
 
@@ -60,8 +63,10 @@ class CommanderArticleController extends Controller {
             return;
         }
         $i_idRayon = $_GET['idRayon'];
+        $s_Rayon = Rayon::getNom($i_idRayon);
         /* Récupération des catégories */
         $to_categorie = Categorie::getAllObjects();
+        /* Récupération de tous les articles pour la campagne donnée */ 
         $to_commande = ArticleCampagne::getObjectsByIdCampagne($i_idCampagne);
         /* Montant total */
         $f_montantTotal = 0;
@@ -73,6 +78,7 @@ class CommanderArticleController extends Controller {
             $o_article['nbre_article'] = 0;
             $i_idCategorie = Article::getIdCategorie($i_idArticle);
             $o_article['categorie'] = Categorie::getNom($i_idCategorie);
+            /* on récupère les attributs des articles du rayon demandés */
             if ($o_article['id_rayon'] == $i_idRayon) {
                 $o_article['nbre_article'] ++;
                 $o_article['nom'] = Article::getNom($i_idArticle);
@@ -102,7 +108,7 @@ class CommanderArticleController extends Controller {
                 $f_montantTotal = number_format($f_montantTotal, 2, '.', '');
             }
         }
-        $this->render('commanderArticle', compact('to_commande', 'b_etat', 'f_montantTotal', 'to_rayon', 'i_idRayon', 'to_categorie'));
+        $this->render('commanderArticle', compact('to_commande', 'b_etat', 'f_montantTotal', 's_Rayon', 'i_idRayon', 'to_categorie'));
     }
 
     /*
@@ -115,7 +121,7 @@ class CommanderArticleController extends Controller {
             $this->render('authenticationRequired');
             return;
         }
-
+        /* Récupération de l'identifiant du rayon */
         if (!isset($_GET['idRayon'])) {	
             $this->render('afficherRayon');
             return;
@@ -179,6 +185,7 @@ class CommanderArticleController extends Controller {
         $i_idCampagne = Campagne::getIdCampagneCourante();
         /* Récupération de l'état de la campagne */
         $b_etat = Campagne::getEtat($i_idCampagne);
+        /* Récupération de l'identifiant du rayon */
         if (!isset($_GET['idRayon'])) {	
             $this->render('afficherRayon');
             return;
@@ -191,7 +198,7 @@ class CommanderArticleController extends Controller {
         }
         /* Récupération des articles commandés par l'utilisateur courant */
         $i_idUtilisateur = $_SESSION['idUtilisateur'];
-        /* Récupération de l'id article à supprimer */
+        /* Récupération de l'identifiant de l' article à supprimer */
         $i_idArticle = $_GET['id_article'];
         $i_idCommande = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
         Commande::delete($i_idCommande);

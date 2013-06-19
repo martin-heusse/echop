@@ -26,7 +26,7 @@
 <?php
     } else {
 ?>
-    <p> Votre inscription a été soumise à la validation par un administrateur.<br/> Vous recevrez un mail de confirmation d'un administrateur lorsque votre inscription aura été validée et ce n'est qu'à partir de ce moment là que vous pourrez accéder au site.</p>
+    <p class="succes"> Votre inscription a été soumise à la validation par un administrateur.</p><p> Vous recevrez un mail de confirmation d'un administrateur lorsque votre inscription aura été validée et ce n'est qu'à partir de ce moment là que vous pourrez accéder au site.</p>
 <?php
     }  
 ?>

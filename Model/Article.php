@@ -201,7 +201,7 @@ class Article {
         return $b_result;
     }
 
-    public static function setPoidsPaquetFournisseur($i_id, $f_PoidsPaquetFournisseur) {
+    public static function setPoidsPaquetFournisseur($i_id, $f_poidsPaquetFournisseur) {
         $sql_query = "update article set poids_paquet_fournisseur ='$f_poidsPaquetFournisseur' 
             where id=$i_id";
         $b_result =  mysql_query($sql_query);

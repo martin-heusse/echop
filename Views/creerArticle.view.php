@@ -7,7 +7,7 @@
         </a>
     </p>
 <?php
-/* Gestion des erreurs A FAIRE */
+/* Gestion des erreurs */
 if(isset($i_erreur)){
     if($i_erreur==0){
 ?>
@@ -130,7 +130,8 @@ if(isset($i_erreur)){
             </select>&nbsp; %
         </p>
         <p> <!-- Liste des fournisseurs  à choisir -->
-            Liste des fournisseurs (<sup>&nbsp;**</sup> obligatoire si le fournisseur est coché, il faut au moins en cocher un, on ne peut choisir qu'un fournisseur coché) : 
+            Liste des fournisseurs (<sup>&nbsp;**</sup> obligatoire si le fournisseur est coché, il faut au moins 
+            en cocher un, on ne peut choisir qu'un fournisseur coché) : 
         </p>
 <?php
 // forcer à cocher le premier fournisseur par sécurité
@@ -140,6 +141,13 @@ foreach($to_fournisseur as $o_fournisseur){
 $i_idFournisseur = $o_fournisseur['id'];
 ?>
         <p>
+            <!-- Choisir -->
+            <label>Choisir</label>
+                <input type="radio" 
+                       name="id_fournisseur_choisi" 
+                       value="<?php echo $o_fournisseur['id']; ?>" 
+                       <?php if($estChoisi){$estChoisi = null; echo 'checked="true"';} ?>
+                       />
             <!-- Les cases à cocher -->
             <input type="checkbox" 
                     name="id_fournisseur_coche[]" 
@@ -154,7 +162,7 @@ $i_idFournisseur = $o_fournisseur['id'];
                         name="code[<?php echo $i_idFournisseur; ?>]" 
                         value="" 
                         />
-                        &nbsp;--&nbsp;
+                        &nbsp;&nbsp;
              <!-- Le Montant -->
             <label>Montant<sup>&nbsp;**</sup></label>
             <input  class="input_quantite" 
@@ -173,52 +181,14 @@ $i_idFournisseur = $o_fournisseur['id'];
             <select name="prix_ttc_ht[<?php echo $i_idFournisseur; ?>]">
                     <option value="0"> Prix HT </option>
                     <option value="1"> Prix TTC </option>
-            </select>
-            &nbsp;--&nbsp;
-             <!-- Le Prix TTC calculé -->
-            <label>Prix TTC</label>
-            <input  class="input_quantite"
-                    type="text" 
-                    name="prix_ttc_fournisseur[]" 
-                    value=""
-                    disabled
-                    /> 
-            &euro;/paquet fournisseur&nbsp;--&nbsp;
-            <!-- Choisir -->
-            <label>Choisir</label>
-                <input type="radio" 
-                       name="id_fournisseur_choisi" 
-                       value="<?php echo $o_fournisseur['id']; ?>" 
-                       <?php if($estChoisi){$estChoisi = null; echo 'checked="true"';} ?>
-                       />
+            </select> .
         </p>
 <?php
 }
 ?>
         <p> <!--Prix client TTC calculé de façon automatique -->
             <span class="form_col"><label>Marge</label></span>
-            <input class="input_quantite"
-                   type="text" 
-                   name="marge" 
-                   value="<?php echo $o_rayon['marge']*100;?>"
-                   disabled
-                   />&nbsp;%&nbsp;
-        <p> <!--Prix client TTC calculé de façon automatique -->
-            <span class="form_col"><label>Prix client TTC</label></span>
-            <input  class="input_quantite"
-                    type="text" 
-                    name="prix_ttc_echoppe" 
-                    value=""
-                    disabled
-                    />&euro;/paquet fournisseur choisi
-        </p>
-        <p> <!-- Prix client unitaire TTC calculé de façon automatique -->
-            <span class="form_col"><label>Prix client unitaire TTC</label></span>
-            <input  class="input_quantite"
-                    type="text" 
-                    value="" 
-                    disabled
-                    />&euro;/unite
+                <?php echo $o_rayon['marge']*100; ?>&nbsp; %
         </p>
         <input type="submit" value="valider" />
     </fieldset>
