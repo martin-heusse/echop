@@ -358,7 +358,61 @@ foreach ($to_categorie as $o_categorie) {
 <?php 
                     } else {
 ?>
-            <td></td>
+                            <td class="center tab_article" title="Fournisseur : <?php echo $o_fournisseur['nom_fournisseur']; ?>" style="visibility:hidden;";>
+                    <table class="tab_tab_article">
+                        <th>Code</th>
+                        <th>Prix donnée par le fournisseur</th>
+                        <th>Prix TTC</th>
+                        <th>Choisir</th>
+                        <tr>
+                            <td align="center"> <!-- code -->
+                                <input class="input_quantite" 
+                                       type="text" 
+                                       name="code[<?php echo $i_idFournisseur ?>][]" 
+                                       value="<?php echo $o_descriptionArticle[$i_idFournisseur]['code']?>" 
+                                />
+                            </td>
+                            <td align="center"> <!-- prix donnée par le fournisseur -->
+                                <!-- montant -->
+                                montant : <input class="input_quantite" 
+                                                 type="text" 
+                                                 name="montant[<?php echo $i_idFournisseur ?>][]"
+                                                 value="<?php echo $f_prixFournisseur; ?>"
+                                          />
+                                          <br />&nbsp;&euro; / &nbsp;
+                                <!-- unite ou paquet -->
+                                <select name="vente_paquet_unite[<?php echo $i_idFournisseur ?>][]">
+                                    <option value="1" <?php if($b_ventePaquetUnite == '1'){echo 'selected="true"';} ?>>
+                                      paquet
+                                    </option>
+                                    <option value="0" <?php if($b_ventePaquetUnite == '0'){echo 'selected="true"';} ?>>
+                                       <?php echo $o_descriptionArticle['valeur_unite_choisi'] ?>
+                                    </option>
+                                </select>
+                                <!-- HT ou TTC -->
+                                <select name="prix_ttc_ht[<?php echo $i_idFournisseur ?>][]">
+                                    <option value="1" <?php if($b_prixTtcHt == '1'){echo 'selected="true"';} ?>>TTC</option>
+                                    <option value="0" <?php if($b_prixTtcHt == '0'){echo 'selected="true"';} ?>>HT</option>
+                                </select>
+                            </td>
+                            <td align="center"> <!-- Prix TTC -->
+                                <input class="input_quantite" 
+                                       type="text"
+                                       value="<?php echo $o_descriptionArticle[$i_idFournisseur]['prix_ttc'] ?>"
+                                       disabled
+                                 />
+                                 <br />&nbsp;&euro;/ paquet fournisseur
+                            </td>
+                            <td align="center"> <!-- Choisir -->
+                                <input type="radio" 
+                                       name="id_fournisseur_choisi[<?php echo $i_idArticleCampagne ?>]" 
+                                       value="<?php echo $i_idFournisseur ?>"  
+                                       <?php if($i_idFournisseur==$i_idFournisseurChoisi){echo 'checked="true"';} ?>
+                                 />
+                           </td>
+                        </tr>
+                    </table>
+                 </td>
 
 <?php
                     }
