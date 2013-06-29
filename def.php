@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once("Model/ConnexionBD.php");
+require_once "constants.php";
 
 abstract class Controller {
 
@@ -19,8 +20,7 @@ abstract class Controller {
      * index.view.php.
      */
     protected function setRootWebApp(){
-        preg_match('@/[^/]+@', $_SERVER["PHP_SELF"], $matches);
-        defined('root') || define('root', $matches[0]);
+        defined('root') || define('root', url_site);
     }
 
     /* 
