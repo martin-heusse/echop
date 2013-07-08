@@ -20,7 +20,7 @@ class Unite {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $to_result[] = $o_row;
@@ -35,7 +35,7 @@ class Unite {
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $o_result = $o_row;
@@ -49,7 +49,7 @@ class Unite {
         $s_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $s_result = htmlentities($o_row['valeur']);
+            $s_result = htmlentities($o_row['valeur'], null,'UTF-8');
         }
         return $s_result;
     }
@@ -60,7 +60,7 @@ class Unite {
         $s_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $s_result = htmlentities($o_row['valeur']);
+            $s_result = htmlentities($o_row['valeur'], null,'UTF-8');
         }
         return $s_result;
     }

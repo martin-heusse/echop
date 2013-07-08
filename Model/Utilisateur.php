@@ -35,7 +35,7 @@ class Utilisateur {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $to_result[] = $o_row;
@@ -50,7 +50,7 @@ class Utilisateur {
             while ($o_row = mysql_fetch_assoc($sql_tmp)) {
                 /* Sécurité */
                 foreach ($o_row as &$column) {
-                    $column = htmlentities($column);
+                    $column = htmlentities($column, null,'UTF-8');
                 }
                 /* Création du résultat */
                 $ts_result[] = $o_row['email'];
@@ -65,7 +65,7 @@ class Utilisateur {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $to_result[] = $o_row;
@@ -82,7 +82,7 @@ class Utilisateur {
             
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
 
             /* Création du résultat */
@@ -98,7 +98,7 @@ class Utilisateur {
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $o_result = $o_row;
@@ -112,7 +112,7 @@ class Utilisateur {
         $s_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $s_result = htmlentities($o_row['login']);
+            $s_result = htmlentities($o_row['login'], null,'UTF-8');
         }
         return $s_result;
     }
@@ -123,7 +123,7 @@ class Utilisateur {
         $s_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $s_result = htmlentities($o_row['mot_de_passe']);
+            $s_result = htmlentities($o_row['mot_de_passe'], null,'UTF-8');
         }
         return $s_result;
     }
@@ -134,7 +134,7 @@ class Utilisateur {
         $s_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $s_result = htmlentities($o_row['email']);
+            $s_result = htmlentities($o_row['email'], null,'UTF-8');
         }
         return $s_result;
     }
@@ -146,7 +146,7 @@ class Utilisateur {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                    $column = htmlentities($column);
+                    $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $to_result[] = $o_row;
@@ -160,7 +160,7 @@ class Utilisateur {
         $i_result = 0;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $i_result = htmlentities($o_row['number']);
+            $i_result = htmlentities($o_row['number'], null,'UTF-8');
         }
         return $i_result;
     }

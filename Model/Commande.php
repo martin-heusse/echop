@@ -9,7 +9,7 @@ class Commande {
         $i_result = 0;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $i_result = htmlentities($o_row['id']);
+            $i_result = htmlentities($o_row['id'], null,'UTF-8');
         }
         return $i_result;
     }
@@ -35,7 +35,7 @@ class Commande {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $to_result[] = $o_row;
@@ -50,7 +50,7 @@ class Commande {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $to_result[] = $o_row;
@@ -65,7 +65,7 @@ class Commande {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $to_result[] = $o_row;
@@ -80,7 +80,7 @@ class Commande {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $to_result[] = $o_row;
@@ -95,7 +95,7 @@ class Commande {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $to_result[] = $o_row;
@@ -109,7 +109,7 @@ class Commande {
         $i_result = 0;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $i_result = htmlentities($o_row['number']);
+            $i_result = htmlentities($o_row['number'], null,'UTF-8');
         }
         return $i_result;
     }
@@ -121,7 +121,7 @@ class Commande {
         while ($i_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($i_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $ti_result[] = $i_row['id_utilisateur'];
@@ -136,7 +136,7 @@ class Commande {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $to_result[] = $o_row;
@@ -151,7 +151,7 @@ class Commande {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $ti_result[] = $o_row;
@@ -166,7 +166,7 @@ class Commande {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $to_result[] = $o_row;
@@ -181,7 +181,7 @@ class Commande {
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $o_result = $o_row;
@@ -196,7 +196,7 @@ class Commande {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $to_result[] = $o_row;
@@ -210,7 +210,7 @@ class Commande {
         $i_result = 0;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $i_result = htmlentities($o_row['id_article']);
+            $i_result = htmlentities($o_row['id_article'], null,'UTF-8');
         }
         return $i_result;
     }
@@ -221,7 +221,7 @@ class Commande {
         $s_result = 0;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $i_result = htmlentities($o_row['id_campagne']);
+            $i_result = htmlentities($o_row['id_campagne'], null,'UTF-8');
         }
         return $i_result;
     }
@@ -232,7 +232,7 @@ class Commande {
         $i_result = 0;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $i_result = htmlentities($o_row['id_utilisateur']);
+            $i_result = htmlentities($o_row['id_utilisateur'], null,'UTF-8');
         }
         return $i_result;
     }
@@ -243,7 +243,7 @@ class Commande {
         $i_result = 0;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $i_result = htmlentities($o_row['quantite']);
+            $i_result = htmlentities($o_row['quantite'], null,'UTF-8');
         }
         return $i_result;
     }
@@ -254,7 +254,7 @@ class Commande {
         $i_result = 0;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $i_result = htmlentities($o_row['quantite']);
+            $i_result = htmlentities($o_row['quantite'], null,'UTF-8');
         }
         return $i_result;
     }
@@ -265,7 +265,7 @@ class Commande {
         $b_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $b_result = htmlentities($o_row['est_livre']);
+            $b_result = htmlentities($o_row['est_livre'], null,'UTF-8');
         }
         return $b_result;
     }

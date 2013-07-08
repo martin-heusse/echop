@@ -75,7 +75,7 @@ class InscriptionController extends Controller {
             $this->render('passOubliE', compact('b_erreurLogin', 'b_success'));
             return;
         }
-        $s_login = htmlentities($_POST['login']);
+        $s_login = htmlentities($_POST['login'], null,'UTF-8');
         $o_utilisateur = Utilisateur::getObjectByLogin($s_login);
         /* Le login n'existe pas */
         if ($o_utilisateur == array() or $o_utilisateur == null) {

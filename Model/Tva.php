@@ -20,7 +20,7 @@ class Tva {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $to_result[] = $o_row;
@@ -35,7 +35,7 @@ class Tva {
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
 
             /* Création du résultat */
@@ -52,7 +52,7 @@ class Tva {
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
 
             /* Création du résultat */
@@ -67,7 +67,7 @@ class Tva {
         $f_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $f_result = htmlentities($o_row['valeur']);
+            $f_result = htmlentities($o_row['valeur'], null,'UTF-8');
         }
         return $f_result;
     }

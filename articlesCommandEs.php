@@ -242,7 +242,7 @@ class ArticlesCommandEsController extends Controller {
             }
             $s_nomArticle = Article::getNom($i_idArticle);
             /* sécurité */
-            $i_idArticle = htmlentities($_GET['idArticle']);
+            $i_idArticle = htmlentities($_GET['idArticle'], null,'UTF-8');
             $this->render('utilisateursAyantCommandECetArticle', compact('i_idArticle', 
                 'to_utilisateur', 
                 'i_colisage', 

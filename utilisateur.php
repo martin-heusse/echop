@@ -148,8 +148,8 @@ class UtilisateurController extends Controller {
         if (isset($_POST['subject']) && $_POST['subject'] != "" && isset($_POST['message']) && $_POST['message'] != "") { 
             $i_emailSent = 1;
             /* On récupère les éléments nécésssaires à l'envoi d'un mail */
-            $s_subject = "[L'Échoppe d'ici et d'ailleurs] ".htmlentities($_POST['subject']);
-            $s_message = htmlentities($_POST['message']); 
+            $s_subject = "[L'Échoppe d'ici et d'ailleurs] ".htmlentities($_POST['subject'], null,'UTF-8');
+            $s_message = htmlentities($_POST['message'], null,'UTF-8'); 
             $to_utilisateur = Utilisateur::getAllObjects();
             /* Pour chaque utilisateur, on envoie un mail */
             foreach ($to_utilisateur as $o_destinataire) {
@@ -176,8 +176,8 @@ class UtilisateurController extends Controller {
             $i_idUtilisateur = $_SESSION['idUtilisateur'];
             $s_email = Utilisateur::getEmail($i_idUtilisateur);
             /* On ajoute l'adresse mail de l'utilisateur dans l'objet */
-            $s_subject = "[Mail de : ".$s_email."] ".htmlentities($_POST['subject']);
-            $s_message = htmlentities($_POST['message']); 
+            $s_subject = "[Mail de : ".$s_email."] ".htmlentities($_POST['subject'], null,'UTF-8');
+            $s_message = htmlentities($_POST['message'], null,'UTF-8'); 
             $to_utilisateur = Utilisateur::getAllObjects();
             /* Pour chaque administrateur, on envoie un mail */
             foreach ($to_utilisateur as $o_destinataire) {

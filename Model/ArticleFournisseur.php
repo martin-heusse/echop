@@ -20,7 +20,7 @@ class ArticleFournisseur {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $to_result[] = $o_row;
@@ -35,7 +35,7 @@ class ArticleFournisseur {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $to_result[] = $o_row;
@@ -50,7 +50,7 @@ class ArticleFournisseur {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $to_result[] = $o_row;
@@ -66,7 +66,7 @@ class ArticleFournisseur {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $to_result[] = $o_row;
@@ -81,7 +81,7 @@ class ArticleFournisseur {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $to_result[] = $o_row;
@@ -96,7 +96,7 @@ class ArticleFournisseur {
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $o_result = $o_row;
@@ -111,7 +111,7 @@ class ArticleFournisseur {
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $o_result = $o_row;
@@ -125,7 +125,7 @@ class ArticleFournisseur {
         $i_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $i_result = htmlentities($o_row['id_article_campagne']);
+            $i_result = htmlentities($o_row['id_article_campagne'], null,'UTF-8');
         }
         return $i_result;
     }
@@ -136,7 +136,7 @@ class ArticleFournisseur {
         $i_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $i_result = htmlentities($o_row['id']);
+            $i_result = htmlentities($o_row['id'], null,'UTF-8');
         }
         return $i_result;
     }
@@ -147,7 +147,7 @@ class ArticleFournisseur {
         $i_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $i_result = htmlentities($o_row['id_fournisseur']);
+            $i_result = htmlentities($o_row['id_fournisseur'], null,'UTF-8');
         }
         return $i_result;
     }
@@ -158,7 +158,7 @@ class ArticleFournisseur {
         $i_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $i_result = htmlentities($o_row['prix_ttc']);
+            $i_result = htmlentities($o_row['prix_ttc'], null,'UTF-8');
         }
         return $i_result;
     }
@@ -169,7 +169,7 @@ class ArticleFournisseur {
         $i_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $i_result = htmlentities($o_row['prix_ttc']);
+            $i_result = htmlentities($o_row['prix_ttc'], null,'UTF-8');
         }
         return $i_result;
     }
@@ -180,7 +180,7 @@ class ArticleFournisseur {
         $i_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $i_result = htmlentities($o_row['prix_ht']);
+            $i_result = htmlentities($o_row['prix_ht'], null,'UTF-8');
         }
         return $i_result;
     }
@@ -191,7 +191,7 @@ class ArticleFournisseur {
         $s_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $s_result = htmlentities($o_row['code']);
+            $s_result = htmlentities($o_row['code'], null,'UTF-8');
         }
         return $s_result;
     }
@@ -202,7 +202,7 @@ class ArticleFournisseur {
         $b_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $b_result = htmlentities($o_row['prix_ttc_ht']);
+            $b_result = htmlentities($o_row['prix_ttc_ht'], null,'UTF-8');
         }
         return $b_result;
     }
@@ -213,7 +213,7 @@ class ArticleFournisseur {
         $b_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $b_result = htmlentities($o_row['vente_paquet_unite']);
+            $b_result = htmlentities($o_row['vente_paquet_unite'], null,'UTF-8');
         }
         return $b_result;
     }

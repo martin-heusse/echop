@@ -20,7 +20,7 @@ class Fournisseur {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $to_result[] = $o_row;
@@ -37,7 +37,7 @@ class Fournisseur {
 
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
 
             /* Création du résultat */
@@ -52,7 +52,7 @@ class Fournisseur {
         $s_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $s_result = htmlentities($o_row['nom']);
+            $s_result = htmlentities($o_row['nom'], null,'UTF-8');
         }
         return $s_result;
     }

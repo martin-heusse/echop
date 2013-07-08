@@ -9,10 +9,10 @@ class ArticleCampagne {
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             /*foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }*/
             /* Création du résultat */
-            $o_result = htmlentities($o_row['id']);
+            $o_result = htmlentities($o_row['id'], null,'UTF-8');
         }
         return $o_result;
     }
@@ -25,10 +25,10 @@ class ArticleCampagne {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
-            $to_result[] = htmlentities($o_row['id']);
+            $to_result[] = htmlentities($o_row['id'], null,'UTF-8');
         }
         return $to_result;
     }
@@ -52,7 +52,7 @@ class ArticleCampagne {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $to_result[] = $o_row;
@@ -68,7 +68,7 @@ class ArticleCampagne {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $to_result[] = $o_row;
@@ -83,7 +83,7 @@ class ArticleCampagne {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $to_result[] = $o_row;
@@ -99,7 +99,7 @@ class ArticleCampagne {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $to_result[] = $o_row;
@@ -114,7 +114,7 @@ class ArticleCampagne {
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $o_result = $o_row;
@@ -129,7 +129,7 @@ class ArticleCampagne {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $to_result[] = $o_row;
@@ -145,7 +145,7 @@ class ArticleCampagne {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $to_result[] = $o_row;
@@ -161,7 +161,7 @@ class ArticleCampagne {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $to_result[] = $o_row;
@@ -177,7 +177,7 @@ class ArticleCampagne {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $to_result[] = $o_row;
@@ -192,7 +192,7 @@ class ArticleCampagne {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $to_result[] = $o_row;
@@ -207,7 +207,7 @@ class ArticleCampagne {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $to_result[] = $o_row;
@@ -222,7 +222,7 @@ class ArticleCampagne {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $to_result[] = $o_row['id_article'];
@@ -237,7 +237,7 @@ class ArticleCampagne {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $to_result[] = $o_row;
@@ -251,7 +251,7 @@ class ArticleCampagne {
         $i_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $i_result = htmlentities($o_row['id_fournisseur']);
+            $i_result = htmlentities($o_row['id_fournisseur'], null,'UTF-8');
         }
         return $i_result;
     }
@@ -263,7 +263,7 @@ class ArticleCampagne {
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $o_result = $o_row;
@@ -277,7 +277,7 @@ class ArticleCampagne {
         $i_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $i_result = htmlentities($o_row['id_article']);
+            $i_result = htmlentities($o_row['id_article'], null,'UTF-8');
         }
         return $i_result;
     }
@@ -288,7 +288,7 @@ class ArticleCampagne {
         $b_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $b_result = htmlentities($o_row['en_vente']);
+            $b_result = htmlentities($o_row['en_vente'], null,'UTF-8');
         }
         return $b_result;
     }
@@ -299,7 +299,7 @@ class ArticleCampagne {
         $i_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $i_result = htmlentities($o_row['id_campagne']);
+            $i_result = htmlentities($o_row['id_campagne'], null,'UTF-8');
         }
         return $i_result;
     }
@@ -311,7 +311,7 @@ class ArticleCampagne {
         $i_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $i_result = htmlentities($o_row['id_fournisseur']);
+            $i_result = htmlentities($o_row['id_fournisseur'], null,'UTF-8');
         }
         return $i_result;
     }
@@ -321,7 +321,7 @@ class ArticleCampagne {
         $f_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $f_result = htmlentities($o_row['poids_paquet_client']);
+            $f_result = htmlentities($o_row['poids_paquet_client'], null,'UTF-8');
         }
         return $f_result;
     }
@@ -333,7 +333,7 @@ class ArticleCampagne {
         $i_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $i_result = htmlentities($o_row['id_tva']);
+            $i_result = htmlentities($o_row['id_tva'], null,'UTF-8');
         }
         return $i_result;
     }
@@ -344,7 +344,7 @@ class ArticleCampagne {
         $i_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $i_result = htmlentities($o_row['seuil_min']);
+            $i_result = htmlentities($o_row['seuil_min'], null,'UTF-8');
         }
         return $i_result;
     }
@@ -355,7 +355,7 @@ class ArticleCampagne {
         $i_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $i_result = htmlentities($o_row['seuil_min']);
+            $i_result = htmlentities($o_row['seuil_min'], null,'UTF-8');
         }
         return $i_result;
     }
@@ -366,7 +366,7 @@ class ArticleCampagne {
         $f_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $f_result = htmlentities($o_row['prix_ttc']);
+            $f_result = htmlentities($o_row['prix_ttc'], null,'UTF-8');
         }
         return $f_result;
     }

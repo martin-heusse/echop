@@ -475,7 +475,7 @@ class ArticleController extends Controller {
         }
         /* Récupération de l'identifiant du rayon à sélectionner */
         if (isset($_GET['i_idRayon'])) {
-            $i_idRayon = htmlentities($_GET['i_idRayon']);
+            $i_idRayon = htmlentities($_GET['i_idRayon'], null,'UTF-8');
 
             /* Récupéation de l'identifiant de la campagne courante */
             $i_idCampagne = Campagne::getIdCampagneCourante();
@@ -501,7 +501,7 @@ class ArticleController extends Controller {
         }
         /* Récupération de l'identifiant du rayon à sélectionner */
         if (isset($_GET['i_idRayon'])) {
-            $i_idRayon = htmlentities($_GET['i_idRayon']);
+            $i_idRayon = htmlentities($_GET['i_idRayon'], null,'UTF-8');
         /* Récupéation de l'identifiant de la campagne courante */
         $i_idCampagne = Campagne::getIdCampagneCourante();
         GererArticle::setEnVenteByIdCampagneIdRayon(0, $i_idCampagne, $i_idRayon);

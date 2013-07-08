@@ -22,7 +22,7 @@ class Article {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $to_result[] = $o_row;
@@ -36,7 +36,7 @@ class Article {
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $o_result = $o_row;
@@ -51,7 +51,7 @@ class Article {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
         /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
         /* Création du résultat */
         $to_result[] = $o_row;
@@ -67,7 +67,7 @@ class Article {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
         /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
         /* Création du résultat */
         $to_result[] = $o_row;
@@ -81,7 +81,7 @@ class Article {
         $s_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $s_result = htmlentities($o_row['nom']);
+            $s_result = htmlentities($o_row['nom'], null,'UTF-8');
         }
         return $s_result;
     }
@@ -92,7 +92,7 @@ class Article {
         $i_result = 0;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $i_result = htmlentities($o_row['id_rayon']);
+            $i_result = htmlentities($o_row['id_rayon'], null,'UTF-8');
         }
         return $i_result;
     }
@@ -103,7 +103,7 @@ class Article {
         $i_result = 0;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $i_result = htmlentities($o_row['id_categorie']);
+            $i_result = htmlentities($o_row['id_categorie'], null,'UTF-8');
         }
         return $i_result;
     }
@@ -113,7 +113,7 @@ class Article {
         $sql_tmp = mysql_query($sql_query);
         $f_result = 0;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
-            $f_result = htmlentities($o_row['poids_paquet_fournisseur']);
+            $f_result = htmlentities($o_row['poids_paquet_fournisseur'], null,'UTF-8');
         }
         return $f_result;
     }
@@ -124,7 +124,7 @@ class Article {
         $i_result = 0;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $i_result = htmlentities($o_row['id_unite']);
+            $i_result = htmlentities($o_row['id_unite'], null,'UTF-8');
         }
         return $i_result;
     }
@@ -135,7 +135,7 @@ class Article {
         $i_result = 0;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $i_result = htmlentities($o_row['nb_paquet_colis']);
+            $i_result = htmlentities($o_row['nb_paquet_colis'], null,'UTF-8');
         }
         return $i_result;
     }
@@ -146,7 +146,7 @@ class Article {
         $s_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $s_result = htmlentities($o_row['description_courte']);
+            $s_result = htmlentities($o_row['description_courte'], null,'UTF-8');
         }
         return $s_result;
     }
@@ -157,7 +157,7 @@ class Article {
         $s_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
-            $s_result = htmlentities($o_row['description_longue']);
+            $s_result = htmlentities($o_row['description_longue'], null,'UTF-8');
         }
         return $s_result;
     }
