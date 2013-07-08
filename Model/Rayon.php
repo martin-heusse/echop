@@ -20,7 +20,7 @@ class Rayon {
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
-                $column = htmlentities($column);
+                $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */
             $to_result[] = $o_row;

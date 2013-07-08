@@ -21,6 +21,7 @@ class ArticleCampagne {
         $sql_query = "select distinct id from article_campagne where id_campagne=$i_idCampagne";
         $sql_tmp = mysql_query($sql_query);
         $to_result = array();
+        if($sql_tmp==null) return $to_result;
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {
@@ -94,6 +95,7 @@ class ArticleCampagne {
         $sql_query = "select * from article_campagne where id_campagne=$i_idCampagne";
         $sql_tmp = mysql_query($sql_query);
         $to_result = array();
+        if($sql_tmp==null) return $to_result;
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
             foreach ($o_row as &$column) {

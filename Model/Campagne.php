@@ -148,6 +148,8 @@ class Campagne {
         $sql_query = "select etat from campagne where id=$i_id";
         $sql_tmp = mysql_query($sql_query);
         $b_result = null;
+        if($sql_tmp==null) return $b_result;
+        
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
             $b_result = htmlentities($o_row['etat']);

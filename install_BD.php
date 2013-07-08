@@ -121,7 +121,25 @@ $commands=array("DROP DATABASE IF EXISTS ".db_name.";",
     references utilisateur(id) on delete cascade
 ) ENGINE = INNODB;",
 "insert into utilisateur(login, mot_de_passe, email, validite) values('Root', 'root', 'root@email.com', true);",
-"insert into administrateur(id_utilisateur) values(1);"
+"insert into administrateur(id_utilisateur) values(1);",
+"insert into unite(valeur) values('Kg');",
+"insert into unite(valeur) values('g');",
+"insert into unite(valeur) values('L');",
+"insert into unite(valeur) values('Pack');",
+"insert into fournisseur(nom) values('RAPUNZEL');",
+"insert into fournisseur(nom) values('PICHARD');",
+"insert into fournisseur(nom) values('SIMON LEVE');",
+"insert into fournisseur(nom) values('MARKAL');",
+"insert into fournisseur(nom) values('PROBA BIO');",
+"insert into tva(valeur) values(19.60);",
+"insert into tva(valeur) values(5.50);",
+"insert into rayon(nom, marge) values('Epicerie', 0.11);",
+"insert into rayon(nom, marge) values('Jardins de Gaïa', 0.15);",
+"insert into rayon(nom, marge) values('Jean Hervé', 0.10);",
+"insert into rayon(nom, marge) values('Chataigne', 0.09);",
+"insert into rayon(nom, marge) values('Fée des champs', 0.23);",
+"insert into categorie(nom) values('Alimentation');",
+"insert into categorie(nom) values('Produits ménagers');",
 );
 
 

@@ -1,4 +1,3 @@
-
 <?php
 class ArticleFournisseur {
 
@@ -286,4 +285,3 @@ class ArticleFournisseur {
     }
 }
 ?>
-
