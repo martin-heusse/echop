@@ -84,6 +84,7 @@ class CampagneController extends Controller {
         $to_article = ArticleCampagne::getObjectsByIdCampagne($i_idOldCampagne);
 
         /* Crée la nouvelle campagne */
+        date_default_timezone_set("Europe/Paris");
         $s_dateDebut = date("Y-m-d", time());
         $b_etat = 1;
         $b_courant = 1;
