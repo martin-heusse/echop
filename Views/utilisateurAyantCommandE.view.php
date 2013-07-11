@@ -74,4 +74,3 @@ if ($o_utilisateur['tout_livre'] == 1) {
 <?php
 }
 ?>
-
