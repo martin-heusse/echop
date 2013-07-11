@@ -1,7 +1,7 @@
 <?php
 require_once('def.php');
 
-$commands=array("DROP DATABASE IF EXISTS ".db_name.";",
+$commands=array(//"DROP DATABASE IF EXISTS ".db_name.";",
 "CREATE DATABASE IF NOT EXISTS ".db_name." DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;",
 "use ".db_name.";",
 "CREATE TABLE utilisateur (
