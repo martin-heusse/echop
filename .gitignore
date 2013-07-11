@@ -1,8 +1,6 @@
 # Dans ce fichier (.gitgnore)
 # on ignore les fichiers suivants
 
-# le fichier de configuration pour se connecter à la base de données en local
-Model/ConnexionBD.php
 # les fichiers de sauvegarde de Vim
 *.swp
 # les fichies de sauvegardes de Emacs et de Gedit
