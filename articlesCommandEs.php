@@ -22,6 +22,15 @@ class ArticlesCommandEsController extends Controller {
         parent::__construct();
     }
 
+    function calcManque($quantiteTotale,$poidsPaquetClient,$colisage){
+        $frac_manque = (int)((float)$quantiteTotale/(float)$poidsPaquetClient) % (int)($colisage/$poidsPaquetClient);
+            if($frac_manque>0)
+                {$manque=$colisage-$frac_manque*$poidsPaquetClient;}
+            else
+                {$manque=0;};    
+        return $manque;
+    }
+    
     /*
      * Gère la modification des quantités dans la commande d'un utilisateur.
      */
@@ -168,6 +177,7 @@ class ArticlesCommandEsController extends Controller {
             }
             /* calcul pour le colisage */
             /* $f_float stocke la partie décimale */
+            //fixme
             $f_float = $o_row['quantite_totale']-floor($o_row['quantite_totale']);
             $i_manque = $o_row['quantite_totale'] % $o_row['colisage'];
             $o_row['manque'] = ($o_row['colisage'] - $i_manque) % $o_row['colisage'];
@@ -177,6 +187,7 @@ class ArticlesCommandEsController extends Controller {
             } else {
                 $o_row['manque'] += -$f_float;
             }
+            $o_row['manque']=$this->calcManque($o_row['quantite_totale'],$i_poidsPaquetClient,$o_row['colisage']);
 
         }
         $this->render('articlesCommandEs', compact('to_article', 'b_historique', 'i_idCampagne'));	
@@ -231,15 +242,9 @@ class ArticlesCommandEsController extends Controller {
                 $i_quantiteTotale += $o_row['quantite'];
 
             }
-            /* calcul du colisage */
-            $f_float = $i_quantiteTotale-floor($i_quantiteTotale);
-            $i_manque = $i_quantiteTotale % $i_colisage;
-            $i_manque = ($i_colisage - $i_manque) % $i_colisage;
-            if($i_manque-$f_float < 0){
-                $i_manque += $i_colisage - $f_float;
-            } else {
-                $i_manque += -$f_float;
-            }
+            /* calcul du colisage */             
+             $i_manque=$this->calcManque($i_quantiteTotale,$i_poidsPaquetClient,$i_colisage);
+             
             $s_nomArticle = Article::getNom($i_idArticle);
             /* sécurité */
             $i_idArticle = htmlentities($_GET['idArticle'], null,'UTF-8');
