@@ -102,9 +102,9 @@ class CommanderArticleController extends Controller {
                 /* Calcul du montant total */
                 $f_montantTotal += $o_article['total_ttc'];
                 /* Formattage des nombres */
-                $o_article['prix_unitaire'] = number_format($o_article['prix_unitaire'], 2, '.', '');
-                $o_article['quantite_totale'] = number_format($o_article['quantite_totale'], 2, '.', '');
-                $o_article['total_ttc'] = number_format($o_article['total_ttc'], 2, '.', '');
+                //$o_article['prix_unitaire'] = number_format($o_article['prix_unitaire'], 2, '.', '');
+                //$o_article['quantite_totale'] = number_format($o_article['quantite_totale'], 2, '.', '');
+                //$o_article['total_ttc'] = number_format($o_article['total_ttc'], 2, '.', '');
                 $f_montantTotal = number_format($f_montantTotal, 2, '.', '');
             }
         }
