@@ -64,7 +64,7 @@ if ($b_historique == 1) {
     </tr>
     <tr>
         <th class="left">Quantité manquante </th>
-        <td class="centrer"><?php echo $i_manque.$s_unite ?></td>
+        <td class="centrer"><?php echo $i_manque.$s_unite ?> (<?php $nbr_manque = $i_manque/$i_poidsPaquetClient ; echo $nbr_manque ?>)</td>
     </tr>
 </table>
 <?php
