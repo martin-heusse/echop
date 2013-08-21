@@ -177,16 +177,6 @@ class ArticlesCommandEsController extends Controller {
             }
             /* calcul pour le colisage */
             /* $f_float stocke la partie décimale */
-            //fixme
-            $f_float = $o_row['quantite_totale']-floor($o_row['quantite_totale']);
-            $i_manque = $o_row['quantite_totale'] % $o_row['colisage'];
-            $o_row['manque'] = ($o_row['colisage'] - $i_manque) % $o_row['colisage'];
-            /* gestion de la partie décimale */
-            if ($o_row['manque']-$f_float < 0){
-                $o_row['manque'] += $o_row['colisage'] - $f_float;
-            } else {
-                $o_row['manque'] += -$f_float;
-            }
             $o_row['manque']=$this->calcManque($o_row['quantite_totale'],$i_poidsPaquetClient,$o_row['colisage']);
 
         }
@@ -242,8 +232,9 @@ class ArticlesCommandEsController extends Controller {
                 $i_quantiteTotale += $o_row['quantite'];
 
             }
-            /* calcul du colisage */             
-             $i_manque=$this->calcManque($i_quantiteTotale,$i_poidsPaquetClient,$i_colisage);
+            /* calcul du colisage */   
+            echo "coucou";          
+            $i_manque=$this->calcManque($i_quantiteTotale,$i_poidsPaquetClient,$i_colisage);
              
             $s_nomArticle = Article::getNom($i_idArticle);
             /* sécurité */
@@ -254,6 +245,7 @@ class ArticlesCommandEsController extends Controller {
                 's_nomArticle', 
                 'i_quantiteTotale', 
                 's_unite', 
+                'i_poidsPaquetClient',
                 'i_manque', 
                 'b_historique', 
                 'i_idCampagne'));
