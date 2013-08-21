@@ -93,7 +93,7 @@ if($o_article['manque']!= 0) {
 ?> 
         <td class="centrer col_coloree"> 
 <strong> 
-<?php echo $o_article['manque'].$o_article['unite']?></strong>
+<?php echo $o_article['manque_unite']." unité(s)"." (".$o_article['manque'].$o_article['unite'].")"?></strong>
 <?php
 } else {
 ?>

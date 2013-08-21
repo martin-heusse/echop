@@ -157,6 +157,7 @@ class ArticlesCommandEsController extends Controller {
              * campagne */
         $to_article = Commande::getIdArticleByIdCampagne($i_idCampagne);
         /* On récupère les attributs nécéssaires pour chaque article */
+
         foreach ($to_article as &$o_row) {
             $o_row['nom'] = Article::getNom($o_row['id_article']);
             $i_idArticle = $o_row['id_article'];
@@ -176,9 +177,9 @@ class ArticlesCommandEsController extends Controller {
                 $o_row['quantite_totale'] += $i_quantite;
             }
             /* calcul pour le colisage */
-            /* $f_float stocke la partie décimale */
+    
             $o_row['manque']=$this->calcManque($o_row['quantite_totale'],$i_poidsPaquetClient,$o_row['colisage']);
-
+            $o_row['manque_unite']=$o_row['manque']/$i_poidsPaquetClient;
         }
         $this->render('articlesCommandEs', compact('to_article', 'b_historique', 'i_idCampagne'));	
         }
