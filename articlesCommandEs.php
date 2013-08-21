@@ -233,7 +233,6 @@ class ArticlesCommandEsController extends Controller {
 
             }
             /* calcul du colisage */   
-            echo "coucou";          
             $i_manque=$this->calcManque($i_quantiteTotale,$i_poidsPaquetClient,$i_colisage);
              
             $s_nomArticle = Article::getNom($i_idArticle);
