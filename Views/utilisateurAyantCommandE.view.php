@@ -33,7 +33,7 @@ Cliquez sur un nom d'utilisateur pour voir la liste des produits qu'il a command
     <tr>
         <th>Utilisateur</th>
         <th>Prix total TTC</th>
-        <th>A réceptionné toute sa commande</th>
+        <th>A réceptionné <br /> toute sa commande</th>
     </tr>
 <?php
     $i_numLigne = 0;

@@ -210,10 +210,13 @@ class UtilisateurAyantCommandEController extends Controller {
             /* Modification de est_livre */
             if (isset($_POST['est_livre'])) {
                 $tb_estLivre = $_POST['est_livre'];
-                $b_estLivre = $tb_estLivre[$i_idArticle];
-                if ($b_estLivre == 1) {
-                    Commande::setEstLivre($i_idCommande, 1);
-                } else {
+                if(isset($tb_estLivre[$i_idArticle])){
+                    $b_estLivre = $tb_estLivre[$i_idArticle];
+                    if ($b_estLivre == 1) {
+                        Commande::setEstLivre($i_idCommande, 1);
+                    } 
+                }
+                else {
                     Commande::setEstLivre($i_idCommande, 0);
                 }
             }
