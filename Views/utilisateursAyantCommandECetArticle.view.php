@@ -48,7 +48,7 @@ if ($b_historique == 1) {
 }
 ?>
 "><?php echo $o_utilisateur['login'] ?></a></td>
-        <td class="centrer"><?php echo $o_utilisateur['quantite'].$s_unite ?></td>
+        <td class="centrer"><?php echo $o_utilisateur['quantite'].$s_unite ?> (<?php $nbr_unites = $o_utilisateur['quantite']/$i_poidsPaquetClient ; echo $nbr_unites ?> Unités)</td>
     </tr>
 <?php
         $i_numLigne = ($i_numLigne + 1) % 2;
@@ -60,11 +60,11 @@ if ($b_historique == 1) {
     </tr>
     <tr>
         <th class="left">Quantité pour le colisage </th>
-        <td class="centrer">multiple de <?php echo $i_colisage.$s_unite ?> </td>
+        <td class="centrer">multiple de <?php echo $i_colisage.$s_unite ?> (<?php $nbr_manque = $i_colisage/$i_poidsPaquetClient ; echo $nbr_manque ?> Unités)</td>
     </tr>
     <tr>
         <th class="left">Quantité manquante </th>
-        <td class="centrer"><?php echo $i_manque.$s_unite ?> (<?php $nbr_manque = $i_manque/$i_poidsPaquetClient ; echo $nbr_manque ?>)</td>
+        <td class="centrer"><?php echo $i_manque.$s_unite ?> (<?php $nbr_manque = $i_manque/$i_poidsPaquetClient ; echo $nbr_manque ?> Unités)</td>
     </tr>
 </table>
 <?php

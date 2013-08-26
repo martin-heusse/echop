@@ -48,6 +48,7 @@ Cliquez sur l'un des articles pour voir la liste de tous les utilisateurs l'ayan
 <table>
     <tr>
         <th>Article</th>
+        <th>Commandé <br/> par vous</th>
 <?php
     if(Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
 ?>
@@ -60,9 +61,11 @@ Cliquez sur l'un des articles pour voir la liste de tous les utilisateurs l'ayan
     </tr>
 <?php
 $i_numLigne = 0;
+//print_r($to_article);
 foreach ($to_article as $o_article) {
 ?>
     <tr class="ligne_article<?php echo $i_numLigne?>">
+    
         <td>
 <?php
     if(Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
@@ -82,6 +85,10 @@ echo $o_article['nom'];
 <?php }
 ?>
 </td>
+        <td class="center">
+        <?php if($o_article['commandeParUtilsateurCourant']) echo $o_article['commandeParUtilsateurCourant']." unité(s)";?> 
+        </td>
+
 <?php
     if(Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
 ?>

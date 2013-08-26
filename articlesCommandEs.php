@@ -114,7 +114,7 @@ class ArticlesCommandEsController extends Controller {
             header('Location: '.root.'/articlesCommandEs.php/utilisateurAyantCommandE');
             return;
         }
-        $i_idUtilisateur = $_GET['idUtilisateur']; 
+
         /* Navigation dans l'historique ou non */
         /* $b_historique = 0;*/
         if (isset($_GET['idOldCampagne'])) {
@@ -153,11 +153,16 @@ class ArticlesCommandEsController extends Controller {
             } else {
                 $i_idCampagne = Campagne::getIdCampagneCourante();
             }
+            
+                    $s_login = $_SESSION['login'];
+        $o_profil = Utilisateur::getObjectByLogin($s_login);
+        $i_id = $o_profil['id'];
+
+            
             /* On récupère tous les articles que l'on peut commander lors d'une 
              * campagne */
         $to_article = Commande::getIdArticleByIdCampagne($i_idCampagne);
         /* On récupère les attributs nécéssaires pour chaque article */
-
         foreach ($to_article as &$o_row) {
             $o_row['nom'] = Article::getNom($o_row['id_article']);
             $i_idArticle = $o_row['id_article'];
@@ -170,8 +175,14 @@ class ArticlesCommandEsController extends Controller {
             $i_poidsPaquetFournisseur = Article::getPoidsPaquetFournisseur($i_idArticle);
             $i_nbrePaquetColis = Article::getNbPaquetColis($i_idArticle);
             $o_row['colisage'] = $i_poidsPaquetFournisseur * $i_nbrePaquetColis;
+            $o_row['commandeParUtilsateurCourant']=0;
             /* on récupère la quantité totale commandée par le produit */
             foreach ($to_commande as $o_commande) {
+                if($o_commande['id_utilisateur']==$i_id){
+//                     echo $i_idUtilisateur."  " ; echo $o_row['quantite_totale'];
+                    // Quantité en nombre d'unités-client
+                    $o_row['commandeParUtilsateurCourant']=$o_commande['quantite'];
+                }
                 $i_quantite = $o_commande['quantite']*$i_poidsPaquetClient;
                 $o_commande['quantite'] = $i_quantite;
                 $o_row['quantite_totale'] += $i_quantite;
