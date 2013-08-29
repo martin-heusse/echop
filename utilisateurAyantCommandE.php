@@ -216,10 +216,11 @@ class UtilisateurAyantCommandEController extends Controller {
                         Commande::setEstLivre($i_idCommande, 1);
                     } 
                 }
-                else {
-                    Commande::setEstLivre($i_idCommande, 0);
-                }
             }
+            else {
+                Commande::setEstLivre($i_idCommande, 0);
+            }
+
         }
         /* Redirection */
         if ($i_idCampagne == Campagne::getIdCampagneCourante()) {
