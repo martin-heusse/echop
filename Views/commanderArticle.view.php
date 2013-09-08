@@ -95,7 +95,7 @@ if ($to_commande != null and $to_commande != array()) {
         <span class="cat_bouton cacher_<?php echo $o_categorie['id'] ?>">[Cacher]</span> 
         <span class="cat_bouton montrer_<?php echo $o_categorie['id'] ?>">[Montrer]</span> 
     </td></tr>
-<br/>
+
 <?php
                 /* Avant l'affichage, on vérifie que le produit appartient au 
                  * bon rayon, la bonne catégorie et qu'il est en vente */
