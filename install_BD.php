@@ -150,7 +150,7 @@ if (!$connect) {
     die("Erreur de connexion au serveur");
 }
 
-mysql_select_db('BdEchoppe');
+mysql_select_db('db_name');
 $qr = "show tables like 'utilisateur';";
 $sql_tmp = mysql_query($qr);
 
