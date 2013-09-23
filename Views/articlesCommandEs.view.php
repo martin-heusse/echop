@@ -92,7 +92,7 @@ echo $o_article['nom'];
 <?php
     if(Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
 ?>
-        <td class="centrer"><?php echo $o_article['quantite_totale'].$o_article['unite']?></td>
+        <td class="centrer"><?php echo $o_article['quantite_totale'].$o_article['unite']." (".$o_article['quantite_totale_unites']." unités)"?></td>
         <td class="centrer">multiple de <?php echo $o_article['colisage'].$o_article['unite']?></td>
 <?php
     }

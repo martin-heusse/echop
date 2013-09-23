@@ -167,6 +167,7 @@ class ArticlesCommandEsController extends Controller {
             $o_row['nom'] = Article::getNom($o_row['id_article']);
             $i_idArticle = $o_row['id_article'];
             $o_row['quantite_totale'] = 0;
+            $o_row['quantite_totale_unites'] = 0;
             $i_idUnite = Article::getIdUnite($i_idArticle); 
             $o_row['unite'] = Unite::getUnite($i_idUnite);
             $to_commande = Commande::getObjectsByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
@@ -184,6 +185,7 @@ class ArticlesCommandEsController extends Controller {
                     $o_row['commandeParUtilsateurCourant']=$o_commande['quantite'];
                 }
                 $i_quantite = $o_commande['quantite']*$i_poidsPaquetClient;
+                $o_row['quantite_totale_unites'] += $o_commande['quantite'];
                 $o_commande['quantite'] = $i_quantite;
                 $o_row['quantite_totale'] += $i_quantite;
             }

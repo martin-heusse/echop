@@ -35,7 +35,7 @@ if($i_nbreArticle != 0) {
 ?>
     <tr class="ligne_article<?php echo $i_numLigne ?>">
         <td><?php echo $o_article['nom'] ?></td>
-        <td class="centrer"><?php echo $o_article['quantite_totale'].$o_article['unite']?></td>
+        <td class="centrer"><?php echo $o_article['quantite_totale'].$o_article['unite']." (".$o_article['quantite_totale_unites']." unités)"?></td>
         <td class="centrer"><?php echo $o_article['montant_total'] ?>&euro;</td>
     </tr>
 <?php

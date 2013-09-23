@@ -156,6 +156,7 @@ class FournisseurController extends Controller {
                 $i_quantiteTotale += $i_quantite;
             }
             $o_article['quantite_totale'] = $i_quantiteTotale * $f_poidsPaquetClient;
+            $o_article['quantite_totale_unites'] = $i_quantiteTotale;
             /* on calcule le prix du paquet fournisseur*/
             $i_idArticleCampagne = ArticleCampagne::getIdByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
             $f_prixTtcArticle = ArticleFournisseur::getPrixTtcByIdArticleCampagneIdFournisseur($i_idArticleCampagne, $i_idFournisseur);
