@@ -102,6 +102,21 @@ class Commande {
         }
         return $to_result;
     }
+    
+    public static function getObjectsNotOrderedByIdArticleIdCampagne($i_idArticle, $i_idCampagne) {
+        $sql_query = "select id,login from utilisateur where utilisateur.id not in (select id_utilisateur from commande where id_article=$i_idArticle and id_campagne=$i_idCampagne);";
+        $sql_tmp = mysql_query($sql_query);
+        $to_result = array();
+        while ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité */
+            foreach ($o_row as &$column) {
+                $column = htmlentities($column, null,'UTF-8');
+            }
+            /* Création du résultat */
+            $to_result[] = $o_row;
+        }
+        return $to_result;
+    }
 
     public static function getCountByEstLivreForIdCampagneIdUtilisateur($b_estLivre, $i_idCampagne, $i_idUtilisateur) {
         $sql_query = "select count(*) number from commande where est_livre=$b_estLivre and id_campagne=$i_idCampagne and id_utilisateur=$i_idUtilisateur";

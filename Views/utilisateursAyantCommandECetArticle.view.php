@@ -63,9 +63,28 @@ if ($b_historique == 1) {
         <td class="centrer">multiple de <?php echo $i_colisage.$s_unite ?> (<?php $nbr_manque = $i_colisage/$i_poidsPaquetClient ; echo $nbr_manque ?> Unités)</td>
     </tr>
     <tr>
+        
         <th class="left">Quantité manquante </th>
         <td class="centrer"><?php echo $i_manque.$s_unite ?> (<?php $nbr_manque = $i_manque/$i_poidsPaquetClient ; echo $nbr_manque ?> Unités)</td>
     </tr>
+    <?php
+    if(Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
+    ?>
+
+    <tr>
+        <form method="post" action="articlesCommandEs.php/forceUtilisateur?idArticle=<?php echo $i_idArticle ?>&idCampagne=<?php echo $i_idCampagne ?>"
+        >
+        
+        <td><select name="forceUtilisateur">
+        <?php foreach($not_utilisateur as $o_utilisateur) { ?>
+        <option value=<?php echo $o_utilisateur['id']?>><?php echo $o_utilisateur['login']?></option>
+        <?php }?>
+        </select></td>
+        <td class="centrer"><input class="input_quantite" type="text" name="forceQuantite" value="0"/>
+        <input class="input_valider" type="submit" value="paf !"/></td>
+        </form>
+    </tr>
+    <?php }?>
 </table>
 <?php
 }

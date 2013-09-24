@@ -249,11 +249,15 @@ class ArticlesCommandEsController extends Controller {
             /* calcul du colisage */   
             $i_manque=$this->calcManque($i_quantiteTotale,$i_poidsPaquetClient,$i_colisage);
              
+            /* Liste des utilisateurs n'ayant _pas_ commandé (pour leur forcer la main) */
+            $not_utilisateur = Commande::getObjectsNotOrderedByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+            /*Préparation rendering*/ 
             $s_nomArticle = Article::getNom($i_idArticle);
             /* sécurité */
             $i_idArticle = htmlentities($_GET['idArticle'], null,'UTF-8');
             $this->render('utilisateursAyantCommandECetArticle', compact('i_idArticle', 
                 'to_utilisateur', 
+                'not_utilisateur',
                 'i_colisage', 
                 's_nomArticle', 
                 'i_quantiteTotale', 
@@ -262,6 +266,51 @@ class ArticlesCommandEsController extends Controller {
                 'i_manque', 
                 'b_historique', 
                 'i_idCampagne'));
+        }
+
+        public function forceUtilisateur(){
+            /* Authentication required */
+            if (!Utilisateur::isLogged()) {
+                $this->render('authenticationRequired');
+                return;
+            }
+            /* Doit être un administrateur */
+            if (!$_SESSION['isAdministrateur']) {
+                $this->render('adminRequired');
+                return;
+            }
+            /* On vérifie qu'on a bien un article à modifier et on récupère son 
+             * identifiant si c'est le cas*/
+            if (!isset($_GET['idArticle'])) {
+                header('Location: '.root.'/articlesCommandEs.php/utilisateurAyantCommandE');
+                return;
+            }
+            $i_idArticle = htmlentities($_GET['idArticle'], null,'UTF-8');
+
+            /* Navigation dans l'historique ou non */
+            $b_historique = 0;
+            if (isset($_GET['idCampagne'])) {
+                $i_idCampagne = $_GET['idCampagne'];
+                $b_historique = 1;
+            } else {
+                $i_idCampagne = Campagne::getIdCampagneCourante();
+            }
+            if(isset($_POST['forceQuantite'])){
+                $f_quantite=$_POST['forceQuantite'];
+                if ($f_quantite>0){
+                    $f_utilisateur=$_POST['forceUtilisateur'];
+                    Commande::create($i_idArticle, $i_idCampagne, $f_utilisateur, $f_quantite);
+                }
+            }
+            
+            
+                    /* Redirection */
+            if ($i_idCampagne == Campagne::getIdCampagneCourante()) {
+                header('Location: '.root.'/articlesCommandEs.php/utilisateursAyantCommandECetArticle?idArticle='.$i_idArticle);
+            } else {
+                header('Location: '.root.'/articlesCommandEs.php/utilisateursAyantCommandECetArticle?idArticle='.$i_idArticle.'&idOldCampagne='.$i_idCampagne);
+            }
+
         }
 
         /*
