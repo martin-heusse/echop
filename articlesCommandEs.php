@@ -110,30 +110,31 @@ class ArticlesCommandEsController extends Controller {
             $i_idArticle = $_GET['idArticle'];
             /* Récupération de l'identifiant de l'utilisateur qui a passé la 
              * commande */
-        if (!isset($_GET['idUtilisateur'])) {
-            header('Location: '.root.'/articlesCommandEs.php/utilisateurAyantCommandE');
-            return;
-        }
+            if (!isset($_GET['idUtilisateur'])) {
+                header('Location: '.root.'/articlesCommandEs.php/utilisateurAyantCommandE');
+                return;
+            }
+            else {$i_idUtilisateur = $_GET['idUtilisateur'];}
 
-        /* Navigation dans l'historique ou non */
-        /* $b_historique = 0;*/
-        if (isset($_GET['idOldCampagne'])) {
-            $i_idCampagne = $_GET['idOldCampagne'];
-            /*  $b_historique = 1;*/
-        } else {
-            $i_idCampagne = Campagne::getIdCampagneCourante();
-        }
-        /* Récupération de l'état de la campagne */
-        /*$b_etat = Campagne::getEtat($i_idCampagne);*/
-        /* On supprime l'article de la commande de l'utilisateur donné */
-        $i_idCommande = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
-        Commande::delete($i_idCommande);
-        /* Redirection */
-        if ($i_idCampagne == Campagne::getIdCampagneCourante()) {
-            header('Location: '.root.'/articlesCommandEs.php/utilisateursAyantCommandECetArticle?idArticle='.$i_idArticle);
-        } else {
-            header('Location: '.root.'/articlesCommandEs.php/utilisateursAyantCommandECetArticle?idArticle='.$i_idArticle.'&idOldCampagne='.$i_idCampagne);
-        }
+            /* Navigation dans l'historique ou non */
+            /* $b_historique = 0;*/
+            if (isset($_GET['idOldCampagne'])) {
+                $i_idCampagne = $_GET['idOldCampagne'];
+                /*  $b_historique = 1;*/
+            } else {
+                $i_idCampagne = Campagne::getIdCampagneCourante();
+            }
+            /* Récupération de l'état de la campagne */
+            /*$b_etat = Campagne::getEtat($i_idCampagne);*/
+            /* On supprime l'article de la commande de l'utilisateur donné */
+            $i_idCommande = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
+            Commande::delete($i_idCommande);
+            /* Redirection */
+            if ($i_idCampagne == Campagne::getIdCampagneCourante()) {
+                header('Location: '.root.'/articlesCommandEs.php/utilisateursAyantCommandECetArticle?idArticle='.$i_idArticle);
+            } else {
+                header('Location: '.root.'/articlesCommandEs.php/utilisateursAyantCommandECetArticle?idArticle='.$i_idArticle.'&idOldCampagne='.$i_idCampagne);
+            }
         }
 
         /*
