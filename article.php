@@ -193,6 +193,8 @@ class ArticleController extends Controller {
             $ti_idFournisseurRayon = $_POST['id_Fournisseur_rayon'];
             $i_nbArticleCampagne = count($ti_idArticleCampagne);
             for ($i=0; $i<$i_nbArticleCampagne; $i++) {
+                $submit_name="submit_".$ti_idArticleCampagne[$i];
+                if(isset($_POST[$submit_name])){
                 $i_idArticleCampagne = $ti_idArticleCampagne[$i];
                 $i_idArticle = ArticleCampagne::getIdArticle($i_idArticleCampagne);
                 /* modification en vente ou pas */
@@ -257,7 +259,7 @@ class ArticleController extends Controller {
                 }
                 $i_erreur = 0;
             }
-        }
+        }}
         /* Redirection */
         if ($i_idCampagne == Campagne::getIdCampagneCourante()) {
             header('Location: '.root.'/article.php/afficherArticle?i_erreur='.$i_erreur.'&i_idRayon='.$i_idRayon);

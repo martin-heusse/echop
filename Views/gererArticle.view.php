@@ -114,7 +114,6 @@ if ($b_historique == 1) {
 <!-- En variable cachée id_rayon -->
 <input type="hidden" name="i_idRayon" value="<?php echo $i_idRayon ?>"/>
 
-<input type="submit" class="input_valider" value="Mettre à jour les articles"/>
 
 <table>
     <thead> <!-- En-tête du tableau -->
@@ -436,6 +435,8 @@ foreach ($to_categorie as $o_categorie) {
                   />
                   <br />&nbsp;&euro;/<?php echo $o_descriptionArticle['valeur_unite_choisi'] ?>
                 </td>
+                <td><input type="submit" class="input_valider" name=submit_<?php echo $i_idArticleCampagne ?> value="MàJ"/>
+</td>
           </tr>
 <?php
                 $i_numLigne = ($i_numLigne + 1) % 2;
@@ -446,7 +447,7 @@ foreach ($to_categorie as $o_categorie) {
 ?>
         </tbody>
 </table>
-<form>
+</form>
 <?php
 foreach ($to_categorie as $o_categorie) {
 ?>
