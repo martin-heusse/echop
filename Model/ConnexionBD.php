@@ -8,6 +8,7 @@ function connexion_bd() {
     mysql_select_db(db_name) //??
     or die("Erreur de connexion à la base de données");
     define('connect', $connect);
+    mysql_set_charset("utf8");
     //return $connect;
 }
 ?>
