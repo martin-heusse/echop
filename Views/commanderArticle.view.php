@@ -49,8 +49,10 @@ if ($to_commande != null and $to_commande != array()) {
 <?php
         }
 ?>
-
-
+        <p>
+        <span class="cat_bouton cacher_tout">[Cacher tout]</span> 
+        <span class="cat_bouton montrer_tout">[Montrer tout]</span> 
+        </p>
         <table id="t_article">
         <tr>
         <th>Produit</th>
@@ -193,3 +195,16 @@ foreach ($to_categorie as $o_categorie) {
 <?php
 }
 ?>
+
+<script type="text/javascript">
+$(".cacher_tout").click(function () {
+    $(".ligne_article0").hide(0);
+    $(".ligne_article1").hide(0);
+});
+</script>
+<script type="text/javascript">
+$(".montrer_tout").click(function () {
+    $(".ligne_article0").show(0);
+    $(".ligne_article1").show(0);
+});
+</script>
