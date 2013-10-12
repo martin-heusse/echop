@@ -104,21 +104,21 @@ if ($to_commande != null and $to_commande != array()) {
                 foreach($to_commande as $o_produit) {
                     if($o_produit['id_rayon']==$i_idRayon && $o_produit['categorie'] == $o_categorie['nom'] && $o_produit['en_vente'] == 1){ 	?>
             <tr class="ligne_article<?php echo $i_numLigne ?> cat_<?php echo $o_categorie['id'] ?>">
-            <td><?php echo $o_produit['nom'] ?></td>
-            <td class="center"><?php echo $o_produit['description_courte'] ?> <BR /><font size="-2"> <?php echo $o_produit['description_longue'] ?></font></td>
-            <td class="centrer"><?php echo $o_produit['poids_paquet_fournisseur'] ?><?php echo $o_produit['unite'] ?></td>
-            <td class="centrer"><?php echo $o_produit['nb_paquet_colis'] ?></td>
-            <td class="centrer"><?php echo formatPrix($o_produit['prix_ttc']) ?>&euro;</td>
-            <td class="centrer"><?php if(strcmp($o_produit['unite'],"g")) {echo formatPrix($o_produit['prix_unitaire'])."&euro;/".$o_produit['unite'] ;}
+            <td title="Produit"><?php echo $o_produit['nom'] ?></td>
+            <td class="center" title="Description"><?php echo $o_produit['description_courte'] ?> <BR /><font size="-2"> <?php echo $o_produit['description_longue'] ?></font></td>
+            <td class="centrer" title="Poids du paquet du fournisseur"><?php echo $o_produit['poids_paquet_fournisseur'] ?><?php echo $o_produit['unite'] ?></td>
+            <td class="centrer" title="Nombre de paquets par colis"><?php echo $o_produit['nb_paquet_colis'] ?></td>
+            <td class="centrer" title="Prix TTC"><?php echo formatPrix($o_produit['prix_ttc']) ?>&euro;</td>
+            <td class="centrer" title="Prix TTC unitaire"><?php if(strcmp($o_produit['unite'],"g")) {echo formatPrix($o_produit['prix_unitaire'])."&euro;/".$o_produit['unite'] ;}
                 else {$prix100g=formatPrix(100*$o_produit['prix_unitaire']) ; echo $prix100g."&euro;/100".$o_produit['unite'] ; }   
             ?></td>
-            <td class="centrer"><?php echo $o_produit['poids_paquet_client'] ?><?php echo $o_produit['unite'] ?></td>
-            <td class="centrer"><?php echo $o_produit['seuil_min'] ?></td>
+            <td class="centrer" title="Poids unitaire qu'on peut commander"><?php echo $o_produit['poids_paquet_client'] ?><?php echo $o_produit['unite'] ?></td>
+            <td class="centrer" title="Quantité minimale qu'on peut commander"><?php echo $o_produit['seuil_min'] ?></td>
 <?php
                         /* Bloquer ou autoriser la modification de la quantité */
                         if ($b_etat == 1) {
 ?>
-                    <td><input class="input_quantite" type="text" name="quantite[<?php echo $o_produit['id_article']?>]" value="<?php echo $o_produit['quantite']?> " onclick="select()"/></td>
+                    <td title="Quantité"><input class="input_quantite" type="text" name="quantite[<?php echo $o_produit['id_article']?>]" value="<?php echo $o_produit['quantite']?> " onclick="select()"/></td>
 <?php
                         } else {
 ?>
@@ -126,8 +126,8 @@ if ($to_commande != null and $to_commande != array()) {
 <?php
                         }
 ?>
-            <td class="centrer col_coloree"><?php echo $o_produit['quantite_totale'] ?><?php echo $o_produit['unite'] ?></td>
-            <td class="centrer col_coloree"><?php echo formatPrix($o_produit['total_ttc']) ?>&euro;</td>
+            <td class="centrer col_coloree" title="Quantité totale commandée"><?php echo $o_produit['quantite_totale'] ?><?php echo $o_produit['unite'] ?></td>
+            <td class="centrer col_coloree" title="Total TTC"><?php echo formatPrix($o_produit['total_ttc']) ?>&euro;</td>
 <?php
                     /* Affiche ou non le lien de suppression */
                     if ($b_etat == 1) {
