@@ -23,7 +23,7 @@ class ArticlesCommandEsController extends Controller {
     }
 
     function calcManque($quantiteTotale,$poidsPaquetClient,$colisage){
-        $frac_manque = (int)((float)$quantiteTotale/(float)$poidsPaquetClient) % (int)($colisage/$poidsPaquetClient);
+        $frac_manque = round((float)$quantiteTotale/(float)$poidsPaquetClient) % round((float)$colisage/(float)$poidsPaquetClient);
             if($frac_manque>0)
                 {$manque=$colisage-$frac_manque*$poidsPaquetClient;}
             else
