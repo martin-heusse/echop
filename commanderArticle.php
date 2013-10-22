@@ -145,7 +145,7 @@ class CommanderArticleController extends Controller {
             $i_idArticle = $i_article['id_article'];
             /* vérifier si l'article est bien dans le rayon */
             $i_idRayonArticle = Article::getIdRayon($i_idArticle);
-            if($i_idRayon == $i_idRayonArticle) {
+            if($i_idRayon == $i_idRayonArticle && $i_article['en_vente']>0) {
                 /* Si des modifications ont été faite par l'utilisateur, on traite l'entrée */
                 if (isset($_POST['quantite'])){
                     $ti_quantite = $_POST['quantite'];
