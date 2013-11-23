@@ -57,14 +57,14 @@ if ($to_commande != null and $to_commande != array()) {
         <tr>
         <th>Produit</th>
         <th>Description</th>
-        <th>Poids du paquet du fournisseur</th>
-        <th><font size="-2">Nombre de paquets par colis</font></th>
+        <th>Poids paquet <font size="-1"> fournisseur</font></th>
+        <th><font size="-1">Nb paq. / colis</font></th>
         <th>Prix TTC</th>
-        <th>Prix TTC unitaire (au kilo ou litre)</th>
-        <th>Poids unitaire que le client peut commander</th>   
-        <th>Quantité minimale que l'on peut commander</th>
+        <th>Prix TTC unitaire</th>
+        <th><font size="-1">Poids unitaire à commander</font></th>   
+        <th><font size="-2">Quantité mini. à commander</font></th>
         <th>Quantité</th>
-        <th>Quantité totale commandée</th>
+        <th><font size="-2">Quantité commandée</font></th>
         <th>Total TTC</th>
 <?php
         $i_colspanCat = 11;
@@ -72,7 +72,7 @@ if ($to_commande != null and $to_commande != array()) {
         if ($b_etat == 1) {
             $i_colspanCat++;
 ?>
-                <th>Suppression d'un article</th>
+                <th>Suppr. article</th>
 <?php
         }
 ?>
@@ -132,7 +132,7 @@ if ($to_commande != null and $to_commande != array()) {
                     /* Affiche ou non le lien de suppression */
                     if ($b_etat == 1) {
 ?>
-                    <td class="centrer"><a href="<?php echo root ?>/commanderArticle.php/commanderArticleSupprimer?id_article=<?php echo $o_produit['id_article']?>&idRayon=<?php echo $i_idRayon?>">supprimer l'article</a>
+                    <td class="centrer"><a href="<?php echo root ?>/commanderArticle.php/commanderArticleSupprimer?id_article=<?php echo $o_produit['id_article']?>&idRayon=<?php echo $i_idRayon?>">Suppr. l'article</a>
 <?php
                     }
 ?>

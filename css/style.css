@@ -214,7 +214,7 @@ form .form_col, .form_col {
 
 /* Réduit la largeur de la quantité */
 form .input_quantite {
-    width: 80px;
+    width: 60px;
     text-align: center;
 }
 
