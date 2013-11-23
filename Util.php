@@ -11,6 +11,7 @@ class Util {
         $s_header .= 'From:'.email_owner."\r\n"; // a changer
         /* Contenu */
         $s_contenu  = "<html>\n\t<head>\n\t</head>\n\t<body>\n\t\t";
+        $s_contenu .= "<p> [ Message du site : ".url_site." ] </p>\n" ;
         $s_contenu .= "<p>".$s_message."</p>\n" ;
         $s_contenu .= "\t</body>\n</html>";
         // Envoie du mail
