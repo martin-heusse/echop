@@ -89,6 +89,7 @@ if ($to_commande != null and $to_commande != array()) {
 <?php 
         $i_numLigne = 0;
         $prev_cat=NULL;
+        $next_cat_a_afficher=-1;
         /* l'affichage des produits se fait par catégorie */
         foreach ($to_categorie as $o_categorie) {
             $i_nbreArticleCategorie = 0;

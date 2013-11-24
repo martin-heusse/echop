@@ -107,7 +107,8 @@ class CommanderArticleController extends Controller {
                 $f_montantTotal = number_format($f_montantTotal, 2, '.', '');
             }
         }
-        $cat_a_afficher=$_GET['catAffich'];
+        if(isset($_GET['catAffich'])){$cat_a_afficher=$_GET['catAffich'];}
+        else {$cat_a_afficher="";};
         $this->render('commanderArticle', compact('to_commande', 'b_etat', 'f_montantTotal', 's_Rayon', 'i_idRayon', 'to_categorie','cat_a_afficher'));
     }
 
