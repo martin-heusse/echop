@@ -101,8 +101,8 @@ body {
 
 h1 {
     text-align: center;
-    margin-top: 20px;
-    margin-bottom: 40px;
+    margin-top: 5px;
+    margin-bottom: 10px;
 }
 
 /* ========================================================================== */
@@ -238,7 +238,7 @@ form .input_valider {
     text-align: center;
     font-weight: bold;
     font-size: 20px;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
 }
 
 /* ========================================================================== */
