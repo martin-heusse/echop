@@ -8,6 +8,15 @@
 function formatPrix($prix){
     return number_format($prix, 2, '.', '');
 }
+
+function boutonValidation($_b_etat, $_cat_courante){
+        if ($_b_etat == 1) {
+?>
+                <input class="input_valider" name="cat_<?php echo $_cat_courante;?>" type="submit" value="Mettre à jour les quantités"/>
+                </form>
+<?php
+        }
+}
 ?>
 
 <!-- Indication de campagne -->
@@ -79,6 +88,7 @@ if ($to_commande != null and $to_commande != array()) {
         </tr>
 <?php 
         $i_numLigne = 0;
+        $prev_cat=NULL;
         /* l'affichage des produits se fait par catégorie */
         foreach ($to_categorie as $o_categorie) {
             $i_nbreArticleCategorie = 0;
@@ -90,8 +100,13 @@ if ($to_commande != null and $to_commande != array()) {
             /* on affiche la catégorie uniquement si elle contient des produits 
              * */
             if ($i_nbreArticleCategorie != 0){
+            
+            //Si la categorie à afficher est mentionnée, alors on affichera aussi la suivante
+            if($cat_a_afficher!=NULL&&$prev_cat==$cat_a_afficher){$next_cat_a_afficher=$o_categorie['id'];}
+            $prev_cat=$o_categorie['id'];
 ?>
     <tr><td colspan=<?php echo $i_colspanCat ?>>
+        <a name=cat_<?php echo $o_categorie['id'] ;?>>
         <span class="cat"><?php echo $o_categorie['nom'] ?></span>
 <!--gère le déroulement des catégories-->
         <span class="cat_bouton cacher_<?php echo $o_categorie['id'] ?>">[Cacher]</span> 
@@ -141,6 +156,8 @@ if ($to_commande != null and $to_commande != array()) {
                     $i_numLigne = ($i_numLigne + 1) % 2;
                     }
                 } 
+            echo "<tr class='ligne_article$i_numLigne cat_".$o_categorie['id']."' ><td colspan=12>" ;
+            boutonValidation($b_etat,$o_categorie['id']); echo "</td></tr>"; 
             } 
         } 
 ?>  
@@ -158,14 +175,7 @@ if ($to_commande != null and $to_commande != array()) {
         </tr>
         </table>
 <?php
-        /* Affiche ou non le bouton de mise à jour */
-        if ($b_etat == 1) {
-?>
-                <input class="input_valider" type="submit" value="Mettre à jour les quantités"/>
-                </form>
-<?php
-        }
-
+        boutonValidation($b_etat, NULL);
     } else {
 ?>
     <p class="message">Aucun article n'est en vente dans ce rayon.</p>
@@ -196,13 +206,20 @@ foreach ($to_categorie as $o_categorie) {
 }
 ?>
 
+
 <script type="text/javascript">
-$(".cacher_tout").click(function () {
+cacher_tout=function () {
     $(".ligne_article0").hide(0);
     $(".ligne_article1").hide(0);
-});
-</script>
-<script type="text/javascript">
+}
+cacher_onLoad=function(){
+    cacher_tout();
+    $(".cat_<?php echo $cat_a_afficher ?>").show("slow");
+    $(".cat_<?php echo $next_cat_a_afficher ?>").show("slow");
+    location.hash='#cat_<?php echo $next_cat_a_afficher?$next_cat_a_afficher:$cat_a_afficher ?>';
+}
+window.onload = cacher_onLoad;
+$(".cacher_tout").click(function () {cacher_tout();});
 $(".montrer_tout").click(function () {
     $(".ligne_article0").show(0);
     $(".ligne_article1").show(0);

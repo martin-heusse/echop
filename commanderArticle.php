@@ -15,7 +15,6 @@ require_once('Model/Fournisseur.php');
  * Gère "Commander article" en tant qu'utilisateur.
  */
 class CommanderArticleController extends Controller {
-
     /*
      * Constructeur.
      */
@@ -108,7 +107,8 @@ class CommanderArticleController extends Controller {
                 $f_montantTotal = number_format($f_montantTotal, 2, '.', '');
             }
         }
-        $this->render('commanderArticle', compact('to_commande', 'b_etat', 'f_montantTotal', 's_Rayon', 'i_idRayon', 'to_categorie'));
+        $cat_a_afficher=$_GET['catAffich'];
+        $this->render('commanderArticle', compact('to_commande', 'b_etat', 'f_montantTotal', 's_Rayon', 'i_idRayon', 'to_categorie','cat_a_afficher'));
     }
 
     /*
@@ -126,6 +126,10 @@ class CommanderArticleController extends Controller {
             $this->render('afficherRayon');
             return;
         }
+        
+        /* Récupération des catégories */
+        $to_categorie = Categorie::getAllObjects();
+
         $i_idRayon = $_GET['idRayon'];
         /* Récupération de l'identifiant de la campagne courante */
         $i_idCampagne = Campagne::getIdCampagneCourante();
@@ -168,9 +172,21 @@ class CommanderArticleController extends Controller {
                 }
             }
         }
+        
+        
+        foreach ($to_categorie as $o_categorie) {
+            $cat_affich="cat_".$o_categorie['id'];
+            if(isset($_POST[$cat_affich])){
+                $position="&catAffich=".$o_categorie['id'] ;
+            };
+        }
+        if (isset($_POST['cat_a_afficher'])){$_SESSION['cat_a_afficher']=$_POST['cat_a_afficher'];}
+        
         /* Redirection */
-        header('Location: '.root.'/commanderArticle.php/commanderArticle?idRayon='.$i_idRayon);
-    }
+        header('Location: '.root.'/commanderArticle.php/commanderArticle?idRayon='.$i_idRayon.$position);
+} 
+
+    
 
     /*
      * Supprime l'article de l'utilisateur courant.
