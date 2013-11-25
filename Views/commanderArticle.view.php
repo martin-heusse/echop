@@ -217,7 +217,7 @@ cacher_onLoad=function(){
     cacher_tout();
     $(".cat_<?php echo $cat_a_afficher ?>").show("slow");
     $(".cat_<?php echo $next_cat_a_afficher ?>").show("slow");
-    location.hash='#cat_<?php echo $next_cat_a_afficher?$next_cat_a_afficher:$cat_a_afficher ?>';
+    location.hash='#cat_<?php echo $cat_a_afficher ; ?>';
 }
 window.onload = cacher_onLoad;
 $(".cacher_tout").click(function () {cacher_tout();});
