@@ -91,6 +91,10 @@ if ($b_historique == 0) {
 }
 ?>
 
+<p>
+<span class="cat_bouton cacher_tout">[Cacher tout]</span> 
+<span class="cat_bouton montrer_tout">[Montrer tout]</span> 
+</p>
 
 <?php
 if($to_descriptionArticle == array()){ 
@@ -461,6 +465,28 @@ foreach ($to_categorie as $o_categorie) {
         $(".cat_<?php echo $o_categorie['id'] ?>").show("slow");
     });
     </script>
+
 <?php
 }
 ?>
+
+<script type="text/javascript">
+cacher_tout=function () {
+    $(".ligne_article01").hide(0);
+    $(".ligne_article11").hide(0);
+    $(".ligne_article12").hide(0);
+    $(".ligne_article02").hide(0);
+}
+cacher_onLoad=function(){
+    cacher_tout();
+}
+window.onload = cacher_onLoad;
+$(".cacher_tout").click(function () {cacher_tout();});
+$(".montrer_tout").click(function () {
+    $(".ligne_article01").show(0);
+    $(".ligne_article11").show(0);
+    $(".ligne_article12").show(0);
+    $(".ligne_article02").show(0);
+});
+</script>
+
