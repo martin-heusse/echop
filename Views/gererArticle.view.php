@@ -89,8 +89,22 @@ if ($b_historique == 0) {
     <span>Marge : <?php echo $marge; ?>&nbsp;%</span>
 <?php
 }
-?>
 
+if($i_pageTot>1){
+    echo "<p>" ;
+    for ($i=1; $i<=$i_pageTot;$i++){
+        
+        echo "<a href='afficherArticle?i_idRayon=$i_idRayon&i_pageNum=$i'>";
+        if($i == $i_pageNum) {echo '<b> <font size="+2">';}
+        echo "[page $i]</a>";
+        if($i == $i_pageNum) {echo "</font></b>";}
+    }
+    echo "</p>";
+}
+
+if($i_pageNum!=-1) {
+
+?>
 <p>
 <span class="cat_bouton cacher_tout">[Cacher tout]</span> 
 <span class="cat_bouton montrer_tout">[Montrer tout]</span> 
@@ -111,6 +125,10 @@ if($to_descriptionArticle == array()){
 /* Si navigation dans l'historique */
 if ($b_historique == 1) {
     echo "?idOldCampagne=".$i_idCampagne;
+}
+if($i_pageNum > 0){
+    if($b_historique == 1) {echo "&" ;} else {echo "?" ;}
+    echo "i_pageNum=". $i_pageNum;
 }
 ?>
 ">
@@ -453,6 +471,9 @@ foreach ($to_categorie as $o_categorie) {
 </table>
 </form>
 <?php
+
+}
+
 foreach ($to_categorie as $o_categorie) {
 ?>
     <script type="text/javascript">
@@ -477,10 +498,6 @@ cacher_tout=function () {
     $(".ligne_article12").hide(0);
     $(".ligne_article02").hide(0);
 }
-cacher_onLoad=function(){
-    cacher_tout();
-}
-window.onload = cacher_onLoad;
 $(".cacher_tout").click(function () {cacher_tout();});
 $(".montrer_tout").click(function () {
     $(".ligne_article01").show(0);

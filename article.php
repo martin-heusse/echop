@@ -95,6 +95,19 @@ class ArticleController extends Controller {
             $to_descriptionArticle = GererArticle::descriptionArticle($i_idCampagne,$i_idRayon);
                 /* liste de tous les fournisseurs */
             $to_fournisseur = GererArticle::fournisseurArticle($i_idCampagne,$i_idRayon);
+            $num_article=count($to_descriptionArticle);
+            $i_pageTot= intval($num_article / max_article)+1;
+
+            if($num_article > max_article){
+                if (!isset($_GET['i_pageNum'])) {$i_pageNum=-1;}
+                else {
+                    $i_pageNum=$_GET['i_pageNum'];
+                    $fin_pre = ($i_pageNum-1)* max_article;
+                    $to_descriptionArticle = array_slice($to_descriptionArticle,$fin_pre,max_article);
+                }
+            }
+            else {$i_pageNum=0;}
+            
             foreach ($to_descriptionArticle as &$o_descriptionArticle){
                 $i_idArticleCampagne = $o_descriptionArticle['id_article_campagne'];
                 foreach($to_fournisseur as $o_fournisseur){
@@ -125,7 +138,8 @@ class ArticleController extends Controller {
                                                's_message', 
                                                'i_erreur', 
                                                'b_historique', 
-                                               'i_idCampagne'));
+                                               'i_idCampagne',
+                                               'i_pageNum','i_pageTot'));
     }
 
     /*
@@ -152,6 +166,9 @@ class ArticleController extends Controller {
             $b_historique = 1;
         } else {
             $i_idCampagne = Campagne::getIdCampagneCourante();
+        }
+        if (isset($_GET['i_pageNum'])){
+            $i_pageNum = $_GET['i_pageNum'];
         }
         $i_erreur = null;
         if( !isset($_POST['i_idRayon'])
@@ -262,9 +279,9 @@ class ArticleController extends Controller {
         }}
         /* Redirection */
         if ($i_idCampagne == Campagne::getIdCampagneCourante()) {
-            header('Location: '.root.'/article.php/afficherArticle?i_erreur='.$i_erreur.'&i_idRayon='.$i_idRayon);
+            header('Location: '.root.'/article.php/afficherArticle?i_erreur='.$i_erreur.'&i_idRayon='.$i_idRayon.'&i_pageNum='.$i_pageNum);
         } else {
-            header('Location: '.root.'/article.php/afficherArticle?i_erreur='.$i_erreur.'&i_idRayon='.$i_idRayon.'&idOldCampagne='.$i_idCampagne);
+            header('Location: '.root.'/article.php/afficherArticle?i_erreur='.$i_erreur.'&i_idRayon='.$i_idRayon.'&idOldCampagne='.$i_idCampagne.'&i_pageNum='.$i_pageNum);
         }
     }
 

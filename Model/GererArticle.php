@@ -33,7 +33,7 @@ class GererArticle {
                             "a.id_unite = u.id AND " .
                             "ac.id_campagne=$i_idCampagne AND " .
                             "a.id_rayon=$i_idRayon " .
-                     "ORDER BY ac.id ";
+                     "ORDER BY a.id_categorie, ac.id ";
         $sql_tmp = mysql_query($sql_query);
         $to_result = array();
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
