@@ -136,6 +136,7 @@ if($i_pageNum > 0){
 <!-- En variable cachée id_rayon -->
 <input type="hidden" name="i_idRayon" value="<?php echo $i_idRayon ?>"/>
 
+<input type="submit" class="input_valider" value="Mettre à jour les articles"/>
 
 <table>
     <thead> <!-- En-tête du tableau -->
@@ -457,8 +458,7 @@ foreach ($to_categorie as $o_categorie) {
                   />
                   <br />&nbsp;&euro;/<?php echo $o_descriptionArticle['valeur_unite_choisi'] ?>
                 </td>
-                <td><input type="submit" class="input_valider" name=submit_<?php echo $i_idArticleCampagne ?> value="MàJ"/>
-</td>
+               <input type="hidden" name="hidden_idArticle_<?php echo $i_idArticleCampagne ?>" />
           </tr>
 <?php
                 $i_numLigne = ($i_numLigne + 1) % 2;
@@ -498,6 +498,9 @@ cacher_tout=function () {
     $(".ligne_article12").hide(0);
     $(".ligne_article02").hide(0);
 }
+// 
+// window.onload = cacher_tout;
+// 
 $(".cacher_tout").click(function () {cacher_tout();});
 $(".montrer_tout").click(function () {
     $(".ligne_article01").show(0);
