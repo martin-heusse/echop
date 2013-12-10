@@ -175,12 +175,12 @@ class Commande {
     }
 
     public static function getObjectsByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur) {
-        $sql_query = "select * from commande where id_campagne=$i_idCampagne and id_utilisateur=$i_idUtilisateur";
+        $sql_query = "select com.*, categ.nom as nom_cat from commande com, categorie categ , article a  where com.id_campagne=$i_idCampagne and com.id_utilisateur=$i_idUtilisateur and com.id_article=a.id and categ.id=a.id_categorie order by a.id_categorie";
         $sql_tmp = mysql_query($sql_query);
         $to_result = array();
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité */
-            foreach ($o_row as &$column) {
+            foreach ($o_row as $nom_col=>&$column) {
                 $column = htmlentities($column, null,'UTF-8');
             }
             /* Création du résultat */

@@ -15,6 +15,7 @@ if ($b_historique == 1) {
     <span class="historique">[Historique de la campagne n°<?php echo $i_idCampagne ?>]</span>
 <?php
 }
+print_r($f_montantParCat);
 ?>
 
 <h1>Commande de <?php echo $s_login ?></h1>
@@ -95,6 +96,20 @@ checked
         <td class="centrer"><strong><?php echo $f_montantTotal ?>&euro;</strong></td>
         <td>&nbsp;</td>
     </tr>
+    
+    <?php 
+    foreach($f_montantParCat as $nom_cat=>$montant){
+    ?>
+    <tr>
+    <th colspan=<?php echo $i_colspan ?> class="right"> <?php echo $nom_cat ." : " ?> </th>
+        <td class="right"><?php echo $montant ?>&euro;</td>
+        <td>&nbsp;</td>
+    </tr>
+    </tr>
+     <?php 
+    }
+    ?>
+    
 </table>
 <input class="input_valider" type="submit" value="Mettre à jour<?php if ($b_historique == 0) { echo " les quantités"; } ?>
 "/>

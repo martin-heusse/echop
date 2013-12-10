@@ -121,7 +121,9 @@ class UtilisateurAyantCommandEController extends Controller {
         $to_commande = Commande::getObjectsByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur);
         /* Montant total */
         $f_montantTotal = 0;
+        $f_montantParCat = NULL;
         /* Récupération de tous les attributs nécessaires d'un article */
+
         foreach($to_commande as &$o_article) {
             /* Attributs dépendant de l'article */
             $i_idArticle = $o_article['id_article'];
@@ -147,6 +149,7 @@ class UtilisateurAyantCommandEController extends Controller {
             $o_article['total_ttc'] = $o_article['quantite_totale'] * $o_article['prix_ttc'] / $o_article['poids_paquet_fournisseur'];
             /* Calcul du montant total */
             $f_montantTotal += (float) $o_article['total_ttc'];
+            $f_montantParCat[$o_article['nom_cat']]+=(float) $o_article['total_ttc'];
             /* Formattage des nombres */
             $o_article['prix_unitaire'] = number_format($o_article['prix_unitaire'], 2, '.', '');
             $o_article['quantite_totale'] = number_format($o_article['quantite_totale'], 2, '.', '');
@@ -156,8 +159,9 @@ class UtilisateurAyantCommandEController extends Controller {
         $s_login = Utilisateur::getLogin($i_idUtilisateur);
         /* Formattage des nombres */
         $f_montantTotal = number_format($f_montantTotal, 2, '.', '');
+        foreach($f_montantParCat as &$montant_cat){$montant_cat=number_format($montant_cat, 2, '.', '');}
         /* Render */
-        $this->render('commandeUtilisateur', compact('to_commande', 'b_etat', 'f_montantTotal', 'i_idUtilisateur', 's_login', 'b_historique', 'i_idCampagne'));	
+        $this->render('commandeUtilisateur', compact('to_commande', 'b_etat', 'f_montantTotal', 'i_idUtilisateur', 's_login', 'b_historique', 'i_idCampagne','f_montantParCat'));	
     }
 
     /*
