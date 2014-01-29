@@ -61,7 +61,7 @@ class Categorie {
     public static function getNom($i_id) {
         static $noms = null;
 
-        if ($noms[$i_id]==null){
+        if (!isset($noms[$i_id])){
             $sql_query = "select nom from categorie where id='$i_id'";
             $sql_tmp = mysql_query($sql_query);
             $s_result = null;
