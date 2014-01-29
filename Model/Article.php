@@ -162,6 +162,21 @@ class Article {
         return $s_result;
     }
 
+    public static function getNomNbPaquetColisDescriptionCourteDescriptionLongue($i_id){
+        $sql_query = "select nom,nb_paquet_colis,description_courte,description_longue from article where id=$i_id";
+        $sql_tmp = mysql_query($sql_query);
+        $s_result = null;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité et création du résultat */
+            $s_result['nom'] = htmlentities($o_row['nom'], null,'UTF-8');
+            $s_result['nb_paquet_colis'] = htmlentities($o_row['nb_paquet_colis'], null,'UTF-8');
+            $s_result['description_courte'] = htmlentities($o_row['description_courte'], null,'UTF-8');
+            $s_result['description_longue'] = htmlentities($o_row['description_longue'], null,'UTF-8');
+        }
+//         print_r ($s_result);
+        return $s_result;
+
+    }
 
     /* Setters */
 
