@@ -80,10 +80,6 @@ class CommanderArticleController extends Controller {
             /* on récupère les attributs des articles du rayon demandés */
             if ($o_article['id_rayon'] == $i_idRayon) {
                 $o_article['nbre_article'] ++;
-//                 $o_article['nom'] = Article::getNom($i_idArticle);
-//                 $o_article['nb_paquet_colis'] = Article::getNbPaquetColis($i_idArticle);
-//                 $o_article['description_courte'] = Article::getDescriptionCourte($i_idArticle);
-//                 $o_article['description_longue'] = Article::getDescriptionLongue($i_idArticle);
                 $temp_article=Article::getNomNbPaquetColisDescriptionCourteDescriptionLongue($i_idArticle);
                 $o_article = array_merge($o_article,$temp_article);
                 $o_article['poids_paquet_fournisseur'] = Article::getPoidsPaquetFournisseur($i_idArticle);
