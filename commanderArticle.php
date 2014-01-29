@@ -144,6 +144,7 @@ class CommanderArticleController extends Controller {
         /* Récupération des articles de l'utilisateur */
         $ti_article = ArticleCampagne::getObjectsByIdCampagne($i_idCampagne);
         /* Pour chaque article on modifie la quantité si nécéssaire */
+//         print_r($_POST);
         foreach($ti_article as &$i_article) {
             $i_idArticle = $i_article['id_article'];
             /* vérifier si l'article est bien dans le rayon */
@@ -153,7 +154,9 @@ class CommanderArticleController extends Controller {
                 if (isset($_POST['quantite'])){
                     $ti_quantite = $_POST['quantite'];
                     $i_quantite = $ti_quantite[$i_idArticle];
-                    if($i_quantite != 0) {
+                    $prev_ti_quantite = $_POST['prev_quantite'];
+                    $prev_i_quantite = $prev_ti_quantite[$i_idArticle];
+                    if($prev_i_quantite!=$i_quantite) {
                         $i_seuilMin = ArticleCampagne::getSeuilMinByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
                         /* Si la quantité est supérieur au seuil min et non nulle, on 
                          * actualise, sinon on ne fait rien */

@@ -134,7 +134,10 @@ if ($to_commande != null and $to_commande != array()) {
                         /* Bloquer ou autoriser la modification de la quantité */
                         if ($b_etat == 1) {
 ?>
-                    <td title="Quantité"><input class="input_quantite" type="text" name="quantite[<?php echo $o_produit['id_article']?>]" value="<?php echo $o_produit['quantite']?> " onclick="select()"/></td>
+                    <td title="Quantité">
+                    <input class="input_quantite" type="text" name="quantite[<?php echo $o_produit['id_article']?>]" value="<?php echo $o_produit['quantite']?> " onclick="select()"/>
+                    <input  type="hidden" name="prev_quantite[<?php echo $o_produit['id_article']?>]" value="<?php echo $o_produit['quantite']?> "/>
+                    </td>
 <?php
                         } else {
 ?>
