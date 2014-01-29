@@ -15,7 +15,6 @@ if ($b_historique == 1) {
     <span class="historique">[Historique de la campagne n°<?php echo $i_idCampagne ?>]</span>
 <?php
 }
-print_r($f_montantParCat);
 ?>
 
 <h1>Commande de <?php echo $s_login ?></h1>
@@ -98,10 +97,10 @@ checked
     </tr>
     
     <?php 
-    foreach($f_montantParCat as $nom_cat=>$montant){
+    foreach($f_montantParRayon as $nom_rayon=>$montant){
     ?>
     <tr>
-    <th colspan=<?php echo $i_colspan ?> class="right"> <?php echo $nom_cat ." : " ?> </th>
+    <th colspan=<?php echo $i_colspan ?> class="right"> <?php echo $nom_rayon ." : " ?> </th>
         <td class="right"><?php echo $montant ?>&euro;</td>
         <td>&nbsp;</td>
     </tr>
