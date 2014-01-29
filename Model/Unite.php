@@ -57,7 +57,7 @@ class Unite {
     public static function getUnite($i_id) {
         static $unites = null;
 
-        if ($unites[$i_id]==null){
+        if (!isset($unites[$i_id])){
             $sql_query = "select valeur from unite where id=$i_id";
             $sql_tmp = mysql_query($sql_query);
             $s_result = null;
