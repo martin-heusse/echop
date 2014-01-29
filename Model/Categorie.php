@@ -59,12 +59,23 @@ class Categorie {
     }
 
     public static function getNom($i_id) {
-        $sql_query = "select nom from categorie where id='$i_id'";
-        $sql_tmp = mysql_query($sql_query);
-        $s_result = null;
-        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
-            /* Sécurité et création du résultat */
-            $s_result = htmlentities($o_row['nom'], null,'UTF-8');
+        static $noms = null;
+
+        if ($noms[$i_id]==null){
+            $sql_query = "select nom from categorie where id='$i_id'";
+            $sql_tmp = mysql_query($sql_query);
+            $s_result = null;
+            if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+                /* Sécurité et création du résultat */
+                $s_result = htmlentities($o_row['nom'], null,'UTF-8');
+            }
+            if ($s_result!=null){
+                $noms[$i_id]=$s_result;
+            }
+
+        }
+        else{
+            $s_result=$noms[$i_id];
         }
         return $s_result;
     } 
