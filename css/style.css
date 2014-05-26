@@ -1,0 +1,278 @@
+/* ========================================================================== */
+/* Corps */
+
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+    color #444444;
+    background-color: #f0f0f0;
+    margin: 10px auto;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 0px;
+    font-family: arial;
+}
+
+/* ========================================================================== */
+/* Général */
+
+
+/* ========================================================================== */
+/* Header */
+
+#banniere {
+    background-color: #ffcc99;
+    background-repeat: no-repeat;
+    background-position: right;
+    height: 120px;
+}
+
+#logo {
+    display: inline-block;
+    margin-top: 15px;
+    margin-left: 20px;
+    float: left;
+}
+
+#titre_banniere {
+    color: #666666;
+    font-family: Arial;
+    display: inline-block;
+    font-size: 34px;
+    margin-top: 40px;
+    margin-left: 20px;
+    float: left;
+}
+
+/* ========================================================================== */
+/* Menu */
+
+#menu {
+    padding-top: 20px;
+    float: left;
+    background-color: #666666;
+    color: #cccccc;
+    width: 250px;
+    min-height: 700px;
+}
+
+#menu .titre_menu {
+    margin-left: -5px;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+#menu ul {
+    list-style-type: none;
+    margin-left: -20px;
+}
+
+#menu ul a, #bonjour {
+    color: #cccccc;
+    text-decoration: none;
+}
+
+#menu ul a:hover {
+    text-decoration: underline;
+}
+
+#bonjour {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.titre_menu {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* ========================================================================== */
+/* Contenu */
+
+#contenu {
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: 250px;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+/* ========================================================================== */
+/* Tableau */
+/* Le comptage des lignes commence à zéro avec numLigne */ 
+
+/* Lignes paires gris foncé*/
+.ligne_article0 {
+    background-color: #dddddd;
+}
+
+/* Lignes impaires gris clair */
+.ligne_article1 {
+    background-color: #f0f0f0;
+}
+
+/* Lignes impaires en vente vert clair*/
+.ligne_article11 {
+    background-color: #6ce3a1;
+}
+
+/* Lignes impaires pas en vente rouge clair*/
+.ligne_article12 {
+    background-color: #cd5c5c;
+}
+/* Lignes paires en vente vert foncé*/
+.ligne_article01 {
+    background-color: #3cb371;
+}
+/* Lignes paires pas en vente rouge foncé */
+.ligne_article02 {
+    background-color:  #ad3c3c;
+}
+/* Surligne au survol */
+.ligne_article0:hover, .ligne_article1:hover, .ligne_article11:hover, .ligne_article12:hover, .ligne_article01:hover, .ligne_article02:hover {
+    background-color: #cccccc;
+    /* cursor: pointer; */
+}
+
+.tab_article {
+    font-size:10px;
+}
+
+.tab_tab_article {
+    font-size:9px;
+}
+
+/* Titre rayon dans commander article */
+.cat {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+/* Liens "cacher" "montrer" */
+.cat_bouton {
+    color: blue;
+}
+
+table {
+    /* width: 80%; */
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    float: left;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+th {
+    color: #cccccc;
+    background-color: #666666;
+}
+
+/* Colorier une ligne */
+table .col_coloree {
+    color: #444444;
+    background-color: #eecccc;
+}
+
+/* Centre */
+table .center, table .centrer {
+    text-align: center;
+}
+
+table .left, table .gauche {
+    text-align: left;
+}
+table .right, table .droite {
+    text-align: right;
+}
+
+/* ========================================================================== */
+/* Formulaire */
+
+.form_connexion {
+    margin: 10px auto;
+    width: 500px;
+}
+
+/* Alignement du texte à gauche */
+form .form_col, .form_col {
+    text-align: left;
+    display: inline-block;
+    margin-right: 15px;
+    width: 160px;
+}
+
+/* Réduit la largeur de la quantité */
+form .input_quantite {
+    width: 60px;
+    text-align: center;
+}
+
+form .input_valider {
+    margin-top: 10px;
+    float: right;
+}
+
+/* ========================================================================== */
+/* Campagne */
+
+.campagne_ouverte {
+    color: green;
+}
+
+.campagne_fermee {
+    color: red;
+}
+
+.indication_campagne {
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+/* ========================================================================== */
+/* Historique */
+
+.historique {
+    font-weight: bold;
+    color: red;
+}
+
+/* ========================================================================== */
+/* Message */
+
+.erreur {
+    font-weight:bold;
+    color: red;
+}
+
+.succes {
+    font-weight:bold;
+    color: green;
+}
+
+.message {
+    font-weight:bold;
+    color: blue;
+}
+/* ========================================================================== */
+/* Autre */
+
+/* Pour que les flottants ne dépassent pas de leur conteneur */
+.clear {
+    clear: both;
+    height: 0;
+    overflow: hidden; /* Précaution pour IE 7 */
+}
+
