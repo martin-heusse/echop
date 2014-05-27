@@ -1,7 +1,8 @@
 <?php
 require_once('def.php');
 
-$commands=array(//"DROP DATABASE IF EXISTS ".db_name.";",
+$commands=array(//
+"DROP DATABASE IF EXISTS ".db_name.";",
 "CREATE DATABASE IF NOT EXISTS ".db_name." DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;",
 "use ".db_name.";",
 "CREATE TABLE utilisateur (
@@ -151,18 +152,23 @@ if (!$connect) {
 }
 
 mysql_select_db('db_name');
-$qr = "show tables like 'utilisateur';";
+//$qr = "show tables like 'utilisateur';";
+
+$qr = "select login from utilisateur ;";
 $sql_tmp = mysql_query($qr);
 
-if (mysql_fetch_assoc($sql_tmp)) {
-    echo "On dirait que les tables existent. <br><br>";
-}
-else{
-    echo "Creation des tables !!! \n <br />";
+
+if (!mysql_fetch_assoc($sql_tmp)) {
+    echo "Lancement de la creation des tables \n <br />";
     foreach ($commands as $qrstring){
         $sql_tmp = mysql_query($qrstring);
-        echo $sql_tmp."<br>";
+        //echo $sql_tmp."<br>";
     }
+    echo "Fin de la creation des tables \n <br />";
+}
+
+else{
+    echo "On dirait que les tables existent. <br><br>";
 }
 
 ?>
