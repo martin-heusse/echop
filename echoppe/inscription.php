@@ -48,7 +48,6 @@ class InscriptionController extends Controller {
                     if(Administrateur::isAdministrateur($i_idUtilisateur)) {
                         $s_destinataire .= Utilisateur::getEmail($i_idUtilisateur).",";       
                     } 
-
                 } 
                 $s_subject = "Inscription en cours";
                 $s_message = "Un utilisateur vient de s'inscrire. Vous pouvez valider ou refuser l'inscription en allant sur le site." ;
