@@ -97,7 +97,7 @@ class ArticleController extends Controller {
             $to_fournisseur = GererArticle::fournisseurArticle($i_idCampagne,$i_idRayon);
             $num_article=count($to_descriptionArticle);
             
-            $max_article = 10;
+            $max_article = 2;
             
             $i_pageTot= intval($num_article / $max_article)+1;
 
