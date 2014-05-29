@@ -1,0 +1,25 @@
+Fonctionanlitées pour le tri :
+1) Pouvoir choisir l'ordre des produits dans une catégorie (actuellement, quand on rentre un nouveau produit, il apparait en dernière ligne de la catégorie et on ne peut pas modifier l'ordre)
+
+Fonctionnalitées pour l’affichage :
+1) Faire apparaitre le code dans le tableau de commande par fournisseur
+2) Faire apparaitre le prix unitaire dans le tableau de commande par fournisseur
+3) Dans "Articles commandés": faire apparaitre les articles par catégorie
+4) Dans "gérer les article" : faire apparaitre les articles par catégorie
+5) Afficher sur un compte utilisateur les campagnes précédentes
+6) Au moment du colisage, quand on sélectionne un article, on utilise le menu déroulant où apparait les login utilisateur. Est ce qu'il est possible de faire apparaitre les noms et prénoms plutôt que les login?
+7) Même question dans "Utilisateurs ayant commandé cet article": faire apparaitre nom et prénom à la place de login
+8) Améliorer l'ergonomie de l'interface sur quelques points précis
+9) Dans "commander des articles": faire apparaître le nombre d'articles offerts à la vente dans chaque rayon.
+
+Fonctionnalitées pour l’impression :
+1) Pouvoir imprimer les commandes de chaque utilisateur pour chaque campagne
+2) Créer un système d'impression pour des étiquettes afin de les utiliser
+3) Faire des récapitulatifs de commandes par utilisateur, par fournisseur, 
+ou par rayon le jour de la livraison
+
+Fonctionnalitées pour la BD :
+1) Pouvoir ajouter un fournisseur pour un article existant (ex: le pot de tomate existe maintenant chez Markal: je veux donc pouvoir rajouter sur cet article un nouveau fournisseur)
+2) Supprimer des comptes invalides, des produits, etc
+3) Permettre un export automatique de la base
+4) Si la BD change, prévoir un page php pour la modifier.

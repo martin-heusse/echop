@@ -38,10 +38,10 @@ body {
 }
 
 #titre_banniere {
-    color: #666666;
+    color: #f0f0f0;
     font-family: Arial;
     display: inline-block;
-    font-size: 34px;
+    font-size: 36px;
     margin-top: 40px;
     margin-left: 20px;
     float: left;
