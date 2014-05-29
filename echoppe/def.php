@@ -24,7 +24,7 @@ abstract class Controller {
     }
 
     /* 
-     * Permet de communiquer des variables du controller à la vue,
+     * Permet de communiquer des variables du controller à la 
      * en ajoutant le header.php et le footer.php (le header.php contient le 
      * Layout/menu.php) à la vue.
     */

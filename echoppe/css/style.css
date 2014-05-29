@@ -24,7 +24,11 @@ body {
 /* Header */
 
 #banniere {
+<<<<<<< HEAD
     background-color: #3cb371;
+=======
+    background-color: yellowgreen;
+>>>>>>> 9e7442ed8953464a87896f59b71657929a451e58
     background-repeat: no-repeat;
     background-position: right;
     height: 120px;
