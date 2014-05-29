@@ -25,7 +25,7 @@ abstract class Controller {
 
     /* 
      * Permet de communiquer des variables du controller à la vue,
-     * en ajoutant le header.php et le footer.php (ce dernier contient le 
+     * en ajoutant le header.php et le footer.php (le premier contient le 
      * Layout/menu.php) à la vue.
     */
     protected function render($file_name, $variables_array = null) {

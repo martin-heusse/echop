@@ -15,8 +15,9 @@ class Util {
         $s_contenu .= "<p>".$s_message."</p>\n" ;
         $s_contenu .= "\t</body>\n</html>";
         // Envoie du mail
-        if(! mail($s_destinataire, $s_subject, $s_contenu, $s_header))
-            {echo "Echec de l'envoi à $s_destinataire <br/>";}
+//        if(! mail($s_destinataire, $s_subject, $s_contenu, $s_header))
+//            {echo "Echec de l'envoi à $s_destinataire <br/>";}
+        echo "<br /> $s_contenu <br />" ;
     }
 }
 ?>
