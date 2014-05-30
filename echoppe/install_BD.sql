@@ -4,6 +4,8 @@ use BdEchoppe;
 
 CREATE TABLE utilisateur (
     id integer not null auto_increment,
+    nom varchar(255),
+    prenom varchar(255),
     login varchar(255),
     mot_de_passe varchar(255),
     email varchar(255),

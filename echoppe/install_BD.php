@@ -7,6 +7,8 @@ $commands=array(//
 "use ".db_name.";",
 "CREATE TABLE utilisateur (
     id integer not null auto_increment,
+    nom varchar(255),
+    prenom varchar(255),
     login varchar(255),
     mot_de_passe varchar(255),
     email varchar(255),
@@ -151,7 +153,7 @@ if (!$connect) {
     die("Erreur de connexion au serveur");
 }
 
-mysql_select_db('db_name');
+mysql_select_db(db_name);
 //$qr = "show tables like 'utilisateur';";
 
 $qr = "select login from utilisateur ;";
@@ -166,7 +168,6 @@ if (!mysql_fetch_assoc($sql_tmp)) {
     }
     echo "Fin de la creation des tables \n <br />";
 }
-
 else{
     echo "On dirait que les tables existent. <br><br>";
 }

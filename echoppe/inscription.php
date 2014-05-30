@@ -25,7 +25,11 @@ class InscriptionController extends Controller {
         $s_login = "undo";
         $s_passwd = "undo";
         $s_email = "undo";
-        if (isset($_POST['login']) && isset($_POST['motDePasse']) && isset($_POST['email']) && $_POST['login'] != "" && $_POST['motDePasse'] != "" && $_POST['email'] != "") {
+        $s_nom = "undo";
+        $s_prenom = "undo";
+        if (isset($_POST['login']) && isset($_POST['motDePasse']) && isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['email']) && $_POST['login'] != "" && $_POST['motDePasse'] != "" && $_POST['email'] != "" && $_POST['nom'] != "" && $_POST['prenom'] != "") {
+            $s_nom = $_POST['nom'];
+            $s_prenom = $_POST['prenom'];
             $s_login = $_POST['login'];
             $s_passwd = $_POST['motDePasse'];
             $s_email = $_POST['email'];
@@ -37,7 +41,7 @@ class InscriptionController extends Controller {
                 $i_errLogin = 1; 
             } else {
                 $b_valide = 0;
-                Utilisateur::create($s_login, $s_passwd, $s_email,$b_valide);
+                Utilisateur::create($s_nom, $s_prenom ,$s_login, $s_passwd, $s_email,$b_valide);
                 $i_errReg = 0;
                 /* Envoie du mail pour avertir les administrateurs */
                 // récupérer les mails des admins

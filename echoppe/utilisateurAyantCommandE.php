@@ -52,6 +52,9 @@ class UtilisateurAyantCommandEController extends Controller {
             /* Pour chaque utilisateur, on récupère les données nécéssaires */
             $i_idUtilisateur = $o_article['id_utilisateur'];
             $o_article['login_utilisateur'] = Utilisateur::getLogin($i_idUtilisateur);
+            $o_article['nom'] = Utilisateur::getNom($i_idUtilisateur);
+            $o_article['prenom'] = Utilisateur::getPrenom($i_idUtilisateur);
+
             $to_article = Commande::getIdArticleByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur);
             /* A été livré ou non */
             $o_article['tout_livre'] = 0;
