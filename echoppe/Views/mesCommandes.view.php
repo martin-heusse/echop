@@ -33,6 +33,7 @@ if ($to_commande != null and $to_commande != array()) {
     <tr>
         <th>Produit</th>
         <th>Description</th>
+        <th>Code Fournisseur</th>
         <th>Poids du paquet du fournisseur</th>
         <th>Nombre de paquets par colis</th>
         <th>Prix TTC</th>
@@ -58,6 +59,7 @@ if ($to_commande != null and $to_commande != array()) {
     <tr class="ligne_article<?php echo $i_numLigne ?>">
         <td><?php echo $o_produit['nom'] ?></td>
         <td class="center" title="<?php echo $o_produit['description_longue']?>"><?php echo $o_produit['description_courte'] ?></td>
+        <td class="centrer"><?php echo $o_produit['code'] ?></td>
         <td class="centrer"><?php echo $o_produit['poids_paquet_fournisseur'].$o_produit['unite'] ?></td>
         <td class="centrer"><?php echo $o_produit['nb_paquet_colis'] ?></td>
         <td class="centrer"><?php echo $o_produit['prix_ttc'] ?>&euro;</td>

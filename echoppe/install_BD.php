@@ -156,10 +156,9 @@ mysql_select_db(db_name);
 
 $qr = "select login from utilisateur ;";
 $sql_tmp = mysql_query($qr);
-echo "totoxx" ;
 
-$res=print_r($commands,true);
-echo nl2br($res);
+//$res=print_r($commands,true);
+//echo nl2br($res);
 
 
 if (!mysql_fetch_assoc($sql_tmp)) {

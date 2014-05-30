@@ -42,6 +42,13 @@ class Commande {
         }
         return $to_result;
     }
+    
+    public static function getCodeFournisseurByIdArticleIdCampagneIdFournisseur($i_idArticle, $i_idCampagne, $i_idFournisseur){
+        //$sql_query = "select "
+        $res = 3;
+        return $res;
+        
+    }
 
     public static function getObjectsByIdArticle($i_idArticle) {
         $sql_query = "select * from commande where id_article=$i_idArticle";

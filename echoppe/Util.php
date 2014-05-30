@@ -19,5 +19,4 @@ class Util {
 //            {echo "Echec de l'envoi à $s_destinataire <br/>";}
         echo "<br /> $s_contenu <br />" ;
     }
-}
-?>
+}?>

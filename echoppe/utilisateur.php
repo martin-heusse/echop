@@ -82,6 +82,15 @@ class UtilisateurController extends Controller {
             $s_message = "Votre inscription a été validée.<br/> Votre login :". $s_login. "<br/>Votre mot de passe :" . $s_mot_de_passe;
             Util::sendEmail($s_destinataire, $s_subject, $s_message);
         }
+        
+        /*$nouveauHeader = "'.root.'/utilisateur.php/listeUtilisateurAValider'";
+        
+        echo '<script language="Javascript">
+        <!--
+        document.location.replace($nouveauHeader);
+        // -->
+        </script>';
+        */
         header('Location: '.root.'/utilisateur.php/listeUtilisateurAValider');
     }
 
@@ -110,6 +119,15 @@ class UtilisateurController extends Controller {
             Util::sendEmail($s_destinataire, $s_subject, $s_message);
             Utilisateur::delete($i_idUtilisateur);   
         }
+        
+        /*$nouveauHeader = "'.root.'/utilisateur.php/listeUtilisateurAValider'";
+        
+        echo '<script language="Javascript">
+        <!--
+        document.location.replace($nouveauHeader);
+        // -->
+        </script>';*/
+        
         header('Location: '.root.'/utilisateur.php/listeUtilisateurAValider');
     }
 
