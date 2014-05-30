@@ -81,7 +81,7 @@ class ArticleController extends Controller {
             $i_idCampagne = Campagne::getIdCampagneCourante();
         }
         if(!isset($_GET['i_idRayon'])){
-            $s_message = "Choissisez votre rayon !";
+            $s_message = "Choisissez votre rayon !";
             $i_idRayon = null;
             $to_fournisseur = null;
             $to_descriptionArticle = null;

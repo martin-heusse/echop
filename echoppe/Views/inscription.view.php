@@ -18,7 +18,8 @@
 <?php
         }
 ?>
-        
+     <p><span class="form_col"><label>Nom</label></span><input type="text" name="nom" required/></p>
+    <p><span class="form_col"><label>Prénom</label></span><input type="text" name="prenom" required/></p>   
     <p><span class="form_col"><label>Mot de passe</label></span><input type="text" name="motDePasse" required/></p>
     <p><span class="form_col"><label>Email</label></span><input type="text" name="email" required/></p>
     <input type="submit" value="S'enregistrer"/>

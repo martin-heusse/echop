@@ -18,9 +18,9 @@ class Utilisateur {
 
     /* Creaters */
 
-    public static function create($s_login, $s_motDePasse, $s_email,$b_validite) {
-        $sql_query = "insert into utilisateur(login, mot_de_passe, email,validite) 
-            values('$s_login', '$s_motDePasse', '$s_email','$b_validite')";
+    public static function create($s_nom, $s_prenom, $s_login, $s_motDePasse, $s_email,$b_validite) {
+        $sql_query = "insert into utilisateur(nom, prenom, login, mot_de_passe, email,validite) 
+            values('$s_nom', '$s_prenom','$s_login', '$s_motDePasse', '$s_email','$b_validite')";
         mysql_query($sql_query);
         $i_result = mysql_insert_id();
         return $i_result;
@@ -116,6 +116,28 @@ class Utilisateur {
         }
         return $s_result;
     }
+    
+        public static function getNom($i_id) {
+        $sql_query = "select nom from utilisateur where id=$i_id";
+        $sql_tmp = mysql_query($sql_query);
+        $s_result = null;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité et création du résultat */
+            $s_result = htmlentities($o_row['nom'], null,'UTF-8');
+        }
+        return $s_result;
+    }
+    
+        public static function getPrenom($i_id) {
+        $sql_query = "select prenom from utilisateur where id=$i_id";
+        $sql_tmp = mysql_query($sql_query);
+        $s_result = null;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité et création du résultat */
+            $s_result = htmlentities($o_row['prenom'], null,'UTF-8');
+        }
+        return $s_result;
+        }
 
     public static function getMotDePasse($i_id) {
         $sql_query = "select mot_de_passe from utilisateur where id=$i_id";
