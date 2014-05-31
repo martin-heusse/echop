@@ -6,6 +6,7 @@ require_once('Model/Administrateur.php');
 require_once('Model/Utilisateur.php');
 require_once('Model/Article.php');
 require_once('Model/Unite.php');
+require_once('Model/Categorie.php');
 require_once('Model/ArticleCampagne.php');
 require_once('Model/Rayon.php');
 require_once('Model/Fournisseur.php');

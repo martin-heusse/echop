@@ -299,7 +299,7 @@ foreach ($to_categorie as $o_categorie) {
                      />
                 </td>
                 <!-- TVA -->
-                <td aclass="center tab_article";;lign="center" title="TVA" ><select name="id_tva[]">
+                <td aclass="center tab_article" align="center" title="TVA" ><select name="id_tva[]">
 <?php
                 foreach($to_tva as $o_tva){
                     $i_idTva = $o_tva['id'];
