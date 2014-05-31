@@ -42,6 +42,13 @@ class Commande {
         }
         return $to_result;
     }
+    
+    public static function getCodeFournisseurByIdArticleIdCampagneIdFournisseur($i_idArticle, $i_idCampagne, $i_idFournisseur){
+        //$sql_query = "select "
+        $res = 3;
+        return $res;
+        
+    }
 
     public static function getObjectsByIdArticle($i_idArticle) {
         $sql_query = "select * from commande where id_article=$i_idArticle";
@@ -104,7 +111,7 @@ class Commande {
     }
     
     public static function getObjectsNotOrderedByIdArticleIdCampagne($i_idArticle, $i_idCampagne) {
-        $sql_query = "select id,login from utilisateur where utilisateur.id not in (select id_utilisateur from commande where id_article=$i_idArticle and id_campagne=$i_idCampagne) order by login;";
+        $sql_query = "select id,login,nom,prenom from utilisateur where utilisateur.id not in (select id_utilisateur from commande where id_article=$i_idArticle and id_campagne=$i_idCampagne) order by login;";
         $sql_tmp = mysql_query($sql_query);
         $to_result = array();
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {

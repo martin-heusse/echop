@@ -24,8 +24,10 @@ if($i_nbreArticle != 0) {
 ?>
 <table>
     <tr>
+        <th>Code Fournisseur</th>
         <th>Article</th>
         <th>Quantité</th>
+        <th>Prix unitaire</th>
         <th>Prix Total</th>
     </tr>
 <?php
@@ -34,8 +36,10 @@ if($i_nbreArticle != 0) {
         if ($o_article['quantite_totale'] != 0) {
 ?>
     <tr class="ligne_article<?php echo $i_numLigne ?>">
+         <td class="centrer"><?php echo $o_article['code'] ?></td>
         <td><?php echo $o_article['nom'] ?></td>
         <td class="centrer"><?php echo $o_article['quantite_totale'].$o_article['unite']." (".$o_article['quantite_totale_unites']." unités)"?></td>
+        <td class="centrer"><?php echo $o_article['prix_unitaire'] ?>&euro;<?php echo "/".$o_article['unite'] ?></td>
         <td class="centrer"><?php echo $o_article['montant_total'] ?>&euro;</td>
     </tr>
 <?php

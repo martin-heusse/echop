@@ -95,6 +95,7 @@ class ArticleController extends Controller {
             $s_message = null;
             /* liste de toutes les descriptions d'un article d'un rayon de la campagne courante */
             $i_idRayon = $_GET['i_idRayon'];
+
             $marge = Rayon::getMarge($i_idRayon) * 100;
             $to_descriptionArticle = GererArticle::descriptionArticle($i_idCampagne, $i_idRayon);
             /* liste de tous les fournisseurs */
@@ -138,11 +139,29 @@ class ArticleController extends Controller {
                         $nb_article_pre+=$max_article;
                         $to_descriptionArticle = array_slice($to_descriptionArticle, $fin_pre, $max_article);
                     }
-                }
-            }
-            else {
-                $i_pageNum = 0;
-            }
+//
+//            $marge = Rayon::getMarge($i_idRayon)*100;
+//            $to_descriptionArticle = GererArticle::descriptionArticle($i_idCampagne,$i_idRayon);
+//                /* liste de tous les fournisseurs */
+//            $to_fournisseur = GererArticle::fournisseurArticle($i_idCampagne,$i_idRayon);
+//            $num_article=count($to_descriptionArticle);
+//            
+//            $max_article = 2;
+//            
+//            $i_pageTot= intval($num_article / $max_article)+1;
+
+//            if($num_article > $max_article){
+//                if (!isset($_GET['i_pageNum'])) {$i_pageNum=-1;}
+//                else {
+//                    $i_pageNum=$_GET['i_pageNum'];
+//                    $fin_pre = ($i_pageNum-1)* $max_article;
+//                    $to_descriptionArticle = array_slice($to_descriptionArticle,$fin_pre, $max_article);
+//
+//                }
+//            }
+//            else {
+//                $i_pageNum = 0;
+//            }
 
             foreach ($to_descriptionArticle as &$o_descriptionArticle) {
                 $i_idArticleCampagne = $o_descriptionArticle['id_article_campagne'];
@@ -158,7 +177,10 @@ class ArticleController extends Controller {
             }
         }
         $this->render('gererArticle', compact('to_rayon', 'marge', 'i_idRayon', 'to_fournisseur', 'to_descriptionArticle', 'to_tva', 'to_unite', 'to_categorie', 's_message', 'i_erreur', 'b_historique', 'i_idCampagne', 'i_pageNum', 'i_pageTot'));
+            }
+        }
     }
+        
 
     /*
      * Est appelé par la bouton submit du formulaire de gererArticle.view.php

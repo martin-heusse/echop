@@ -7,6 +7,7 @@ require_once('Model/Utilisateur.php');
 require_once('Model/Article.php');
 require_once('Model/Unite.php');
 require_once('Model/ArticleCampagne.php');
+require_once('Model/ArticleFournisseur.php');
 require_once('Model/Rayon.php');
 require_once('Model/Fournisseur.php');
 
@@ -53,6 +54,16 @@ class MesCommandesController extends Controller {
             $o_article['description_longue'] = Article::getDescriptionLongue($i_idArticle);
             /* Prix TTC, seuil min et poids paquet client */
             $o_article_campagne = ArticleCampagne::getObjectByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+            
+            /* Récupération du Code Fournisseur, 1&2 cahier des charges */
+            $i_idArticleCampagne = ArticleCampagne::getIdByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+            $i_idFournisseur = ArticleCampagne::getIdFournisseur($i_idArticleCampagne);
+            //$o_article_fournisseur = ArticleFournisseur::getObjectByIdArticleCampagneIdFournisseur($i_idArticleCampagne, $i_idFournisseur);
+            $i_idArticleFournisseur = ArticleFournisseur::getIdByIdArticleCampagneIdFournisseur($i_idArticleCampagne, $i_idFournisseur);
+            $o_article['code'] = ArticleFournisseur::getCode($i_idArticleFournisseur);
+            
+            
+            
             $o_article['prix_ttc'] = $o_article_campagne['prix_ttc'];
             $o_article['seuil_min'] = $o_article_campagne['seuil_min'];
             $o_article['poids_paquet_client'] = $o_article_campagne['poids_paquet_client'];
