@@ -1,0 +1,22 @@
+29/05/2014 :
+
+Johann : 
+
+Point 6 et 7 
+
+	modifié :   Model/Commande.php
+	modifié :   Model/Utilisateur.php
+	modifié :   Views/inscription.view.php
+	modifié :   Views/utilisateurAyantCommandE.view.php
+	modifié :   Views/utilisateursAyantCommandECetArticle.view.php
+	modifié :   inscription.php
+	modifié :   install_BD.php
+	modifié :   install_BD.sql
+	modifié :   utilisateurAyantCommandE.php
+	
+Il fallait modifier à deux endroits du site (collisage et utilisateur ayant commandé) la manière dont on gérait les utilisateurs.
+Ils n'étaient "identifiés" que grâce à leur login, et le client veut à présent les identifier par "Nom et Prénom". 
+Pour cela j'ai donc modifié le modèle de l'inscription et rajouter "Nom" et "Prénom" dans la Base de données exploitée. (install_BD.sql/php et inscription.php)
+Ainsi Nom et Prénom sont maintenant stockés dans la BD dès l'inscription => /!\ Les utilisateurs déjà inscrits n'ont pas remplis ces données ... A compléter manuellement ?
+Ensuite, modification des différents fichier en fonction pour afficher Nom et Prénom pour le collisage (utilisateur.php & utilisateursAyantCommandECetArticle.view.php)
+et pour les produits par utilisateurs (utilisateur.php & utilisateurayantcommandE.view.php).
