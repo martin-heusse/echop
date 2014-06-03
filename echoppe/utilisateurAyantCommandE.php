@@ -308,6 +308,63 @@ class UtilisateurAyantCommandEController extends Controller {
             $i_idCampagne = Campagne::getIdCampagneCourante();
         }
         
+        // Connect database
+        $database="bdechoppe";
+        mysql_connect("localhost","root","root");
+        mysql_select_db("bdechoppe");
+
+        // la variable qui va contenir les données CSV
+        $outputCsv = '';
+
+        // Nom du fichier final
+        $fileName = 'export-csv.csv';
+
+        $requete = "SELECT * FROM unite"; //Mettre la requête SQL qui va bien
+        $sql = mysql_query($requete);
+        if(mysql_num_rows($sql) > 0)
+        {
+            $i = 0;
+
+            while($Row = mysql_fetch_assoc($sql))
+            {
+                $i++;
+
+                // Si c'est la 1er boucle, on affiche le nom des champs pour avoir un titre pour chaque colonne
+                if($i == 1)
+                {
+                    foreach($Row as $clef => $valeur)
+                        $outputCsv .= trim($clef).';';
+
+                    $outputCsv = rtrim($outputCsv, ';');
+                    $outputCsv .= "\n";
+                }
+
+                // On parcours $Row et on ajout chaque valeur à cette ligne
+                foreach($Row as $clef => $valeur)
+                    $outputCsv .= trim($valeur).';';
+
+                // Suppression du ; qui traine à la fin
+                $outputCsv = rtrim($outputCsv, ';');
+
+                // Saut de ligne
+                $outputCsv .= "\n";
+
+            }
+
+        }
+        else
+            exit('Aucune donnée à enregistrer.');
+        
+        header("Content-disposition: attachment; filename=".$fileName);
+        header("Content-Type: application/force-download");
+        header("Content-Transfer-Encoding: application/vnd.ms-excel\n");
+        header("Pragma: no-cache");
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0, public");
+        header("Expires: 0");
+
+        echo $outputCsv;
+        exit();
+
         // Récupérer l'ID de l'utilisateur dont on regarde l'état de la commande OK
         // Récupérer l'ID de la campagne en cours (getIdCampagneCourante) OK
         // Créer une requête SQL dans "Modèle Commande" qui récupère exactement les données nécessaires à la commande et qui prend en 
@@ -316,9 +373,6 @@ class UtilisateurAyantCommandEController extends Controller {
     }
     
     public function exportPDF() {
-        
-        //Craquage de la première solution fini. Deuxième solution consisterait à créer une requête SQL récapitulative pourquoi pas et d'utiliser le code d'internet qui se connecte à la BD.
-        //Se poseraient les problèmes d'écriture sur le fichier "Commande de Mr ... " et de calcul de total.
         
         /* Authentication required */
         if (!Utilisateur::isLogged()) {
@@ -417,27 +471,25 @@ class UtilisateurAyantCommandEController extends Controller {
             $f_montantTotal = number_format($f_montantTotal, 2, '.', '');
            
 
-        $pdf->SetFillColor(0xdd,0xdd,0xdd);
-        $pdf->SetTextColor(0,0,0);
-        $pdf->SetFont('Arial','',10);
-        $pdf->SetXY(3,$pdf->GetY()+1);
-        $fond=0;
-        //while($o_article=mysql_fetch_array($resultat))
-        //  {
-           $pdf->cell(3.5,0.7,$o_article['nom'],1,0,'C',$fond);
-           $pdf->cell(3.5,0.7,$o_article['description_courte'],1,0,'C',$fond);
-           $pdf->cell(3.5,0.7,$o_article['poids_paquet_fournisseur'],1,0,'C',$fond);
-           $pdf->cell(3.5,0.7,$o_article['nb_paquet_colis'],1,0,'C',$fond);
-           $pdf->cell(3.5,0.7,$o_article['prix_ttc'],1,0,'C',$fond);
-           $pdf->cell(3.5,0.7,$o_article['prix_unitaire'],1,0,'C',$fond);
-           $pdf->cell(3.5,0.7,$o_article['poids_paquet_client'],1,0,'C',$fond);
-           $pdf->cell(3.5,0.7,$o_article['seuil_min'],1,0,'C',$fond);
-           $pdf->cell(3.5,0.7,$o_article['quantite'],1,0,'C',$fond);
-           $pdf->cell(3.5,0.7,$o_article['quantite_totale'],1,0,'C',$fond);
-           $pdf->cell(3.5,0.7,$o_article['total_ttc'],1,0,'C',$fond);
-           $pdf->SetXY(3.5,$pdf->GetY()+0);
-           $fond=!$fond;
-        // }
+            $pdf->SetFillColor(0xdd,0xdd,0xdd);
+            $pdf->SetTextColor(0,0,0);
+            $pdf->SetFont('Arial','',10);
+            $pdf->SetXY(3,$pdf->GetY()+1);
+            $fond=0;
+        
+            $pdf->cell(3.5,0.7,$o_article['nom'],1,0,'C',$fond);
+            $pdf->cell(3.5,0.7,$o_article['description_courte'],1,0,'C',$fond);
+            $pdf->cell(3.5,0.7,$o_article['poids_paquet_fournisseur'],1,0,'C',$fond);
+            $pdf->cell(3.5,0.7,$o_article['nb_paquet_colis'],1,0,'C',$fond);
+            $pdf->cell(3.5,0.7,$o_article['prix_ttc'],1,0,'C',$fond);
+            $pdf->cell(3.5,0.7,$o_article['prix_unitaire'],1,0,'C',$fond);
+            $pdf->cell(3.5,0.7,$o_article['poids_paquet_client'],1,0,'C',$fond);
+            $pdf->cell(3.5,0.7,$o_article['seuil_min'],1,0,'C',$fond);
+            $pdf->cell(3.5,0.7,$o_article['quantite'],1,0,'C',$fond);
+            $pdf->cell(3.5,0.7,$o_article['quantite_totale'],1,0,'C',$fond);
+            $pdf->cell(3.5,0.7,$o_article['total_ttc'],1,0,'C',$fond);
+            $pdf->SetXY(3.5,$pdf->GetY()+0);
+            $fond=!$fond;
         }
         /*Montant total*/
         $Montant_Total="Total : ".$f_montantTotal." Euros";
