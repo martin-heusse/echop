@@ -308,6 +308,11 @@ class UtilisateurAyantCommandEController extends Controller {
             $i_idCampagne = Campagne::getIdCampagneCourante();
         }
         
+        /*Récupération Nom et Prénom de l'Utilisateur*/
+        $userLogin=Utilisateur::getLogin($i_idUtilisateur);
+        $userName=Utilisateur::getNom($i_idUtilisateur);
+        $userSurname=Utilisateur::getPrenom($i_idUtilisateur);
+        
         // Connect database
         $database="bdechoppe";
         mysql_connect("localhost","root","root");
@@ -316,11 +321,22 @@ class UtilisateurAyantCommandEController extends Controller {
         // la variable qui va contenir les données CSV
         $outputCsv = '';
 
-        // Nom du fichier final
-        $fileName = 'export-csv.csv';
-
-        $requete = "SELECT * FROM unite"; //Mettre la requête SQL qui va bien
-        $sql = mysql_query($requete);
+        // Nom du fichier qu'on initialise puis qu'on attribue
+        $fileName = "Commande_".$userLogin."_".$userName."_".$userSurname."_campagne".$i_idCampagne.".csv";
+        
+        // Deux requêtes : une qui exporte les données de la commande, l'autre le total TTC
+        $j=0;
+        while($j<2){
+            if($j == 0)
+                {
+                    $requete = Commande::getExportCSVDatas($i_idUtilisateur, $i_idCampagne);
+                    $sql = mysql_query($requete);
+                
+                }else{
+                    $requete= Commande::getExportCSVTotalTTC($i_idUtilisateur, $i_idCampagne);
+                    $sql = mysql_query($requete);
+                }
+        
         if(mysql_num_rows($sql) > 0)
         {
             $i = 0;
@@ -350,10 +366,13 @@ class UtilisateurAyantCommandEController extends Controller {
                 $outputCsv .= "\n";
 
             }
-
+        
         }
         else
             exit('Aucune donnée à enregistrer.');
+        
+        $j=$j+1;
+        }
         
         header("Content-disposition: attachment; filename=".$fileName);
         header("Content-Type: application/force-download");
@@ -364,12 +383,6 @@ class UtilisateurAyantCommandEController extends Controller {
 
         echo $outputCsv;
         exit();
-
-        // Récupérer l'ID de l'utilisateur dont on regarde l'état de la commande OK
-        // Récupérer l'ID de la campagne en cours (getIdCampagneCourante) OK
-        // Créer une requête SQL dans "Modèle Commande" qui récupère exactement les données nécessaires à la commande et qui prend en 
-        // paramètre cet id et l'id de la campagne courante (voir plus haut ex getIDByIDarticleblabla)
-        // Développer le code qui en découle pour l'export CSV
     }
     
     public function exportPDF() {

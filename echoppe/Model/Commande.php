@@ -291,6 +291,20 @@ class Commande {
         }
         return $b_result;
     }
+    
+    public static function getExportCSVDatas($i_idUtilisateur, $i_idCampagne) {
+        $sql_query = "select a.nom, a.description_courte, a.poids_paquet_fournisseur, a.nb_paquet_colis, aC.prix_ttc,(aC.prix_ttc/a.poids_paquet_fournisseur) as Prix_TTC_Unitaire, aC.seuil_min, c.quantite, (c.quantite*aC.poids_paquet_client) as Quantite_Totale_Commandee,(c.quantite*aC.poids_paquet_client*aC.prix_ttc/a.poids_paquet_fournisseur) as Prix_Total_TTC
+                        from article a, article_campagne aC, commande c, utilisateur u
+                        where a.id=aC.id_article and aC.id_article=c.id_article and aC.id_campagne=c.id_campagne and c.id_campagne=$i_idCampagne and c.id_utilisateur=u.id and u.id=$i_idUtilisateur";
+        return $sql_query;
+    }
+    
+    public static function getExportCSVTotalTTC($i_idUtilisateur, $i_idCampagne) {
+        $sql_query = "select sum(c.quantite*aC.poids_paquet_client*aC.prix_ttc/a.poids_paquet_fournisseur) as Prix_Total_TTC
+                        from article a, article_campagne aC, commande c, utilisateur u
+                        where a.id=aC.id_article and aC.id_article=c.id_article and aC.id_campagne=c.id_campagne and c.id_campagne=$i_idCampagne and c.id_utilisateur=u.id and u.id=$i_idUtilisateur";
+        return $sql_query;
+    }
 
     /* Setters */
 
