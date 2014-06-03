@@ -2,7 +2,7 @@
 
 Johann : 
 
-Points 6/7 Affichage : Utilisation des "nom" et "prenom" à la place des login utilisateurs dans les pages "Utilisateurs ayant commandé" et dans le "Colisage"
+Points 2/3 Affichage : Utilisation des "nom" et "prenom" à la place des login utilisateurs dans les pages "Utilisateurs ayant commandé" et dans le "Colisage"
 
 	modifié :   Model/Commande.php
 	modifié :   Model/Utilisateur.php
@@ -21,7 +21,30 @@ Ainsi Nom et Prénom sont maintenant stockés dans la BD dès l'inscription => /
 Ensuite, modification des différents fichier en fonction pour afficher Nom et Prénom pour le collisage (utilisateur.php & utilisateursAyantCommandECetArticle.view.php)
 et pour les produits par utilisateurs (utilisateur.php & utilisateurayantcommandE.view.php).
 
+Maxime : 
+
+Point 1 Affichage: Possibilité de ranger les articles par catégories dans la page "articles commandés"
+
+	modifié :   articlesCommandEs.php
+	modifié :   articlesCommandEs.view.php
+
+J'ai décidé de m'inspirer de ce qui avait été fait l'an dernier au niveau de "gèrer articles" par exemple, avec l'utilisation de javascript pour que ce soit homogène au reste du projet et également esthétique. Le travail a surtout consisté à comprendre comment fonctionne javascript sur ce qui avait été fait dans les autres fichiers. J'ai donc insérer les lignes de commandes javascript entre les lignes de codes précédentes de php et html afin d'ajouter les effets voulus à savoir: pouvoir cacher ou montrer les catégories d'articles que l'on désire. 
+
+Point 7: assez délicat à modifier en raison du code précédent qui est assez rigide. Il va surement falloir modifier le code global pour faire des modifications ici.
+
 02-03/06/2014
+
+Maxime:
+
+Points 2 et 5 BD: Possibilité de créer un utilisateur depuis l'administrateur et de se désinscrire, ou pour l'administrateur de supprimer des comptes. 
+
+	modifié :   utilisateur.php
+	modifié :   inscription.php
+	modifié :   inscription.view.php
+	modifié :   listeUtilisateurValide.view.php
+	créé : desinscription.view.php
+
+Pour la création de compte via l'administrateur, j'ai factorisé le code avec le code de "inscription" pour éviter de tout réécrire et j'ai modifié les en têtes pour que ce soit plus cohérent avec l'ajout d'un autre utilisateur que soi en testant si la session est celle de l'administrateur ou non. Pour la désinscription, rien n'était fait, j'ai donc écrit une nouvelle fonction dans le fichier inscription.php et créé un fichier view spécifique. L'interface du fichier view "liste des utilisateurs" a également été modifiée en "Gestion des utilisateurs" car on peut désormais créer ou supprimer des utilisateurs en plus de la visualisation que l'on pouvait déjà faire auparavant. 
 
 Johann :
 
