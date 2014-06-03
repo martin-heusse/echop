@@ -2,7 +2,7 @@
 
 Johann : 
 
-Point 6 et 7 
+Points 6/7 Affichage : Utilisation des "nom" et "prenom" à la place des login utilisateurs dans les pages "Utilisateurs ayant commandé" et dans le "Colisage"
 
 	modifié :   Model/Commande.php
 	modifié :   Model/Utilisateur.php
@@ -22,9 +22,6 @@ Ensuite, modification des différents fichier en fonction pour afficher Nom et P
 et pour les produits par utilisateurs (utilisateur.php & utilisateurayantcommandE.view.php).
 
 
-
-
-
 03/06/2014
 
 Nabil : 
@@ -33,3 +30,25 @@ Point 1 et 2
 
 Dans l’affichage des commandes par fournisseur, on affiche maintenant le prix TTC unitaire (comme dans le cadre dans « gérer article » ) et on affiche le code du fournisseur.
 Pour cela il on a dû récupérer les valeurs dans les bonnes tables (article_fournisseur), grâce à des requêtes déjà existantes.
+
+02-03/06/2014
+
+Johann :
+
+Exporter en PDF et excel
+
+	modifié :   Views/commandeUtilisateur.view.php
+	modifié :   utilisateurAyantCommandE.php
+	add : FPDF/
+
+
+Insertion dans commandeUtilisateur.view.php de deux liens spécifiques d'exportation (PDF et Excel) qui diffèrent en fonction de l'utilisateur ciblé.
+Pour PDF : 
+- Ajout de la bibliohtèque FPDF (FreePDF) qui permet la génération de PDF
+- Création d'une méthode exportPDF() dans utilisateurayantcommandE.php dans laquelle est "repris" le code présent dans la méthode commande() du même fichier
+- Les données récupérés vont directement dans un tableau créés grâce à FPDF
+- Factorisation du code n'est pas optimale dans le sens ou un gros bloc de code apparait dans deux méthodes appelées successivement, mais code efficace et utile pour 
+	la génération du code PDF.
+- Personnalisation du PDF en fonction de l'utilisateur et du numéro de campagne. Affichage encore sous la forme "Login - Nom Prénom" (en attente du remplissage des Nom et 	Prénom des utilisateurs inscrits dans la BD).
+Pour Excel :
+

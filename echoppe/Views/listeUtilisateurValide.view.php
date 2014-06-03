@@ -3,34 +3,44 @@
 
 <h1>Liste de tous les utilisateurs</h1>
 
- <a href="<?php echo root ?>/utilisateur.php/ajouterUtilisateur">Créer un nouvel utilisateur</a>
+<a href="<?php echo root ?>/utilisateur.php/ajouterUtilisateur">Créer un nouvel utilisateur</a>
 
- <p>
+<p>
 
-<?php
-if ($to_utilisateur != null) {
-   ?> 
-<table >
-  <tr>
-    <th> Login </th>
-    <th> Adresse Mail </th>
-    <tr/>
-<?php
-   foreach($to_utilisateur as $o_utilisateur) {
+    <?php
+    if ($to_utilisateur != null) {
+        ?> 
+    <table >
+        <tr>
+            <th><center> Login </center></th>
+            <th><center> Nom </center></th>
+            <th><center> Prénom </center></th>
+            <th><center> Adresse Mail </center></th>            
+            <!--<th>  </th>-->
+        <tr/>
+        <?php
+        foreach ($to_utilisateur as $o_utilisateur) {
+            ?>
+            <tr>
+            <form action="<?php echo root ?>/inscription.php/desinscription" enctype="multipart/form-data" method="post" name="formulaire">
+                <td><center>  <?php echo $o_utilisateur['login'] ?> </center></td>
+                <td><center>  <?php echo $o_utilisateur['nom'] ?> </center></td> 
+                <td><center>  <?php echo $o_utilisateur['prenom'] ?> </center></td>
+                <td><center>  <?php echo $o_utilisateur['email'] ?> </center></td>                
+                <input type='hidden' name='id_utilisateur_a_suppr' value='<?php echo $o_utilisateur['login'] ?>'>
+                <td> <input type='submit' value='Supprimer'> </td>
+
+            </form>
+        </tr>
+        <?php
+    }
     ?>
-  <tr>
-    <td> <?php echo $o_utilisateur['login']?> </td>
-    <td> <?php echo $o_utilisateur['email']?> </td>
-  </tr>
-<?php
-     }
-?>
-</table> 
+    </table> 
 
-<?php
+    <?php
 } else {
-?>
-<p class="message"> Il n'y a aucun utilisateur inscrit</p>
-<?php
+    ?>
+    <p class="message"> Il n'y a aucun utilisateur inscrit</p>
+    <?php
 }
 ?>
