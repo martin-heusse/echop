@@ -21,6 +21,16 @@ Ainsi Nom et Prénom sont maintenant stockés dans la BD dès l'inscription => /
 Ensuite, modification des différents fichier en fonction pour afficher Nom et Prénom pour le collisage (utilisateur.php & utilisateursAyantCommandECetArticle.view.php)
 et pour les produits par utilisateurs (utilisateur.php & utilisateurayantcommandE.view.php).
 
+
+03/06/2014
+
+Nabil : 
+
+Point 1 et 2
+
+Dans l’affichage des commandes par fournisseur, on affiche maintenant le prix TTC unitaire (comme dans le cadre dans « gérer article » ) et on affiche le code du fournisseur.
+Pour cela il on a dû récupérer les valeurs dans les bonnes tables (article_fournisseur), grâce à des requêtes déjà existantes.
+
 02-03/06/2014
 
 Johann :
@@ -41,3 +51,4 @@ Pour PDF :
 	la génération du code PDF.
 - Personnalisation du PDF en fonction de l'utilisateur et du numéro de campagne. Affichage encore sous la forme "Login - Nom Prénom" (en attente du remplissage des Nom et 	Prénom des utilisateurs inscrits dans la BD).
 Pour Excel :
+
