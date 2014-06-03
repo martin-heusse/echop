@@ -21,6 +21,7 @@ Ainsi Nom et Prénom sont maintenant stockés dans la BD dès l'inscription => /
 Ensuite, modification des différents fichier en fonction pour afficher Nom et Prénom pour le collisage (utilisateur.php & utilisateursAyantCommandECetArticle.view.php)
 et pour les produits par utilisateurs (utilisateur.php & utilisateurayantcommandE.view.php).
 
+
 Maxime : 
 
 Point 1 Affichage: Possibilité de ranger les articles par catégories dans la page "articles commandés"
@@ -31,6 +32,16 @@ Point 1 Affichage: Possibilité de ranger les articles par catégories dans la p
 J'ai décidé de m'inspirer de ce qui avait été fait l'an dernier au niveau de "gèrer articles" par exemple, avec l'utilisation de javascript pour que ce soit homogène au reste du projet et également esthétique. Le travail a surtout consisté à comprendre comment fonctionne javascript sur ce qui avait été fait dans les autres fichiers. J'ai donc insérer les lignes de commandes javascript entre les lignes de codes précédentes de php et html afin d'ajouter les effets voulus à savoir: pouvoir cacher ou montrer les catégories d'articles que l'on désire. 
 
 Point 7: assez délicat à modifier en raison du code précédent qui est assez rigide. Il va surement falloir modifier le code global pour faire des modifications ici.
+
+03/06/2014
+
+Nabil : 
+
+Point 1 et 2
+
+Dans l’affichage des commandes par fournisseur, on affiche maintenant le prix TTC unitaire (comme dans le cadre dans « gérer article » ) et on affiche le code du fournisseur.
+Pour cela il on a dû récupérer les valeurs dans les bonnes tables (article_fournisseur), grâce à des requêtes déjà existantes.
+
 
 02-03/06/2014
 
@@ -64,3 +75,4 @@ Pour PDF :
 	la génération du code PDF.
 - Personnalisation du PDF en fonction de l'utilisateur et du numéro de campagne. Affichage encore sous la forme "Login - Nom Prénom" (en attente du remplissage des Nom et 	Prénom des utilisateurs inscrits dans la BD).
 Pour Excel :
+

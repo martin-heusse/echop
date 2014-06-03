@@ -176,6 +176,7 @@ class FournisseurController extends Controller {
             
             /* Calcul du prix unitaire 1&2 cahier des charges */
             $o_article_campagne = ArticleCampagne::getObjectByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+            $i_idArticleFournisseur = ArticleFournisseur::getIdByIdArticleCampagneIdFournisseur($i_idArticleCampagne, $i_idFournisseur);
             $o_article['poids_paquet_fournisseur'] = Article::getPoidsPaquetFournisseur($i_idArticle);
             $o_article['prix_ttc'] = $o_article_campagne['prix_ttc'];
             $o_article['seuil_min'] = $o_article_campagne['seuil_min'];
@@ -188,6 +189,12 @@ class FournisseurController extends Controller {
             $o_article['prix_unitaire_client'] = number_format($o_article['prix_unitaire_client'], 2, '.', '');
             $o_article['prix_unitaire'] = number_format($o_article['prix_unitaire'], 2, '.', '');
             $o_article['montant_total'] = number_format($o_article['montant_total'], 2, '.', '');
+            $o_article['prix_ht'] = ArticleFournisseur::getPrixHt($i_idArticleFournisseur);
+            $o_article['prix_ttc'] = ArticleFournisseur::getPrixTtc($i_idArticleFournisseur);
+            $o_article['prix_ttc_ht'] = ArticleFournisseur::getPrixTtcHt($i_idArticleFournisseur);
+            $o_article['vente_paquet_unite'] = ArticleFournisseur::getVentePaquetUnite($i_idArticleFournisseur);
+
+
         }
         $this->render('commandeFournisseur', compact('to_article', 'i_nbreArticle', 'b_historique', 'i_idCampagne'));
     }
