@@ -1,14 +1,15 @@
-<?php 
+<?php
+
 require_once('def.php');
 require_once('Model/Utilisateur.php');
 require_once('Util.php');
 require_once('Model/Administrateur.php');
 
 class InscriptionController extends Controller {
-
     /*
      * Constructeur
      */
+
     public function __construct() {
         parent::__construct();
     }
@@ -16,7 +17,7 @@ class InscriptionController extends Controller {
     public function inscription() {
         /* L'utilisateur doit être déconnecté */
         if (Utilisateur::isLogged()) {
-            header('Location: '.root.'/index.php');
+            header('Location: ' . root . '/index.php');
             return;
         }
         /* Variables d'inscription */
@@ -38,46 +39,46 @@ class InscriptionController extends Controller {
 
             /* Vérification de la disponibilité du login */
             if ($to_checkLogin != array()) {
-                $i_errLogin = 1; 
+                $i_errLogin = 1;
             } else {
                 $b_valide = 0;
-                Utilisateur::create($s_nom, $s_prenom ,$s_login, $s_passwd, $s_email,$b_valide);
+                Utilisateur::create($s_nom, $s_prenom, $s_login, $s_passwd, $s_email, $b_valide);
                 $i_errReg = 0;
                 /* Envoie du mail pour avertir les administrateurs */
                 // récupérer les mails des admins
                 $to_utilisateur = Utilisateur::getAllObjects();
-                $s_destinataire="";
-                foreach($to_utilisateur as &$o_utilisateur) {
+                $s_destinataire = "";
+                foreach ($to_utilisateur as &$o_utilisateur) {
                     $i_idUtilisateur = $o_utilisateur['id'];
-                    if(Administrateur::isAdministrateur($i_idUtilisateur)) {
-                        $s_destinataire .= Utilisateur::getEmail($i_idUtilisateur).",";       
-                    } 
-                } 
+                    if (Administrateur::isAdministrateur($i_idUtilisateur)) {
+                        $s_destinataire .= Utilisateur::getEmail($i_idUtilisateur) . ",";
+                    }
+                }
                 $s_subject = "Inscription en cours";
-                $s_message = "Un utilisateur vient de s'inscrire. Vous pouvez valider ou refuser l'inscription en allant sur le site." ;
+                $s_message = "Un utilisateur vient de s'inscrire. Vous pouvez valider ou refuser l'inscription en allant sur le site.";
                 Util::sendEmail($s_destinataire, $s_subject, $s_message);
             }
-        } 
-        $this->render('inscription',compact('i_errLogin','i_errReg',
-            's_login','s_passwd','s_email'));
+        }
+        $this->render('inscription', compact('i_errLogin', 'i_errReg', 's_login', 's_passwd', 's_email'));
     }
 
     /*
      * Affiche la page d'oublie de mot de passe.
      */
+
     public function passOubliE() {
         /* L'utilisateur doit être déconnecté */
         if (Utilisateur::isLogged()) {
-            header('Location: '.root.'/index.php');
+            header('Location: ' . root . '/index.php');
             return;
         }
         $b_erreurLogin = 0;
         $b_success = 0;
-        if(!isset($_POST['login'])) {
+        if (!isset($_POST['login'])) {
             $this->render('passOubliE', compact('b_erreurLogin', 'b_success'));
             return;
         }
-        $s_login = htmlentities($_POST['login'], null,'UTF-8');
+        $s_login = htmlentities($_POST['login'], null, 'UTF-8');
         $o_utilisateur = Utilisateur::getObjectByLogin($s_login);
         /* Le login n'existe pas */
         if ($o_utilisateur == array() or $o_utilisateur == null) {
@@ -89,43 +90,55 @@ class InscriptionController extends Controller {
         $s_destinataire = $o_utilisateur['email'];
         $s_motDePasse = $o_utilisateur['mot_de_passe'];
         $s_subject = "[L'Échoppe d'ici et d'ailleurs] Oubli de mot de passe";
-        $s_message = "Votre login : ".$s_login."<br/>Votre mot de passe : ".$s_motDePasse;
+        $s_message = "Votre login : " . $s_login . "<br/>Votre mot de passe : " . $s_motDePasse;
         Util::sendEmail($s_destinataire, $s_subject, $s_message);
         $b_success = 1;
         $this->render('passOubliE', compact('s_destinataire', 'b_erreurLogin', 'b_success'));
     }
-    
+
     public function desinscription() {
         /* Authentication required */
         if (!Utilisateur::isLogged()) {
             $this->render('authenticationRequired');
             return;
         }
-         
-        if(!isset($_POST['confirm'])) {             
-            $this->render('desinscription', compact('s_destinataire', 'b_erreurLogin', 'b_success'));
-        } 
-        else {   
-        if($_POST['confirm'] == 1){
-        echo 'ooooooo';
-        $i_id = $_SESSION['idUtilisateur'];
-        Utilisateur::delete($i_id);
+        if (isset($_POST['id_utilisateur_a_suppr'])) {
+            $i_login = $_POST['id_utilisateur_a_suppr'];
+        }
+        if (!isset($_POST['confirm'])) {
+            $this->render('desinscription', compact('i_errReg', 'i_login'));
+        } else {
+            if ($_POST['confirm'] == 1) {
+                // Désinscription par l'administrateur
+                if (Utilisateur::isLogged() && Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
+                    Utilisateur::deleteByLogin($i_login);
+                    header('Location: ' . root . '/utilisateur.php/listeUtilisateurValide');
+                }
+                // Désinscription soi-même
+                else {
+                    $i_id = $_SESSION['idUtilisateur'];
 
-        /* Détruit les variables de session */
-        session_destroy();
-        header('Location: ' . root . '/index.php');
-        }
-        else {
-           header('Location: '.root.'/accueil.php');
-        }
+                    Utilisateur::delete($i_id);
+
+                    /* Détruit les variables de session */
+                    session_destroy();
+                    header('Location: ' . root . '/index.php');
+                }
+            } else {
+                if (Utilisateur::isLogged() && Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
+                    header('Location: ' . root . '/utilisateur.php/listeUtilisateurValide');
+                } else {
+                    header('Location: ' . root . '/accueil.php');
+                }
+            }
         }
     }
-
-  
 
     public function defaultAction() {
-        header('Location: '.root.'/inscription.php/inscription');
+        header('Location: ' . root . '/inscription.php/inscription');
     }
+
 }
+
 new InscriptionController();
 ?>

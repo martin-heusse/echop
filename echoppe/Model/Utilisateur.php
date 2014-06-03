@@ -232,5 +232,12 @@ class Utilisateur {
         $b_result =  mysql_query($sql_query);
         return $b_result;
     }
+    
+    public static function deleteByLogin($i_login) {
+        $sql_query = "delete from utilisateur where login='$i_login'";
+        echo 'ooooo';
+        $b_result =  mysql_query($sql_query);
+        return $b_result;
+    }
 }
 ?>
