@@ -20,3 +20,16 @@ Pour cela j'ai donc modifié le modèle de l'inscription et rajouter "Nom" et "P
 Ainsi Nom et Prénom sont maintenant stockés dans la BD dès l'inscription => /!\ Les utilisateurs déjà inscrits n'ont pas remplis ces données ... A compléter manuellement ?
 Ensuite, modification des différents fichier en fonction pour afficher Nom et Prénom pour le collisage (utilisateur.php & utilisateursAyantCommandECetArticle.view.php)
 et pour les produits par utilisateurs (utilisateur.php & utilisateurayantcommandE.view.php).
+
+
+
+
+
+03/06/2014
+
+Nabil : 
+
+Point 1 et 2
+
+Dans l’affichage des commandes par fournisseur, on affiche maintenant le prix TTC unitaire (comme dans le cadre dans « gérer article » ) et on affiche le code du fournisseur.
+Pour cela il on a dû récupérer les valeurs dans les bonnes tables (article_fournisseur), grâce à des requêtes déjà existantes.

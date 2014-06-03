@@ -28,6 +28,7 @@ if($i_nbreArticle != 0) {
         <th>Article</th>
         <th>Quantité</th>
         <th>Prix unitaire</th>
+        <th>Nouvelle Colonne</th>
         <th>Prix Total</th>
     </tr>
 <?php
@@ -40,6 +41,20 @@ if($i_nbreArticle != 0) {
         <td><?php echo $o_article['nom'] ?></td>
         <td class="centrer"><?php echo $o_article['quantite_totale'].$o_article['unite']." (".$o_article['quantite_totale_unites']." unités)"?></td>
         <td class="centrer"><?php echo $o_article['prix_unitaire'] ?>&euro;<?php echo "/".$o_article['unite'] ?></td>
+        <td align="center"> <!-- prix donnée par le fournisseur -->
+                                <!-- montant -->
+                                montant : <?php if ($o_article['prix_ttc_ht']) {echo $o_article['prix_ht'];}
+                                        else {echo $o_article['prix_ttc'];} ?>
+                                          <br />&euro; /
+                                <!-- unite ou paquet -->
+                                <?php if ($o_article['vente_paquet_unite']) {echo "paquet";}
+                                        else {echo $o_article['unite'];} ?>
+                                <!-- HT ou TTC -->
+                                &nbsp;
+                                <?php if ($o_article['prix_ttc_ht']) {echo "HT";}
+                                        else {echo "TTC";} ?>
+                                
+                            </td>
         <td class="centrer"><?php echo $o_article['montant_total'] ?>&euro;</td>
     </tr>
 <?php
