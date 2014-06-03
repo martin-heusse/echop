@@ -75,4 +75,5 @@ Pour PDF :
 	la génération du code PDF.
 - Personnalisation du PDF en fonction de l'utilisateur et du numéro de campagne. Affichage encore sous la forme "Login - Nom Prénom" (en attente du remplissage des Nom et 	Prénom des utilisateurs inscrits dans la BD).
 Pour Excel :
-
+- Création de deux requête getexportCSVDatas(idUser, idCampagne) et getexportCSVTotalTTC(idUser&idCampagne) qui permettent respectivement d'extraire les données d'une comande pour un user et une campagne et d'extraire le montant total de la commande TTC
+- Les données récupérés passent dans un script pour les inclure dans un excel (.csv) qui porte le nom de l'utilisateur et de la campagne. (Modèle "login, nom prénom" pour l'instant).
