@@ -83,19 +83,13 @@ class UtilisateurController extends Controller {
                 $i_errLogin = 1;
             } else {
                 $b_valide = 0;
+                //Ajout dans la base de donnée
                 Utilisateur::create($s_nom, $s_prenom, $s_login, $s_passwd, $s_email, $b_valide);
                 $i_errReg = 0;
-
-                /* Envoie du mail pour avertir les administrateurs */
-                // récupérer les mails des admins
-                $to_utilisateur = Utilisateur::getAllObjects();
-                $s_destinataire = "";
-                foreach ($to_utilisateur as &$o_utilisateur) {
-                    if (Utilisateur::getLogin('id') == $s_login) {
-                        $i_idUtilisateur = $o_utilisateur['id'];
-                        Utilisateur::setValidite($i_idUtilisateur, 1);
-                    }
-                }
+                //Validation directement car c'est l'administrateur qui ajoute ici
+                $o_utilisateur = Utilisateur::getObjectByLogin($s_login);
+                $i_idUtilisateur = $o_utilisateur['id'];
+                Utilisateur::setValidite($i_idUtilisateur, 1);
             }
         }
         $this->render('inscription', compact('i_errLogin', 'i_errReg', 's_login', 's_passwd', 's_email'));

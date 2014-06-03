@@ -94,6 +94,34 @@ class InscriptionController extends Controller {
         $b_success = 1;
         $this->render('passOubliE', compact('s_destinataire', 'b_erreurLogin', 'b_success'));
     }
+    
+    public function desinscription() {
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+         
+        if(!isset($_POST['confirm'])) {             
+            $this->render('desinscription', compact('s_destinataire', 'b_erreurLogin', 'b_success'));
+        } 
+        else {   
+        if($_POST['confirm'] == 1){
+        echo 'ooooooo';
+        $i_id = $_SESSION['idUtilisateur'];
+        Utilisateur::delete($i_id);
+
+        /* Détruit les variables de session */
+        session_destroy();
+        header('Location: ' . root . '/index.php');
+        }
+        else {
+           header('Location: '.root.'/accueil.php');
+        }
+        }
+    }
+
+  
 
     public function defaultAction() {
         header('Location: '.root.'/inscription.php/inscription');
