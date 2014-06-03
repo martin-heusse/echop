@@ -1,7 +1,15 @@
 <!-- affiche un récapitulatif de la commande effectuée par un utilisateur donné -->
-<p><a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a></p>
+<p><a class="action_navigation" href="<?php echo root ?>/campagne.php/historiqueCampagne">Explorer une autre campagne</a></p>
 
-<h1>Mes Commandes</h1>
+<?php if ($to_commande[0]['id_campagne'] != null) { ?>
+
+<h1>Mes Commandes de la Campagne n°<?php echo $to_commande[0]['id_campagne']?></h1>
+
+<?php } else if ($_GET['id_camp']!=null){ ?>
+
+<h1>Pas de Commande pour la Campagne n°<?php echo $_GET['id_camp']?></h1>
+
+<?php } ?>
 
 <!-- Indication de campagne -->
 <?php

@@ -143,10 +143,10 @@ class CampagneController extends Controller {
             return;
         }
         /* Doit être un administrateur */
-        if(!$_SESSION['isAdministrateur']) {
+        /*if(!$_SESSION['isAdministrateur']) {
             $this->render('adminRequired');
             return;
-        }
+        }*/
         $to_campagne = Campagne::getObjectsByCourant(0);
         $this->render('historiqueCampagne', compact('to_campagne'));
     }

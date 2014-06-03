@@ -33,6 +33,13 @@ require_once("Model/Campagne.php");
             ?>
             <li><a href="<?php echo root ?>/articlesCommandEs.php/articlesCommandEs">Articles commandés</a></li>
             <li><a href="<?php echo root ?>/utilisateur.php/envoiMailAAdministrateur">Envoyer un mail aux administrateurs</a></li>
+            <?php
+            if (!Administrateur::isAdministrateur($_SESSION['idUtilisateur'])){
+                ?>
+                <li><a href="<?php echo root ?>/campagne.php/historiqueCampagne">Historique des commandes</a></li>
+                   <?php
+            }
+            ?>
         </ul>
         <?php
         if (Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {

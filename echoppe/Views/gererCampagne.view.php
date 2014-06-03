@@ -1,4 +1,4 @@
-<!-- intreface de gestion d'une campagne -->
+<!-- interface de gestion d'une campagne -->
 <p><a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a></p>
 
 <h1>Gérer les campagnes</h1>
