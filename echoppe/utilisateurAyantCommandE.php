@@ -1,5 +1,6 @@
 <?php
 require_once('def.php');
+require_once('FPDF/fpdf.php');
 require_once('Model/Commande.php');
 require_once('Model/Campagne.php');
 require_once('Model/Administrateur.php');
@@ -280,7 +281,173 @@ class UtilisateurAyantCommandEController extends Controller {
             header('Location: '.root.'/utilisateurAyantCommandE.php/commandeUtilisateur?idUtilisateur='.$i_idUtilisateur.'&idOldCampagne='.$i_idCampagne);
         }
     }
+    
+    public function exportCSV() {
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if (!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
+        
+        /* Récupération des articles commandés par l'utilisateur */
+        if (!isset($_GET['idUtilisateur'])) {
+            header('Location: '.root.'/utilisateurAyantCommandE.php/utilisateurAyantCommandE');
+        }
+        $i_idUtilisateur = $_GET['idUtilisateur']; 
+        /* Navigation dans l'historique ou non */
+        $b_historique = 0;
+        if (isset($_GET['idOldCampagne'])) {
+            $i_idCampagne = $_GET['idOldCampagne'];
+            $b_historique = 1;
+        } else {
+            $i_idCampagne = Campagne::getIdCampagneCourante();
+        }
+        
+        // Récupérer l'ID de l'utilisateur dont on regarde l'état de la commande OK
+        // Récupérer l'ID de la campagne en cours (getIdCampagneCourante) OK
+        // Créer une requête SQL dans "Modèle Commande" qui récupère exactement les données nécessaires à la commande et qui prend en 
+        // paramètre cet id et l'id de la campagne courante (voir plus haut ex getIDByIDarticleblabla)
+        // Développer le code qui en découle pour l'export CSV
+    }
+    
+    public function exportPDF() {
+        
+        //Craquage de la première solution fini. Deuxième solution consisterait à créer une requête SQL récapitulative pourquoi pas et d'utiliser le code d'internet qui se connecte à la BD.
+        //Se poseraient les problèmes d'écriture sur le fichier "Commande de Mr ... " et de calcul de total.
+        
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if (!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
 
+        /* Récupération des articles commandés par l'utilisateur */
+        if (!isset($_GET['idUtilisateur'])) {
+            header('Location: '.root.'/utilisateurAyantCommandE.php/utilisateurAyantCommandE');
+        }
+        $i_idUtilisateur = $_GET['idUtilisateur']; 
+        /* Navigation dans l'historique ou non */
+        $b_historique = 0;
+        if (isset($_GET['idOldCampagne'])) {
+            $i_idCampagne = $_GET['idOldCampagne'];
+            $b_historique = 1;
+        } else {
+            $i_idCampagne = Campagne::getIdCampagneCourante();
+        }
+        /*Récupération Nom et Prénom de l'Utilisateur*/
+        $userLogin=Utilisateur::getLogin($i_idUtilisateur);
+        $userName=Utilisateur::getNom($i_idUtilisateur);
+        $userSurname=Utilisateur::getPrenom($i_idUtilisateur);
+        
+        /*Titre de la page PDF qui se charge, apparait dans le titre de la page Web*/
+        $docTitle="Recapitulatif de commande de ".$userLogin." ".$userName." ".$userSurname." pour la campagne ".$i_idCampagne;
+        
+        /*Création du PDF*/
+        $pdf=new FPDF('L','cm','A3');
+        $pdf->Open();
+        $pdf->SetTitle($docTitle);
+        
+        /*Titre du document*/
+        $pdf->SetFont('Arial','UB',14);
+        $pdf->AddPage();
+        $pdf->Write(5,$docTitle);
+        
+        /*Titres des colonnes*/
+        $header=array('Produit','Description','Poids paquet fournisseur','Nombre paquet par colis','Prix TTC','Prix TTC unitaire',
+            'Poids unit commande client','Quantite min commande','Quantite','Quantite totale commandee',
+            'Total TTC');
+        $pdf->SetFont('Arial','B',7);
+        $pdf->SetFillColor(96,96,96);
+        $pdf->SetTextColor(255,255,255);
+        $pdf->SetXY(3,5);
+        for($i=0;$i<sizeof($header);$i++)
+                $pdf->cell(3.5,1,$header[$i],1,0,'C',1);
+        
+        /* On recupère la commande d'un utilisateur */
+        $to_commande = Commande::getObjectsByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur);
+        
+        /* Montant total */
+        $f_montantTotal = 0;
+        $f_montantParRayon = NULL;
+        
+        /* Récupération de tous les attributs nécessaires d'un article */
+        foreach($to_commande as &$o_article) {
+            /* Attributs dépendant de l'article */
+            $i_idArticle = $o_article['id_article'];
+            $o_article['nom'] = Article::getNom($i_idArticle);
+            $o_article['poids_paquet_fournisseur'] = Article::getPoidsPaquetFournisseur($i_idArticle);
+            $i_idUnite = Article::getIdUnite($i_idArticle);
+            $o_article['unite'] = Unite::getUnite($i_idUnite);
+            $o_article['nb_paquet_colis'] = Article::getNbPaquetColis($i_idArticle);
+            $o_article['description_courte'] = Article::getDescriptionCourte($i_idArticle);
+            $o_article['description_longue'] = Article::getDescriptionLongue($i_idArticle);
+            /* Prix TTC, seuil min et poids paquet client */
+            $o_article_campagne = ArticleCampagne::getObjectByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+            $o_article['prix_ttc'] = $o_article_campagne['prix_ttc'];
+            $o_article['seuil_min'] = $o_article_campagne['seuil_min'];
+            $o_article['poids_paquet_client'] = $o_article_campagne['poids_paquet_client'];
+
+            /* Valeurs calculées */
+            /* Calcul poids unitaire */
+            $o_article['prix_unitaire'] = $o_article['prix_ttc'] / $o_article['poids_paquet_fournisseur'];
+            /* Calcul quantité totale */
+            $o_article['quantite_totale'] = $o_article['quantite'] * $o_article['poids_paquet_client'];
+            /* Calcul total TTC */
+            $o_article['total_ttc'] = $o_article['quantite_totale'] * $o_article['prix_ttc'] / $o_article['poids_paquet_fournisseur'];
+            /* Calcul du montant total */
+            $f_montantTotal += (float) $o_article['total_ttc'];
+            if(isset($f_montantParRayon[$o_article['nom_rayon']]))
+                $f_montantParRayon[$o_article['nom_rayon']]+=(float) $o_article['total_ttc'];
+            else 
+                $f_montantParRayon[$o_article['nom_rayon']]=(float) $o_article['total_ttc'];
+            /* Formattage des nombres */
+            $o_article['prix_unitaire'] = number_format($o_article['prix_unitaire'], 2, '.', '');
+            $o_article['quantite_totale'] = number_format($o_article['quantite_totale'], 2, '.', '');
+            $o_article['total_ttc'] = number_format($o_article['total_ttc'], 2, '.', '');
+            $f_montantTotal = number_format($f_montantTotal, 2, '.', '');
+           
+
+        $pdf->SetFillColor(0xdd,0xdd,0xdd);
+        $pdf->SetTextColor(0,0,0);
+        $pdf->SetFont('Arial','',10);
+        $pdf->SetXY(3,$pdf->GetY()+1);
+        $fond=0;
+        //while($o_article=mysql_fetch_array($resultat))
+        //  {
+           $pdf->cell(3.5,0.7,$o_article['nom'],1,0,'C',$fond);
+           $pdf->cell(3.5,0.7,$o_article['description_courte'],1,0,'C',$fond);
+           $pdf->cell(3.5,0.7,$o_article['poids_paquet_fournisseur'],1,0,'C',$fond);
+           $pdf->cell(3.5,0.7,$o_article['nb_paquet_colis'],1,0,'C',$fond);
+           $pdf->cell(3.5,0.7,$o_article['prix_ttc'],1,0,'C',$fond);
+           $pdf->cell(3.5,0.7,$o_article['prix_unitaire'],1,0,'C',$fond);
+           $pdf->cell(3.5,0.7,$o_article['poids_paquet_client'],1,0,'C',$fond);
+           $pdf->cell(3.5,0.7,$o_article['seuil_min'],1,0,'C',$fond);
+           $pdf->cell(3.5,0.7,$o_article['quantite'],1,0,'C',$fond);
+           $pdf->cell(3.5,0.7,$o_article['quantite_totale'],1,0,'C',$fond);
+           $pdf->cell(3.5,0.7,$o_article['total_ttc'],1,0,'C',$fond);
+           $pdf->SetXY(3.5,$pdf->GetY()+0);
+           $fond=!$fond;
+        // }
+        }
+        /*Montant total*/
+        $Montant_Total="Total : ".$f_montantTotal." Euros";
+        $pdf->SetFont('Arial','B',14);
+        $pdf->Write($pdf->GetY()+2,$Montant_Total);
+        
+        /*Fin PDF*/
+        $pdf->output();
+    }
+    
     /*
      * Action par défaut.
      */
