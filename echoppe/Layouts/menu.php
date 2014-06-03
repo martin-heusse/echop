@@ -45,7 +45,7 @@ if (Utilisateur::isLogged()) {
         <li><a href="<?php echo root ?>/tva.php/gererTva">Gérer les TVA</a></li>
         <li><a href="<?php echo root ?>/fournisseur.php/gererFournisseur">Gérer les fournisseurs</a></li>
         <li><a href="<?php echo root ?>/utilisateur.php/listeUtilisateurAValider">Inscriptions à valider (<?php echo Utilisateur::getCountByValidite(0) ?>)</a></li>
-        <li><a href="<?php echo root ?>/utilisateur.php/listeUtilisateurValide">Liste des utilisateurs</a></li>
+        <li><a href="<?php echo root ?>/utilisateur.php/listeUtilisateurValide">Gestion des utilisateurs</a></li>
         <li><a href="<?php echo root ?>/utilisateur.php/envoiMail">Envoyer un mail à tous les utilisateurs</a></li>
     </ul>
 <?php

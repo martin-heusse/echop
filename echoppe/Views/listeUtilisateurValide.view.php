@@ -3,12 +3,14 @@
 
 <h1>Liste de tous les utilisateurs</h1>
 
+ <a href="<?php echo root ?>/utilisateur.php/ajouterUtilisateur">Créer un nouvel utilisateur</a>
+
  <p>
 
 <?php
 if ($to_utilisateur != null) {
    ?> 
-<table>
+<table >
   <tr>
     <th> Login </th>
     <th> Adresse Mail </th>
@@ -23,7 +25,8 @@ if ($to_utilisateur != null) {
 <?php
      }
 ?>
-</table>
+</table> 
+
 <?php
 } else {
 ?>
