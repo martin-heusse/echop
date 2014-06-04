@@ -59,6 +59,24 @@ if($i_nbreArticle != 0) {
         }
         $i_numLigne = ($i_numLigne + 1) % 2;
     }
+?>
+<p><a class="action_navigation" href="<?php echo root ?>/fournisseur.php/exportCSV?idFournisseur=<?php echo $i_idFournisseur?>
+<?php
+/* Si navigation dans l'historique */
+if ($b_historique == 1) {
+    echo "&idOldCampagne=".$i_idCampagne;
+}
+?>
+">Exporter au format CSV (Excel) la commande fournisseur</a></p>
+<p><a class="action_navigation" href="<?php echo root ?>/fournisseur.php/exportPDF?idFournisseur=<?php echo $i_idFournisseur?>
+<?php
+/* Si navigation dans l'historique */
+if ($b_historique == 1) {
+    echo "&idOldCampagne=".$i_idCampagne;
+}
+?>
+">Exporter au format PDF la commande fournisseur</a></p>
+<?php
 } else {
     /* Cas où aucun article n'a été commandé */
 ?>

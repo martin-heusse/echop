@@ -120,7 +120,7 @@ if ($b_historique == 1) {
     echo "&idOldCampagne=".$i_idCampagne;
 }
 ?>
-">Exporter au format CSV (Excel)</a></p>
+">Exporter au format CSV (Excel) le récapitulatif de commande</a></p>
 <p><a class="action_navigation" href="<?php echo root ?>/utilisateurAyantCommandE.php/exportPDF?idUtilisateur=<?php echo $i_idUtilisateur?>
 <?php
 /* Si navigation dans l'historique */
@@ -128,7 +128,7 @@ if ($b_historique == 1) {
     echo "&idOldCampagne=".$i_idCampagne;
 }
 ?>
-">Exporter au format PDF</a></p>
+">Exporter au format PDF le récapitulatif de commande</a></p>
 <?php
 } else {
 ?>
