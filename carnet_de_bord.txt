@@ -83,6 +83,7 @@ Pour Excel :
 Johann : 
 
 Exporter en PDF et Excel : Suite !
+Matin :
 
 	modifié :   echoppe/Model/Commande.php
 	modifié :   echoppe/Views/mesCommandes.view.php
@@ -90,3 +91,12 @@ Exporter en PDF et Excel : Suite !
 - Ajout de la possibilité d'exporter en PDF et Excel les factures des différents utilisateurs pour TOUTES les campagnes (présente, et passées).
 - Ces factures sont aussi bien exportables pour l'administrateur qui peut être invité à toutes les exporter, que pour l'utilisateur qui possède les pages de ces anciennes campagnes.
 - A noter que pour toutes les exportations EXCEL (uniquement), on calcule les totaux grâce aux requêtes. Le calcul se fait par sql et non grâce aux bibli php. Par conséquence le résultat n'est pas formaté comme lors de l'affichage du site.
+Aprem :
+	modifié :   echoppe/Model/ArticleCampagne.php
+	modifié :   echoppe/Model/ArticleFournisseur.php
+	modifié :   Views/commandeUtilisateur.view.php
+	modifié :   Views/commandeFournisseur.view.php
+	modifié :   echoppe/fournisseur.php
+- Ajout d'une méthode getCommandObjectByIdFournisseurIdCampagne qui prend tous les articles commandés d'une campagne pour un fournisseur.
+- Ajouts des fonctionnalités export pdf pour les commandes fournisseurs. (Manque un total sur le PDF)
+
