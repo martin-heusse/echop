@@ -403,6 +403,7 @@ class UtilisateurAyantCommandEController extends Controller {
             header('Location: '.root.'/utilisateurAyantCommandE.php/utilisateurAyantCommandE');
         }
         $i_idUtilisateur = $_GET['idUtilisateur']; 
+        //echo $i_idUtilisateur;
         /* Navigation dans l'historique ou non */
         $b_historique = 0;
         if (isset($_GET['idOldCampagne'])) {
@@ -415,7 +416,7 @@ class UtilisateurAyantCommandEController extends Controller {
         $userLogin=Utilisateur::getLogin($i_idUtilisateur);
         $userName=Utilisateur::getNom($i_idUtilisateur);
         $userSurname=Utilisateur::getPrenom($i_idUtilisateur);
-        
+                
         /*Titre de la page PDF qui se charge, apparait dans le titre de la page Web*/
         $docTitle="Recapitulatif de commande de ".$userLogin." ".$userName." ".$userSurname." pour la campagne ".$i_idCampagne;
         
