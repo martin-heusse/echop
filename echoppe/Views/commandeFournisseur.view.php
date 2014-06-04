@@ -37,7 +37,6 @@ if($i_nbreArticle != 0) {
     foreach ($to_article as $o_article) {
         if ($o_article['quantite_totale'] != 0) {
 ?>
-    <div class="column" draggable="true"> <tr class="ligne_article<?php echo $i_numLigne ?>">
         <td class="centrer"><?php echo $o_article['code'] ?></td>
         <td><?php echo $o_article['nom'] ?></td>
         <td class="centrer"><?php echo $o_article['quantite_totale'].$o_article['unite']." (".$o_article['quantite_totale_unites']." unités)"?></td>
@@ -60,11 +59,26 @@ if($i_nbreArticle != 0) {
 <?php
         }
         $i_numLigne = ($i_numLigne + 1) % 2;
-    } ?>
-    
-    </div>
 
-<?php    
+    }
+?>
+<p><a class="action_navigation" href="<?php echo root ?>/fournisseur.php/exportCSV?idFournisseur=<?php echo $i_idFournisseur?>
+<?php
+/* Si navigation dans l'historique */
+if ($b_historique == 1) {
+    echo "&idOldCampagne=".$i_idCampagne;
+}
+?>
+">Exporter au format CSV (Excel) la commande fournisseur</a></p>
+<p><a class="action_navigation" href="<?php echo root ?>/fournisseur.php/exportPDF?idFournisseur=<?php echo $i_idFournisseur?>
+<?php
+/* Si navigation dans l'historique */
+if ($b_historique == 1) {
+    echo "&idOldCampagne=".$i_idCampagne;
+}
+?>
+">Exporter au format PDF la commande fournisseur</a></p>
+<?php
 } else {
     /* Cas où aucun article n'a été commandé */
 ?>

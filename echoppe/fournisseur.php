@@ -1,5 +1,6 @@
 <?php
 require_once('def.php');
+require_once('FPDF/fpdf.php');
 require_once('Model/Administrateur.php');
 require_once('Model/Utilisateur.php');
 require_once('Model/Fournisseur.php');
@@ -197,7 +198,7 @@ class FournisseurController extends Controller {
 
 
         }
-        $this->render('commandeFournisseur', compact('to_article', 'i_nbreArticle', 'b_historique', 'i_idCampagne'));
+        $this->render('commandeFournisseur', compact('to_article', 'i_nbreArticle', 'b_historique', 'i_idCampagne', 'i_idFournisseur'));
     }
 
     /*
@@ -221,7 +222,153 @@ class FournisseurController extends Controller {
             $this->render('gererFournisseur', compact('to_nom'));
             return;
     }
+    
+    public function exportPDF() {
+        
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if (!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
 
+        /* On récupère l'identifiant du fournisseur */
+        if(!isset($_GET['idFournisseur'])) {
+            header('Location: '.root.'/articleCampagne.php/fournisseursChoisis');
+            return;
+        }
+        $i_idFournisseur = $_GET['idFournisseur'];
+        /* Navigation dans l'historique ou non */
+        $b_historique = 0;
+        if (isset($_GET['idOldCampagne'])) {
+            $i_idCampagne = $_GET['idOldCampagne'];
+            $b_historique = 1;
+        } else {
+            $i_idCampagne = Campagne::getIdCampagneCourante();
+        }
+                
+        /*Titre de la page PDF qui se charge, apparait dans le titre de la page Web*/
+        $docTitle="Recapitulatif de commande du fournisseur ".$i_idFournisseur." pour la campagne ".$i_idCampagne;
+        
+        /*Création du PDF*/
+        $pdf=new FPDF('P','cm','A4');
+        $pdf->Open();
+        $pdf->SetTitle($docTitle);
+        
+        /*Titre du document*/
+        $pdf->SetFont('Arial','UB',14);
+        $pdf->AddPage();
+        $pdf->Write(5,$docTitle);
+        
+        /*Titres des colonnes*/
+        $header=array('Code Fournisseur','Article','Quantité','Prix unitaire','Prix Total');
+        $pdf->SetFont('Arial','B',7);
+        $pdf->SetFillColor(96,96,96);
+        $pdf->SetTextColor(255,255,255);
+        $pdf->SetXY(3,5);
+        for($i=0;$i<sizeof($header);$i++)
+                $pdf->cell(3.5,1,$header[$i],1,0,'C',1);
+        
+        /* Montant total */
+        $f_montantTotal = 0;
+        $f_montantParRayon = NULL;
+        
+        /* Récupération de tous les attributs commandés à la campagne auprès d'un fournisseur */
+        $to_article = ArticleCampagne::getObjectsCommandByIdCampagneIdFournisseur($i_idCampagne, $i_idFournisseur);
+        /* On regarde le nombre d'article commandés à ce fournisseur */
+            $i_nbreArticle = 0;
+        foreach ($to_article as &$o_article) {
+            /* pour chaque article, on récupère les données qui vont nous 
+             * permettre de connaître la quantité totale et le prix */
+            $i_quantiteTotale = 0;
+            $i_idArticle = $o_article['id_article'];
+            $f_poidsPaquetClient = $o_article['poids_paquet_client'];
+            $ti_idUtilisateur = Commande::getIdUtilisateurByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+            /* pour chaque utilisateur, on regarde combien il a commandé*/
+            foreach ($ti_idUtilisateur as $i_idUtilisateur) {
+                $i_nbreArticle++;
+                $i_id = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
+                $i_quantite = Commande::getQuantite($i_id);
+                $i_quantiteTotale += $i_quantite;
+            }
+            $o_article['quantite_totale'] = $i_quantiteTotale * $f_poidsPaquetClient;
+            $o_article['quantite_totale_unites'] = $i_quantiteTotale;
+            /* on calcule le prix du paquet fournisseur*/
+            $i_idArticleCampagne = ArticleCampagne::getIdByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+            $f_prixTtcArticle = ArticleFournisseur::getPrixTtcByIdArticleCampagneIdFournisseur($i_idArticleCampagne, $i_idFournisseur);
+            $i_poidsPaquetFournisseur = Article::getPoidsPaquetFournisseur($i_idArticle);
+            $o_article['montant_total'] = $o_article['quantite_totale'] * $f_prixTtcArticle / $i_poidsPaquetFournisseur;
+            $o_article['nom'] = Article::getNom($i_idArticle);
+            $i_idUnite = Article::getIdUnite($i_idArticle);
+            $o_article['unite'] = Unite::getValeur($i_idUnite);
+            
+            
+            /* Récupération du Code Fournisseur*/
+            //$i_idArticleCampagne = ArticleCampagne::getIdByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+            $i_idFournisseur = ArticleCampagne::getIdFournisseur($i_idArticleCampagne);
+            //$o_article_fournisseur = ArticleFournisseur::getObjectByIdArticleCampagneIdFournisseur($i_idArticleCampagne, $i_idFournisseur);
+            $i_idArticleFournisseur = ArticleFournisseur::getIdByIdArticleCampagneIdFournisseur($i_idArticleCampagne, $i_idFournisseur);
+            $o_article['code'] = ArticleFournisseur::getCode($i_idArticleFournisseur);
+            $o_article['nom_fournisseur'] = Fournisseur::getNom($i_idFournisseur);
+            
+            /* Calcul du prix unitaire*/
+            $o_article_campagne = ArticleCampagne::getObjectByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+            $i_idArticleFournisseur = ArticleFournisseur::getIdByIdArticleCampagneIdFournisseur($i_idArticleCampagne, $i_idFournisseur);
+            $o_article['poids_paquet_fournisseur'] = Article::getPoidsPaquetFournisseur($i_idArticle);
+            $o_article['prix_ttc'] = $o_article_campagne['prix_ttc'];
+            $o_article['seuil_min'] = $o_article_campagne['seuil_min'];
+            $o_article['poids_paquet_client'] = $o_article_campagne['poids_paquet_client'];
+            /* Valeurs calculées */
+            /* Calcul poids unitaire */
+            $o_article['prix_unitaire'] = $o_article['prix_ttc'] / $o_article['poids_paquet_fournisseur'];
+            $o_article['prix_unitaire_client'] = $o_article['prix_unitaire'] * $o_article['poids_paquet_client'];
+            
+            $o_article['prix_unitaire_client'] = number_format($o_article['prix_unitaire_client'], 2, '.', '');
+            $o_article['prix_unitaire'] = number_format($o_article['prix_unitaire'], 2, '.', '');
+            $o_article['montant_total'] = number_format($o_article['montant_total'], 2, '.', '');
+            $o_article['prix_ht'] = ArticleFournisseur::getPrixHt($i_idArticleFournisseur);
+            $o_article['prix_ttc'] = ArticleFournisseur::getPrixTtc($i_idArticleFournisseur);
+            $o_article['prix_ttc_ht'] = ArticleFournisseur::getPrixTtcHt($i_idArticleFournisseur);
+            $o_article['vente_paquet_unite'] = ArticleFournisseur::getVentePaquetUnite($i_idArticleFournisseur);
+
+            $pdf->SetFillColor(0xdd,0xdd,0xdd);
+            $pdf->SetTextColor(0,0,0);
+            $pdf->SetFont('Arial','',10);
+            $pdf->SetXY(3,$pdf->GetY()+1);
+            $fond=0;
+        
+            // Tests pour la colonne 4
+            
+            // Prix HT ou TTC    
+            if ($o_article['prix_ttc_ht']) {$prix=$o_article['prix_ht'];}
+                                        else {$prix=$o_article['prix_ttc'];}
+                                          
+            // Affichage unité ou paquet
+            if ($o_article['vente_paquet_unite']) {$paq_unit="paquet";}
+                                        else {$paq_unit=$o_article['unite'];}
+            // Afficahge HT ou TTC
+            if ($o_article['prix_ttc_ht']) {$ht_ttc="HT";}
+                                        else {$ht_ttc="TTC";}
+            
+            $pdf->cell(3.5,0.7,$o_article['code'],1,0,'C',$fond);
+            $pdf->cell(3.5,0.7,$o_article['nom'],1,0,'C',$fond);
+            $pdf->cell(3.5,0.7,$o_article['quantite_totale'].$o_article['unite'].$o_article['quantite_totale_unites']." (".$o_article['quantite_totale_unites']." unites)",1,0,'C',$fond);
+            $pdf->cell(3.5,0.7,$prix." euros/".$paq_unit.$ht_ttc,1,0,'C',$fond);
+            $pdf->cell(3.5,0.7,$o_article['montant_total'],1,0,'C',$fond);
+            $pdf->SetXY(3.5,$pdf->GetY()+0);
+            $fond=!$fond;
+        }
+        
+        //Implanter un montant total TODO
+        
+        /*Fin PDF*/
+        $pdf->output();
+    }
+    
     /*
      * Action par défaut.
      */

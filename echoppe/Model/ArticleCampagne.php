@@ -90,6 +90,25 @@ class ArticleCampagne {
         }
         return $to_result;
     }
+    
+        public static function getObjectsCommandByIdCampagneIdFournisseur($i_idCampagne, $i_idFournisseur) {
+        $sql_query = "Select distinct ac.id, ac.id_article, ac.id_fournisseur, ac.id_tva, ac.poids_paquet_client, ac.seuil_min, ac.prix_ttc, ac.en_vente
+from article_campagne ac, commande c
+where ac.id_article=c.id_article and ac.id_campagne=c.id_campagne and c.id_campagne=$i_idCampagne and ac.id_fournisseur=$i_idFournisseur";
+        $sql_tmp = mysql_query($sql_query);
+        $to_result = array();
+        while ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité */
+            foreach ($o_row as &$column) {
+                $column = htmlentities($column, null,'UTF-8');
+            }
+            /* Création du résultat */
+            $to_result[] = $o_row;
+        }
+        return $to_result;
+    }
+    
+    
 
     public static function getObjectsByIdCampagne($i_idCampagne) {
         $sql_query = "select * from article_campagne where id_campagne=$i_idCampagne";
