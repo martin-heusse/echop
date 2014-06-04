@@ -173,6 +173,7 @@ class FournisseurController extends Controller {
             //$o_article_fournisseur = ArticleFournisseur::getObjectByIdArticleCampagneIdFournisseur($i_idArticleCampagne, $i_idFournisseur);
             $i_idArticleFournisseur = ArticleFournisseur::getIdByIdArticleCampagneIdFournisseur($i_idArticleCampagne, $i_idFournisseur);
             $o_article['code'] = ArticleFournisseur::getCode($i_idArticleFournisseur);
+            $o_article['nom_fournisseur'] = Fournisseur::getNom($i_idFournisseur);
             
             /* Calcul du prix unitaire 1&2 cahier des charges */
             $o_article_campagne = ArticleCampagne::getObjectByIdArticleIdCampagne($i_idArticle, $i_idCampagne);

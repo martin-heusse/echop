@@ -14,6 +14,11 @@ if (!isset($titre_page)) {
         <link rel="stylesheet" type="text/css" href="<?php echo root ?>/css/style.css" />
         <!-- JQuery -->
         <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        
+        <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.8.custom.min.js"></script>
+        <script type="text/javascript" src="js/jquery.shoppingList.js"></script>
+        <script type="text/javascript" src="js/script.js"></script>
     </head>
 <body>
 <div id="banniere">

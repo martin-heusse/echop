@@ -37,6 +37,8 @@ require_once("Model/Campagne.php");
             if (!Administrateur::isAdministrateur($_SESSION['idUtilisateur'])){
                 ?>
                 <li><a href="<?php echo root ?>/campagne.php/historiqueCampagne">Historique des commandes</a></li>
+                <li><a href="<?php echo root ?>/campagne.php/dnd">test</a></li>
+
                    <?php
             }
             ?>

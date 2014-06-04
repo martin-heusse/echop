@@ -17,7 +17,7 @@ if ($b_historique == 1) {
 }
 
 ?>
-<h1>Commande fournisseur</h1>
+<h1>Commande fournisseur <?php echo $to_article[0]['nom_fournisseur']?></h1>
 <?php
 if($i_nbreArticle != 0) {
 /* Affichage du tableau des commandes pour un fournisseur donné */
@@ -28,7 +28,6 @@ if($i_nbreArticle != 0) {
         <th>Article</th>
         <th>Quantité</th>
         <th>Prix unitaire</th>
-        <th>Nouvelle Colonne</th>
         <th>Prix Total</th>
     </tr>
 <?php
@@ -40,7 +39,6 @@ if($i_nbreArticle != 0) {
          <td class="centrer"><?php echo $o_article['code'] ?></td>
         <td><?php echo $o_article['nom'] ?></td>
         <td class="centrer"><?php echo $o_article['quantite_totale'].$o_article['unite']." (".$o_article['quantite_totale_unites']." unités)"?></td>
-        <td class="centrer"><?php echo $o_article['prix_unitaire'] ?>&euro;<?php echo "/".$o_article['unite'] ?></td>
         <td align="center"> <!-- prix donnée par le fournisseur -->
                                 <!-- montant -->
                                 montant : <?php if ($o_article['prix_ttc_ht']) {echo $o_article['prix_ht'];}
