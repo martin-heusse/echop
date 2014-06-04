@@ -30,13 +30,15 @@ if($i_nbreArticle != 0) {
         <th>Prix unitaire</th>
         <th>Prix Total</th>
     </tr>
+    
+    <div id="columns">
 <?php
     $i_numLigne = 0;
     foreach ($to_article as $o_article) {
         if ($o_article['quantite_totale'] != 0) {
 ?>
-    <tr class="ligne_article<?php echo $i_numLigne ?>">
-         <td class="centrer"><?php echo $o_article['code'] ?></td>
+    <div class="column" draggable="true"> <tr class="ligne_article<?php echo $i_numLigne ?>">
+        <td class="centrer"><?php echo $o_article['code'] ?></td>
         <td><?php echo $o_article['nom'] ?></td>
         <td class="centrer"><?php echo $o_article['quantite_totale'].$o_article['unite']." (".$o_article['quantite_totale_unites']." unités)"?></td>
         <td align="center"> <!-- prix donnée par le fournisseur -->
@@ -54,11 +56,15 @@ if($i_nbreArticle != 0) {
                                 
                             </td>
         <td class="centrer"><?php echo $o_article['montant_total'] ?>&euro;</td>
-    </tr>
+        </tr> </div>
 <?php
         }
         $i_numLigne = ($i_numLigne + 1) % 2;
-    }
+    } ?>
+    
+    </div>
+
+<?php    
 } else {
     /* Cas où aucun article n'a été commandé */
 ?>
@@ -67,3 +73,5 @@ if($i_nbreArticle != 0) {
 }
 ?>
 </table>
+
+<script src="../js/script.js"></script>
