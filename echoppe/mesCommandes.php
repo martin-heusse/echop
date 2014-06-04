@@ -225,6 +225,98 @@ class MesCommandesController extends Controller {
         header('Location: '.root.'/mesCommandes.php/mesCommandes');
     }
     
+    public function exportCSV() {
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        
+        /* Récupération des articles commandés par l'utilisateur courant */
+        $i_idUtilisateur = $_SESSION['idUtilisateur'];
+        /* Récupération de l'identifiant de la campagne courante */
+        $i_idCampagne = $_GET['id_camp'];
+        //echo $i_idCampagne;
+        /* Récupération de l'état de la campagne */
+        $b_etat = Campagne::getEtat($i_idCampagne);
+        
+        /*Récupération Nom et Prénom de l'Utilisateur*/
+        $userLogin=Utilisateur::getLogin($i_idUtilisateur);
+        $userName=Utilisateur::getNom($i_idUtilisateur);
+        $userSurname=Utilisateur::getPrenom($i_idUtilisateur);
+        
+        // Connect database
+        $database="bdechoppe";
+        mysql_connect("localhost","root","root");
+        mysql_select_db("bdechoppe");
+
+        // la variable qui va contenir les données CSV
+        $outputCsv = '';
+
+        // Nom du fichier qu'on initialise puis qu'on attribue
+        $fileName = "Commande_".$userLogin."_".$userName."_".$userSurname."_campagne".$i_idCampagne.".csv";
+        
+        // Deux requêtes : une qui exporte les données de la commande, l'autre le total TTC
+        $j=0;
+        while($j<2){
+            if($j == 0)
+                {
+                    $requete = Commande::getExportCSVDatas($i_idUtilisateur, $i_idCampagne);
+                    $sql = mysql_query($requete);
+                
+                }else{
+                    $requete= Commande::getExportCSVTotalTTC($i_idUtilisateur, $i_idCampagne);
+                    $sql = mysql_query($requete);
+                }
+        
+        if(mysql_num_rows($sql) > 0)
+        {
+            $i = 0;
+
+            while($Row = mysql_fetch_assoc($sql))
+            {
+                $i++;
+
+                // Si c'est la 1er boucle, on affiche le nom des champs pour avoir un titre pour chaque colonne
+                if($i == 1)
+                {
+                    foreach($Row as $clef => $valeur)
+                        $outputCsv .= trim($clef).';';
+
+                    $outputCsv = rtrim($outputCsv, ';');
+                    $outputCsv .= "\n";
+                }
+
+                // On parcours $Row et on ajout chaque valeur à cette ligne
+                foreach($Row as $clef => $valeur)
+                    $outputCsv .= trim($valeur).';';
+
+                // Suppression du ; qui traine à la fin
+                $outputCsv = rtrim($outputCsv, ';');
+
+                // Saut de ligne
+                $outputCsv .= "\n";
+
+            }
+        
+        }
+        else
+            exit('Aucune donnée à enregistrer.');
+        
+        $j=$j+1;
+        }
+        
+        header("Content-disposition: attachment; filename=".$fileName);
+        header("Content-Type: application/force-download");
+        header("Content-Transfer-Encoding: application/vnd.ms-excel\n");
+        header("Pragma: no-cache");
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0, public");
+        header("Expires: 0");
+
+        echo $outputCsv;
+        exit();
+    }
+    
     public function exportPDF() {
         
         /* Authentication required */
