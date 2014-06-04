@@ -123,6 +123,10 @@ if ($to_commande != null and $to_commande != array()) {
 <?php
     }
 ?>
+<p><a class="action_navigation" href="<?php echo root ?>/mesCommandes.php/exportCSV?idUtilisateur=<?php echo $i_idUtilisateur?>
+<?php echo "&id_camp=".$i_idCampagne;?>">Exporter au format CSV (Excel)</a></p>
+<p><a class="action_navigation" href="<?php echo root ?>/mesCommandes.php/exportPDF?idUtilisateur=<?php echo $i_idUtilisateur?>
+<?php echo "&id_camp=".$i_idCampagne;?>">Exporter au format PDF</a></p>
 <?php
 } else {
 ?>

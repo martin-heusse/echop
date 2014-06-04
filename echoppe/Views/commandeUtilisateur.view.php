@@ -117,7 +117,7 @@ checked
 <?php
 /* Si navigation dans l'historique */
 if ($b_historique == 1) {
-    echo "?idOldCampagne=".$i_idCampagne;
+    echo "&idOldCampagne=".$i_idCampagne;
 }
 ?>
 ">Exporter au format CSV (Excel)</a></p>
@@ -125,7 +125,7 @@ if ($b_historique == 1) {
 <?php
 /* Si navigation dans l'historique */
 if ($b_historique == 1) {
-    echo "?idOldCampagne=".$i_idCampagne;
+    echo "&idOldCampagne=".$i_idCampagne;
 }
 ?>
 ">Exporter au format PDF</a></p>
