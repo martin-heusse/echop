@@ -1,3 +1,4 @@
+use Fournisseur.php;
 <!-- interface de gestion des articles -->
 <?php
 /* Si navigation dans l'historique */
@@ -42,7 +43,6 @@ if(isset($i_erreur)){
     }
 }
 ?>
-</p>
 
 <h1>Gérer tous les articles</h1>
 
@@ -141,8 +141,10 @@ if($i_pageNum > 0){
 
 <!-- En variable cachée id_rayon -->
 <input type="hidden" name="i_idRayon" value="<?php echo $i_idRayon ?>"/>
+<input type="hidden" name="id_Fournisseur_rayon[]" value="<?php echo $o_fournisseur['id_fournisseur']; ?>"/>
 
 <input type="submit" class="input_valider" value="Mettre à jour les articles"/>
+
 
 <table>
     <thead> <!-- En-tête du tableau -->
@@ -157,21 +159,25 @@ if($i_pageNum > 0){
             <th>Poids du paquet client</th>
             <th>Seuil min</th>
             <th>TVA</th>
+             <!-- colonne informative il y a des arrondis -->
+            <th>Prix client TTC </th>
+            <!-- colonne informative -->
+            <th>Prix client unitaire TTC </th>
+            
 <?php
 foreach($to_fournisseur as $o_fournisseur){
     /* boucle pour afficher le nom de tous les fournisseurs */
 ?>
             <th><?php echo $o_fournisseur['nom_fournisseur']; ?></th>
             <!-- En variable cachée id_fournisseur -->
-            <input type="hidden" name="id_Fournisseur_rayon[]" value="<?php echo $o_fournisseur['id_fournisseur']; ?>"/>
+            
 <?php
 }
 ?>
-            <!-- colonne informative il y a des arrondis -->
-            <th>Prix client TTC </th>
-            <!-- colonne informative -->
-            <th>Prix client unitaire TTC </th>
+            <th>Ajouter un nouveau fournisseur</th>
+           
          </tr>
+         
     </thead>
     <tbody> <!-- Corps du tableau -->
 <?php
@@ -191,7 +197,7 @@ foreach ($to_categorie as $o_categorie) {
     }
     if ($i_nbreArticleCategorie != 0) {
 ?>
-    <tr><td colspan=<?php echo $i_colspanCat ?>>
+    <tr><td colspan=<?php echo $i_colspanCat ;?>>
         <span class="cat"><?php echo $o_categorie['nom'] ?></span>
         <span class="cat_bouton cacher_<?php echo $o_categorie['id'] ?>">[Cacher]</span> 
         <span class="cat_bouton montrer_<?php echo $o_categorie['id'] ?>">[Montrer]</span> 
@@ -305,7 +311,7 @@ foreach ($to_categorie as $o_categorie) {
                      />
                 </td>
                 <!-- TVA -->
-                <td aclass="center tab_article" align="center" title="TVA" ><select name="id_tva[]">
+                <td  align="center" title="TVA" ><select name="id_tva[]">
 <?php
                 foreach($to_tva as $o_tva){
                     $i_idTva = $o_tva['id'];
@@ -319,12 +325,33 @@ foreach ($to_categorie as $o_categorie) {
                 }
 ?>
                 </select></td>
-                <!-- Boucle pour afficher les fournisseurs disponibles du rayon-->
-<?php
-                $i_idFournisseurChoisi = $o_descriptionArticle['id_fournisseur_choisi'];
+                
+                 <!-- Prix client TTC  -->
+                <td class="center tab_article" title="Prix client TTC">
+                    <input class="input_quantite" 
+                           type="text" 
+                           value="<?php echo $o_descriptionArticle['prix_echoppe'] ?>"
+                           disabled
+                    />
+                    <br />&nbsp;&euro;/paquet fournisseur
+                </td>
+                <!-- Prix client unitaire TTC -->
+                <td class="center tab_article" title="Prix client unitaire TTC">
+                  <input class="input_quantite" 
+                         value="<?php echo $o_descriptionArticle['prix_echoppe_unite'] ?>"
+                         disabled
+                  />
+                  <br />&nbsp;&euro;/<?php echo $o_descriptionArticle['valeur_unite_choisi'] ?>
+                </td>
+                
+                
+                <!--Boucle pour afficher les fournisseurs disponibles du rayon-->
+<?php                $i_idFournisseurChoisi = $o_descriptionArticle['id_fournisseur_choisi'];
+                $nb_fournisseurs_article = 0;
                 foreach($to_fournisseur as $o_fournisseur){
                     $i_idFournisseur = $o_fournisseur['id_fournisseur'];
                     if(isset($o_descriptionArticle[$i_idFournisseur]['prix_fournisseur'])){
+                        $nb_fournisseurs_article++;
                         $f_prixFournisseur = $o_descriptionArticle[$i_idFournisseur]['prix_fournisseur'];
                         $b_prixTtcHt = $o_descriptionArticle[$i_idFournisseur]['prix_ttc_ht'];
                         $b_ventePaquetUnite = $o_descriptionArticle[$i_idFournisseur]['vente_paquet_unite'];
@@ -383,11 +410,11 @@ foreach ($to_categorie as $o_categorie) {
                            </td>
                         </tr>
                     </table>
-                 </td>
+                 </td>                 
 <?php 
                     } else {
 ?>
-                            <td class="center tab_article" title="Fournisseur : <?php echo $o_fournisseur['nom_fournisseur']; ?>" style="visibility:hidden;";>
+                            <td class="center tab_article" title="Fournisseur : <?php echo $o_fournisseur['nom_fournisseur']; ?>" style="visibility:hidden">
                     <table class="tab_tab_article">
                         <th>Code</th>
                         <th>Prix donnée par le fournisseur</th>
@@ -442,29 +469,27 @@ foreach ($to_categorie as $o_categorie) {
                         </tr>
                     </table>
                  </td>
+                
 
 <?php
                     }
                 }
 ?>
-                <!-- Prix client TTC  -->
-                <td class="center tab_article" title="Prix client TTC">
-                    <input class="input_quantite" 
-                           type="text" 
-                           value="<?php echo $o_descriptionArticle['prix_echoppe'] ?>"
-                           disabled
-                    />
-                    <br />&nbsp;&euro;/paquet fournisseur
-                </td>
-                <!-- Prix client unitaire TTC -->
-                <td class="center tab_article" title="Prix client unitaire TTC">
-                  <input class="input_quantite" 
-                         value="<?php echo $o_descriptionArticle['prix_echoppe_unite'] ?>"
-                         disabled
-                  />
-                  <br />&nbsp;&euro;/<?php echo $o_descriptionArticle['valeur_unite_choisi'] ?>
-                </td>
+                  <!--Case permettant l'ajout d'un nouveau fournisseur-->
+                
+                <td height="25%">
+                    <?php 
+                $nbmax_fournisseurs_article = count(Fournisseur::getAllObjects());
+                if($nb_fournisseurs_article < $nbmax_fournisseurs_article)
+                    {                
+                    ?>                                 
+                    <input type="submit" name="ajout_fournisseur_<?php echo $i_idArticleCampagne?>" 
+                           value="&nbsp;&nbsp;&nbsp;Ajouter&nbsp;&nbsp;&nbsp;">   
+                <?php 
+                    }
+                    ?>
                <input type="hidden" name="hidden_idArticle_<?php echo $i_idArticleCampagne ?>" />
+                </td>
           </tr>
 <?php
                 $i_numLigne = ($i_numLigne + 1) % 2;

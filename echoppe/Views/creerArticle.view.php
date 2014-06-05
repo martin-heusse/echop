@@ -27,7 +27,7 @@
         }
     }
     ?>
-</p>
+
 <!-- Message de consignes -->
 <fieldset><legend>Créer un article</legend>
     <h3> Vous allez créer un article dans <?php echo $o_rayon['nom'] ?> .</h3>
