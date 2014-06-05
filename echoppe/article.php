@@ -97,7 +97,7 @@ class ArticleController extends Controller {
             $to_fournisseur = GererArticle::fournisseurArticle($i_idCampagne,$i_idRayon);
             $num_article=count($to_descriptionArticle);
             
-            $max_article = 2;
+            $max_article = 10;
             
             $i_pageTot= intval($num_article / $max_article)+1;
 
@@ -187,7 +187,8 @@ class ArticleController extends Controller {
             or !isset($_POST['seuil_min'])
             or !isset($_POST['id_tva'])
             or !isset($_POST['id_Fournisseur_rayon'])
-            or !isset($_POST['id_fournisseur_choisi'])) {
+            or !isset($_POST['id_fournisseur_choisi'])
+                ) {
             /* si une des variables n'est pas définie */
             $i_erreur = 1;
             /* Redirection */
@@ -197,6 +198,7 @@ class ArticleController extends Controller {
                 header('Location: '.root.'/article.php/afficherArticle?i_erreur='.$i_erreur.'&idOldCampagne='.$i_idCampagne);
             }
         } else {
+            
             /* si toutes les variables sont définies on les récupère */
             $i_idRayon = $_POST['i_idRayon'];
             $ti_idArticleCampagne = $_POST['id_article_campagne'];
@@ -211,7 +213,7 @@ class ArticleController extends Controller {
             $ti_seuilMin = $_POST['seuil_min'];
             $ti_idTva = $_POST['id_tva'];
             $ti_idFournisseurRayon = $_POST['id_Fournisseur_rayon'];
-            $i_nbArticleCampagne = count($ti_idArticleCampagne);
+            $i_nbArticleCampagne = count($ti_idArticleCampagne);   
             for ($i=0; $i<$i_nbArticleCampagne; $i++) {
                 $hidden_name="hidden_idArticle_".$ti_idArticleCampagne[$i];
                 if(isset($_POST[$hidden_name])){
@@ -277,6 +279,16 @@ class ArticleController extends Controller {
                         ArticleCampagne::setPrixTtc($i_idArticleCampagne, $f_prixTtcEchoppe);
                     }
                 }
+                $nb_total_article = count(Article::getAllObjects());
+                for($i=1;$i<=$nb_total_article;$i++){
+                    if(isset($_POST['ajout_fournisseur_'.$i])){                    
+                    $id_article = $i;
+                    header('Location: '.root.'/article.php/afficherAjouterFournisseur?i_erreur='.$i_erreur.'&i_idRayon='.$i_idRayon.'&i_pageNum='.$i_pageNum.'&i_idCampagne='.$i_idCampagne.'&id_article='.$id_article.'&b_historique='.$b_historique);
+                    return;                    
+                    
+                }
+                }
+                
                 $i_erreur = 0;
             }
         }}
@@ -287,6 +299,139 @@ class ArticleController extends Controller {
             header('Location: '.root.'/article.php/afficherArticle?i_erreur='.$i_erreur.'&i_idRayon='.$i_idRayon.'&idOldCampagne='.$i_idCampagne.'&i_pageNum='.$i_pageNum);
         }
     }
+    
+    
+    /*
+     * Permet d'afficher le formulaire d'ajout d'un fournisseur d'un article
+     * en communiquant ses données à la vue ajouterFournisseur.view.php.
+     */
+    public function afficherAjouterFournisseur() {
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if(!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
+        /* selection du rayon pour la création */
+        if(isset($_GET['i_erreur'])){
+            $i_erreur = $_GET['i_erreur'];
+        } else {
+            $i_erreur = null;
+        }
+        $i_idRayon = $_GET['i_idRayon'];
+        $i_pageNum = $_GET['i_pageNum'];
+        $i_idCampagne = $_GET['i_idCampagne'];
+        $id_article = $_GET['id_article'];
+        $b_historique = $_GET['b_historique'];
+        $o_rayon = Rayon::getObject($i_idRayon);
+        /* la liste des tva */
+        $to_tva = Tva::getAllObjects();
+        /* la liste des unité */
+        $to_unite = Unite::getAllObjects();
+        /* la liste des fournisseurs */
+        $to_fournisseur = GererArticle::fournisseurArticle($i_idCampagne, $i_idRayon);
+        /* la liste des catégories */
+        $to_categorie = Categorie::getAllObjects();
+        
+        $to_descriptionArticle = GererArticle::descriptionArticle($i_idCampagne,$i_idRayon);
+       
+        foreach($to_descriptionArticle as $o_descriptionArticle){           
+            if($o_descriptionArticle['id_article_campagne'] == $id_article){
+                // test l'id de l'article puis redirige seulement pour le 'o_descriptionArticle' que l'on a choisi
+                $this->render('ajouterFournisseur',compact('i_pageNum',
+                                             'o_rayon',
+                                             'to_tva', 
+                                             'to_unite', 
+                                             'to_fournisseur', 
+                                             'to_categorie',
+                                             'o_descriptionArticle',
+                                             'b_historique',
+                                             'i_erreur'));
+               break;
+            }
+        }        
+    }
+    
+    public function ajouterFournisseurArticle () {
+         /* Authentication required */
+      
+        
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if(!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
+        $i_erreur = null;
+        /* récupération des variables */
+        if( 
+                !isset($_POST['id_article_campagne'])
+            /* cette variable existe obligatoirement normalement par sécurité */
+            or !isset($_POST['id_fournisseur_choisi'])
+            /* cette variable peut ne pas exister */
+            or !isset($_POST['id_fournisseur_coche'])
+            // or !isset($_POST['prix_ttc_echoppe'])
+            ){
+            /* si une des variables n'est pas définie */
+            $i_erreur = 0;
+        } 
+        else {
+            /* nouveau test sur les champs obligtoires et les variables non-définies */
+            $ti_idFournisseurCoche = $_POST['id_fournisseur_coche'];
+            $i_idArticleCampagne = $_POST['id_article_campagne'];  
+            $o_descriptionArticleFournisseur = ArticleFournisseur::getAllObjects();
+           
+            $i_nbFournisseurCoche = count($ti_idFournisseurCoche);
+            $i = 0;
+            $j = 0;
+            $i_nbFournisseurCoche;
+            while($i < $i_nbFournisseurCoche){
+                /* $i_idArticleCampagne déjà calculé plus haut */
+                $i_idFournisseur = $ti_idFournisseurCoche[$i];
+                
+                    
+                $f_montant = $_POST['montant'][$i_idFournisseur];
+                $s_code = $_POST['code'][$i_idFournisseur];
+                $b_prixTtcHt = $_POST['prix_ttc_ht'][$i_idFournisseur];
+                $b_ventePaquetUnite = $_POST['vente_paquet_unite'][$i_idFournisseur];
+                
+                
+                /* calcul de $f_prixTtcFournisseur */
+                /* $f_tva déjà définie plus haut */
+                /* $f_poidsPaquetFournisseur déjà définie plus haut */
+                $f_prixTtcFournisseur = $this->calculerPrix($f_tva, $f_poidsPaquetFournisseur, $f_montant, $b_ventePaquetUnite, $b_prixTtcHt);
+                
+                echo 'id_article_campagne:'.$i_idArticleCampagne.'id_fournisseur:'.$i_idFournisseur.' montant:'.$f_montant.
+                        ' code:'.$s_code.' prixttcht:'.$b_prixTtcHt.
+                        ' ventepaquetunite:'.$b_ventePaquetUnite.' prixttc:'.$f_prixTtcFournisseur;
+                ArticleFournisseur::create($i_idArticleCampagne, 
+                                           $i_idFournisseur, 
+                                           $f_montant, 
+                                           $f_prixTtcFournisseur, 
+                                           $s_code, 
+                                           $b_prixTtcHt, 
+                                           $b_ventePaquetUnite);
+                                $i ++; 
+                              
+                
+               
+            }
+            /* il n'y a pas d'erreurs */
+            $i_erreur = 0;
+        }
+        header('Location: '.root.'/article.php/afficherArticle?i_idRayon='.$i_idRayon.'&nb_fourn='.$i_nbFournisseurCoche);
+    }
+        
+        
+    
+    
 
     /*
      * Permet d'afficher le formulaire de création d'un article
@@ -319,14 +464,19 @@ class ArticleController extends Controller {
         $to_fournisseur = Fournisseur::getAllObjects();
         /* la liste des catégories */
         $to_categorie = Categorie::getAllObjects();
+        
+        $i_idArticleFournisseur = ArticleFournisseur::getIdByIdArticleCampagneIdFournisseur($i_idArticleCampagne,$i_idFournisseurRayon);
+        
         $this->render('creerArticle',compact('o_rayon',
                                              'to_tva', 
                                              'to_unite', 
                                              'to_fournisseur', 
                                              'to_categorie', 
+                                             'i_idArticleFournisseur',
                                              'i_erreur'));
     }
 
+    
     /*
      * Est appelé par la bouton submit du formulaire de creerArticle.view.php
      * et permet de modifier la base de données.
