@@ -113,14 +113,15 @@ checked
 <input class="input_valider" type="submit" value="Mettre à jour<?php if ($b_historique == 0) { echo " les quantités"; } ?>
 "/>
 </form>
-<p><a class="action_navigation" href="<?php echo root ?>/utilisateurAyantCommandE.php/exportCSV?idUtilisateur=<?php echo $i_idUtilisateur?>
+<p>
+    <a class="action_navigation" href="<?php echo root ?>/utilisateurAyantCommandE.php/exportCSV?idUtilisateur=<?php echo $i_idUtilisateur?>
 <?php
 /* Si navigation dans l'historique */
 if ($b_historique == 1) {
     echo "&idOldCampagne=".$i_idCampagne;
 }
 ?>
-">Exporter au format CSV (Excel) le récapitulatif de commande</a></p>
+"><img height="40" id="logo" src="<?php echo root ?>/Layouts/images/excel.png" alt="<?php echo $titre_page ?>" /></a></p>
 <p><a class="action_navigation" href="<?php echo root ?>/utilisateurAyantCommandE.php/exportPDF?idUtilisateur=<?php echo $i_idUtilisateur?>
 <?php
 /* Si navigation dans l'historique */
@@ -128,7 +129,7 @@ if ($b_historique == 1) {
     echo "&idOldCampagne=".$i_idCampagne;
 }
 ?>
-">Exporter au format PDF le récapitulatif de commande</a></p>
+"><img height="40" id="logo" src="<?php echo root ?>/Layouts/images/pdf.png" alt="<?php echo $titre_page ?>" /></a></p>
 <?php
 } else {
 ?>
@@ -136,3 +137,4 @@ if ($b_historique == 1) {
 <?php
 }
 ?>
+

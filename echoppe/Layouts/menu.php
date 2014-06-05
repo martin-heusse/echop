@@ -20,7 +20,7 @@ require_once("Model/Campagne.php");
             <li><a href="<?php echo root ?>/connexion.php/deconnexion">Se déconnecter</a></li>
         </ul>
         <!-- Menu administrateur -->
-        <h1 class="titre_menu">Campagne n°<?php echo Campagne::getIdCampagneCourante() ?></h1>
+        <h2 class="titre_menu">Campagne n°<?php echo Campagne::getIdCampagneCourante() ?></h2>
         <ul>
             <?php
             if (Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
@@ -47,7 +47,7 @@ require_once("Model/Campagne.php");
         if (Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
             ?>
 
-            <h1 class="titre_menu">Administration</h1>
+            <h2 class="titre_menu">Administration</h2>
             <ul>
                 <li><a href="<?php echo root ?>/article.php/afficherArticle">Gérer articles</a></li>
                 <li><a href="<?php echo root ?>/rayon.php/afficherRayon">Gérer les rayons et les catégories</a></li>
@@ -61,7 +61,7 @@ require_once("Model/Campagne.php");
         }
         ?>
         <!-- Menu utilisateur -->
-        <h1 class="titre_menu">Menu</h1>
+        <h2 class="titre_menu">Menu</h2>
         <ul>
             <li><a href="<?php echo root ?>/mesCommandes.php/mesCommandes">Mes commandes</a></li>
             <li><a href="<?php echo root ?>/commanderArticle.php/afficherRayon">Commander des articles</a></li>

@@ -11,10 +11,13 @@ if (Utilisateur::isLogged() && Administrateur::isAdministrateur($_SESSION['idUti
     <?php
 }
 ?>
+    
+    <center><img src="<?php echo root ?>/Layouts/images/warning.png" height="150" alt="<?php echo $titre_page ?>" />
+    
 <?php
 if (Utilisateur::isLogged() && Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
     ?>
-    <p>Etes-vous bien sûr de vouloir désinscrire cet utilisateur ?</p>
+    <p><h3>Etes-vous bien sûr de vouloir désinscrire cet utilisateur ?</h3></p>
     <?php
 }
 else {
@@ -29,6 +32,8 @@ else {
     <input type="hidden" name='id_utilisateur_a_suppr' value='<?php echo $i_login ?>' >
     <p><input type="submit" value="Valider"/></p>
 </form>
+
+</center>
 
     <?php
 

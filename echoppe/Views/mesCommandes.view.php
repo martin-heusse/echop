@@ -124,10 +124,12 @@ if ($to_commande != null and $to_commande != array()) {
     }
 ?>
 <p><a class="action_navigation" href="<?php echo root ?>/mesCommandes.php/exportCSV?idUtilisateur=<?php echo $i_idUtilisateur?>
-<?php echo "&id_camp=".$i_idCampagne;?>">Exporter au format CSV (Excel)</a></p>
+<?php echo "&id_camp=".$i_idCampagne;?>"><img height="40" id="logo" src="<?php echo root ?>/Layouts/images/excel.png" alt="<?php echo $titre_page ?>" /></a></p>
 <p><a class="action_navigation" href="<?php echo root ?>/mesCommandes.php/exportPDF?idUtilisateur=<?php echo $i_idUtilisateur?>
-<?php echo "&id_camp=".$i_idCampagne;?>">Exporter au format PDF</a></p>
-<?php
+    <?php echo "&id_camp=".$i_idCampagne;?>"><img height="40" id="logo" src="<?php echo root ?>/Layouts/images/pdf.png" alt="<?php echo $titre_page ?>" /></a></p>
+
+    
+    <?php
 } else {
 ?>
 <p class="message">Vous n'avez pas de commande en cours.</p>

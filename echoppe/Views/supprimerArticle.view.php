@@ -4,12 +4,15 @@ if (Utilisateur::isLogged() && Administrateur::isAdministrateur($_SESSION['idUti
     ?>
     <h1> Suppression d'un article </h1>
     <?php
-} 
+}
 ?>
-<?php
-if (Utilisateur::isLogged() && Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
-    ?>
-    <p>Etes-vous bien sûr de vouloir supprimer cet article  ?</p>
+
+<center><img src="<?php echo root ?>/Layouts/images/warning.png" height="150" alt="<?php echo $titre_page ?>" />
+
+    <?php
+    if (Utilisateur::isLogged() && Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
+        ?>
+        <p><h3>Etes-vous bien sûr de vouloir supprimer cet article  ?</h3></p>
     <?php
 }
 ?>
@@ -21,6 +24,6 @@ if (Utilisateur::isLogged() && Administrateur::isAdministrateur($_SESSION['idUti
     <input type="hidden" name='i_pageNum' value='<?php echo $i_pageNum ?>' >
     <p><input type="submit" value="Valider"/></p>
 </form>
-
+</center>
     <?php
 

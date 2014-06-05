@@ -28,7 +28,7 @@
                 <td><center>  <?php echo $o_utilisateur['prenom'] ?> </center></td>
                 <td><center>  <?php echo $o_utilisateur['email'] ?> </center></td>                
                 <input type='hidden' name='id_utilisateur_a_suppr' value='<?php echo $o_utilisateur['login'] ?>'>
-                <td> <input type='submit' value='Supprimer'> </td>
+                <td height="30" width="25"> <center><input type="image" id='SUBMIT' value="Supprimer" src="<?php echo root ?>/Layouts/images/cross.png" height='13'></center></td>
 
             </form>
         </tr>
