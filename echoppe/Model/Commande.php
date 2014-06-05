@@ -305,6 +305,23 @@ class Commande {
                         where a.id=aC.id_article and aC.id_article=c.id_article and aC.id_campagne=c.id_campagne and c.id_campagne=$i_idCampagne and c.id_utilisateur=u.id and u.id=$i_idUtilisateur";
         return $sql_query;
     }
+    
+    public static function getExportCSVFournisseur($i_idFournisseur, $i_idCampagne) {
+        $sql_query = "select af.code, a.nom as Nom, SUM(c.quantite) as Quantite, u.valeur as Unite, af.prix_ht as Prix_HT_Paquet, SUM(c.quantite)*ac.poids_paquet_client*af.prix_ttc/a.poids_paquet_fournisseur as Prix_Total_TTC
+                        from article_fournisseur af, article a, commande c, article_campagne ac, unite u, campagne ca
+                        where a.id=ac.id_article and af.id_article_campagne=ac.id and u.id=a.id_unite and ca.id=ac.id_campagne and ac.id_fournisseur=af.id_fournisseur and c.id_article=a.id and c.id_campagne=ca.id and ac.id_fournisseur=$i_idFournisseur and ca.id=$i_idCampagne
+                        group by a.nom, a.poids_paquet_fournisseur";
+                return $sql_query;
+    }
+    
+    public static function getExportCSVTotalTTCFournisseur($i_idFournisseur, $i_idCampagne) {
+        $sql_query = "select SUM(Prix_Total_TTC.Prix_TTC) as Montant_Total_Fournisseur
+                            From (select SUM(c.quantite)*ac.poids_paquet_client*af.prix_ttc/a.poids_paquet_fournisseur as Prix_TTC
+                                     from article_fournisseur af, article a, commande c, article_campagne ac, unite u, campagne ca
+                                     where a.id=ac.id_article and af.id_article_campagne=ac.id and u.id=a.id_unite and ca.id=ac.id_campagne and ac.id_fournisseur=af.id_fournisseur and c.id_article=a.id and c.id_campagne=ca.id and ac.id_fournisseur=$i_idFournisseur and ca.id=$i_idCampagne
+                                     group by a.nom, a.poids_paquet_fournisseur) Prix_Total_TTC";
+                return $sql_query;
+    }        
 
     /* Setters */
 
