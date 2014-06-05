@@ -11,6 +11,7 @@ require_once('Model/Unite.php');
 require_once('Model/Article.php');
 require_once('Model/Campagne.php');
 require_once('Model/Categorie.php');
+require_once('Model/ArticleOrdre.php');
 
 require_once('Model/GererArticle.php');
 require_once('Model/ArticleFournisseur.php');
@@ -98,6 +99,11 @@ class ArticleController extends Controller {
             $num_article=count($to_descriptionArticle);
             
             $max_article = 2;
+            
+            
+            
+            
+            
             
             $i_pageTot= intval($num_article / $max_article)+1;
 
@@ -525,6 +531,9 @@ class ArticleController extends Controller {
                                            $i_nbPaquetColis, 
                                            $s_descriptionCourte, 
                                            $s_descriptionLongue);
+            
+            /* on met l'article dans la table ordre article, (à la fin, forcément)*/
+            $i_idArticleOrdre = ArticleOrdre::create($i_idArticle);
             /* création de l'entrée de la table article_campagne correspondant à l'entrée d'article */
             /* $i_idArticle déjà définie plus haut */
             $i_idCampagne = Campagne::getIdCampagneCourante();
