@@ -197,7 +197,7 @@ class ArticleFournisseur {
     }
 
     public static function getPrixTtcHt($i_id) {
-        $sql_query = "select pix_ttc_ht from article_fournisseur where id=$i_id";
+        $sql_query = "select prix_ttc_ht from article_fournisseur where id=$i_id";
         $sql_tmp = mysql_query($sql_query);
         $b_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {

@@ -10,6 +10,7 @@ require_once('Model/ArticleCampagne.php');
 require_once('Model/ArticleFournisseur.php');
 require_once('Model/Rayon.php');
 require_once('Model/Fournisseur.php');
+require_once('FPDF/fpdf.php');
 
 /*
  * Gère "Mes commandes" des utilisateurs en tant qu'utilisateur.
@@ -84,7 +85,7 @@ class MesCommandesController extends Controller {
             $o_article['total_ttc'] = number_format($o_article['total_ttc'], 2, '.', '');
             $f_montantTotal = number_format($f_montantTotal, 2, '.', '');
         }
-        $this->render('mesCommandes', compact('to_commande', 'b_etat', 'f_montantTotal'));
+        $this->render('mesCommandes', compact('to_commande', 'i_idCampagne', 'i_idUtilisateur', 'b_etat', 'f_montantTotal'));
     }
 
     
@@ -95,7 +96,7 @@ class MesCommandesController extends Controller {
             $this->render('authenticationRequired');
             return;
         }
-        /* Récupération de l'identifiant de la campagne courante */
+        /* Récupération de l'identifiant de la campagne souhaité */
         $i_idCampagne = $_GET['id_camp'];
         /* Récupération de l'état de la campagne */
         $b_etat = Campagne::getEtat($i_idCampagne);
@@ -146,7 +147,7 @@ class MesCommandesController extends Controller {
             $o_article['total_ttc'] = number_format($o_article['total_ttc'], 2, '.', '');
             $f_montantTotal = number_format($f_montantTotal, 2, '.', '');
         }
-        $this->render('mesCommandes', compact('to_commande', 'b_etat', 'f_montantTotal'));
+        $this->render('mesCommandes', compact('to_commande', 'i_idUtilisateur', 'i_idCampagne', 'b_etat', 'f_montantTotal'));
     }
 
     
@@ -223,7 +224,228 @@ class MesCommandesController extends Controller {
         /* Redirection */
         header('Location: '.root.'/mesCommandes.php/mesCommandes');
     }
+    
+    public function exportCSV() {
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        
+        /* Récupération des articles commandés par l'utilisateur courant */
+        $i_idUtilisateur = $_SESSION['idUtilisateur'];
+        /* Récupération de l'identifiant de la campagne courante */
+        $i_idCampagne = $_GET['id_camp'];
+        //echo $i_idCampagne;
+        /* Récupération de l'état de la campagne */
+        $b_etat = Campagne::getEtat($i_idCampagne);
+        
+        /*Récupération Nom et Prénom de l'Utilisateur*/
+        $userLogin=Utilisateur::getLogin($i_idUtilisateur);
+        $userName=Utilisateur::getNom($i_idUtilisateur);
+        $userSurname=Utilisateur::getPrenom($i_idUtilisateur);
+        
+        // Connect database
+        $database="bdechoppe";
+        mysql_connect("localhost","root","root");
+        mysql_select_db("bdechoppe");
 
+        // la variable qui va contenir les données CSV
+        $outputCsv = '';
+
+        // Nom du fichier qu'on initialise puis qu'on attribue
+        $fileName = "Commande_".$userLogin."_".$userName."_".$userSurname."_campagne".$i_idCampagne.".csv";
+        
+        // Deux requêtes : une qui exporte les données de la commande, l'autre le total TTC
+        $j=0;
+        while($j<2){
+            if($j == 0)
+                {
+                    $requete = Commande::getExportCSVDatas($i_idUtilisateur, $i_idCampagne);
+                    $sql = mysql_query($requete);
+                
+                }else{
+                    $requete= Commande::getExportCSVTotalTTC($i_idUtilisateur, $i_idCampagne);
+                    $sql = mysql_query($requete);
+                }
+        
+        if(mysql_num_rows($sql) > 0)
+        {
+            $i = 0;
+
+            while($Row = mysql_fetch_assoc($sql))
+            {
+                $i++;
+
+                // Si c'est la 1er boucle, on affiche le nom des champs pour avoir un titre pour chaque colonne
+                if($i == 1)
+                {
+                    foreach($Row as $clef => $valeur)
+                        $outputCsv .= trim($clef).';';
+
+                    $outputCsv = rtrim($outputCsv, ';');
+                    $outputCsv .= "\n";
+                }
+
+                // On parcours $Row et on ajout chaque valeur à cette ligne
+                foreach($Row as $clef => $valeur)
+                    $outputCsv .= trim($valeur).';';
+
+                // Suppression du ; qui traine à la fin
+                $outputCsv = rtrim($outputCsv, ';');
+
+                // Saut de ligne
+                $outputCsv .= "\n";
+
+            }
+        
+        }
+        else
+            exit('Aucune donnée à enregistrer.');
+        
+        $j=$j+1;
+        }
+        
+        header("Content-disposition: attachment; filename=".$fileName);
+        header("Content-Type: application/force-download");
+        header("Content-Transfer-Encoding: application/vnd.ms-excel\n");
+        header("Pragma: no-cache");
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0, public");
+        header("Expires: 0");
+
+        echo $outputCsv;
+        exit();
+    }
+    
+    public function exportPDF() {
+        
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Récupération des articles commandés par l'utilisateur courant */
+        $i_idUtilisateur = $_SESSION['idUtilisateur'];
+        /* Récupération de l'identifiant de la campagne courante */
+        $i_idCampagne = $_GET['id_camp'];
+        //echo $i_idCampagne;
+        /* Récupération de l'état de la campagne */
+        $b_etat = Campagne::getEtat($i_idCampagne);
+
+        /*Récupération Nom et Prénom de l'Utilisateur*/
+        $userLogin=Utilisateur::getLogin($i_idUtilisateur);
+        $userName=Utilisateur::getNom($i_idUtilisateur);
+        $userSurname=Utilisateur::getPrenom($i_idUtilisateur);
+        
+        //echo $userLogin;
+        //echo $userName;
+        //echo $userSurname;
+        //echo $i_idCampagne;
+        
+        /*Titre de la page PDF qui se charge, apparait dans le titre de la page Web*/
+        $docTitle="Recapitulatif de commande de ".$userLogin." ".$userName." ".$userSurname." pour la campagne ".$i_idCampagne;
+        
+        /*Création du PDF*/
+        $pdf=new FPDF('L','cm','A3');
+        $pdf->Open();
+        $pdf->SetTitle($docTitle);
+        
+        /*Titre du document*/
+        $pdf->SetFont('Arial','UB',14);
+        $pdf->AddPage();
+        $pdf->Write(5,$docTitle);
+        
+        /*Titres des colonnes*/
+        $header=array('Produit','Description','Code fournisseur', 'Poids paquet fournisseur','Nombre paquet par colis','Prix TTC','Prix TTC unitaire',
+        'Quantite min commande','Quantite','Quantite totale commandee',
+            'Total TTC');
+        $pdf->SetFont('Arial','B',7);
+        $pdf->SetFillColor(96,96,96);
+        $pdf->SetTextColor(255,255,255);
+        $pdf->SetXY(3,5);
+        for($i=0;$i<sizeof($header);$i++)
+                $pdf->cell(3.5,1,$header[$i],1,0,'C',1);
+        
+        /* On recupère la commande d'un utilisateur */
+        $to_commande = Commande::getObjectsByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur);
+        
+        /* Montant total */
+        $f_montantTotal = 0;
+        $f_montantParRayon = NULL;
+        
+        /* Récupération de tous les attributs nécessaires d'un article */
+        foreach($to_commande as &$o_article) {
+            /* Attributs dépendant de l'article */
+            $i_idArticle = $o_article['id_article'];
+            $o_article['nom'] = Article::getNom($i_idArticle);
+            $o_article['poids_paquet_fournisseur'] = Article::getPoidsPaquetFournisseur($i_idArticle);
+            $i_idUnite = Article::getIdUnite($i_idArticle);
+            $o_article['unite'] = Unite::getUnite($i_idUnite);
+            $o_article['nb_paquet_colis'] = Article::getNbPaquetColis($i_idArticle);
+            $o_article['description_courte'] = Article::getDescriptionCourte($i_idArticle);
+            $o_article['description_longue'] = Article::getDescriptionLongue($i_idArticle);
+            /* Prix TTC, seuil min et poids paquet client */
+            $o_article_campagne = ArticleCampagne::getObjectByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+            $o_article['prix_ttc'] = $o_article_campagne['prix_ttc'];
+            $o_article['seuil_min'] = $o_article_campagne['seuil_min'];
+            $o_article['poids_paquet_client'] = $o_article_campagne['poids_paquet_client'];
+            /* Récupération du Code Fournisseur*/
+            $i_idArticleCampagne = ArticleCampagne::getIdByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+            $i_idFournisseur = ArticleCampagne::getIdFournisseur($i_idArticleCampagne);
+            //$o_article_fournisseur = ArticleFournisseur::getObjectByIdArticleCampagneIdFournisseur($i_idArticleCampagne, $i_idFournisseur);
+            $i_idArticleFournisseur = ArticleFournisseur::getIdByIdArticleCampagneIdFournisseur($i_idArticleCampagne, $i_idFournisseur);
+            $o_article['code'] = ArticleFournisseur::getCode($i_idArticleFournisseur);
+            
+
+
+            /* Valeurs calculées */
+            /* Calcul poids unitaire */
+            $o_article['prix_unitaire'] = $o_article['prix_ttc'] / $o_article['poids_paquet_fournisseur'];
+            /* Calcul quantité totale */
+            $o_article['quantite_totale'] = $o_article['quantite'] * $o_article['poids_paquet_client'];
+            /* Calcul total TTC */
+            $o_article['total_ttc'] = $o_article['quantite_totale'] * $o_article['prix_ttc'] / $o_article['poids_paquet_fournisseur'];
+            /* Calcul du montant total */
+            $f_montantTotal += (float) $o_article['total_ttc'];
+            if(isset($f_montantParRayon[$o_article['nom_rayon']]))
+                $f_montantParRayon[$o_article['nom_rayon']]+=(float) $o_article['total_ttc'];
+            else 
+                $f_montantParRayon[$o_article['nom_rayon']]=(float) $o_article['total_ttc'];
+            /* Formattage des nombres */
+            $o_article['prix_unitaire'] = number_format($o_article['prix_unitaire'], 2, '.', '');
+            $o_article['quantite_totale'] = number_format($o_article['quantite_totale'], 2, '.', '');
+            $o_article['total_ttc'] = number_format($o_article['total_ttc'], 2, '.', '');
+            $f_montantTotal = number_format($f_montantTotal, 2, '.', '');
+           
+
+            $pdf->SetFillColor(0xdd,0xdd,0xdd);
+            $pdf->SetTextColor(0,0,0);
+            $pdf->SetFont('Arial','',10);
+            $pdf->SetXY(3,$pdf->GetY()+1);
+            $fond=0;
+        
+            $pdf->cell(3.5,0.7,$o_article['nom'],1,0,'C',$fond);
+            $pdf->cell(3.5,0.7,$o_article['description_courte'],1,0,'C',$fond);
+            $pdf->cell(3.5,0.7,$o_article['code'],1,0,'C',$fond);
+            $pdf->cell(3.5,0.7,$o_article['poids_paquet_fournisseur'],1,0,'C',$fond);
+            $pdf->cell(3.5,0.7,$o_article['nb_paquet_colis'],1,0,'C',$fond);
+            $pdf->cell(3.5,0.7,$o_article['prix_ttc'],1,0,'C',$fond);
+            $pdf->cell(3.5,0.7,$o_article['prix_unitaire'],1,0,'C',$fond);
+            $pdf->cell(3.5,0.7,$o_article['seuil_min'],1,0,'C',$fond);
+            $pdf->cell(3.5,0.7,$o_article['quantite'],1,0,'C',$fond);
+            $pdf->cell(3.5,0.7,$o_article['quantite_totale'],1,0,'C',$fond);
+            $pdf->cell(3.5,0.7,$o_article['total_ttc'],1,0,'C',$fond);
+            $pdf->SetXY(3.5,$pdf->GetY()+0);
+            $fond=!$fond;
+        }
+        /*Montant total*/
+        $Montant_Total="Total : ".$f_montantTotal." Euros";
+        $pdf->SetFont('Arial','B',14);
+        $pdf->Write($pdf->GetY()+2,$Montant_Total);
+        
+        /*Fin PDF*/
+        $pdf->output();
+    }
 
     /*
      * Action par défaut.
