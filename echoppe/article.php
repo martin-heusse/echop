@@ -12,6 +12,7 @@ require_once('Model/Unite.php');
 require_once('Model/Article.php');
 require_once('Model/Campagne.php');
 require_once('Model/Categorie.php');
+require_once('Model/ArticleOrdre.php');
 
 require_once('Model/GererArticle.php');
 require_once('Model/ArticleFournisseur.php');
@@ -104,14 +105,13 @@ class ArticleController extends Controller {
             $max_article = 10;
 
             $i_pageTot = intval($num_article / $max_article) + 1;
-
-            if ($num_article > $max_article) {
-                if (!isset($_GET['i_pageNum'])) {
-                    $i_pageNum = -1;
-                } else {
-                    $i_pageNum = $_GET['i_pageNum'];
-                    $fin_pre = ($i_pageNum - 1) * $max_article;
-                    $to_descriptionArticle = array_slice($to_descriptionArticle, $fin_pre, $max_article);
+           
+            if($num_article > $max_article){
+                if (!isset($_GET['i_pageNum'])) {$i_pageNum=-1;}
+                else {
+                    $i_pageNum=$_GET['i_pageNum'];
+                    $fin_pre = ($i_pageNum-1)* $max_article;
+                    $to_descriptionArticle = array_slice($to_descriptionArticle,$fin_pre, $max_article);
                 }
             } else {
                 $i_pageNum = 0;
@@ -711,7 +711,18 @@ class ArticleController extends Controller {
             $i_nbPaquetColis = $_POST['nb_paquet_colis'];
             $s_descriptionCourte = $_POST['description_courte'];
             $s_descriptionLongue = $_POST['description_longue'];
-            $i_idArticle = Article::create($i_idRayon, $i_idCategorie, $s_nomProduit, $f_poidsPaquetFournisseur, $i_idUnite, $i_nbPaquetColis, $s_descriptionCourte, $s_descriptionLongue);
+            $i_idArticle = Article::create($i_idRayon, 
+                                           $i_idCategorie, 
+                                           $s_nomProduit, 
+                                           $f_poidsPaquetFournisseur, 
+                                           $i_idUnite, 
+                                           $i_nbPaquetColis, 
+                                           $s_descriptionCourte, 
+                                           $s_descriptionLongue);
+            
+            /* on met l'article dans la table ordre article, (à la fin, forcément)*/
+            $i_idArticleOrdre = ArticleOrdre::create($i_idArticle);
+
             /* création de l'entrée de la table article_campagne correspondant à l'entrée d'article */
             /* $i_idArticle déjà définie plus haut */
             $i_idCampagne = Campagne::getIdCampagneCourante();

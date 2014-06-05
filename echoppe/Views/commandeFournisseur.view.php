@@ -62,6 +62,12 @@ if($i_nbreArticle != 0) {
 
     }
 ?>
+<td class="centrer"></td>
+<td class="centrer"></td>
+<td class="centrer"></td>
+<td class="centrer"><b><?php echo 'Montant total'?></b></td>
+<td class="centrer"><b><?php echo $f_montantTtc ?>&euro;</b></td>
+
 <p><a class="action_navigation" href="<?php echo root ?>/fournisseur.php/exportCSV?idFournisseur=<?php echo $i_idFournisseur?>
 <?php
 /* Si navigation dans l'historique */

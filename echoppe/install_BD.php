@@ -108,6 +108,13 @@ $commands=array(//
     constraint fk_article_fournisseur_2 foreign key(id_fournisseur) 
     references fournisseur(id) on delete cascade
 ) ENGINE = INNODB;",
+"CREATE TABLE article_ordre (
+    id integer not null auto_increment,
+    id_article integer not null,
+    constraint pk_article_ordre primary key(id),
+    constraint fk_article_ordre foreign key(id_article)
+    references article(id) on delete cascade
+) ENGINE = INNODB;",
 "CREATE TABLE commande (
     id integer not null auto_increment,
     id_article integer not null,

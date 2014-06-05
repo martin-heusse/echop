@@ -2,7 +2,7 @@
 <html>
 <body>
     
-<h1>Trier les articles par drag'n'drop</h1>
+<h1>Trier les articles </h1>
 <?php
 if($to_descriptionArticle == array()){ 
 ?>

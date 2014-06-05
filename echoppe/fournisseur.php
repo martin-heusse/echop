@@ -196,9 +196,43 @@ class FournisseurController extends Controller {
             $o_article['prix_ttc_ht'] = ArticleFournisseur::getPrixTtcHt($i_idArticleFournisseur);
             $o_article['vente_paquet_unite'] = ArticleFournisseur::getVentePaquetUnite($i_idArticleFournisseur);
 
-
+            // Récupération de la somme totale de la commande pour le fournisseur
+            
+            $to_articleFournisseur = ArticleCampagne::getObjectsByIdCampagneIdFournisseur($i_idCampagne, $i_idFournisseur);
+            $f_montantTtc = 0;
+            /* pour un fournisseur donné, on récupère tous les articles 
+             * commandés*/
+            foreach ($to_articleFournisseur as &$o_articleFournisseur) {
+                /* pour chaque article, on récupère les données qui vont nous 
+                 * permettre de calculer le prix d'achat au fournisseur */
+                $i_quantiteTotaleArticle = 0;
+                $i_idArticle = $o_articleFournisseur['id_article'];
+                $f_poidsPaquetClient = $o_articleFournisseur['poids_paquet_client'];
+                $ti_idUtilisateur = Commande::getIdUtilisateurByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+                /* pour chaque utilisateur, on regarde combien il a commandé */
+                foreach ($ti_idUtilisateur as $i_idUtilisateur) {
+                    $i_id = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
+                    $i_quantite = Commande::getQuantite($i_id);
+                    $i_quantiteTotaleArticle += $i_quantite;
+                }
+                /* On calcule la quantité totale commandée selon l'unité */
+                $i_quantiteTotaleArticleReelle = $i_quantiteTotaleArticle * $f_poidsPaquetClient;
+                /* on cherche le prix du paquet fournisseur*/
+                $i_idArticleCampagne = ArticleCampagne::getIdByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+                $f_prixTtcArticle = ArticleFournisseur::getPrixTtcByIdArticleCampagneIdFournisseur($i_idArticleCampagne, $i_idFournisseur);
+                $i_poidsPaquetFournisseur = Article::getPoidsPaquetFournisseur($i_idArticle);
+                $f_prixTotaleArticle = $i_quantiteTotaleArticleReelle * $f_prixTtcArticle / $i_poidsPaquetFournisseur;
+                $f_montantTtc += $f_prixTotaleArticle;
+            }
+            /* Montant du aux fournisseurs */
+            $o_fournisseur['montant_total'] = $f_montantTtc;
+            /* Formattage des nombres */
+            $o_fournisseur['montant_total'] = number_format($o_fournisseur['montant_total'], 2, '.', ' ');
+            $f_montantTtc=$o_fournisseur['montant_total'];
+        
+            
         }
-        $this->render('commandeFournisseur', compact('to_article', 'i_nbreArticle', 'b_historique', 'i_idCampagne', 'i_idFournisseur'));
+        $this->render('commandeFournisseur', compact('f_montantTtc', 'to_article', 'i_nbreArticle', 'b_historique', 'i_idCampagne', 'i_idFournisseur'));
     }
 
     /*
@@ -223,6 +257,108 @@ class FournisseurController extends Controller {
             return;
     }
     
+    public function exportCSV() {
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if (!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
+        
+        /* On récupère l'identifiant du fournisseur */
+        if(!isset($_GET['idFournisseur'])) {
+            header('Location: '.root.'/articleCampagne.php/fournisseursChoisis');
+            return;
+        }
+        $i_idFournisseur = $_GET['idFournisseur'];
+        /* Navigation dans l'historique ou non */
+        $b_historique = 0;
+        if (isset($_GET['idOldCampagne'])) {
+            $i_idCampagne = $_GET['idOldCampagne'];
+            $b_historique = 1;
+        } else {
+            $i_idCampagne = Campagne::getIdCampagneCourante();
+        }
+        
+        /*Récupération nom Fournisseur*/
+        $fournisseurName=  Fournisseur::getNom($i_idFournisseur);
+        
+        // Connect database
+        $database="bdechoppe";
+        mysql_connect("localhost","root","root");
+        mysql_select_db("bdechoppe");
+
+        // la variable qui va contenir les données CSV
+        $outputCsv = '';
+
+        // Nom du fichier qu'on initialise puis qu'on attribue
+        $fileName = "Commande_fournisseur_".$fournisseurName."_campagne".$i_idCampagne.".csv";
+        
+        // Deux requêtes : une qui exporte les données de la commande, l'autre le total TTC
+        $j=0;
+        while($j<2){
+            if($j == 0)
+                {
+                    $requete = Commande::getExportCSVFournisseur($i_idFournisseur, $i_idCampagne);
+                    $sql = mysql_query($requete);
+                
+                }else{
+                    $requete= Commande::getExportCSVTotalTTCFournisseur($i_idFournisseur, $i_idCampagne);
+                    $sql = mysql_query($requete);
+                }
+        
+        if(mysql_num_rows($sql) > 0)
+        {
+            $i = 0;
+
+            while($Row = mysql_fetch_assoc($sql))
+            {
+                $i++;
+
+                // Si c'est la 1er boucle, on affiche le nom des champs pour avoir un titre pour chaque colonne
+                if($i == 1)
+                {
+                    foreach($Row as $clef => $valeur)
+                        $outputCsv .= trim($clef).';';
+
+                    $outputCsv = rtrim($outputCsv, ';');
+                    $outputCsv .= "\n";
+                }
+
+                // On parcours $Row et on ajout chaque valeur à cette ligne
+                foreach($Row as $clef => $valeur)
+                    $outputCsv .= trim($valeur).';';
+
+                // Suppression du ; qui traine à la fin
+                $outputCsv = rtrim($outputCsv, ';');
+
+                // Saut de ligne
+                $outputCsv .= "\n";
+
+            }
+        
+        }
+        else
+            exit('Aucune donnée à enregistrer.');
+        
+        $j=$j+1;
+        }
+        
+        header("Content-disposition: attachment; filename=".$fileName);
+        header("Content-Type: application/force-download");
+        header("Content-Transfer-Encoding: application/vnd.ms-excel\n");
+        header("Pragma: no-cache");
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0, public");
+        header("Expires: 0");
+
+        echo $outputCsv;
+        exit();
+    }    
+
     public function exportPDF() {
         
         /* Authentication required */
@@ -250,9 +386,12 @@ class FournisseurController extends Controller {
         } else {
             $i_idCampagne = Campagne::getIdCampagneCourante();
         }
-                
+        
+        /*Nom Fournisseur*/
+        $nomFournisseur=Fournisseur::getNom($i_idFournisseur);
+        
         /*Titre de la page PDF qui se charge, apparait dans le titre de la page Web*/
-        $docTitle="Recapitulatif de commande du fournisseur ".$i_idFournisseur." pour la campagne ".$i_idCampagne;
+        $docTitle="Recapitulatif de commande du fournisseur ".$nomFournisseur." pour la campagne ".$i_idCampagne;
         
         /*Création du PDF*/
         $pdf=new FPDF('P','cm','A4');
@@ -269,7 +408,7 @@ class FournisseurController extends Controller {
         $pdf->SetFont('Arial','B',7);
         $pdf->SetFillColor(96,96,96);
         $pdf->SetTextColor(255,255,255);
-        $pdf->SetXY(3,5);
+        $pdf->SetXY(2,5);
         for($i=0;$i<sizeof($header);$i++)
                 $pdf->cell(3.5,1,$header[$i],1,0,'C',1);
         
@@ -338,7 +477,7 @@ class FournisseurController extends Controller {
             $pdf->SetFillColor(0xdd,0xdd,0xdd);
             $pdf->SetTextColor(0,0,0);
             $pdf->SetFont('Arial','',10);
-            $pdf->SetXY(3,$pdf->GetY()+1);
+            $pdf->SetXY(2,$pdf->GetY()+1);
             $fond=0;
         
             // Tests pour la colonne 4
@@ -359,13 +498,51 @@ class FournisseurController extends Controller {
             $pdf->cell(3.5,0.7,$o_article['quantite_totale'].$o_article['unite'].$o_article['quantite_totale_unites']." (".$o_article['quantite_totale_unites']." unites)",1,0,'C',$fond);
             $pdf->cell(3.5,0.7,$prix." euros/".$paq_unit.$ht_ttc,1,0,'C',$fond);
             $pdf->cell(3.5,0.7,$o_article['montant_total'],1,0,'C',$fond);
-            $pdf->SetXY(3.5,$pdf->GetY()+0);
+            $pdf->SetXY(2,$pdf->GetY()+0);
             $fond=!$fond;
         }
+
+        // Récupération de la somme totale de la commande pour le fournisseur
+
+        $to_articleFournisseur = ArticleCampagne::getObjectsByIdCampagneIdFournisseur($i_idCampagne, $i_idFournisseur);
+        $f_montantTtc = 0;
+        /* pour un fournisseur donné, on récupère tous les articles 
+         * commandés*/
+        foreach ($to_articleFournisseur as &$o_articleFournisseur) {
+            /* pour chaque article, on récupère les données qui vont nous 
+             * permettre de calculer le prix d'achat au fournisseur */
+            $i_quantiteTotaleArticle = 0;
+            $i_idArticle = $o_articleFournisseur['id_article'];
+            $f_poidsPaquetClient = $o_articleFournisseur['poids_paquet_client'];
+            $ti_idUtilisateur = Commande::getIdUtilisateurByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+            /* pour chaque utilisateur, on regarde combien il a commandé */
+            foreach ($ti_idUtilisateur as $i_idUtilisateur) {
+                $i_id = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
+                $i_quantite = Commande::getQuantite($i_id);
+                $i_quantiteTotaleArticle += $i_quantite;
+            }
+            /* On calcule la quantité totale commandée selon l'unité */
+            $i_quantiteTotaleArticleReelle = $i_quantiteTotaleArticle * $f_poidsPaquetClient;
+            /* on cherche le prix du paquet fournisseur*/
+            $i_idArticleCampagne = ArticleCampagne::getIdByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+            $f_prixTtcArticle = ArticleFournisseur::getPrixTtcByIdArticleCampagneIdFournisseur($i_idArticleCampagne, $i_idFournisseur);
+            $i_poidsPaquetFournisseur = Article::getPoidsPaquetFournisseur($i_idArticle);
+            $f_prixTotaleArticle = $i_quantiteTotaleArticleReelle * $f_prixTtcArticle / $i_poidsPaquetFournisseur;
+            $f_montantTtc += $f_prixTotaleArticle;
+        }
+        /* Montant du aux fournisseurs */
+        $o_fournisseur['montant_total'] = $f_montantTtc;
+        /* Formattage des nombres */
+        $o_fournisseur['montant_total'] = number_format($o_fournisseur['montant_total'], 2, '.', ' ');
+        $f_montantTtc=$o_fournisseur['montant_total'];
         
-        //Implanter un montant total TODO
+        /*Montant total*/
+        $Montant_Total="Total : ".$f_montantTtc." Euros";
+        $pdf->SetFont('Arial','B',10);
+        $pdf->SetXY(16,$pdf->GetY()+1);
+        $pdf->cell(3.5,0.7,$Montant_Total,1,0,'C',$fond);
         
-        /*Fin PDF*/
+        /*Fin du PDF*/
         $pdf->output();
     }
     
