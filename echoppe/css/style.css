@@ -218,6 +218,11 @@ form .input_quantite {
     text-align: center;
 }
 
+form .input_quantite2 {
+    width: 130px;
+    text-align: center;
+}
+
 form .input_valider {
     margin-top: 10px;
     float: right;
@@ -271,7 +276,7 @@ form .input_valider {
 
 /* Pour que les flottants ne dépassent pas de leur conteneur */
 .clear {
-    clear: both;
+    clear: both;    
     height: 0;
     overflow: hidden; /* Précaution pour IE 7 */
 }

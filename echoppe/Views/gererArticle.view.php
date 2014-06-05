@@ -1,4 +1,3 @@
-use Fournisseur.php;
 <!-- interface de gestion des articles -->
 <?php
 /* Si navigation dans l'historique */
@@ -150,6 +149,7 @@ if($i_pageNum > 0){
     <thead> <!-- En-tête du tableau -->
         <tr class="tab_article">
             <th>Mettre en vente auprès du client</th>
+            <th>Supprimer l'article</th>
             <th>Produit</th>
             <th>Description courte</th>
             <th>Description longue</th>
@@ -177,7 +177,7 @@ foreach($to_fournisseur as $o_fournisseur){
             <th>Ajouter un nouveau fournisseur</th>
            
          </tr>
-         
+    
     </thead>
     <tbody> <!-- Corps du tableau -->
 <?php
@@ -231,9 +231,15 @@ foreach ($to_categorie as $o_categorie) {
                         >Pas en vente</option>
                     </select>
                 </td>
+                <!-- Suppression du produit -->
+                <td>                                    
+                    <center><input type="submit" name="supprimer_<?php echo $i_idArticleCampagne?>" 
+                                   value="OK"></center>   
+                </td>
+                
                 <!-- Nom du produit -->
                 <td class="center tab_article" title="Produit : Le nom du produit">
-                    <input class="input_quantite" 
+                    <input class="input_quantite2"
                            type="text" 
                            name="nom_produit[]" 
                            value="<?php echo $o_descriptionArticle['nom']?>" 
@@ -242,7 +248,7 @@ foreach ($to_categorie as $o_categorie) {
                 </td>
                 <!-- Description courte -->
                 <td class="center tab_article" title="Description courte : présentation brève du produit" >
-                    <input class="input_quantite" 
+                    <input class="input_quantite2" 
                            type="text" 
                            name="description_courte[]" 
                            value="<?php echo $o_descriptionArticle['description_courte']?>" 
@@ -251,7 +257,7 @@ foreach ($to_categorie as $o_categorie) {
                 </td>
                 <!--Description longue -->
                 <td class="center tab_article" title="Description longue : présentation plus détaillée du produit">
-                    <input class="input_quantite" 
+                    <input class="input_quantite2" 
                        type="text" name="description_longue[]" 
                        value="<?php echo $o_descriptionArticle['description_longue']?>" 
                        required 
