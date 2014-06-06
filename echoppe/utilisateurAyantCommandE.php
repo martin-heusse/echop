@@ -314,9 +314,9 @@ class UtilisateurAyantCommandEController extends Controller {
         $userSurname=Utilisateur::getPrenom($i_idUtilisateur);
         
         // Connect database
-        $database="bdechoppe";
+        $database="BdEchoppe";
         mysql_connect("localhost","root","root");
-        mysql_select_db("bdechoppe");
+        mysql_select_db("BdEchoppe");
 
         // la variable qui va contenir les données CSV
         $outputCsv = '';

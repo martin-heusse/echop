@@ -6,6 +6,14 @@ insert into utilisateur(login, mot_de_passe, email, validite) values('Philippe',
 insert into utilisateur(login, mot_de_passe, email, validite) values('Johann', 'johann', 'johann.yvetot@ensimag.fr', true);
 insert into utilisateur(login, mot_de_passe, email, validite) values('Paul', 'paul', 'paul@email.com', false);
 
+-- CREATION NOM UTILISATEURS
+insert into datasUtilisateur(nom, prenom) values ('Root', 'root');
+insert into datasUtilisateur(nom, prenom) values ('Aurore', 'Martin');
+insert into datasUtilisateur(nom, prenom) values ('Gilles', 'Michel');
+insert into datasUtilisateur(nom, prenom) values ('Philippe', 'Michel');
+insert into datasUtilisateur(nom, prenom) values ('Johann', 'Arthur');
+insert into datasUtilisateur(nom, prenom) values ('Paul', 'Jean');
+
 -- DETERMINATION DES ADMINISTRATEUR PARMI LES UTILISATEURS
 insert into administrateur(id_utilisateur) values(1);
 insert into administrateur(id_utilisateur) values(6);
