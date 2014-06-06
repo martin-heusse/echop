@@ -9,16 +9,6 @@ class ArticleOrdre {
         $i_result = mysql_insert_id();
         return $i_result;
     }
-    
-    public static function getOrdreArticle(){
-        $result = mysql_query("SELECT * FROM article_ordre ORDER BY id");
-		echo "<ul class='article'>\n";
-		while ($row = mysql_fetch_array($result)) {
-			echo "<li>".$row['id_article']."</li>\n";
-		}
-		echo "</ul>";
-	}
-        
         
 }
    
