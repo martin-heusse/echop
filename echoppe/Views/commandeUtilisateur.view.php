@@ -130,14 +130,14 @@ if ($b_historique == 1) {
 }
 ?>
 "><img height="40" id="logo" src="<?php echo root ?>/Layouts/images/pdf.png" alt="<?php echo $titre_page ?>" /></a></p>
-<p><a class="action_navigation" href="<?php echo root ?>/utilisateurAyantCommandE.php/etiquetteUser?idUtilisateur=<?php echo $i_idUtilisateur?>
+<p><a class="action_navigation" href="<?php echo root ?>/utilisateurAyantCommandE.php/etiquettesUtilisateur?idUtilisateur=<?php echo $i_idUtilisateur?>
 <?php
 /* Si navigation dans l'historique */
 if ($b_historique == 1) {
     echo "&idOldCampagne=".$i_idCampagne;
 }
 ?>
-"><img height="40" id="logo" src="<?php echo root ?>/Layouts/images/tag1.png" alt="<?php echo $titre_page ?>" /></a></p>
+">Générer l'étiquette de cette commande</a></p>
 
 <?php
 } else {
