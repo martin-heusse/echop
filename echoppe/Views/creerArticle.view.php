@@ -3,7 +3,7 @@
     <!-- Le lien de retour -->
     <p>
         <a  class="action_navigation" 
-            href="<?php echo root ?>/article.php/afficherArticle?i_idRayon=<?php echo $o_rayon['id'] ?>">
+            href="<?php echo root ?>/article.php/afficherArticle?i_pageNum=1&i_idRayon=<?php echo $o_rayon['id'] ?>">
             Retour aux articles de <?php echo $o_rayon['nom'] ?>
         </a>
     </p>

@@ -62,22 +62,31 @@ if($i_nbreArticle != 0) {
 
     }
 ?>
-<p><a class="action_navigation" href="<?php echo root ?>/fournisseur.php/exportCSV?idFournisseur=<?php echo $i_idFournisseur?>
+<td class="centrer"></td>
+<td class="centrer"></td>
+<td class="centrer"></td>
+<td class="centrer"><b><?php echo 'Montant total'?></b></td>
+<td class="centrer"><b><?php echo $f_montantTtc ?>&euro;</b></td>
+
+
+</table>
+
+<p><a href="<?php echo root ?>/fournisseur.php/exportCSV?idFournisseur=<?php echo $i_idFournisseur?>
 <?php
 /* Si navigation dans l'historique */
 if ($b_historique == 1) {
     echo "&idOldCampagne=".$i_idCampagne;
 }
 ?>
-">Exporter au format CSV (Excel) la commande fournisseur</a></p>
-<p><a class="action_navigation" href="<?php echo root ?>/fournisseur.php/exportPDF?idFournisseur=<?php echo $i_idFournisseur?>
+"><img height="40" id="logo" src="<?php echo root ?>/Layouts/images/excel.png" alt="<?php echo $titre_page ?>" /></a></p>
+<p><a href="<?php echo root ?>/fournisseur.php/exportPDF?idFournisseur=<?php echo $i_idFournisseur?>
 <?php
 /* Si navigation dans l'historique */
 if ($b_historique == 1) {
     echo "&idOldCampagne=".$i_idCampagne;
 }
 ?>
-">Exporter au format PDF la commande fournisseur</a></p>
+"><img height="40" id="logo" src="<?php echo root ?>/Layouts/images/pdf.png" alt="<?php echo $titre_page ?>" /></a></p>
 <?php
 } else {
     /* Cas où aucun article n'a été commandé */
@@ -86,6 +95,4 @@ if ($b_historique == 1) {
 <?php
 }
 ?>
-</table>
-
 <script src="../js/script.js"></script>

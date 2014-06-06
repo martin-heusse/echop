@@ -4,14 +4,22 @@ use BdEchoppe;
 
 CREATE TABLE utilisateur (
     id integer not null auto_increment,
-    nom varchar(255),
-    prenom varchar(255),
+    --nom varchar(255),
+    --prenom varchar(255),
     login varchar(255),
     mot_de_passe varchar(255),
     email varchar(255),
     validite boolean, 
 
     constraint pk_utilisateur primary key(id)
+) ENGINE = INNODB;
+
+CREATE TABLE datasUtilisateur (
+    id integer not null auto_increment,
+    nom varchar(255),
+    prenom varchar(255), 
+
+    constraint fk_utilisateur foreign key(id) references utilisateur(id) on delete cascade
 ) ENGINE = INNODB;
 
 CREATE TABLE administrateur (

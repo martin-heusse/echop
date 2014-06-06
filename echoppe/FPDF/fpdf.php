@@ -379,7 +379,14 @@ function Header()
 
 function Footer()
 {
-	// To be implemented in your own inherited class
+    //Bas de page
+    $this->SetY(-2);
+    // Milieu de page
+    $this->SetX(8.5);
+    // Select Arial italic 8
+    $this->SetFont('Arial','I',8);
+    // Footer personnalisé au site de l'échoppe d'ici et d'ailleurs
+    $this->Write(0,'L\'echoppe d\'ici et d\'ailleurs');
 }
 
 function PageNo()

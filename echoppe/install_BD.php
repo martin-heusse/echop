@@ -15,6 +15,13 @@ $commands=array(//
     validite boolean, 
     constraint pk_utilisateur primary key(id)
 ) ENGINE = INNODB;",
+"CREATE TABLE datasUtilisateur (
+    id integer not null auto_increment,
+    nom varchar(255),
+    prenom varchar(255), 
+
+    constraint fk_utilisateur foreign key(id) references utilisateur(id) on delete cascade
+) ENGINE = INNODB;",
 "CREATE TABLE administrateur (
     id integer not null auto_increment,
     id_utilisateur integer not null,

@@ -18,6 +18,19 @@ body {
 
 /* ========================================================================== */
 /* Général */
+a:link {  
+    text-decoration: none; 
+    color: #666666;
+}
+a:visited { 
+    font-weight: bold; 
+    text-decoration: none; 
+    color: #666666;
+}
+a:hover, a:focus, a:active { 
+    text-decoration: none ;
+    color: #9685BA;
+}
 
 
 /* ========================================================================== */
@@ -28,6 +41,7 @@ body {
     background-repeat: no-repeat;
     background-position: right;
     height: 120px;
+    width: 2850px;
 }
 
 #logo {
@@ -55,20 +69,20 @@ body {
     float: left;
     background-color: #666666;
     color: #cccccc;
-    width: 250px;
-    min-height: 700px;
+    width: 300px;
+    min-height: 1400px;
 }
 
 #menu .titre_menu {
-    margin-left: -5px;
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 15px;
+    margin-left: 20px;
+    margin-top: 25px;
+    margin-bottom: 10px;
 }
 
 #menu ul {
-    list-style-type: none;
-    margin-left: -20px;
+    list-style-type: circle;
+    margin-left: 0px;
+    margin-right: 4px;
 }
 
 #menu ul a, #bonjour {
@@ -76,8 +90,9 @@ body {
     text-decoration: none;
 }
 
-#menu ul a:hover {
-    text-decoration: underline;
+#menu ul a:hover, a:focus, a:active { 
+    text-decoration: none; 
+    color: #9685BA;
 }
 
 #bonjour {
@@ -96,10 +111,11 @@ body {
 #contenu {
     padding-left: 20px;
     padding-right: 20px;
-    margin-left: 250px;
+    margin-left: 300px;
 }
 
 h1 {
+    color: #666666;
     text-align: center;
     margin-top: 5px;
     margin-bottom: 10px;
@@ -158,7 +174,12 @@ h1 {
 
 /* Liens "cacher" "montrer" */
 .cat_bouton {
-    color: blue;
+    color: #666666;
+}
+
+.cat_bouton:hover, .cat_bouton:focus, .cat_bouton:active { 
+    text-decoration: none ; 
+    color: #9685BA;
 }
 
 table {
@@ -218,6 +239,11 @@ form .input_quantite {
     text-align: center;
 }
 
+form .input_quantite2 {
+    width: 130px;
+    text-align: center;
+}
+
 form .input_valider {
     margin-top: 10px;
     float: right;
@@ -271,63 +297,64 @@ form .input_valider {
 
 /* Pour que les flottants ne dépassent pas de leur conteneur */
 .clear {
-    clear: both;
+    clear: both;    
     height: 0;
     overflow: hidden; /* Précaution pour IE 7 */
 }
 
 /* Prevent the text contents of draggable elements from being selectable. */
 [draggable] {
-  -moz-user-select: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
 
     -user-select: none;
-   /*Required to make elements draggable in old WebKit*/ 
-  -khtml-user-drag: element;
-  -webkit-user-drag: element;
+    /*Required to make elements draggable in old WebKit*/ 
+    -khtml-user-drag: element;
+    -webkit-user-drag: element;
 }
 .column {
-  height: 20px;
-  width: 300px;
-  float: left;
-  border: 2px solid #666666;
-  background-color: #ccc;
-  margin-right: 5px;
-  -webkit-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 3px #000;
-  -ms-box-shadow: inset 0 0 3px #000;
-  box-shadow: inset 0 0 3px #000;
-  text-align: center;
-  cursor: move;
+    height: 20px;
+    width: 300px;
+    float: left;
+    border: 2px solid #666666;
+    background-color: #ccc;
+    margin-right: 5px;
+    -webkit-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 3px #000;
+    -ms-box-shadow: inset 0 0 3px #000;
+    box-shadow: inset 0 0 3px #000;
+    text-align: center;
+    cursor: move;
 }
 .column header {
-  color: #fff;
-  text-shadow: #000 0 1px;
-  box-shadow: 5px;
-  padding: 5px;
-  background: -moz-linear-gradient(left center, rgb(0,0,0), rgb(79,79,79), rgb(21,21,21));
-  background: -webkit-gradient(linear, left top, right top,
-                               color-stop(0, rgb(0,0,0)),
-                               color-stop(0.50, rgb(79,79,79)),
-                               color-stop(1, rgb(21,21,21)));
-  background: -webkit-linear-gradient(left center, rgb(0,0,0), rgb(79,79,79), rgb(21,21,21));
-  background: -ms-linear-gradient(left center, rgb(0,0,0), rgb(79,79,79), rgb(21,21,21));
-  border-bottom: 1px solid #ddd;
-  -webkit-border-top-left-radius: 10px;
-  -moz-border-radius-topleft: 10px;
-  -ms-border-radius-topleft: 10px;
-  border-top-left-radius: 10px;
-  -webkit-border-top-right-radius: 10px;
-  -ms-border-top-right-radius: 10px;
-  -moz-border-radius-topright: 10px;
-  border-top-right-radius: 10px;
+    color: #fff;
+    text-shadow: #000 0 1px;
+    box-shadow: 5px;
+    padding: 5px;
+    background: -moz-linear-gradient(left center, rgb(0,0,0), rgb(79,79,79), rgb(21,21,21));
+    background: -webkit-gradient(linear, left top, right top,
+        color-stop(0, rgb(0,0,0)),
+        color-stop(0.50, rgb(79,79,79)),
+        color-stop(1, rgb(21,21,21)));
+    background: -webkit-linear-gradient(left center, rgb(0,0,0), rgb(79,79,79), rgb(21,21,21));
+    background: -ms-linear-gradient(left center, rgb(0,0,0), rgb(79,79,79), rgb(21,21,21));
+    border-bottom: 1px solid #ddd;
+    -webkit-border-top-left-radius: 10px;
+    -moz-border-radius-topleft: 10px;
+    -ms-border-radius-topleft: 10px;
+    border-top-left-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+    -ms-border-top-right-radius: 10px;
+    -moz-border-radius-topright: 10px;
+    border-top-right-radius: 10px;
 }
 
 .column.over {
+
   border: 2px dashed #000;
 }
 
@@ -365,6 +392,3 @@ button:active {
 .over {
 	border: 1px dashed #000;
 }
-
-
-
