@@ -247,8 +247,8 @@ class MesCommandesController extends Controller {
         
         // Connect database
         $database="BdEchoppe";
-        mysql_connect("localhost","root","root");
-        mysql_select_db("BdEchoppe");
+        mysql_connect(db_host, db_username,db_pwd);
+        mysql_select_db(db_name);
 
         // la variable qui va contenir les données CSV
         $outputCsv = '';
