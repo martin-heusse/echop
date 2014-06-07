@@ -37,7 +37,46 @@ class CommanderArticleController extends Controller {
         $b_etat = Campagne::getEtat($i_idCampagne);
         /* Récupération des rayons */
         $to_rayon = Rayon::getAllObjects();
-        $this->render('commanderArticleAfficherRayon', compact('to_rayon','b_etat'));
+        /* Récupération de tous les articles pour la campagne donnée */ 
+        $to_commande = ArticleCampagne::getObjectsByIdCampagne($i_idCampagne);
+        
+         foreach($to_commande as &$o_article) {
+            /* Attributs dépendant de l'article */
+            $i_idArticle = $o_article['id_article'];
+            $o_article['id_rayon'] = Article::getIdRayon($i_idArticle);
+            $o_article['nbre_article'] = 0;
+            $i_idCategorie = Article::getIdCategorie($i_idArticle);
+            $o_article['categorie'] = Categorie::getNom($i_idCategorie);
+            /* on récupère les attributs des articles du rayon demandés */
+            if ($o_article['id_rayon'] == $i_idRayon) {
+                $o_article['nbre_article'] ++;
+                $temp_article=Article::getNomNbPaquetColisDescriptionCourteDescriptionLongue($i_idArticle);
+                $o_article = array_merge($o_article,$temp_article);
+                $o_article['poids_paquet_fournisseur'] = Article::getPoidsPaquetFournisseur($i_idArticle);
+                $i_idUnite = Article::getIdUnite($i_idArticle);
+                $o_article['unite'] = Unite::getUnite($i_idUnite);
+                /* Quantité */
+                $i_idCommande = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
+                $o_article['quantite'] = Commande::getQuantite($i_idCommande); 
+
+                /* Valeurs calculées */
+                /* Calcul poids unitaire */
+                $o_article['prix_unitaire'] = $o_article['prix_ttc'] / $o_article['poids_paquet_fournisseur'];
+                /* Calcul quantité totale */
+                $o_article['quantite_totale'] = $o_article['quantite'] * $o_article['poids_paquet_client'];
+                /* Calcul total TTC */
+                $o_article['total_ttc'] = $o_article['quantite_totale'] * $o_article['prix_ttc'] / $o_article['poids_paquet_fournisseur'];
+                /* Calcul du montant total */
+                $f_montantTotal += $o_article['total_ttc'];
+                /* Formattage des nombres */
+                //$o_article['prix_unitaire'] = number_format($o_article['prix_unitaire'], 2, '.', '');
+                //$o_article['quantite_totale'] = number_format($o_article['quantite_totale'], 2, '.', '');
+                //$o_article['total_ttc'] = number_format($o_article['total_ttc'], 2, '.', '');
+                $f_montantTotal = number_format($f_montantTotal, 2, '.', '');
+            }
+        }
+        
+        $this->render('commanderArticleAfficherRayon', compact('to_rayon','b_etat','to_commande'));
     }
 
     /* 
