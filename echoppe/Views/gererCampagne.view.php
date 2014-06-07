@@ -1,6 +1,7 @@
 <!-- interface de gestion d'une campagne -->
+<div id="retour">
 <p><a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a></p>
-
+</div>
 <h1>Gérer les campagnes</h1>
 
 <!--<p>Les utilisateurs peuvent commander des articles tant que la campagne est ouverte.<br/>

@@ -1,7 +1,9 @@
 <!-- interface d'envoi de mail à tous les utilisateurs -->
+<div id="retour">
 <p>
     <a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a>
 </p>
+</div>
 <h1>Envoyer un mail à tous les utilisateurs</h1>
 
 <?php

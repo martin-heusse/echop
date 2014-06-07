@@ -145,7 +145,7 @@ class CommanderArticleController extends Controller {
             }
         }
         if(isset($_GET['catAffich'])){$cat_a_afficher=$_GET['catAffich'];}
-        else {$cat_a_afficher=array();};
+        else {$cat_a_afficher="aaaaaaaa";};
         $this->render('commanderArticle', compact('to_commande', 'b_etat', 'f_montantTotal', 's_Rayon', 'i_idRayon', 'to_categorie','cat_a_afficher'));
     }
 
@@ -248,6 +248,11 @@ class CommanderArticleController extends Controller {
             return;
         }
         $i_idRayon = $_GET['idRayon'];
+        if (!isset($_GET['cat_a_afficher'])) {	
+            $this->render('afficherRayon');
+            return;
+        }
+        $cat_a_afficher = $_GET['cat_a_afficher'];
         /* La campagne est fermée */
         if ($b_etat == 0) {
             header('Location: '.root.'/commanderArticle.php/commanderArticle?idRayon='.$i_idRayon);
@@ -260,7 +265,7 @@ class CommanderArticleController extends Controller {
         $i_idCommande = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
         Commande::delete($i_idCommande);
         /* Redirection */
-        header('Location: '.root.'/commanderArticle.php/commanderArticle?idRayon='.$i_idRayon);
+        header('Location: '.root.'/commanderArticle.php/commanderArticle?idRayon='.$i_idRayon.'&catAffich='.$cat_a_afficher);
     }
 
     /*

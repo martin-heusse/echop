@@ -1,6 +1,7 @@
 <!-- affiche un récapitulatif de la commande effectuée par un utilisateur donné -->
+<div id="retour">
 <p><a class="action_navigation" href="<?php echo root ?>/campagne.php/historiqueCampagne">Explorer une autre campagne</a></p>
-
+</div>
 <?php if ($to_commande[0]['id_campagne'] != null) { ?>
 
 <h1>Mes Commandes de la Campagne n°<?php echo $to_commande[0]['id_campagne']?></h1>

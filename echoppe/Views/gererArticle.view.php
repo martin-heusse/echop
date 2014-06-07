@@ -1,5 +1,6 @@
 <!-- interface de gestion des articles -->
-<?php
+<div id="retour">
+    <?php
 /* Si navigation dans l'historique */
 if ($b_historique == 1) {
     ?>
@@ -16,7 +17,7 @@ if ($b_historique == 1) {
 <?php if ($i_idRayon != null) { ?>
     <p><a class="action_navigation" href="<?php echo root ?>/article.php/dndArticle?i_idRayon=<?php echo $i_idRayon; ?>">Trier les articles</a></p>
 <?php } ?>
-
+</div>
 <?php
 /* Si navigation dans l'historique */
 if ($b_historique == 1) {

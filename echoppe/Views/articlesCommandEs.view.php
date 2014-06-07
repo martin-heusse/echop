@@ -1,3 +1,4 @@
+<div id="retour">
 <?php
 /* vérifie si on navigue dans l'historique ou non */
 if ($b_historique == 1) {
@@ -10,6 +11,7 @@ if ($b_historique == 1) {
     <?php
 }
 ?>
+</div>
 
 
 <?php

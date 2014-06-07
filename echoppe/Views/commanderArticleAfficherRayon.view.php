@@ -1,8 +1,9 @@
 
-<div id="list_columns">
+<div id="retour">
     <!--affiche les rayons pour que l'utilisateur puisse commander -->
     <p><a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a></p>
-
+</div>
+<div id="list_columns">
     <h1>Commander des articles</h1>
     <?php
     /* Indique si la campagne est ouverte ou non */
@@ -28,7 +29,7 @@
                         }
                     }
                     ?>  
-                    <li> ► <a href="<?php echo root ?>/commanderArticle.php/commanderArticle?idRayon=<?php echo $o_rayon['id'] ?>"><?php echo $o_rayon['nom'] ?></a></li>
+                    <li> <strong> &odot; &nbsp;&nbsp;&nbsp;<a href="<?php echo root ?>/commanderArticle.php/commanderArticle?idRayon=<?php echo $o_rayon['id'] ?>"><?php echo $o_rayon['nom'] ?></a></strong></li>
                     <li> <?php
                         echo $i_nbreEnVente . ' article';
                         if ($i_nbreEnVente > 0) {

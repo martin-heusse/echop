@@ -5,8 +5,10 @@
 <script type="text/javascript" src="js/script.js"></script>
 </head>
 <body>
+    <div id="retour">
 <!-- interface de parcours d'historique des campagnes pour utilisateur -->
 <p><a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a></p>
+    </div>
 
 <h1>Historique des campagnes</h1>
 

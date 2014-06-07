@@ -208,7 +208,7 @@ table {
     border-collapse: collapse;
     margin-left: auto;
     margin-right: auto;
-    
+
     float: left;
 }
 
@@ -291,13 +291,13 @@ form .input_valider {
 .campagne_fermee {
     font-weight: bold;
     font-family: Georgia;
-    color: red;
+    color: firebrick;
 }
 
 .campagne_fermee2 {
     font-family: DejaVu Sans;
     font-weight: bold;
-    color: red;
+    color: firebrick;
 }
 
 .indication_campagne {
@@ -340,13 +340,13 @@ form .input_valider {
 #list_columns ul{
     font-family: DejaVu Sans;
     width:760px;
-    margin-bottom:200px;
-    margin-top: 75px;
+    margin-bottom:100px;
+    margin-top: 25px;
     margin-left: 0px;
     overflow:hidden;
 }
 #list_columns li {
-    line-height:1.5em;
+    line-height:2.5em;
     border-bottom:1px solid #ccc;  
     float: left;
     display:inline;
@@ -359,6 +359,33 @@ form .input_valider {
 #quad li    { width:25%; } 
 #six li     { width:16.666%; } 
 
+/* Lien de retour */
+
+#retour a {
+    text-decoration: none;
+    position: relative;
+}
+
+#retour a:after {
+    content: '';
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    border-bottom: 1px solid #cccccc;
+    padding-bottom: 3px;
+    border-width: 0 0 2px;
+    border-style: solid;
+}
+#retour a:visited { 
+    font-weight: bold; 
+    text-decoration: none; 
+    color: #666666;
+}
+#retour a:hover, a:focus, a:active { 
+    text-decoration: none ;
+    color: #9685BA;
+}
 
 /* ========================================================================== */
 /* Autre */

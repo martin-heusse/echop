@@ -1,7 +1,9 @@
 <!-- interface de gestion des fournisseurs -->
+<div id="retour">
 <p>
     <a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a>
 </p>
+</div>
 <h1> Gestion des Fournisseurs </h1>
 
 <?php

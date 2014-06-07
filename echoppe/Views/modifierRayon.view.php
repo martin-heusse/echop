@@ -1,6 +1,7 @@
 <!-- interface de modification d'un rayon -->
+<div id="retour">
 <p><a class="action_navigation" href="<?php echo root ?>/rayon.php/afficherRayon">Retour à gérer rayon</a></p>
-
+</div>
 <h1>Modifier un rayon</h1>
 
 <?php 

@@ -1,6 +1,7 @@
 <!-- affiche la liste des personnes qui se sont inscrites mais qui ne sont pas encore validées-->
+<div id="retour">
 <p><a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a></p>
-
+</div>
 <h1>Liste des inscriptions d'utilisateurs à valider</h1>
 
  <p>

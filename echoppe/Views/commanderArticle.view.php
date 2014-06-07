@@ -1,5 +1,5 @@
 <!-- affiche l'intreface de commande pour l'utilisateur -->
-<p><a class="action_navigation" href="<?php echo root ?>/commanderArticle.php/afficherRayon">Retour aux rayons</a></p>
+<div id="retour"><p><a class="action_navigation" href="<?php echo root ?>/commanderArticle.php/afficherRayon">Retour aux rayons</a></p></div>
 
 <h1>Commander des articles</h1>
 
@@ -151,7 +151,7 @@ if ($to_commande != null and $to_commande != array()) {
                     /* Affiche ou non le lien de suppression */
                     if ($b_etat == 1) {
 ?>
-                    <td class="centrer"><a href="<?php echo root ?>/commanderArticle.php/commanderArticleSupprimer?id_article=<?php echo $o_produit['id_article']?>&idRayon=<?php echo $i_idRayon?>">Suppr. l'article</a>
+                    <td class="centrer"><a href="<?php echo root ?>/commanderArticle.php/commanderArticleSupprimer?id_article=<?php echo $o_produit['id_article']?>&idRayon=<?php echo $i_idRayon?>&cat_a_afficher=<?php echo $o_categorie['id']?>">Suppr. l'article</a>
 <?php
                     }
 ?>

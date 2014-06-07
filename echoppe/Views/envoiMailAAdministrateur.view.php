@@ -1,9 +1,10 @@
 <!-- interface d'envoi de mail à tous les administrateurs -->
+<div id="retour">
 <p>
     <a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a>
 </p>
 <h1>Envoyer un mail aux administrateurs</h1>
-
+</div>
 <?php
     if ($i_emailSent == 0) {
 ?>

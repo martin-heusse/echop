@@ -1,6 +1,7 @@
 <!-- affiche la liste des utilisateurs avec le login et l'adresse mail -->
+<div id="retour">
 <p><a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a></p>
-
+</div>
 <h1>Liste de tous les utilisateurs</h1>
 
 <a href="<?php echo root ?>/utilisateur.php/ajouterUtilisateur">Créer un nouvel utilisateur</a>

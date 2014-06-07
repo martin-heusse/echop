@@ -1,4 +1,5 @@
 <!-- affiche l'interface de création d'article -->
+<div id="retour">
 <form action="<?php echo root ?>/article.php/creerArticle?i_idRayon=<?php echo $o_rayon['id'] ?>" method="post" name="formulaire">
     <!-- Le lien de retour -->
     <p>
@@ -7,6 +8,7 @@
             Retour aux articles de <?php echo $o_rayon['nom'] ?>
         </a>
     </p>
+</div>
     <?php
     /* Gestion des erreurs */
     if (isset($i_erreur)) {

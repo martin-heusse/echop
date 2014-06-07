@@ -1,7 +1,9 @@
  <!-- interface de gestion des tva (ajout) -->
-<p>
+<div id="retour">
+ <p>
    <a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a>
 </p>
+</div>
 <h1> Gestion des TVA </h1>
 
 <?php

@@ -1,4 +1,5 @@
 <!--Affiche des commandes pour chaque fournisseur-->
+<div id="retour">
 <p><a class="action_navigation" href="<?php echo root ?>/fournisseur.php/fournisseursChoisis
 <?php
 /* Si navigation dans l'historique */
@@ -7,7 +8,7 @@ if ($b_historique == 1) {
 }
 ?>
 ">Retour aux commandes par fournisseur</a></p>
-
+</div>
 <?php
 /* Si navigation dans l'historique */
 if ($b_historique == 1) {

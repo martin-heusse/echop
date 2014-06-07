@@ -225,6 +225,20 @@ class Utilisateur {
         $b_result =  mysql_query($sql_query);
         return $b_result;
     }
+    
+    public static function setNom($i_id, $s_nom) {
+        $sql_query = "update datasUtilisateur set nom='$s_nom' 
+            where id=$i_id";
+        $b_result =  mysql_query($sql_query);
+        return $b_result;
+    }
+    
+    public static function setPrenom($i_id, $s_prenom) {        
+        $sql_query = "update datasUtilisateur set prenom='$s_prenom' 
+            where id=$i_id";
+        $b_result =  mysql_query($sql_query);
+        return $b_result;
+    }
 
     public static function setValidite($i_id, $b_validite) {
         $sql_query = "update utilisateur set validite='$b_validite' 

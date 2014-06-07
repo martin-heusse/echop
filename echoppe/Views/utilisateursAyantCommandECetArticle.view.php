@@ -1,4 +1,5 @@
 <!--affiche la liste des utilisateur qui ont commandé un article donné -->
+<div id="retour">
 <p><a class="action_navigation" href="<?php echo root ?>/articlesCommandEs.php/articlesCommandEs
 <?php
 /* Si navigation dans l'historique */
@@ -7,6 +8,7 @@ if ($b_historique == 1) {
 }
 ?>
 ">Retour aux articles commandés</a></p>
+</div>
 
 <?php
 /* Si navigation dans l'historique */

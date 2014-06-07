@@ -1,6 +1,7 @@
 <!-- interface de gestion des rayons (ajouter, modifer) -->
+<div id="retour">
 <p><a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a></p>
-
+</div>
 <h1>Gérer les rayons</h1>
 
 <p> La liste des rayons : </p>
