@@ -65,7 +65,7 @@ if ($to_commande != null and $to_commande != array()) {
     foreach($to_commande as $o_produit) {
 ?>
     <tr class="ligne_article<?php echo $i_numLigne ?>">
-        <td><?php echo $o_produit['nom'] ?></td>
+        <td class="center"><?php echo $o_produit['nom'] ?></td>
         <td class="center" title="<?php echo $o_produit['description_longue']?>"><?php echo $o_produit['description_courte'] ?></td>
         <td class="centrer"><?php echo $o_produit['code'] ?></td>
         <td class="centrer"><?php echo $o_produit['poids_paquet_fournisseur'].$o_produit['unite'] ?></td>
@@ -92,7 +92,7 @@ if ($to_commande != null and $to_commande != array()) {
         /* Affiche ou non le lien de suppression */
         if ($b_etat == 1) {
 ?>
-        <td class="centrer"><a href="<?php echo root ?>/mesCommandes.php/mesCommandesSupprimer?id_article=<?php echo $o_produit['id_article']?>">supprimer l'article</a>
+        <td class="centrer" height="60"><a href="<?php echo root ?>/mesCommandes.php/mesCommandesSupprimer?id_article=<?php echo $o_produit['id_article']?>"><img src="../Layouts/images/cross.png" height="40"></a>
 <?php
         }
 ?>

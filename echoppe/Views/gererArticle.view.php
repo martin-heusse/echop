@@ -143,8 +143,7 @@ if (isset($s_message)) {
         </li></ul>
 
     <!-- Création d'un formulaire englobant tout le tableau -->
-    <form method="post" action="<?php echo root ?>/article.php/modifierArticle
-    <?php
+    <form method="post" action="<?php echo root ?>/article.php/modifierArticle<?php
     /* Si navigation dans l'historique */
     if ($b_historique == 1) {
         echo "?idOldCampagne=" . $i_idCampagne;
@@ -264,7 +263,7 @@ if (isset($s_message)) {
                             <!-- Suppression du produit -->
                             <td>                                    
                             <center><input type="image" id='SUBMIT' name="supprimer_<?php echo $i_idArticleCampagne ?>" 
-                                           value="OK" src="<?php echo root ?>/Layouts/images/cross.png" height='60'></i</center>   
+                                           value="OK" src="<?php echo root ?>/Layouts/images/cross.png" height='60'/></center>   
                             </td>
 
                             <!-- Nom du produit -->

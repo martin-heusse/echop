@@ -46,8 +46,23 @@ a:hover, a:focus, a:active {
 
 #logo {
     display: inline-block;
+    position: relative;
     margin-top: 15px;
     margin-left: 20px;
+    float: left;
+}
+
+#fond{
+    display: inline-block ;
+    position: absolute;
+    float: left;
+}
+
+#titre {
+    display: inline-block ;
+    position: relative;
+    margin-left: 30px;
+    margin-top: 40px;
     float: left;
 }
 
@@ -58,6 +73,7 @@ a:hover, a:focus, a:active {
     font-size: 36px;
     margin-top: 40px;
     margin-left: 20px;
+    position: relative;
     float: left;
 }
 
@@ -70,7 +86,7 @@ a:hover, a:focus, a:active {
     background-color: #666666;
     color: #cccccc;
     width: 300px;
-    min-height: 1400px;
+    min-height: 1600px;
 }
 
 #menu .titre_menu {

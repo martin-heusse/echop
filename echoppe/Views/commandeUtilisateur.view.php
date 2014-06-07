@@ -74,14 +74,15 @@ checked
         <td><input class="input_quantite" type="text" name="quantite[<?php echo $o_produit['id_article']?>]" value="<?php echo $o_produit['quantite'] ?>"/></td>
         <td class="centrer col_coloree"><?php echo $o_produit['quantite_totale'] ?><?php echo $o_produit['unite'] ?></td>
         <td class="centrer col_coloree"><?php echo $o_produit['total_ttc'] ?>&euro;</td>
-        <td class="centrer"><a href="<?php echo root ?>/utilisateurAyantCommandE.php/supprimerArticleUtilisateur?idUtilisateur=<?php echo $i_idUtilisateur ?>&id_article=<?php echo $o_produit['id_article']?>
+        
+        <td class="centrer" height="60"><a href="<?php echo root ?>/utilisateurAyantCommandE.php/supprimerArticleUtilisateur?idUtilisateur=<?php echo $i_idUtilisateur ?>&id_article=<?php echo $o_produit['id_article']?>
 <?php
         /* Si navigation dans l'historique */
         if ($b_historique == 1) {
             echo "&idOldCampagne=".$i_idCampagne;
         }
 ?>
-">supprimer l'article</a>
+"><img src="../Layouts/images/cross.png" height="40"</a>
     </tr>
 <?php
         $i_numLigne = ($i_numLigne + 1) % 2;

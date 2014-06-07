@@ -199,6 +199,7 @@ foreach ($to_categorie as $o_categorie) {
     <script type="text/javascript">
     $(".cacher_<?php echo $o_categorie['id'] ?>").click(function () {
         $(".cat_<?php echo $o_categorie['id'] ?>").hide("slow");
+        
     });
     </script>
     <script type="text/javascript">
@@ -222,6 +223,7 @@ cacher_onLoad=function(){
     $(".cat_<?php echo $next_cat_a_afficher ?>").show("slow");
     location.hash='#cat_<?php echo $cat_a_afficher ; ?>';
 }
+
 window.onload = cacher_onLoad;
 $(".cacher_tout").click(function () {cacher_tout();});
 $(".montrer_tout").click(function () {

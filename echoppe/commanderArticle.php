@@ -145,7 +145,7 @@ class CommanderArticleController extends Controller {
             }
         }
         if(isset($_GET['catAffich'])){$cat_a_afficher=$_GET['catAffich'];}
-        else {$cat_a_afficher="";};
+        else {$cat_a_afficher=array();};
         $this->render('commanderArticle', compact('to_commande', 'b_etat', 'f_montantTotal', 's_Rayon', 'i_idRayon', 'to_categorie','cat_a_afficher'));
     }
 
