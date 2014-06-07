@@ -59,8 +59,8 @@ if ($to_commande != null and $to_commande != array()) {
         }
 ?>
         <p>
-        <span class="cat_bouton cacher_tout">[Cacher tout]</span> 
-        <span class="cat_bouton montrer_tout">[Montrer tout]</span> 
+        <span class="cat_bouton cacher_tout">Cacher tout </span> |
+        <span class="cat_bouton montrer_tout">Montrer tout</span> 
         </p>
         <table id="t_article">
         <tr>
@@ -110,8 +110,8 @@ if ($to_commande != null and $to_commande != array()) {
         <a name=cat_<?php echo $o_categorie['id'] ;?>>
         <span class="cat"><?php echo $o_categorie['nom'] ?></span>
 <!--gère le déroulement des catégories-->
-        <span class="cat_bouton cacher_<?php echo $o_categorie['id'] ?>">[Cacher]</span> 
-        <span class="cat_bouton montrer_<?php echo $o_categorie['id'] ?>">[Montrer]</span> 
+        <span class="cat_bouton cacher_<?php echo $o_categorie['id'] ?>">Cacher</span> 
+        <span class="cat_bouton montrer_<?php echo $o_categorie['id'] ?>">Montrer</span> 
     </td></tr>
 
 <?php
@@ -120,8 +120,8 @@ if ($to_commande != null and $to_commande != array()) {
                 foreach($to_commande as $o_produit) {
                     if($o_produit['id_rayon']==$i_idRayon && $o_produit['categorie'] == $o_categorie['nom'] && $o_produit['en_vente'] == 1){ 	?>
             <tr class="ligne_article<?php echo $i_numLigne ?> cat_<?php echo $o_categorie['id'] ?>">
-            <td title="Produit"><?php echo $o_produit['nom'] ?></td>
-            <td class="center" title="Description"><?php echo $o_produit['description_courte'] ?> <BR /><font size="-2"> <?php echo $o_produit['description_longue'] ?></font></td>
+            <td title="Produit" class="centrer"><?php echo $o_produit['nom'] ?></td>
+            <td class="centrer" title="Description"><?php echo $o_produit['description_courte'] ?> <BR /><font size="-2"> <?php echo $o_produit['description_longue'] ?></font></td>
             <td class="centrer" title="Poids du paquet du fournisseur"><?php echo $o_produit['poids_paquet_fournisseur'] ?><?php echo $o_produit['unite'] ?></td>
             <td class="centrer" title="Nombre de paquets par colis"><?php echo $o_produit['nb_paquet_colis'] ?></td>
             <td class="centrer" title="Prix TTC"><?php echo formatPrix($o_produit['prix_ttc']) ?>&euro;</td>
@@ -135,7 +135,7 @@ if ($to_commande != null and $to_commande != array()) {
                         if ($b_etat == 1) {
 ?>
                     <td title="Quantité">
-                    <input class="input_quantite" type="text" name="quantite[<?php echo $o_produit['id_article']?>]" value="<?php echo $o_produit['quantite']?> " onclick="select()"/>
+            <center><input class="input_quantite" type="text" name="quantite[<?php echo $o_produit['id_article']?>]" value="<?php echo $o_produit['quantite']?> " onclick="select()"/></center>
                     <input  type="hidden" name="prev_quantite[<?php echo $o_produit['id_article']?>]" value="<?php echo $o_produit['quantite']?> "/>
                     </td>
 <?php

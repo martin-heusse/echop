@@ -264,7 +264,7 @@ if (isset($s_message)) {
                             <!-- Suppression du produit -->
                             <td>                                    
                             <center><input type="image" id='SUBMIT' name="supprimer_<?php echo $i_idArticleCampagne ?>" 
-                                           value="OK" src="<?php echo root ?>/Layouts/images/cross.png" height='25'></i</center>   
+                                           value="OK" src="<?php echo root ?>/Layouts/images/cross.png" height='60'></i</center>   
                             </td>
 
                             <!-- Nom du produit -->
@@ -567,8 +567,8 @@ if (isset($s_message)) {
                                 $nbmax_fournisseurs_article = count(Fournisseur::getAllObjects());
                                 if ($nb_fournisseurs_article < $nbmax_fournisseurs_article) {
                                     ?>                                 
-                                    <input type="submit" name="ajout_fournisseur_<?php echo $i_idArticleCampagne ?>" 
-                                           value="&nbsp;&nbsp;&nbsp;Ajouter&nbsp;&nbsp;&nbsp;">   
+                                <center><input type="image" id="SUBMIT" src="../Layouts/images/plus.png" height="60"name="ajout_fournisseur_<?php echo $i_idArticleCampagne ?>" 
+                                               value="Ajouter"></center>   
                                            <?php
                                        }
                                        ?>

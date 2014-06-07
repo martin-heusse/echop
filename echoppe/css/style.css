@@ -13,7 +13,7 @@ body {
     margin-top: 0px;
     margin-bottom: 0px;
     padding: 0px;
-    font-family: arial;
+    font-family: DejaVu Sans;
 }
 
 /* ========================================================================== */
@@ -53,7 +53,7 @@ a:hover, a:focus, a:active {
 
 #titre_banniere {
     color: #f0f0f0;
-    font-family: Arial;
+    font-family: Georgia;
     display: inline-block;
     font-size: 36px;
     margin-top: 40px;
@@ -118,7 +118,12 @@ h1 {
     color: #666666;
     text-align: center;
     margin-top: 5px;
+    font-family: Georgia;
     margin-bottom: 10px;
+}
+
+h2 {
+    font-family: Georgia;
 }
 
 /* ========================================================================== */
@@ -159,7 +164,7 @@ h1 {
 }
 
 .tab_article {
-    font-size:10px;
+    font-size:13px;
 }
 
 .tab_tab_article {
@@ -187,6 +192,7 @@ table {
     border-collapse: collapse;
     margin-left: auto;
     margin-right: auto;
+    
     float: left;
 }
 
@@ -196,6 +202,7 @@ table, th, td {
 
 th {
     color: #cccccc;
+    font-weight: normal;
     background-color: #666666;
 }
 
@@ -253,10 +260,27 @@ form .input_valider {
 /* Campagne */
 
 .campagne_ouverte {
-    color: green;
+    font-weight: bold;
+    font-family: Georgia;
+    color: #6d9d2e;
 }
 
+.campagne_ouverte2 {
+    font-family: DejaVu Sans;
+    font-weight: bold;
+    color: #6d9d2e;
+}
+
+
 .campagne_fermee {
+    font-weight: bold;
+    font-family: Georgia;
+    color: red;
+}
+
+.campagne_fermee2 {
+    font-family: DejaVu Sans;
+    font-weight: bold;
     color: red;
 }
 
@@ -290,7 +314,7 @@ form .input_valider {
 
 .message {
     font-weight:bold;
-    color: blue;
+    color: #24246A;
 }
 
 
@@ -298,18 +322,22 @@ form .input_valider {
 /* Liste à plusieurs colonnes*/
 
 #list_columns ul{
-  width:760px;
-  margin-bottom:200px;
-  margin-top: 75px;
-  margin-left: 0px;
-  overflow:hidden;
+    font-family: DejaVu Sans;
+    width:760px;
+    margin-bottom:200px;
+    margin-top: 75px;
+    margin-left: 0px;
+    overflow:hidden;
 }
 #list_columns li {
-  line-height:1.5em;
-  border-bottom:1px solid #ccc;  
-  float: left;
-  display:inline;
+    line-height:1.5em;
+    border-bottom:1px solid #ccc;  
+    float: left;
+    display:inline;
+
 }
+
+
 #double li  { width:50%; } 
 #triple li  { width:33.333%; } 
 #quad li    { width:25%; } 
@@ -379,40 +407,40 @@ form .input_valider {
 
 .column.over {
 
-  border: 2px dashed #000;
+    border: 2px dashed #000;
 }
 
 /*ul {
-	margin: 0;
-	padding: 0;
-	list-style: none;
+        margin: 0;
+        padding: 0;
+        list-style: none;
 }
 li {
-	width: 440px;
-	height: 50px;
-	line-height: 50px;
-	border: 1px solid #ccc;
-	margin-bottom: 3px;
-	padding-left: 10px;
+        width: 440px;
+        height: 50px;
+        line-height: 50px;
+        border: 1px solid #ccc;
+        margin-bottom: 3px;
+        padding-left: 10px;
 }*/
 
 button {
-	color: #fff;
-	background: #1c1c1c;
-	background: -moz-linear-gradient(top,  #1c1c1c 0%, #000000 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1c1c1c), color-stop(100%,#000000));
-	background: -webkit-linear-gradient(top,  #1c1c1c 0%,#000000 100%);
-	background: -o-linear-gradient(top,  #1c1c1c 0%,#000000 100%);
-	background: -ms-linear-gradient(top,  #1c1c1c 0%,#000000 100%);
-	background: linear-gradient(to bottom,  #1c1c1c 0%,#000000 100%);
-	border: 0;
-	padding: 5px 10px;
-	cursor: pointer;
-	margin: 0;
+    color: #fff;
+    background: #1c1c1c;
+    background: -moz-linear-gradient(top,  #1c1c1c 0%, #000000 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1c1c1c), color-stop(100%,#000000));
+    background: -webkit-linear-gradient(top,  #1c1c1c 0%,#000000 100%);
+    background: -o-linear-gradient(top,  #1c1c1c 0%,#000000 100%);
+    background: -ms-linear-gradient(top,  #1c1c1c 0%,#000000 100%);
+    background: linear-gradient(to bottom,  #1c1c1c 0%,#000000 100%);
+    border: 0;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin: 0;
 }
 button:active {
-	margin: 1px 0 0 1px;
+    margin: 1px 0 0 1px;
 }
 .over {
-	border: 1px dashed #000;
+    border: 1px dashed #000;
 }

@@ -137,7 +137,7 @@ if ($b_historique == 1) {
     echo "&idOldCampagne=".$i_idCampagne;
 }
 ?>
-">Générer l'étiquette de cette commande</a></p>
+"></a></p>
 
 <?php
 } else {

@@ -26,7 +26,7 @@ if ($b_historique == 1) {
 <?php
 if ($to_commande != null) {
 ?> 
-<p>Liste des utilisateurs ayant passé une commande pour la campagne courante.<br/>
+<!--<p>Liste des utilisateurs ayant passé une commande pour la campagne courante.<br/>-->
 Cliquez sur un nom d'utilisateur pour voir la liste des produits qu'il a commandé.</p>
 
 <table>

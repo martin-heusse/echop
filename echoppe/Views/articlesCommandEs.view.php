@@ -32,7 +32,7 @@ if ($to_article == null or $to_article == array()) {
     <?php
 } else {
     ?>
-    <p>Liste de tous les articles commandés par les utilisateurs pendant la campagne en cours.<br/>
+    <p>Liste de tous les articles que vous avez commandés pendant la campagne en cours.<br/>
         <?php
         /* l'affichage diffère si on est un administrateur ou non
          * un administrateur peut accèder à des pages annexes à partir de celle-ci 
@@ -47,8 +47,8 @@ if ($to_article == null or $to_article == array()) {
     ?>
 
     <p>
-        <span class="cat_bouton cacher_tout">[Cacher tout]</span> 
-        <span class="cat_bouton montrer_tout">[Montrer tout]</span> 
+        <span class="cat_bouton cacher_tout">Cacher tout</span> |
+        <span class="cat_bouton montrer_tout">Montrer tout</span> 
     </p>
 
     <table>
@@ -87,8 +87,8 @@ if ($to_article == null or $to_article == array()) {
                     ?>
                     <tr><td>
                             <span class="cat"><?php echo $o_categorie['nom'] ?></span>
-                            <span class="cat_bouton cacher_<?php echo $o_categorie['id'] ?>">[Cacher]</span> 
-                            <span class="cat_bouton montrer_<?php echo $o_categorie['id'] ?>">[Montrer]</span> 
+                            <span class="cat_bouton cacher_<?php echo $o_categorie['id'] ?>">Cacher </span> | 
+                            <span class="cat_bouton montrer_<?php echo $o_categorie['id'] ?>">Montrer</span> 
                         </td></tr>
 
                     <?php

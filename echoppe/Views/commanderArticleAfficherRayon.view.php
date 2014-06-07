@@ -28,12 +28,12 @@
                         }
                     }
                     ?>  
-                    <li> <a href="<?php echo root ?>/commanderArticle.php/commanderArticle?idRayon=<?php echo $o_rayon['id'] ?>"><?php echo $o_rayon['nom'] ?></a></li>
-                    <li> <?php echo $i_nbreEnVente . ' article';
-            if ($i_nbreEnVente > 0) {
-                echo 's';
-            } echo ' en vente ' ?> 
-                        <?php
+                    <li> ► <a href="<?php echo root ?>/commanderArticle.php/commanderArticle?idRayon=<?php echo $o_rayon['id'] ?>"><?php echo $o_rayon['nom'] ?></a></li>
+                    <li> <?php
+                        echo $i_nbreEnVente . ' article';
+                        if ($i_nbreEnVente > 0) {
+                            echo 's';
+                        }
                     }
                 } else {
                     ?> 
