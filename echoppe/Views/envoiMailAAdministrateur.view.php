@@ -14,7 +14,7 @@
     enctype="multipart/form-data"
     method="post">
     
-    <p><span><label>Sujet :</label></span><input type="text" name="subject" required/></p>
+        <p><span><label>Objet:&nbsp;</label></span><input type="text" name="subject" required/></p>
     <br><textarea rows ='10' cols='70' name='message'></textarea></br>
     <input type="submit" value="Envoyer">
     </form>

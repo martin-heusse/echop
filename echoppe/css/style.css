@@ -312,7 +312,7 @@ form .input_valider {
 
 .historique {
     font-weight: bold;
-    color: red;
+    color: #900000;
 }
 
 /* ========================================================================== */
@@ -320,7 +320,7 @@ form .input_valider {
 
 .erreur {
     font-weight:bold;
-    color: red;
+    color: #900000;
 }
 
 .succes {
@@ -339,7 +339,7 @@ form .input_valider {
 
 #list_columns ul{
     font-family: DejaVu Sans;
-    width:760px;
+    width:1300px;
     margin-bottom:100px;
     margin-top: 25px;
     margin-left: 0px;
@@ -358,6 +358,22 @@ form .input_valider {
 #triple li  { width:33.333%; } 
 #quad li    { width:25%; } 
 #six li     { width:16.666%; } 
+
+/* Bouton select pour catégorie */
+
+#categorie select {
+    background: none; 
+    border: none;  
+    position: relative;
+    cursor: pointer;
+    height: 40px;
+    background-color: #f0f0f0;
+    border-color: #f0f0f0;
+    font-family: DejaVu Sans;
+    color: #444444;
+    font-size: initial;
+}
+
 
 /* Lien de retour */
 
@@ -388,6 +404,50 @@ form .input_valider {
 }
 
 /* ========================================================================== */
+/* Animation dynamique */
+
+.div-couleur {
+    width: 800px;
+    margin-left: 220px;
+    background-color:rgba(154, 205, 50,1);
+    border-radius:5px;
+    -moz-transition: all .9s;
+    -webkit-transition:all 0.9s; /* Safari and Chrome */
+    -o-transition:all 0.9s; /* Opera */
+    top:0;
+    border-radius: 10px;
+}
+.div-couleur:hover {
+    background-color:rgba(178, 217, 100,1);
+    border-radius: 50px;
+}
+
+.div-couleur-anim {
+    width:300px;
+    height:100px;
+     background-color:rgba(178, 217, 100,1);
+    line-height: 100px;
+    color:#000;
+    margin:auto;
+    -o-animation: couleur-anim 3s linear infinite;
+    -webkit-animation: couleur-anim 3s linear infinite;
+    -moz-animation: couleur-anim 3s linear infinite;
+}
+
+@-moz-keyframes couleur-anim {
+    0%  { border-radius: 0;}
+    /*25% { border-radius: 25px; width:300px}*/
+    50% { border-radius: 50px; width:300px}
+    /*75% { border-radius: 25px; width:300px}*/
+}
+
+@-webkit-keyframes couleur-anim {
+    0%  { border-radius: 0;}
+    /*25% { border-radius: 25px; width:300px}*/
+    50% { border-radius: 50px; width:300px}
+    /*75% { border-radius: 25px; width:300px}*/
+}
+
 /* Autre */
 
 /* Pour que les flottants ne dépassent pas de leur conteneur */

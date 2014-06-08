@@ -19,13 +19,19 @@
     if ($to_rayon != 0 and $to_rayon != array()) {
         /* affiche les rayons s'ils existent */
         ?>
-        <code><ul id="double">
+
+        <code><ul id="triple">
                 <?php
                 foreach ($to_rayon as $o_rayon) {
+                    $tcategorie = array();
+                    $bool_afficher_categorie = 0;
                     $i_nbreEnVente = 0;
                     foreach ($to_commande as $o_produit) {
                         if ($o_produit['en_vente'] == 1 && $o_produit['id_rayon'] == $o_rayon['id']) {
                             $i_nbreEnVente ++;
+                            if (!in_array($o_produit['categorie'], $tcategorie)) {
+                                array_push($tcategorie, $o_produit['categorie']);
+                            }
                         }
                     }
                     ?>  
@@ -35,14 +41,51 @@
                         if ($i_nbreEnVente > 0) {
                             echo 's';
                         }
-                    }
-                } else {
-                    ?> 
-                    <p class="message">Il n'y a aucun rayon. </p>
+                        ?>
+                    <li>                        
+                        <?php
+                        if ($bool_afficher_categorie == 0 and $i_nbreEnVente > 0) {
+                            $bool_afficher_categorie = 1;
+                            if (count($tcategorie) > 1) {
+                                ?>
+                        <div id="categorie">
+                        (<select>                            
+                                    <?php
+                                    foreach ($tcategorie as $id_categorie) {
+                                        echo '<option>' . $id_categorie . '</option>';
+                                    }
+                                    ?>
+                        </select>)</div>
+                                <?php
+                            } else {
+                                echo '( ';
+                                $i = 0;
+                                foreach ($tcategorie as $id_categorie) {
+                                    $i++;
+                                    echo $id_categorie;
+                                    if ($i < count($tcategorie)) {
+                                        echo ', ';
+                                    } else {
+                                        echo ' )';
+                                    }
+                                }
+                            }
+                        } else {
+                            echo '&nbsp';
+                        }
+                        ?>
+                    </li>
                     <?php
                 }
-                ?>
+            } else {
+                ?> 
+                <p class="message">Il n'y a aucun rayon. </p>
+                <?php
+            }
+            ?>
         </ul></code>
 </div>
+
+
 
 

@@ -1,10 +1,7 @@
 <!-- affiche l'intreface de commande pour l'utilisateur -->
 <div id="retour"><p><a class="action_navigation" href="<?php echo root ?>/commanderArticle.php/afficherRayon">Retour aux rayons</a></p></div>
 
-<h1>Commander des articles</h1>
-
-
-<?php 
+ <?php 
 function formatPrix($prix){
     return number_format($prix, 2, '.', '');
 }
@@ -13,11 +10,13 @@ function boutonValidation($_b_etat, $_cat_courante){
         if ($_b_etat == 1) {
 ?>
                 <input class="input_valider" name="cat_<?php echo $_cat_courante;?>" type="submit" value="Mettre à jour les quantités"/>
-                </form>
+               
 <?php
         }
 }
 ?>
+
+<h1>Commander des articles</h1>
 
 <!-- Indication de campagne -->
 <?php
@@ -31,6 +30,8 @@ if ($b_etat == 1) {
         <div class="indication_campagne"><span class="campagne_fermee">Campagne fermée</span></div>
 <?php
 }
+
+
 
 /* Nom du Rayon */
 ?>
@@ -58,6 +59,8 @@ if ($to_commande != null and $to_commande != array()) {
 <?php
         }
 ?>
+                    
+                    
         <p>
         <span class="cat_bouton cacher_tout">Cacher tout </span> |
         <span class="cat_bouton montrer_tout">Montrer tout</span> 
@@ -151,7 +154,7 @@ if ($to_commande != null and $to_commande != array()) {
                     /* Affiche ou non le lien de suppression */
                     if ($b_etat == 1) {
 ?>
-                    <td class="centrer"><a href="<?php echo root ?>/commanderArticle.php/commanderArticleSupprimer?id_article=<?php echo $o_produit['id_article']?>&idRayon=<?php echo $i_idRayon?>&cat_a_afficher=<?php echo $o_categorie['id']?>">Suppr. l'article</a>
+            <td class="centrer"><a href="<?php echo root ?>/commanderArticle.php/commanderArticleSupprimer?id_article=<?php echo $o_produit['id_article']?>&idRayon=<?php echo $i_idRayon?>&cat_a_afficher=<?php echo $o_categorie['id']?>"><img src="../Layouts/images/cross.png" height="25"/></a>
 <?php
                     }
 ?>
@@ -178,8 +181,7 @@ if ($to_commande != null and $to_commande != array()) {
 ?>
         </tr>
         </table>
-<?php
-        boutonValidation($b_etat, NULL);
+<?php        
     } else {
 ?>
     <p class="message">Aucun article n'est en vente dans ce rayon.</p>
@@ -192,6 +194,7 @@ if ($to_commande != null and $to_commande != array()) {
 }
 
 ?>
+   
 <?php
 foreach ($to_categorie as $o_categorie) {
     /* script qui permet le déroulement par catégorie */
