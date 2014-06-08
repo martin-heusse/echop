@@ -24,5 +24,4 @@ Erreur de connexion
 <input type="submit" value="Se connecter"/></div>
     <p><a href="<?php echo root ?>/inscription.php/passOubliE">Mot de passe oublié ?</a><br/>
     <a href="<?php echo root ?>/inscription.php/inscription">S'inscrire</a></p>
-<p>Pas encore inscrit ? Inscrivez-vous maintenant !</p>
 </form>

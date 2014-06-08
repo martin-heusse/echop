@@ -1,6 +1,6 @@
 <!-- affiche l'interface de création de rayon -->
 <div id="retour">
-<p><a class="action_navigation" href="<?php echo root ?>/rayon.php/afficherRayon">Retour à gérer rayon</a></p>
+<p><a class="action_navigation" href="<?php echo root ?>/rayon.php/afficherRayon">Revenir à la gestion des rayons</a></p>
 </div>
 <h1>Créer un rayon</h1>
 

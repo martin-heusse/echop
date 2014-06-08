@@ -23,7 +23,7 @@ if ($b_historique == 1) {
 if($i_nbreArticle != 0) {
 /* Affichage du tableau des commandes pour un fournisseur donné */
 ?>
-<table>
+<table class="center">
     <tr>
         <th>Code Fournisseur</th>
         <th>Article</th>
@@ -38,7 +38,7 @@ if($i_nbreArticle != 0) {
     foreach ($to_article as $o_article) {
         if ($o_article['quantite_totale'] != 0) {
 ?>
-        <td class="centrer"><?php echo $o_article['code'] ?></td>
+        <tr><td class="centrer"><?php echo $o_article['code'] ?></td>
         <td><?php echo $o_article['nom'] ?></td>
         <td class="centrer"><?php echo $o_article['quantite_totale'].$o_article['unite']." (".$o_article['quantite_totale_unites']." unités)"?></td>
         <td align="center"> <!-- prix donnée par le fournisseur -->
@@ -54,18 +54,20 @@ if($i_nbreArticle != 0) {
                                 <?php if ($o_article['prix_ttc_ht']) {echo "HT";}
                                         else {echo "TTC";} ?>
                                 
-                            </td>
+        </td>
         <td class="centrer"><?php echo $o_article['montant_total'] ?>&euro;</td>
-        </tr> </div>
+         </div>
 <?php
         }
         $i_numLigne = ($i_numLigne + 1) % 2;
 
     }
-?>
-<td class="centrer"></td>
-<td class="centrer"></td>
-<td class="centrer"></td>
+    ?>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
 <td class="centrer"><b><?php echo 'Montant total'?></b></td>
 <td class="centrer"><b><?php echo $f_montantTtc ?>&euro;</b></td>
 

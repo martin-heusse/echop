@@ -181,6 +181,7 @@ h2 {
 
 .tab_article {
     font-size:13px;
+    /*line-height: 35px;*/
 }
 
 .tab_tab_article {
@@ -191,11 +192,17 @@ h2 {
 .cat {
     font-size: 30px;
     font-weight: bold;
+    font-family: Georgia;
 }
 
 /* Liens "cacher" "montrer" */
 .cat_bouton {
     color: #666666;
+}
+
+#right {
+    float:right;
+    margin-right: 5px;
 }
 
 .cat_bouton:hover, .cat_bouton:focus, .cat_bouton:active { 
@@ -208,7 +215,6 @@ table {
     border-collapse: collapse;
     margin-left: auto;
     margin-right: auto;
-
     float: left;
 }
 
@@ -231,6 +237,7 @@ table .col_coloree {
 /* Centre */
 table .center, table .centrer {
     text-align: center;
+    empty-cells: show;
 }
 
 table .left, table .gauche {
@@ -407,15 +414,16 @@ form .input_valider {
 /* Animation dynamique */
 
 .div-couleur {
-    width: 800px;
-    margin-left: 220px;
+    width: 600px;
+    margin-left: 320px;
     background-color:rgba(154, 205, 50,1);
-    border-radius:5px;
-    -moz-transition: all .9s;
-    -webkit-transition:all 0.9s; /* Safari and Chrome */
-    -o-transition:all 0.9s; /* Opera */
+    border-color: black;
+    border-width: 20px;
+    -moz-transition: all 2s;
+    -webkit-transition:all 2s; /* Safari and Chrome */
+    -o-transition:all 2s; /* Opera */
     top:0;
-    border-radius: 10px;
+    border-radius: 50px;
 }
 .div-couleur:hover {
     background-color:rgba(178, 217, 100,1);
@@ -429,22 +437,23 @@ form .input_valider {
     line-height: 100px;
     color:#000;
     margin:auto;
-    -o-animation: couleur-anim 3s linear infinite;
-    -webkit-animation: couleur-anim 3s linear infinite;
-    -moz-animation: couleur-anim 3s linear infinite;
+    border-radius: 50px;
+    -o-animation: couleur-anim 2s linear infinite;
+    -webkit-animation: couleur-anim 2s linear infinite;
+    -moz-animation: couleur-anim 2s linear infinite;
 }
 
 @-moz-keyframes couleur-anim {
-    0%  { border-radius: 0;}
+    0%  { border-radius: 50px;}
     /*25% { border-radius: 25px; width:300px}*/
-    50% { border-radius: 50px; width:300px}
+    50% { border-radius: 25px; }
     /*75% { border-radius: 25px; width:300px}*/
 }
 
 @-webkit-keyframes couleur-anim {
-    0%  { border-radius: 0;}
+    0%  { border-radius: 50px;}
     /*25% { border-radius: 25px; width:300px}*/
-    50% { border-radius: 50px; width:300px}
+    50% { border-radius: 25px; }
     /*75% { border-radius: 25px; width:300px}*/
 }
 

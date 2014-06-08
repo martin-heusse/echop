@@ -46,7 +46,8 @@
                         <?php
                         if ($bool_afficher_categorie == 0 and $i_nbreEnVente > 0) {
                             $bool_afficher_categorie = 1;
-                            if (count($tcategorie) > 1) {
+                            // Si trop de catégorie, problème d'affichage sur la même ligne, on choisit donc un select à ce moment là
+                            if (count($tcategorie) > 5) {
                                 ?>
                         <div id="categorie">
                         (<select>                            

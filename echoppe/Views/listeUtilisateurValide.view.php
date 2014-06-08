@@ -13,7 +13,7 @@
         ?> 
     <table >
         <tr>
-            <th><center> Login </center></th>
+            <th ><center> Login </center></th>
             <th><center> Nom </center></th>
             <th><center> Prénom </center></th>
             <th><center> Adresse Mail </center></th>            
@@ -24,9 +24,9 @@
             ?>
             <tr>
             <form action="<?php echo root ?>/inscription.php/desinscription" enctype="multipart/form-data" method="post" name="formulaire">
-                <td><center>  <?php echo $o_utilisateur['login'] ?> </center></td>
-                <td><center>  <?php echo $o_utilisateur['nom'] ?> </center></td> 
-                <td><center>  <?php echo $o_utilisateur['prenom'] ?> </center></td>
+                <td ><center>  <?php echo $o_utilisateur['login'] ?> </center></td>
+            <td><center>  <?php echo Utilisateur::getNom($o_utilisateur['id']) ?> </center></td> 
+            <td><center>  <?php echo Utilisateur::getPrenom($o_utilisateur['id']) ?> </center></td>
                 <td><center>  <?php echo $o_utilisateur['email'] ?> </center></td>                
                 <input type='hidden' name='id_utilisateur_a_suppr' value='<?php echo $o_utilisateur['login'] ?>'>
                 <td> <center><input type="image" id='SUBMIT' value="Supprimer" src="<?php echo root ?>/Layouts/images/cross.png" height='25'></center></td>
