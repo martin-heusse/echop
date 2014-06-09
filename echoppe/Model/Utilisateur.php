@@ -194,7 +194,12 @@ class Utilisateur {
         }
         return $i_result;
     }
-
+    
+    
+    public static function getAllObjectsExportBD() {
+        $sql_query = "select * from utilisateur u, datasUtilisateur du where u.id=du.id";
+        return $sql_query;
+    }
 
     /* Setters */
 

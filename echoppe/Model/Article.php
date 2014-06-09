@@ -29,6 +29,12 @@ class Article {
         }
         return $to_result;
     }
+    
+    public static function getAllObjectsExportBD() {
+        $sql_query = "select * from article";
+        return $sql_query;
+    }    
+    
     public static function getObject($i_id) {
         $sql_query = "select * from article where id=$i_id";
         $sql_tmp = mysql_query($sql_query);
