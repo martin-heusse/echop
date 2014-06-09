@@ -1,6 +1,7 @@
 <!-- affiche l'interface de création de catégorie-->
-<p><a class="action_navigation" href="<?php echo root ?>/rayon.php/afficherRayon">Retour à gérer categorie</a></p>
-
+<div id="retour">
+<p><a class="action_navigation" href="<?php echo root ?>/rayon.php/afficherRayon">Revenir à la gestion des catégories</a></p>
+</div>
 <h1>Créer une categorie</h1>
 
 <?php 

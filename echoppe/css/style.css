@@ -13,7 +13,7 @@ body {
     margin-top: 0px;
     margin-bottom: 0px;
     padding: 0px;
-    font-family: arial;
+    font-family: DejaVu Sans;
 }
 
 /* ========================================================================== */
@@ -46,18 +46,34 @@ a:hover, a:focus, a:active {
 
 #logo {
     display: inline-block;
+    position: relative;
     margin-top: 15px;
     margin-left: 20px;
     float: left;
 }
 
+#fond{
+    display: inline-block ;
+    position: absolute;
+    float: left;
+}
+
+#titre {
+    display: inline-block ;
+    position: relative;
+    margin-left: 30px;
+    margin-top: 40px;
+    float: left;
+}
+
 #titre_banniere {
     color: #f0f0f0;
-    font-family: Arial;
+    font-family: Georgia;
     display: inline-block;
     font-size: 36px;
     margin-top: 40px;
     margin-left: 20px;
+    position: relative;
     float: left;
 }
 
@@ -70,7 +86,7 @@ a:hover, a:focus, a:active {
     background-color: #666666;
     color: #cccccc;
     width: 300px;
-    min-height: 1400px;
+    min-height: 1600px;
 }
 
 #menu .titre_menu {
@@ -118,7 +134,12 @@ h1 {
     color: #666666;
     text-align: center;
     margin-top: 5px;
+    font-family: Georgia;
     margin-bottom: 10px;
+}
+
+h2 {
+    font-family: Georgia;
 }
 
 /* ========================================================================== */
@@ -159,7 +180,8 @@ h1 {
 }
 
 .tab_article {
-    font-size:10px;
+    font-size:13px;
+    /*line-height: 35px;*/
 }
 
 .tab_tab_article {
@@ -170,11 +192,17 @@ h1 {
 .cat {
     font-size: 30px;
     font-weight: bold;
+    font-family: Georgia;
 }
 
 /* Liens "cacher" "montrer" */
 .cat_bouton {
     color: #666666;
+}
+
+#right {
+    float:right;
+    margin-right: 5px;
 }
 
 .cat_bouton:hover, .cat_bouton:focus, .cat_bouton:active { 
@@ -196,6 +224,7 @@ table, th, td {
 
 th {
     color: #cccccc;
+    font-weight: normal;
     background-color: #666666;
 }
 
@@ -208,6 +237,7 @@ table .col_coloree {
 /* Centre */
 table .center, table .centrer {
     text-align: center;
+    empty-cells: show;
 }
 
 table .left, table .gauche {
@@ -253,11 +283,28 @@ form .input_valider {
 /* Campagne */
 
 .campagne_ouverte {
-    color: green;
+    font-weight: bold;
+    font-family: Georgia;
+    color: #6d9d2e;
 }
 
+.campagne_ouverte2 {
+    font-family: DejaVu Sans;
+    font-weight: bold;
+    color: #6d9d2e;
+}
+
+
 .campagne_fermee {
-    color: red;
+    font-weight: bold;
+    font-family: Georgia;
+    color: firebrick;
+}
+
+.campagne_fermee2 {
+    font-family: DejaVu Sans;
+    font-weight: bold;
+    color: firebrick;
 }
 
 .indication_campagne {
@@ -272,7 +319,7 @@ form .input_valider {
 
 .historique {
     font-weight: bold;
-    color: red;
+    color: #900000;
 }
 
 /* ========================================================================== */
@@ -280,7 +327,7 @@ form .input_valider {
 
 .erreur {
     font-weight:bold;
-    color: red;
+    color: #900000;
 }
 
 .succes {
@@ -290,9 +337,126 @@ form .input_valider {
 
 .message {
     font-weight:bold;
-    color: blue;
+    color: #24246A;
 }
+
+
+/* ====== */
+/* Liste à plusieurs colonnes*/
+
+#list_columns ul{
+    font-family: DejaVu Sans;
+    width:1300px;
+    margin-bottom:100px;
+    margin-top: 25px;
+    margin-left: 0px;
+    overflow:hidden;
+}
+#list_columns li {
+    line-height:2.5em;
+    border-bottom:1px solid #ccc;  
+    float: left;
+    display:inline;
+
+}
+
+
+#double li  { width:50%; } 
+#triple li  { width:33.333%; } 
+#quad li    { width:25%; } 
+#six li     { width:16.666%; } 
+
+/* Bouton select pour catégorie */
+
+#categorie select {
+    background: none; 
+    border: none;  
+    position: relative;
+    cursor: pointer;
+    height: 40px;
+    background-color: #f0f0f0;
+    border-color: #f0f0f0;
+    font-family: DejaVu Sans;
+    color: #444444;
+    font-size: initial;
+}
+
+
+/* Lien de retour */
+
+#retour a {
+    text-decoration: none;
+    position: relative;
+}
+
+#retour a:after {
+    content: '';
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    border-bottom: 1px solid #cccccc;
+    padding-bottom: 3px;
+    border-width: 0 0 2px;
+    border-style: solid;
+}
+#retour a:visited { 
+    font-weight: bold; 
+    text-decoration: none; 
+    color: #666666;
+}
+#retour a:hover, a:focus, a:active { 
+    text-decoration: none ;
+    color: #9685BA;
+}
+
 /* ========================================================================== */
+/* Animation dynamique */
+
+.div-couleur {
+    width: 600px;
+    margin-left: 320px;
+    background-color:rgba(154, 205, 50,1);
+    border-color: black;
+    border-width: 20px;
+    -moz-transition: all 2s;
+    -webkit-transition:all 2s; /* Safari and Chrome */
+    -o-transition:all 2s; /* Opera */
+    top:0;
+    border-radius: 50px;
+}
+.div-couleur:hover {
+    background-color:rgba(178, 217, 100,1);
+    border-radius: 50px;
+}
+
+.div-couleur-anim {
+    width:300px;
+    height:100px;
+     background-color:rgba(178, 217, 100,1);
+    line-height: 100px;
+    color:#000;
+    margin:auto;
+    border-radius: 50px;
+    -o-animation: couleur-anim 2s linear infinite;
+    -webkit-animation: couleur-anim 2s linear infinite;
+    -moz-animation: couleur-anim 2s linear infinite;
+}
+
+@-moz-keyframes couleur-anim {
+    0%  { border-radius: 50px;}
+    /*25% { border-radius: 25px; width:300px}*/
+    50% { border-radius: 25px; }
+    /*75% { border-radius: 25px; width:300px}*/
+}
+
+@-webkit-keyframes couleur-anim {
+    0%  { border-radius: 50px;}
+    /*25% { border-radius: 25px; width:300px}*/
+    50% { border-radius: 25px; }
+    /*75% { border-radius: 25px; width:300px}*/
+}
+
 /* Autre */
 
 /* Pour que les flottants ne dépassent pas de leur conteneur */
@@ -355,40 +519,40 @@ form .input_valider {
 
 .column.over {
 
-  border: 2px dashed #000;
+    border: 2px dashed #000;
 }
 
 /*ul {
-	margin: 0;
-	padding: 0;
-	list-style: none;
+        margin: 0;
+        padding: 0;
+        list-style: none;
 }
 li {
-	width: 440px;
-	height: 50px;
-	line-height: 50px;
-	border: 1px solid #ccc;
-	margin-bottom: 3px;
-	padding-left: 10px;
+        width: 440px;
+        height: 50px;
+        line-height: 50px;
+        border: 1px solid #ccc;
+        margin-bottom: 3px;
+        padding-left: 10px;
 }*/
 
 button {
-	color: #fff;
-	background: #1c1c1c;
-	background: -moz-linear-gradient(top,  #1c1c1c 0%, #000000 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1c1c1c), color-stop(100%,#000000));
-	background: -webkit-linear-gradient(top,  #1c1c1c 0%,#000000 100%);
-	background: -o-linear-gradient(top,  #1c1c1c 0%,#000000 100%);
-	background: -ms-linear-gradient(top,  #1c1c1c 0%,#000000 100%);
-	background: linear-gradient(to bottom,  #1c1c1c 0%,#000000 100%);
-	border: 0;
-	padding: 5px 10px;
-	cursor: pointer;
-	margin: 0;
+    color: #fff;
+    background: #1c1c1c;
+    background: -moz-linear-gradient(top,  #1c1c1c 0%, #000000 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1c1c1c), color-stop(100%,#000000));
+    background: -webkit-linear-gradient(top,  #1c1c1c 0%,#000000 100%);
+    background: -o-linear-gradient(top,  #1c1c1c 0%,#000000 100%);
+    background: -ms-linear-gradient(top,  #1c1c1c 0%,#000000 100%);
+    background: linear-gradient(to bottom,  #1c1c1c 0%,#000000 100%);
+    border: 0;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin: 0;
 }
 button:active {
-	margin: 1px 0 0 1px;
+    margin: 1px 0 0 1px;
 }
 .over {
-	border: 1px dashed #000;
+    border: 1px dashed #000;
 }

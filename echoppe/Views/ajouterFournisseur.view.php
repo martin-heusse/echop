@@ -1,10 +1,13 @@
 <!-- Le lien de retour -->
+<div id="retour">
 <p>
     <a  class="action_navigation" 
         href="<?php echo root ?>/article.php/afficherArticle?i_idRayon=<?php echo $o_rayon['id'] ?>&i_pageNum=<?php echo $i_pageNum ?>">
         Retour aux articles de <?php echo $o_rayon['nom'] ?>
     </a>
 </p>
+</div>
+
 <!-- Message d'erreur en cas de champ vide -->
 <p>
     <?php

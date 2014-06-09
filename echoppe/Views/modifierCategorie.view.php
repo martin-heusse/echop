@@ -1,6 +1,7 @@
 <!-- interface de modification d'une catégorie-->
+<div id="retour">
 <p><a class="action_navigation" href="<?php echo root ?>/rayon.php/afficherRayon">Retour à gérer categorie</a></p>
-
+</div>
 <h1>Modifier un categorie</h1>
 
 <?php 

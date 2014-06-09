@@ -1,5 +1,6 @@
 <!-- affiche la liste des fournisseurs choisis lors d'une campagne -->
-<?php
+<div id="retour">
+    <?php
 /* Si navigation dans l'historique */
 if ($b_historique == 1) {
 ?>
@@ -11,7 +12,7 @@ if ($b_historique == 1) {
 <?php
 }
 ?>
-
+</div>
 <?php
 /* Si navigation dans l'historique */
 if ($b_historique == 1) {

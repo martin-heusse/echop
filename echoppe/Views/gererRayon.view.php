@@ -1,9 +1,12 @@
 <!-- interface de gestion des rayons (ajouter, modifer) -->
+<div id="retour">
 <p><a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a></p>
 
 <h1>Gérer les rayons</h1>
+<center><a href="<?php echo root ?>/rayon.php/creerRayon"> Créer un rayon </a> &nbsp;
+    <a href="<?php echo root ?>/rayon.php/modifierRayon"> Modifier un rayon </a></center>
 
-<p> La liste des rayons : </p>
+<p><strong> La liste des rayons : </strong></p>
 <ul>
 <?php
 foreach ($to_rayon as $o_rayon) {
@@ -15,12 +18,11 @@ foreach ($to_rayon as $o_rayon) {
 ?>
 </ul>
 
-<a href="<?php echo root ?>/rayon.php/creerRayon"> créer un rayon <a/> &nbsp;
-<a href="<?php echo root ?>/rayon.php/modifierRayon"> modifier un rayon <a/>
-
 <h1>Gérer les catégories</h1>
+<center><a href="<?php echo root ?>/categorie.php/creerCategorie">Créer une catégorie</a> &nbsp;
+    <a href="<?php echo root ?>/categorie.php/modifierCategorie">Modifier une catégorie</a></center>
 
-<p>Liste des catégories :</p>
+<p><strong>Liste des catégories :</strong></p>
 <ul>
 <?php
 foreach ($to_categorie as $o_categorie) {
@@ -32,5 +34,4 @@ foreach ($to_categorie as $o_categorie) {
 ?>
 </ul>
 
-<a href="<?php echo root ?>/categorie.php/creerCategorie">créer une catégorie<a/> &nbsp;
-<a href="<?php echo root ?>/categorie.php/modifierCategorie">modifier une catégorie<a/>
+</div>

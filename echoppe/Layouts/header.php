@@ -19,10 +19,12 @@ if (!isset($titre_page)) {
     </head>
 <body>
 <div id="banniere">
+    <img id="fond" src="<?php echo root ?>/Layouts/images/banner.png"/>
     
     <a href="<?php echo root ?>/index.php">
         <img id="logo" src="<?php echo root ?>/Layouts/images/logo_90x90.png" alt="<?php echo $titre_page ?>" /></a>
-    <p id="titre_banniere">L'Échoppe d'ici et d'ailleurs</p>
+    <!--<p id="titre_banniere">L'Échoppe d'ici et d'ailleurs</p>-->
+    <img height="50" width="500" id="titre" src="<?php echo root ?>/Layouts/images/titre.png" alt="<?php echo $titre_page ?>"/>
     
 </div><!-- id="banniere" -->
 

@@ -34,7 +34,7 @@ class UtilisateurController extends Controller {
             return;
         }
         /* Récupère toutes les infos sur un utilisateur */
-        $to_utilisateur = Utilisateur::getObjectsByValidite(true);
+        $to_utilisateur = Utilisateur::getObjectsByValidite(true);       
         $this->render('listeUtilisateurValide', compact('to_utilisateur'));
     }
 
@@ -251,9 +251,11 @@ class UtilisateurController extends Controller {
         $i_id = $o_profil['id'];
         $s_password = Utilisateur::getMotDePasse($i_id);
         $s_email = Utilisateur::getEmail($i_id);
+        $s_nom = Utilisateur::getNom($i_id);
+        $s_prenom = Utilisateur::getPrenom($i_id);
 
         /* Modification eventuelle du mot de passe  */
-        if (isset($_POST['resetMdp']) && $_POST['resetMdp'] != "" && $_POST['resetMdp'] != $s_password) {
+        if (isset($_POST['resetMdp']) && $_POST['resetMdp'] != "" && $_POST['resetMdp'] != $s_password ) {
             $s_password = $_POST['resetMdp'];
             Utilisateur::setMotDePasse($i_id, $s_password);
             $i_editProfile = 1;
@@ -265,7 +267,21 @@ class UtilisateurController extends Controller {
             Utilisateur::setEmail($i_id, $s_email);
             $i_editProfile = 1;
         }
-        $this->render('profil', compact('s_login', 's_password', 's_email', 'i_editProfile'));
+        
+         /* Modification eventuelle du prenom  */
+        if (isset($_POST['resetNom']) && $_POST['resetNom'] != "" && $_POST['resetNom'] != $s_nom) {
+            $s_nom = $_POST['resetNom'];
+            Utilisateur::setNom($i_id, $s_nom);
+            $i_editProfile = 1;
+        }
+        
+         /* Modification eventuelle du nom */
+         if (isset($_POST['resetPrenom']) && $_POST['resetPrenom'] != "" && $_POST['resetPrenom'] != $s_prenom) {
+            $s_prenom = $_POST['resetPrenom'];
+            Utilisateur::setPrenom($i_id, $s_prenom);
+            $i_editProfile = 1;
+        }
+        $this->render('profil', compact('s_login', 's_password', 's_email','s_nom','s_prenom', 'i_editProfile'));
     }
 
     /*

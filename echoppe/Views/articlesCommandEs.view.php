@@ -1,15 +1,17 @@
-<?php
-/* vérifie si on navigue dans l'historique ou non */
-if ($b_historique == 1) {
-    ?>
-    <p><a class="action_navigation" href="<?php echo root ?>/campagne.php/gererCampagne">Retour à la gestion des campagnes</a></p>
+<div id="retour">
     <?php
-} else {
+    /* vérifie si on navigue dans l'historique ou non */
+    if ($b_historique == 1) {
+        ?>
+        <p><a class="action_navigation" href="<?php echo root ?>/campagne.php/gererCampagne">Retour à la gestion des campagnes</a></p>
+        <?php
+    } else {
+        ?>
+        <p><a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a></p>
+        <?php
+    }
     ?>
-    <p><a class="action_navigation" href="<?php echo root ?>">Retour à l'accueil</a></p>
-    <?php
-}
-?>
+</div>
 
 
 <?php
@@ -32,7 +34,7 @@ if ($to_article == null or $to_article == array()) {
     <?php
 } else {
     ?>
-    <p>Liste de tous les articles commandés par les utilisateurs pendant la campagne en cours.<br/>
+    <p>Liste de tous les articles que vous avez commandés pendant la campagne en cours.<br/>
         <?php
         /* l'affichage diffère si on est un administrateur ou non
          * un administrateur peut accèder à des pages annexes à partir de celle-ci 
@@ -47,8 +49,8 @@ if ($to_article == null or $to_article == array()) {
     ?>
 
     <p>
-        <span class="cat_bouton cacher_tout">[Cacher tout]</span> 
-        <span class="cat_bouton montrer_tout">[Montrer tout]</span> 
+        <span class="cat_bouton cacher_tout">Cacher tout</span> |
+        <span class="cat_bouton montrer_tout">Montrer tout</span> 
     </p>
 
     <table>
@@ -67,7 +69,7 @@ if ($to_article == null or $to_article == array()) {
                 <th>Manque</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="tab_article">
             <?php
             $i_numLigne = 0;
 //print_r($to_article);
@@ -86,18 +88,18 @@ if ($to_article == null or $to_article == array()) {
                 if ($i_nbreArticleCategorie != 0) {
                     ?>
                     <tr><td>
-                            <span class="cat"><?php echo $o_categorie['nom'] ?></span>
-                            <span class="cat_bouton cacher_<?php echo $o_categorie['id'] ?>">[Cacher]</span> 
-                            <span class="cat_bouton montrer_<?php echo $o_categorie['id'] ?>">[Montrer]</span> 
-                        </td></tr>
+                            <span class="cat"><?php echo $o_categorie['nom'] ?></span><div id="right">&nbsp;&nbsp;
+                                <span class="cat_bouton2 cacher_<?php echo $o_categorie['id'] ?>">Cacher </span>|  
+                                <span class="cat_bouton2 montrer_<?php echo $o_categorie['id'] ?>"> Montrer</span> 
+                            </div></td></tr>
 
                     <?php
                     foreach ($to_article as $o_article) {
                         if (Article::getIdCategorie($o_article['id_article']) == $o_categorie['id']) {
                             ?>
                             <tr class="ligne_article<?php echo $i_numLigne ?> cat_<?php echo $o_categorie['id'] ?>">
-                                
-                                <td>
+
+                                <td class="center">
                                     <?php
                                     if (Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
                                         ?>
@@ -174,17 +176,19 @@ foreach ($to_categorie as $o_categorie) {
 }
 ?>
 <script type="text/javascript">
-cacher_tout=function () {
-    $(".ligne_article0").hide(0);
-    $(".ligne_article1").hide(0);
-}
+    cacher_tout = function() {
+        $(".ligne_article0").hide(0);
+        $(".ligne_article1").hide(0);
+    }
 // 
 // window.onload = cacher_tout;
 // 
-$(".cacher_tout").click(function () {cacher_tout();});
-$(".montrer_tout").click(function () {
-    $(".ligne_article0").show(0);
-    $(".ligne_article1").show(0);
-});
+    $(".cacher_tout").click(function() {
+        cacher_tout();
+    });
+    $(".montrer_tout").click(function() {
+        $(".ligne_article0").show(0);
+        $(".ligne_article1").show(0);
+    });
 </script>
 
