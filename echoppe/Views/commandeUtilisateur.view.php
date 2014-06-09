@@ -139,7 +139,7 @@ if ($b_historique == 1) {
     echo "&idOldCampagne=".$i_idCampagne;
 }
 ?>
-"><img height="40" id="logo" src="<?php echo root ?>/Layouts/images/etiquette.png" alt="<?php echo $titre_page ?>"</a></p>
+"><img height="40" id="logo" src="<?php echo root ?>/Layouts/images/tag1.png" alt="<?php echo $titre_page ?>"</a></p>
 
 <?php
 } else {
