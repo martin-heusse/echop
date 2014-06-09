@@ -97,25 +97,54 @@ class ArticleController extends Controller {
             $i_idRayon = $_GET['i_idRayon'];
             $marge = Rayon::getMarge($i_idRayon) * 100;
             $to_descriptionArticle = GererArticle::descriptionArticle($i_idCampagne, $i_idRayon);
+            /* Permet de savoir quels sont toutes les categories d'un rayon car la variable d'avant est découpé selon les pages */
+            $to_descriptionAllArticle = GererArticle::descriptionArticle($i_idCampagne, $i_idRayon);
             /* liste de tous les fournisseurs */
             $to_fournisseur = GererArticle::fournisseurArticle($i_idCampagne, $i_idRayon);
             $num_article = count($to_descriptionArticle);
 
-            $max_article = 10;
+            $max_article = 5;
 
-            $i_pageTot = intval($num_article / $max_article) + 1;
-           
-            if($num_article > $max_article){
-                if (!isset($_GET['i_pageNum'])) {$i_pageNum=-1;}
-                else {
-                    $i_pageNum=$_GET['i_pageNum'];
-                    $fin_pre = ($i_pageNum-1)* $max_article;
-                    $to_descriptionArticle = array_slice($to_descriptionArticle,$fin_pre, $max_article);
+            $i_pageTot = $num_article / $max_article;
+            if($i_pageTot != intval($i_pageTot)){
+                $i_pageTot+=1;
+            }
+
+            $nbArticle = 10;
+            if ($num_article > $max_article) {
+                if (!isset($_GET['i_pageNum'])) {
+                    $i_pageNum = -1;
+                } else {
+                    $i_pageNum = $_GET['i_pageNum'];
+                    if (isset($_GET['fin_pre']) and $_GET['fin_pre'] < (($i_pageNum - 1) * $max_article)) {
+                        $fin_pre = $_GET['fin_pre'];
+                    } else {
+                        $fin_pre = ($i_pageNum - 1) * $max_article;
+                    }
+                    $to_descriptionArticle = array_slice($to_descriptionArticle, $fin_pre, $max_article);
                 }
             } else {
                 $i_pageNum = 0;
             }
 
+
+            $nbArticle = 0;
+            $changement_cat = false;
+//            foreach($to_descriptionArticle as $o_descriptionArticle){
+//               $nbArticle++;
+//               if($o_descriptionArticle['id_categorie'] != $o_descriptionArticlePrecedent['id_categorie'] and $nbArticle > 1){
+//                   $changement_cat = true;
+//                   break;                   
+//               }
+//               $o_descriptionArticlePrecedent['id_categorie'] = $o_descriptionArticle['id_categorie'];
+//           }
+//           if($nbArticle < $max_article and $changement_cat){
+//               $to_descriptionArticle = GererArticle::descriptionArticle($i_idCampagne, $i_idRayon);
+//               $to_descriptionArticle = array_slice($to_descriptionArticle,$fin_pre, $nbArticle-1);
+//               /* calcul du prochain fin_pre si on a un changement de catégorie */               
+//               $fin_pre+=$nbArticle-1;
+//               $i_pageTot++;
+//           }
             foreach ($to_descriptionArticle as &$o_descriptionArticle) {
                 $i_idArticleCampagne = $o_descriptionArticle['id_article_campagne'];
                 foreach ($to_fournisseur as $o_fournisseur) {
@@ -134,8 +163,34 @@ class ArticleController extends Controller {
             $to_unite = Unite::getAllObjects();
             /* liste de toutes les catégories */
             $to_categorie = Categorie::getAllObjects();
+
+            $changement_cat = true;
+            $o_descriptionArticlePrecedent['id_categorie'] = 0;
+            $t_categorieDebut = array();
+            foreach ($to_descriptionAllArticle as $o_descriptionAllArticle) {
+                $nbArticle++;
+                if ($o_descriptionAllArticle['id_categorie'] != $o_descriptionArticlePrecedent['id_categorie'] and $nbArticle > 1) {
+                    $changement_cat = true;
+                }
+                if ($changement_cat) {
+                    foreach ($to_categorie as $o_categorie) {
+                        if ($o_categorie['id'] == $o_descriptionAllArticle['id_categorie']) {
+                            $numeroPage = $nbArticle/$max_article;                          
+                            if(intval($numeroPage)== $numeroPage){
+                            $t_categorieDebut[$o_categorie['id']] = $numeroPage;
+                            
+                            }
+                            else {
+                                $t_categorieDebut[$o_categorie['id']] = intval($numeroPage)+1;
+                            }
+                        }
+                    }
+                    $changement_cat = false;
+                }
+                $o_descriptionArticlePrecedent['id_categorie'] = $o_descriptionAllArticle['id_categorie'];
+            }
         }
-        $this->render('gererArticle', compact('to_rayon', 'marge', 'i_idRayon', 'to_fournisseur', 'to_descriptionArticle', 'to_tva', 'to_unite', 'to_categorie', 's_message', 'i_erreur', 'b_historique', 'i_idCampagne', 'i_pageNum', 'i_pageTot'));
+        $this->render('gererArticle', compact('to_rayon', 'marge', 'i_idRayon', 'to_fournisseur', 'to_descriptionArticle', 'to_descriptionAllArticle', 'to_tva', 'to_unite', 'to_categorie','t_categorieDebut', 's_message', 'i_erreur', 'b_historique', 'i_idCampagne', 'i_pageNum', 'i_pageTot', 'fin_pre'));
     }
 
     public function dndArticle() {
@@ -379,7 +434,7 @@ class ArticleController extends Controller {
             header('Location: ' . root . '/article.php/afficherArticle?i_erreur=' . $i_erreur . '&i_idRayon=' . $i_idRayon . '&idOldCampagne=' . $i_idCampagne . '&i_pageNum=' . $i_pageNum);
         }
     }
-    
+
     /*
      * Permet de supprimer un article
      * en communiquant ses données à la vue supprimerArticle.view.php.
@@ -425,13 +480,12 @@ class ArticleController extends Controller {
         foreach ($to_descriptionArticle as $o_descriptionArticle) {
             if ($o_descriptionArticle['id_article_campagne'] == $id_article) {
                 // test l'id de l'article puis redirige seulement pour le 'o_descriptionArticle' que l'on a choisi
-                $this->render('supprimerArticle', compact('i_pageNum', 'i_idRayon','id_article'));
+                $this->render('supprimerArticle', compact('i_pageNum', 'i_idRayon', 'id_article'));
                 break;
             }
         }
     }
-    
-    
+
     public function supprimerArticle() {
         /* Authentication required */
         if (!Utilisateur::isLogged()) {
@@ -443,28 +497,24 @@ class ArticleController extends Controller {
             $this->render('adminRequired');
             return;
         }
-       
+
         /* récupération des variables à utiliser en cas d'erreur */
         $b_historique = $_POST['b_historique'];
         $i_idCampagne = $_POST['i_idCampagne'];
         $i_idRayon = $_POST['i_idRayon'];
         $i_pageNum = $_POST['i_pageNum'];
-        
-        if (isset($_POST['id_article']) and isset($_POST['confirm']) and $_POST['confirm']=='1') {
+
+        if (isset($_POST['id_article']) and isset($_POST['confirm']) and $_POST['confirm'] == '1') {
             /* récupération des variables */
-            
+
             $i_idArticle = $_POST['id_article'];
             ArticleCampagne::delete($i_idArticle);
             ArticleFournisseur::delete($i_idArticle);
             Article::delete($i_idArticle);
+        }
 
-           
-            }
-        
-        header('Location: ' . root . '/article.php/afficherArticle?i_pageNum='.$i_pageNum.'&i_idRayon=' . $i_idRayon);
+        header('Location: ' . root . '/article.php/afficherArticle?i_pageNum=' . $i_pageNum . '&i_idRayon=' . $i_idRayon);
     }
-
-    
 
     /*
      * Permet d'afficher le formulaire d'ajout d'un fournisseur d'un article
@@ -537,7 +587,7 @@ class ArticleController extends Controller {
 
         if (
                 isset($_POST['id_article_campagne'])
-                or  isset($_POST['id_fournisseur_choisi'])
+                or isset($_POST['id_fournisseur_choisi'])
         ) {
             /* récupération des variables */
             $ti_idFournisseurCoche = $_POST['id_fournisseur_coche'];
@@ -569,7 +619,7 @@ class ArticleController extends Controller {
                 ArticleFournisseur::create($i_idArticleCampagne, $i_idFournisseur, $f_montant, $f_prixTtcFournisseur, $s_code, $b_prixTtcHt, $b_ventePaquetUnite);
             }
         }
-        header('Location: ' . root . '/article.php/afficherArticle?i_pageNum='.$i_pageNum.'&i_idRayon=' . $i_idRayon . '&nb_fourn=' . $i_nbFournisseurCoche);
+        header('Location: ' . root . '/article.php/afficherArticle?i_pageNum=' . $i_pageNum . '&i_idRayon=' . $i_idRayon . '&nb_fourn=' . $i_nbFournisseurCoche);
     }
 
     /*
@@ -710,16 +760,9 @@ class ArticleController extends Controller {
             $i_nbPaquetColis = $_POST['nb_paquet_colis'];
             $s_descriptionCourte = $_POST['description_courte'];
             $s_descriptionLongue = $_POST['description_longue'];
-            $i_idArticle = Article::create($i_idRayon, 
-                                           $i_idCategorie, 
-                                           $s_nomProduit, 
-                                           $f_poidsPaquetFournisseur, 
-                                           $i_idUnite, 
-                                           $i_nbPaquetColis, 
-                                           $s_descriptionCourte, 
-                                           $s_descriptionLongue);
-            
-            /* on met l'article dans la table ordre article, (à la fin, forcément)*/
+            $i_idArticle = Article::create($i_idRayon, $i_idCategorie, $s_nomProduit, $f_poidsPaquetFournisseur, $i_idUnite, $i_nbPaquetColis, $s_descriptionCourte, $s_descriptionLongue);
+
+            /* on met l'article dans la table ordre article, (à la fin, forcément) */
             $i_idArticleOrdre = ArticleOrdre::create($i_idArticle);
 
             /* création de l'entrée de la table article_campagne correspondant à l'entrée d'article */
