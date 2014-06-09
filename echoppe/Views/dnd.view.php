@@ -13,8 +13,8 @@
         $result = mysql_query("SELECT * FROM article_ordre ao, article a WHERE ao.id_article = a.id ORDER BY ao.id");
 		echo "<ul class='article'>\n";
 		while ($row = mysql_fetch_array($result)) {
-			echo "<li>".$row['id_article']."</li>\n";
-                        echo $row['nom'];
+			echo "<li>".$row['id_article']."<span></span>"."  ".$row['nom']."</li>\n";
+                        //echo $row['nom'];
 		}
 		echo "</ul>";
 ?>

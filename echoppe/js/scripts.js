@@ -67,15 +67,24 @@
 		var tempItems = document.querySelectorAll('.article li');
 		[].forEach.call(tempItems, function(item, i) {
 			var order = i + 1;
-			var it = 'id_article=' + item.innerHTML + '&id=' + order;
-                        if (it.substring(11,13) == "<m") {it = it.substring(0,11)+it.substring(77,it.length);}
-                        //alert(it);
+                        var lecture = item.innerHTML;
+                        
+                        var it2 = 'id_article=' + lecture; 
+                        if (/<m(.+?)>/.test(it2)) {
+                                it2 = it2.replace(/<m(.+?)>/,"");
+                              }
+                              
+                        var j = (it2.indexOf("<span></span>")); //balise non sémantique pour ne pas récupérer le nom de l'article
+                        
+                        it2 = it2.substring(0,j);
+                        
+                        var it = it2 + '&id=' + order;
 			saveList(it);
 		});
 	}
 	function saveList(item) {
 		var request = new XMLHttpRequest();
-                alert(item);
+                //alert(item);
 		request.open('GET', 'http://localhost/~Nabil/echoppe/echoppe/js/save.php?'+item,true);
 		request.send();
 	}
