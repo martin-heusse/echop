@@ -2,10 +2,10 @@
 require_once('def.php');
 
 $commands=array(//
-"DROP DATABASE IF EXISTS ".db_name.";",
+//"DROP DATABASE IF EXISTS ".db_name.";",
 "CREATE DATABASE IF NOT EXISTS ".db_name." DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;",
 "use ".db_name.";",
-"CREATE TABLE utilisateur (
+"CREATE TABLE IF NOT EXISTS utilisateur (
     id integer not null auto_increment,
     nom varchar(255),
     prenom varchar(255),
@@ -15,7 +15,7 @@ $commands=array(//
     validite boolean, 
     constraint pk_utilisateur primary key(id)
 ) ENGINE = INNODB;",
-"CREATE TABLE datasUtilisateur (
+"CREATE TABLE IF NOT EXISTS datasUtilisateur (
     id integer not null auto_increment,
     nom varchar(255),
     prenom varchar(255), 
@@ -23,47 +23,47 @@ $commands=array(//
 
     constraint fk_utilisateur foreign key(id) references utilisateur(id) on delete cascade
 ) ENGINE = INNODB;",
-"CREATE TABLE administrateur (
+"CREATE TABLE IF NOT EXISTS administrateur (
     id integer not null auto_increment,
     id_utilisateur integer not null,
     constraint pk_administrateur primary key(id),
     constraint fk_administrateur_1 foreign key(id_utilisateur)
     references utilisateur(id) on delete cascade
 ) ENGINE = INNODB;",
-"CREATE TABLE campagne (
+"CREATE TABLE IF NOT EXISTS campagne (
     id integer not null auto_increment,
     date_debut date,
     etat boolean,
     courant boolean,
     constraint pk_campagne primary key(id)
 ) ENGINE = INNODB;",
-"CREATE TABLE unite (
+"CREATE TABLE IF NOT EXISTS unite (
     id integer not null auto_increment,
     valeur varchar(255),
     constraint pk_unite primary key(id)
 ) ENGINE = INNODB;",
-"CREATE TABLE rayon (
+"CREATE TABLE IF NOT EXISTS rayon (
     id integer not null auto_increment,
     nom varchar(255),
     marge decimal(6,2),
     constraint pk_rayon primary key(id)
 ) ENGINE = INNODB;",
-"CREATE TABLE categorie (
+"CREATE TABLE IF NOT EXISTS categorie (
     id integer not null auto_increment,
     nom varchar(255),
     constraint pk_categorie primary key(id)
 ) ENGINE = INNODB;",
-"CREATE TABLE fournisseur (
+"CREATE TABLE IF NOT EXISTS fournisseur (
     id integer not null auto_increment,
     nom varchar(255),
     constraint pk_fournisseur primary key(id)
 ) ENGINE = INNODB;",
-"CREATE TABLE tva (
+"CREATE TABLE IF NOT EXISTS tva (
     id integer not null auto_increment,
     valeur decimal(6,1),
     constraint pk_tva primary key(id)
 ) ENGINE = INNODB;",
-"CREATE TABLE article (
+"CREATE TABLE IF NOT EXISTS article (
     id integer not null auto_increment,
     id_rayon integer not null,
     id_unite integer not null,
@@ -81,7 +81,7 @@ $commands=array(//
     constraint fk_article_3 foreign key(id_categorie)
     references categorie(id) on delete cascade
 ) ENGINE = INNODB;",
-"CREATE TABLE article_campagne (
+"CREATE TABLE IF NOT EXISTS article_campagne (
     id integer not null auto_increment,
     id_article integer not null,
     id_campagne integer not null,
@@ -116,17 +116,14 @@ $commands=array(//
     constraint fk_article_fournisseur_2 foreign key(id_fournisseur) 
     references fournisseur(id) on delete cascade
 ) ENGINE = INNODB;",
-"CREATE TABLE article_ordre (
+"CREATE TABLE IF NOT EXISTS article_ordre (
     id integer not null auto_increment,
     id_article integer not null,
-    id_categorie integer not null,
     constraint pk_article_ordre primary key(id),
     constraint fk_article_ordre foreign key(id_article)
-    references article(id) on delete cascade,
-    constraint fk_article_ordre_2 foreign key(id_categorie)
-    references categorie(id) on delete cascade
+    references article(id) on delete cascade
 ) ENGINE = INNODB;",
-"CREATE TABLE commande (
+"CREATE TABLE IF NOT EXISTS commande (
     id integer not null auto_increment,
     id_article integer not null,
     id_campagne integer not null,

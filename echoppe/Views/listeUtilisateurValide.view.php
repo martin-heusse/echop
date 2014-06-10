@@ -28,7 +28,8 @@
             <td><center>  <?php echo Utilisateur::getNom($o_utilisateur['id']) ?> </center></td> 
             <td><center>  <?php echo Utilisateur::getPrenom($o_utilisateur['id']) ?> </center></td>
                 <td><center>  <?php echo $o_utilisateur['email'] ?> </center></td>                
-                <input type='hidden' name='id_utilisateur_a_suppr' value='<?php echo $o_utilisateur['login'] ?>'>
+                <input type='hidden' name='id_utilisateur_a_suppr' value='<?php echo $o_utilisateur['id'] ?>'>
+                <input type="hidden" name = "page" value="listeUtilisateurValide" >
                 <td> <center><input type="image" id='SUBMIT' value="Supprimer" src="<?php echo root ?>/Layouts/images/cross.png" height='25'></center></td>
 
             </form>

@@ -34,7 +34,7 @@ class UtilisateurController extends Controller {
             return;
         }
         /* Récupère toutes les infos sur un utilisateur */
-        $to_utilisateur = Utilisateur::getObjectsByValidite(true);       
+        $to_utilisateur = Utilisateur::getObjectsByValidite(true);
         $this->render('listeUtilisateurValide', compact('to_utilisateur'));
     }
 
@@ -57,6 +57,27 @@ class UtilisateurController extends Controller {
         $to_utilisateur = Utilisateur::getObjectsByValidite(0);
         $i_nombreUtilisateurAValider = Utilisateur::getCountByValidite(0);
         $this->render('listeUtilisateurAValider', compact('to_utilisateur', 'i_nombreUtilisateurAValider'));
+    }
+    
+    /*
+     * Affiche la liste de tous les utilisateurs à valider.
+     */
+
+    public function listeUtilisateurADesinscrire() {
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if (!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
+        /* Récupère toutes les infos sur un utilisateur */
+        $to_utilisateur = Utilisateur::getObjectsByDesinscrit();
+        $i_nombreUtilisateurADesinscrire = Utilisateur::getCountByDesinscrit();
+        $this->render('listeUtilisateurADesinscrire', compact('to_utilisateur', 'i_nombreUtilisateurADesinscrire'));
     }
 
     public function ajouterUtilisateur() {
@@ -131,6 +152,35 @@ class UtilisateurController extends Controller {
           </script>';
          */
         header('Location: ' . root . '/utilisateur.php/listeUtilisateurAValider');
+    }
+
+    /*
+     * Permet de valider l'inscription d'un utilisateur 
+     */
+
+    public function validerDesinscription() {
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if (!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
+        /* Récupération de l'identifiant de l'utilisateur à ajouter */
+        if (isset($_GET['idUtilisateur'])) {
+            $i_idUtilisateur = $_GET['idUtilisateur'];
+            $s_nom = Utilisateur::getNom($i_idUtilisateur);
+            $s_prenom = Utilisateur::getPrenom($i_idUtilisateur);            
+            $s_destinataire = Utilisateur::getEmail($i_idUtilisateur);
+            $s_subject = "[L'Échoppe d'ici et d'ailleurs] Désinscription enregistrée";
+            $s_message = "$s_nom $s_prenom, votre désinscription a bien été enregistrée .<br/>" ;
+            Util::sendEmail($s_destinataire, $s_subject, $s_message);
+            Utilisateur::delete($i_idUtilisateur);
+        }
+        header('Location: ' . root . '/utilisateur.php/listeUtilisateurADesinscrire');
     }
 
     /*
@@ -255,7 +305,7 @@ class UtilisateurController extends Controller {
         $s_prenom = Utilisateur::getPrenom($i_id);
 
         /* Modification eventuelle du mot de passe  */
-        if (isset($_POST['resetMdp']) && $_POST['resetMdp'] != "" && $_POST['resetMdp'] != $s_password ) {
+        if (isset($_POST['resetMdp']) && $_POST['resetMdp'] != "" && $_POST['resetMdp'] != $s_password) {
             $s_password = $_POST['resetMdp'];
             Utilisateur::setMotDePasse($i_id, $s_password);
             $i_editProfile = 1;
@@ -267,21 +317,21 @@ class UtilisateurController extends Controller {
             Utilisateur::setEmail($i_id, $s_email);
             $i_editProfile = 1;
         }
-        
-         /* Modification eventuelle du prenom  */
+
+        /* Modification eventuelle du prenom  */
         if (isset($_POST['resetNom']) && $_POST['resetNom'] != "" && $_POST['resetNom'] != $s_nom) {
             $s_nom = $_POST['resetNom'];
             Utilisateur::setNom($i_id, $s_nom);
             $i_editProfile = 1;
         }
-        
-         /* Modification eventuelle du nom */
-         if (isset($_POST['resetPrenom']) && $_POST['resetPrenom'] != "" && $_POST['resetPrenom'] != $s_prenom) {
+
+        /* Modification eventuelle du nom */
+        if (isset($_POST['resetPrenom']) && $_POST['resetPrenom'] != "" && $_POST['resetPrenom'] != $s_prenom) {
             $s_prenom = $_POST['resetPrenom'];
             Utilisateur::setPrenom($i_id, $s_prenom);
             $i_editProfile = 1;
         }
-        $this->render('profil', compact('s_login', 's_password', 's_email','s_nom','s_prenom', 'i_editProfile'));
+        $this->render('profil', compact('s_login', 's_password', 's_email', 's_nom', 's_prenom', 'i_editProfile'));
     }
 
     /*

@@ -39,7 +39,9 @@ Cliquez sur un nom d'utilisateur pour voir la liste des produits qu'il a command
     </tr>
 <?php
     $i_numLigne = 0;
+    $montantTotal = 0;
     foreach($to_commande as $o_utilisateur) {
+        $montantTotal+=$o_utilisateur['montant_total'];
 ?>
     <tr class="ligne_article<?php echo $i_numLigne ?>">
         <td><a href="<?php echo root ?>/utilisateurAyantCommandE.php/commandeUtilisateur?idUtilisateur=<?php echo $o_utilisateur['id_utilisateur']?>
@@ -68,6 +70,9 @@ if ($o_utilisateur['tout_livre'] == 1) {
     $i_numLigne = ($i_numLigne + 1) % 2;
     }
 ?>
+    
+    <tr> <th colspan=<?php echo $i_colspan ?> class="right">Montant Total = </th>
+        <td class="center"><?php echo $montantTotal ?> €</td></tr>
 </table>
 <?php
 } else {

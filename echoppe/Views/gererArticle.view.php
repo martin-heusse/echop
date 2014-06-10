@@ -84,7 +84,7 @@ foreach ($to_rayon as $o_rayon) {
         
         if ($i_nbreArticleCategorie != 0) {
             ?>       
-                 <span style="font-size: 18px ; font-weight: bold; color:#666666">   | <?php echo $o_categorie['nom'].' ('.$t_categorieDebut[$o_categorie['id']].'⇢)'?> </span>
+    <span style="font-size: 18px ; font-weight: bold; color:#666666">   |  <a href='afficherArticle?i_idRayon=<?php echo $i_idRayon ?>&i_pageNum=<?php echo $t_categorieDebut[$o_categorie['id']]?>'> <?php echo $o_categorie['nom'].' ('.$t_categorieDebut[$o_categorie['id']].'⇢)'?> </a></span>
                 <?php
             }
             
@@ -136,8 +136,8 @@ foreach ($to_rayon as $o_rayon) {
         ?>
         <li>
             <p>
-                <a href="<?php echo root ?>/article.php/cocherArticleVente?i_idRayon=<?php echo $i_idRayon ?>">Mettre en vente tous les articles</a> | 
-                <a href="<?php echo root ?>/article.php/decocherArticleVente?i_idRayon=<?php echo $i_idRayon ?>">Retirer de la vente tous les articles</a>
+                <a href="<?php echo root ?>/article.php/cocherArticleVente?i_idRayon=<?php echo $i_idRayon ?>&i_pageNum=<?php echo $i_pageNum?>">Mettre en vente tous les articles</a> | 
+                <a href="<?php echo root ?>/article.php/decocherArticleVente?i_idRayon=<?php echo $i_idRayon ?>&i_pageNum=<?php echo $i_pageNum?>">Retirer de la vente tous les articles</a>
             </p>
         </li>
         <li>
@@ -285,7 +285,7 @@ foreach ($to_rayon as $o_rayon) {
                                     </select>
                                 </td>
                                 <!-- Suppression du produit -->
-                                <td>                                    
+                                <td>       
                                 <center><input type="image" id='SUBMIT' name="supprimer_<?php echo $i_idArticleCampagne ?>" 
                                                value="OK" src="<?php echo root ?>/Layouts/images/cross.png" height='60'/></center>   
                                 </td>

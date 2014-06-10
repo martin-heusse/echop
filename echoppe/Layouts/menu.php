@@ -54,6 +54,7 @@ require_once("Model/Campagne.php");
                 <li><a href="<?php echo root ?>/tva.php/gererTva">Gestion de la TVA</a></li>
                 <li><a href="<?php echo root ?>/fournisseur.php/gererFournisseur">Gestion des fournisseurs</a></li>
                 <li><a href="<?php echo root ?>/utilisateur.php/listeUtilisateurAValider">Inscriptions à valider (<?php echo Utilisateur::getCountByValidite(0) ?>)</a></li>
+                <li><a href="<?php echo root ?>/utilisateur.php/listeUtilisateurADesinscrire">Désinscriptions à valider (<?php echo Utilisateur::getCountByDesinscrit() ?>)</a></li>
                 <li><a href="<?php echo root ?>/utilisateur.php/listeUtilisateurValide">Gestion des utilisateurs</a></li>
                 <li><a href="<?php echo root ?>/utilisateur.php/envoiMail">Contacter les utilisateurs</a></li>
                 <li><a href="<?php echo root ?>/exportImport.php/listeExport">Exporter les données</a></li>
