@@ -2,7 +2,7 @@
 class Utilisateur {
 
     public static function authentication($s_login, $s_motDePasse) {
-        $sql_query = "select u.id from utilisateur u ,datasUtilisateur du where lower(u.login)=lower('$s_login') and u.mot_de_passe='$s_motDePasse' and u.validite=1 and du.desinscris=0 and du.id=u.id";
+        $sql_query = "select u.id from utilisateur u ,datasUtilisateur du where lower(u.login)=lower('$s_login') and u.mot_de_passe='$s_motDePasse' and u.validite=1 and du.desinscrit=0 and du.id=u.id";
         $sql_tmp = mysql_query($sql_query);
         $i_result = false;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
@@ -184,8 +184,8 @@ class Utilisateur {
         return $to_result;
     }   
     
-    public static function getObjectsByDesinscris() {
-        $sql_query = "select * from datasUtilisateur where desinscris=1 order by nom";
+    public static function getObjectsByDesinscrit() {
+        $sql_query = "select * from datasUtilisateur where desinscrit=1 order by nom";
         $sql_tmp = mysql_query($sql_query);
         $to_result = null;
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
@@ -210,8 +210,8 @@ class Utilisateur {
         return $i_result;
     }
     
-    public static function getCountByDesinscris() {
-        $sql_query = "select count(*) number from datasUtilisateur where desinscris=1";
+    public static function getCountByDesinscrit() {
+        $sql_query = "select count(*) number from datasUtilisateur where desinscrit=1";
         $sql_tmp = mysql_query($sql_query);
         $i_result = 0;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
@@ -286,8 +286,7 @@ class Utilisateur {
     }
     
     public static function desinscription($i_id) {
-        $sql_query = "update datasUtilisateur set desinscris='1' where id=$i_id";
-        echo 'desinscris !!';
+        $sql_query = "update datasUtilisateur set desinscrit='1' where id=$i_id";
         $b_result =  mysql_query($sql_query);
         return $b_result;
     }

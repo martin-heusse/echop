@@ -75,8 +75,8 @@ class UtilisateurController extends Controller {
             return;
         }
         /* Récupère toutes les infos sur un utilisateur */
-        $to_utilisateur = Utilisateur::getObjectsByDesinscris();
-        $i_nombreUtilisateurADesinscrire = Utilisateur::getCountByDesinscris();
+        $to_utilisateur = Utilisateur::getObjectsByDesinscrit();
+        $i_nombreUtilisateurADesinscrire = Utilisateur::getCountByDesinscrit();
         $this->render('listeUtilisateurADesinscrire', compact('to_utilisateur', 'i_nombreUtilisateurADesinscrire'));
     }
 
