@@ -1,6 +1,8 @@
     <?php
     
         require_once('../constants.php');
+        require_once('../Model/Article.php');
+
 //        define('db_host','localhost'); // DB access config
 //        define('db_username','root');
 //        define('db_name','BdEchoppe');
@@ -19,8 +21,20 @@
         
         echo $id_article;
         echo $id;
+        
+        
+        $id_categorie = Article::getIdCategorie($id_article);
+        $offset = Article::getOffset($id_categorie);
+
+        
+        echo $id;
+        echo $offset;
+        
+       $new_id = $id + $offset;
+        
        
-        $sql_query = "REPLACE INTO article_ordre SET id = '$id', id_article = '$id_article'";
+        $sql_query = "REPLACE INTO article_ordre SET id = '$new_id', id_article = '$id_article', id_categorie = 
+                            (SELECT a.id_categorie FROM article a WHERE a.id = '$id_article');";
 	mysql_query($sql_query);
 
         echo "j'ai passe la requete";

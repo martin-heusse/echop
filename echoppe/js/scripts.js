@@ -64,11 +64,11 @@
 	}
 
 	function listChange() {
+                
 		var tempItems = document.querySelectorAll('.article li');
 		[].forEach.call(tempItems, function(item, i) {
 			var order = i + 1;
                         var lecture = item.innerHTML;
-                        
                         var it2 = 'id_article=' + lecture; 
                         if (/<m(.+?)>/.test(it2)) {
                                 it2 = it2.replace(/<m(.+?)>/,"");
@@ -79,6 +79,7 @@
                         it2 = it2.substring(0,j);
                         
                         var it = it2 + '&id=' + order;
+                        //alert(it);
 			saveList(it);
 		});
 	}

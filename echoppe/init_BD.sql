@@ -110,60 +110,60 @@ insert into article(id_rayon,id_categorie, nom, poids_paquet_fournisseur, id_uni
     values(2,3, 'Thé vert', 25, 3, 12, '-', '-');
 
 -- CREATION DES ORDRES DES ARTICLES
-insert into article_ordre(id_article)
-    values(1);
-insert into article_ordre(id_article)
-    values(2);
-insert into article_ordre(id_article)
-    values(3);
-insert into article_ordre(id_article)
-    values(4);
-insert into article_ordre(id_article)
-    values(5);
-insert into article_ordre(id_article)
-    values(6);
-insert into article_ordre(id_article)
-    values(7);
-insert into article_ordre(id_article)
-    values(8);
-insert into article_ordre(id_article)
-    values(9);
-insert into article_ordre(id_article)
-    values(10);
-insert into article_ordre(id_article)
-    values(11);
-insert into article_ordre(id_article)
-    values(12);
-insert into article_ordre(id_article)
-    values(13);
-insert into article_ordre(id_article)
-    values(14);
-insert into article_ordre(id_article)
-    values(15);
-insert into article_ordre(id_article)
-    values(16);
-insert into article_ordre(id_article)
-    values(17);
-insert into article_ordre(id_article)
-    values(18);
-insert into article_ordre(id_article)
-    values(19);
-insert into article_ordre(id_article)
-    values(20);
-insert into article_ordre(id_article)
-    values(21);
-insert into article_ordre(id_article)
-    values(22);
-insert into article_ordre(id_article)
-    values(23);
-insert into article_ordre(id_article)
-    values(24);
-insert into article_ordre(id_article)
-    values(25);
-insert into article_ordre(id_article)
-    values(26);
-insert into article_ordre(id_article)
-    values(27);
+insert into article_ordre(id_article, id_categorie)
+    values(1,1);
+insert into article_ordre(id_article, id_categorie)
+    values(2,1);
+insert into article_ordre(id_article, id_categorie)
+    values(3,1);
+insert into article_ordre(id_article, id_categorie)
+    values(4,1);
+insert into article_ordre(id_article, id_categorie)
+    values(5,1);
+insert into article_ordre(id_article, id_categorie)
+    values(6,1);
+insert into article_ordre(id_article, id_categorie)
+    values(7,1);
+insert into article_ordre(id_article, id_categorie)
+    values(8,1);
+insert into article_ordre(id_article, id_categorie)
+    values(9,1);
+insert into article_ordre(id_article, id_categorie)
+    values(10,1);
+insert into article_ordre(id_article, id_categorie)
+    values(11,1);
+insert into article_ordre(id_article, id_categorie)
+    values(12,1);
+insert into article_ordre(id_article, id_categorie)
+    values(13,1);
+insert into article_ordre(id_article, id_categorie)
+    values(14,2);
+insert into article_ordre(id_article, id_categorie)
+    values(15,2);
+insert into article_ordre(id_article, id_categorie)
+    values(16,2);
+insert into article_ordre(id_article, id_categorie)
+    values(17,2);
+insert into article_ordre(id_article, id_categorie)
+    values(18,2);
+insert into article_ordre(id_article, id_categorie)
+    values(19,2);
+insert into article_ordre(id_article, id_categorie)
+    values(20,2);
+insert into article_ordre(id_article, id_categorie)
+    values(21,2);
+insert into article_ordre(id_article, id_categorie)
+    values(22,2);
+insert into article_ordre(id_article, id_categorie)
+    values(23,2);
+insert into article_ordre(id_article, id_categorie)
+    values(24,2);
+insert into article_ordre(id_article, id_categorie)
+    values(25,2);
+insert into article_ordre(id_article, id_categorie)
+    values(26,2);
+insert into article_ordre(id_article, id_categorie)
+    values(27,3);
 -- CREATION DE ARTICLE_CAMPAGNE
 -- riz
 insert into article_campagne(id_article, id_campagne, id_fournisseur,

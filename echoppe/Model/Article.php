@@ -168,6 +168,19 @@ class Article {
         return $s_result;
     }
 
+    public static function getOffset($i_idCategorie){
+        $sql_query = "select count(*) number from article_ordre where id_categorie<'$i_idCategorie'";
+        $sql_tmp = mysql_query($sql_query);
+        $i_result = 0;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité et création du résultat */
+            $i_result = htmlentities($o_row['number'], null,'UTF-8');
+        }
+        return $i_result;
+    }
+        
+    
+    
     public static function getNomNbPaquetColisDescriptionCourteDescriptionLongue($i_id){
         $sql_query = "select nom,nb_paquet_colis,description_courte,description_longue from article where id=$i_id";
         $sql_tmp = mysql_query($sql_query);

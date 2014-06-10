@@ -8,9 +8,9 @@ class GererArticle {
      */
     public static function descriptionArticle($i_idCampagne,$i_idRayon) {
         $sql_query = "SELECT DISTINCT ac.id AS id_article_campagne, " .
-                                      "ac.en_vente, " .
-                                      "a.nom, " .
-                                      "a.description_courte, " .
+                                      "ac.en_vente, " . 
+                                      "a.nom, " . 
+                                      "a.description_courte, " . 
                                       "a.description_longue, " .
                                       "a.nb_paquet_colis, " .
                                       "a.id_categorie, " .
@@ -22,18 +22,21 @@ class GererArticle {
                                       "ac.id_fournisseur AS id_fournisseur_choisi, " .
                                       "ac.id_tva AS id_tva_choisi, " .
                                       "ac.prix_ttc AS prix_echoppe, " .
-                                      // arrondir le prix au kilo toujours au centime supérieur même en quand d'égalité
+                                      // arrondir le prix au kilo toujours au centime supérieur même en cas d'égalité
                                       "TRUNCATE(ac.prix_ttc/a.poids_paquet_fournisseur,2)+0.01 AS prix_echoppe_unite " .
                      "FROM article a, " .
+                          "article_ordre ao, " .
                           "article_fournisseur af, " .
                           "article_campagne ac, " .
                           "unite u " .
                      "WHERE a.id = ac.id_article AND " .
                             "ac.id = af.id_article_campagne AND " .
+                            "a.id = ao.id_article AND " .
                             "a.id_unite = u.id AND " .
                             "ac.id_campagne=$i_idCampagne AND " .
                             "a.id_rayon=$i_idRayon " .
-                     "ORDER BY a.id_categorie, ac.id ";
+                    //"ORDER BY a.id_categorie, ac.id ";
+                    "ORDER BY a.id_categorie, ao.id ";
         $sql_tmp = mysql_query($sql_query);
         $to_result = array();
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {

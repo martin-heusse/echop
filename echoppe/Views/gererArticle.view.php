@@ -15,7 +15,7 @@
 
 
     <?php if ($i_idRayon != null) { ?>
-        <p><a class="action_navigation" href="<?php echo root ?>/article.php/dndArticle?i_idRayon=<?php echo $i_idRayon; ?>">Trier les articles</a></p>
+        <p><a class="action_navigation" href="<?php echo root ?>/article.php/choixCategorieTri?i_idRayon=<?php echo $i_idRayon; ?>">Trier les articles</a></p>
     <?php } ?>
 </div>
 <?php
