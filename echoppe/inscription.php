@@ -104,30 +104,44 @@ class InscriptionController extends Controller {
             return;
         }
         if (isset($_POST['id_utilisateur_a_suppr'])) {
-            $i_login = $_POST['id_utilisateur_a_suppr'];
+            $i_id = $_POST['id_utilisateur_a_suppr'];
+        }
+        if (isset($_POST['page'])) {            
+            $i_pagePrec = $_POST['page'];
         }
         if (!isset($_POST['confirm'])) {
-            $this->render('desinscription', compact('i_errReg', 'i_login'));
+            $this->render('desinscription', compact('i_errReg', 'i_id','i_pagePrec'));
         } else {
             if ($_POST['confirm'] == 1) {
                 // Désinscription par l'administrateur
                 if (Utilisateur::isLogged() && Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
-                    Utilisateur::deleteByLogin($i_login);
-                    header('Location: ' . root . '/utilisateur.php/listeUtilisateurValide');
+                    Utilisateur::delete($i_id);
+                   header('Location: ' . root . '/utilisateur.php/'.$i_pagePrec);
                 }
                 // Désinscription soi-même
                 else {
                     $i_id = $_SESSION['idUtilisateur'];
 
-                    Utilisateur::delete($i_id);
+                    Utilisateur::desinscription($i_id);
 
+                    // récupérer les mails des admins
+                    $to_utilisateur = Utilisateur::getAllObjects();
+                    $s_destinataire = "";
+                    foreach ($to_utilisateur as &$o_utilisateur) {
+                        $i_idUtilisateur = $o_utilisateur['id'];
+                        if (Administrateur::isAdministrateur($i_idUtilisateur)) {
+                            $s_destinataire .= Utilisateur::getEmail($i_idUtilisateur) . ",";
+                        }
+                        Util::sendEmail($s_destinataire, $s_subject, $s_message);
+                    }
+                    
                     /* Détruit les variables de session */
                     session_destroy();
                     header('Location: ' . root . '/index.php');
                 }
             } else {
                 if (Utilisateur::isLogged() && Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
-                    header('Location: ' . root . '/utilisateur.php/listeUtilisateurValide');
+                    header('Location: ' . root . '/utilisateur.php/'.$i_pagePrec);
                 } else {
                     header('Location: ' . root . '/accueil.php');
                 }

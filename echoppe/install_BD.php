@@ -19,6 +19,7 @@ $commands=array(//
     id integer not null auto_increment,
     nom varchar(255),
     prenom varchar(255), 
+    desinscris boolean,
 
     constraint fk_utilisateur foreign key(id) references utilisateur(id) on delete cascade
 ) ENGINE = INNODB;",

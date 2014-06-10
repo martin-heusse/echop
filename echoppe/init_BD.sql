@@ -7,12 +7,12 @@ insert into utilisateur(login, mot_de_passe, email, validite) values('Johann', '
 insert into utilisateur(login, mot_de_passe, email, validite) values('Paul', 'paul', 'paul@email.com', false);
 
 -- CREATION NOM UTILISATEURS
-insert into datasUtilisateur(nom, prenom) values ('Root', 'root');
-insert into datasUtilisateur(nom, prenom) values ('Aurore', 'Martin');
-insert into datasUtilisateur(nom, prenom) values ('Gilles', 'Michel');
-insert into datasUtilisateur(nom, prenom) values ('Philippe', 'Michel');
-insert into datasUtilisateur(nom, prenom) values ('Johann', 'Arthur');
-insert into datasUtilisateur(nom, prenom) values ('Paul', 'Jean');
+insert into datasUtilisateur(nom, prenom, desinscris) values ('Root', 'root', '0');
+insert into datasUtilisateur(nom, prenom, desinscris) values ('Aurore', 'Martin', '0');
+insert into datasUtilisateur(nom, prenom, desinscris) values ('Gilles', 'Michel', '0');
+insert into datasUtilisateur(nom, prenom, desinscris) values ('Philippe', 'Michel', '0');
+insert into datasUtilisateur(nom, prenom, desinscris) values ('Johann', 'Arthur', '0');
+insert into datasUtilisateur(nom, prenom, desinscris) values ('Paul', 'Jean', '0');
 
 -- DETERMINATION DES ADMINISTRATEUR PARMI LES UTILISATEURS
 insert into administrateur(id_utilisateur) values(1);

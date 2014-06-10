@@ -106,7 +106,7 @@ class ArticleController extends Controller {
             $max_article = 5;
 
             $i_pageTot = $num_article / $max_article;
-            if($i_pageTot != intval($i_pageTot)){
+            if ($i_pageTot != intval($i_pageTot)) {
                 $i_pageTot+=1;
             }
 
@@ -175,13 +175,11 @@ class ArticleController extends Controller {
                 if ($changement_cat) {
                     foreach ($to_categorie as $o_categorie) {
                         if ($o_categorie['id'] == $o_descriptionAllArticle['id_categorie']) {
-                            $numeroPage = $nbArticle/$max_article;                          
-                            if(intval($numeroPage)== $numeroPage){
-                            $t_categorieDebut[$o_categorie['id']] = $numeroPage;
-                            
-                            }
-                            else {
-                                $t_categorieDebut[$o_categorie['id']] = intval($numeroPage)+1;
+                            $numeroPage = $nbArticle / $max_article;
+                            if (intval($numeroPage) == $numeroPage) {
+                                $t_categorieDebut[$o_categorie['id']] = $numeroPage;
+                            } else {
+                                $t_categorieDebut[$o_categorie['id']] = intval($numeroPage) + 1;
                             }
                         }
                     }
@@ -190,7 +188,7 @@ class ArticleController extends Controller {
                 $o_descriptionArticlePrecedent['id_categorie'] = $o_descriptionAllArticle['id_categorie'];
             }
         }
-        $this->render('gererArticle', compact('to_rayon', 'marge', 'i_idRayon', 'to_fournisseur', 'to_descriptionArticle', 'to_descriptionAllArticle', 'to_tva', 'to_unite', 'to_categorie','t_categorieDebut', 's_message', 'i_erreur', 'b_historique', 'i_idCampagne', 'i_pageNum', 'i_pageTot', 'fin_pre'));
+        $this->render('gererArticle', compact('to_rayon', 'marge', 'i_idRayon', 'to_fournisseur', 'to_descriptionArticle', 'to_descriptionAllArticle', 'to_tva', 'to_unite', 'to_categorie', 't_categorieDebut', 's_message', 'i_erreur', 'b_historique', 'i_idCampagne', 'i_pageNum', 'i_pageTot', 'fin_pre'));
     }
 
     public function dndArticle() {
@@ -409,8 +407,7 @@ class ArticleController extends Controller {
                             ArticleCampagne::setPrixTtc($i_idArticleCampagne, $f_prixTtcEchoppe);
                         }
                     }
-                    $nb_total_article = count(Article::getAllObjects());
-                    for ($i = 1; $i <= $nb_total_article; $i++) {
+                    for ($i = 1; $i <= Article::getMaxId(); $i++) {
                         if (isset($_POST['ajout_fournisseur_' . $i])) {
                             $id_article = $i;
                             header('Location: ' . root . '/article.php/afficherAjouterFournisseur?i_erreur=' . $i_erreur . '&i_idRayon=' . $i_idRayon . '&i_pageNum=' . $i_pageNum . '&i_idCampagne=' . $i_idCampagne . '&id_article=' . $id_article . '&b_historique=' . $b_historique);
@@ -821,8 +818,12 @@ class ArticleController extends Controller {
             /* Récupéation de l'identifiant de la campagne courante */
             $i_idCampagne = Campagne::getIdCampagneCourante();
             GererArticle::setEnVenteByIdCampagneIdRayon(1, $i_idCampagne, $i_idRayon);
+
+            /* Récupération de la page */
+            $i_pageNum = $_GET['i_pageNum'];
+
+            header('Location: ' . root . '/article.php/afficherArticle?i_idRayon=' . $i_idRayon . '&i_pageNum=' . $i_pageNum);
         }
-        header('Location: ' . root . '/article.php/afficherArticle?i_idRayon=' . $i_idRayon);
     }
 
     /*
@@ -848,7 +849,10 @@ class ArticleController extends Controller {
             $i_idCampagne = Campagne::getIdCampagneCourante();
             GererArticle::setEnVenteByIdCampagneIdRayon(0, $i_idCampagne, $i_idRayon);
         }
-        header('Location: ' . root . '/article.php/afficherArticle?i_idRayon=' . $i_idRayon);
+        /* Récupération de la page */
+            $i_pageNum = $_GET['i_pageNum'];
+        
+        header('Location: ' . root . '/article.php/afficherArticle?i_idRayon=' . $i_idRayon. '&i_pageNum=' . $i_pageNum);
     }
 
     /*
