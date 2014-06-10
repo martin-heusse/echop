@@ -111,7 +111,7 @@ class Commande {
     }
     
     public static function getObjectsNotOrderedByIdArticleIdCampagne($i_idArticle, $i_idCampagne) {
-        $sql_query = "select u.id,u.login, ud.nom, ud.prenom from utilisateur u, datasUtilisateur du where utilisateur.id and u.id=ud.id not in (select id_utilisateur from commande where id_article=$i_idArticle and id_campagne=$i_idCampagne) order by login;";
+        $sql_query = "select u.id, u.login, du.nom, du.prenom from utilisateur u, datasUtilisateur du where u.id=du.id and u.id not in (select id_utilisateur from commande where id_article=$i_idArticle and id_campagne=$i_idCampagne) order by login;";
         $sql_tmp = mysql_query($sql_query);
         $to_result = array();
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
