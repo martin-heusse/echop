@@ -4,10 +4,14 @@
     
 <h1>Trier les articles </h1>
 
+<?php 
+    $recup_rayon = $_GET['i_idRayon'];
+?>
+
 <div id="retour">
 <!-- interface de parcours d'historique des campagnes pour utilisateur -->
-<p><a class="action_navigation" href="<?php echo root ?>/article.php/afficherArticle">Retour à la gestion d'article</a></p>
-    </div>
+<p><a class="action_navigation" href="<?php echo root ?>/article.php/afficherArticle?i_pageNum=1&i_idRayon=<?php echo $recup_rayon;?>">Retour à la gestion d'article</a></p>
+</div>
 <?php
 if($to_categorie == array()){ 
 ?>
