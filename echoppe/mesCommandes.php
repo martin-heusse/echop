@@ -362,7 +362,7 @@ class MesCommandesController extends Controller {
         $pdf->SetFont('Arial','B',7);
         $pdf->SetFillColor(96,96,96);
         $pdf->SetTextColor(255,255,255);
-        $pdf->SetXY(3,5);
+        $pdf->SetXY(2,5);
         for($i=0;$i<sizeof($header);$i++)
                 $pdf->cell(3.5,1,$header[$i],1,0,'C',1);
         
@@ -421,7 +421,7 @@ class MesCommandesController extends Controller {
             $pdf->SetFillColor(0xdd,0xdd,0xdd);
             $pdf->SetTextColor(0,0,0);
             $pdf->SetFont('Arial','',10);
-            $pdf->SetXY(3,$pdf->GetY()+1);
+            $pdf->SetXY(2,$pdf->GetY()+1);
             $fond=0;
         
             $pdf->cell(3.5,0.7,$o_article['nom'],1,0,'C',$fond);
@@ -440,8 +440,9 @@ class MesCommandesController extends Controller {
         }
         /*Montant total*/
         $Montant_Total="Total : ".$f_montantTotal." Euros";
-        $pdf->SetFont('Arial','B',14);
-        $pdf->Write($pdf->GetY()+2,$Montant_Total);
+        $pdf->SetFont('Arial','B',10);
+        $pdf->SetXY(37,$pdf->GetY()+1);
+        $pdf->cell(3.5,0.7,$Montant_Total,1,0,'C',$fond);
         
         /*Fin PDF*/
         $pdf->output();

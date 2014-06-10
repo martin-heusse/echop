@@ -52,5 +52,20 @@ class Administrateur {
         }
         return $s_result;
     }
+    
+    public static function getTables() {
+        $sql_query ="show tables";
+        $sql_tmp = mysql_query($sql_query);
+        $to_result = array();
+        while ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité */
+            foreach ($o_row as &$column) {
+                $column = htmlentities($column, null,'UTF-8');
+            }
+            /* Création du résultat */
+            $to_result[] = $o_row;
+        }
+        return $to_result;
+    }
 }
 ?>

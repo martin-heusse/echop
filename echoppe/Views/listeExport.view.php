@@ -10,9 +10,9 @@
     <li><a href="<?php echo root ?>/exportImport.php/exportUser">Exporter tous les utilisateurs</a></li>
     <li><a href="<?php echo root ?>/exportImport.php/exportArticle">Exporter tous les articles</a></li>
     
-<!--Impportations-->
-<h3 class="titre_menu">Importation</h3>
+<!--Importations-->
+<!--<h3 class="titre_menu">Importation</h3>
     <li><a href="<?php echo root ?>/exportImport.php/importBD">Importer toute la base de données</a></li>
     <li><a href="<?php echo root ?>/exportImport.php/importUser">Importer tous les utilisateurs</a></li>
-    <li><a href="<?php echo root ?>/exportImport.php/importArticle">Importer tous les articles</a></li>
+    <li><a href="<?php echo root ?>/exportImport.php/importArticle">Importer tous les articles</a></li>-->
 

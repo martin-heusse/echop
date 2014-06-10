@@ -559,10 +559,6 @@ class UtilisateurAyantCommandEController extends Controller {
         /* On recupère la commande d'un utilisateur */
         $to_commande = Commande::getObjectsByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur);
         
-        /* Montant total */
-        $f_montantTotal = 0;
-        $f_montantParRayon = NULL;
-        
         /* Récupération de tous les attributs nécessaires d'un article */
         foreach($to_commande as &$o_article) {
             /* Attributs dépendant de l'article */
@@ -573,19 +569,19 @@ class UtilisateurAyantCommandEController extends Controller {
             /*Titre de l'étiquette*/
             $pdf->SetFont('Arial','UB',14);
             $pdf->AddPage();
-            $pdf->Write(3,"Campagne ".$i_idCampagne);
+            $pdf->Write(1,"Campagne ".$i_idCampagne);
             $pdf->SetFont('Arial','',12);
             $pdf->SetX(1);
-            $pdf->Write(5,"Nom : ".$userName);
+            $pdf->Write(2,"Nom : ".$userName);
             $pdf->SetX(1);
-            $pdf->Write(6,"Prenom : ".$userSurname);
+            $pdf->Write(3,"Prenom : ".$userSurname);
 
             /*Titres des colonnes de l'étiquette*/
             $header=array('Produit','Description','Quantite');
             $pdf->SetFont('Arial','B',8);
             $pdf->SetFillColor(96,96,96);
             $pdf->SetTextColor(255,255,255);
-            $pdf->SetXY(1,6);
+            $pdf->SetXY(1,4);
             for($i=0;$i<sizeof($header);$i++)
                     $pdf->cell(4,1,$header[$i],1,0,'C',1);
        
@@ -601,6 +597,142 @@ class UtilisateurAyantCommandEController extends Controller {
             $pdf->cell(4,0.7,$o_article['quantite'],1,0,'C',$fond);
             $pdf->SetXY(1,$pdf->GetY()+0);
             $fond=!$fond;
+        }
+       
+        /*Fin PDF*/
+        $pdf->output();
+    }
+    
+    public function etiquettesUtilisateurPage() {
+        
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if (!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
+
+        /* Récupération des articles commandés par l'utilisateur */
+        if (!isset($_GET['idUtilisateur'])) {
+            header('Location: '.root.'/utilisateurAyantCommandE.php/utilisateurAyantCommandE');
+        }
+        $i_idUtilisateur = $_GET['idUtilisateur']; 
+        //echo $i_idUtilisateur;
+        /* Navigation dans l'historique ou non */
+        $b_historique = 0;
+        if (isset($_GET['idOldCampagne'])) {
+            $i_idCampagne = $_GET['idOldCampagne'];
+            $b_historique = 1;
+        } else {
+            $i_idCampagne = Campagne::getIdCampagneCourante();
+        }
+        /*Récupération Nom et Prénom Mail de l'Utilisateur*/
+        $userName=Utilisateur::getNom($i_idUtilisateur);
+        $userSurname=Utilisateur::getPrenom($i_idUtilisateur);
+        $userMail=  Utilisateur::getEmail($i_idUtilisateur);
+        
+        /*Titre de la page PDF qui se charge, apparait dans le titre de la page Web*/
+        $docTitle="Commande de ".$userSurname." ".$userName." campagne ".$i_idCampagne;
+        
+        /*Création du PDF format A4*/
+        $pdf=new FPDF('P','cm','A4');
+        $pdf->Open();
+        $pdf->SetTitle($docTitle);
+        
+        /* On recupère la commande d'un utilisateur */
+        $to_commande = Commande::getObjectsByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur);
+        
+        /*Compteurs - Curseurs*/
+        $numEtiquette=0; // numéro de l'étiquette sur une page
+        $Gauche=true; // Position de l'étiquette
+        
+        /*Première page*/
+        $pdf->AddPage();
+        
+        /* Récupération de tous les attributs nécessaires d'un article */
+        foreach($to_commande as &$o_article) {
+            $numEtiquette=$numEtiquette+1;
+            
+            /* Attributs dépendant de l'article */
+            $i_idArticle = $o_article['id_article'];
+            $o_article['nom'] = Article::getNom($i_idArticle);
+            $o_article['description_courte'] = Article::getDescriptionCourte($i_idArticle);
+            
+            /* Format impose 10 étiquettes par page max */
+            
+            if($numEtiquette==11) {
+                $pdf->AddPage();
+                $numEtiquette=1;
+            }
+            
+            /*Titre de l'étiquette*/
+            $pdf->SetFont('Arial','UB',14);
+            $pdf->Write(1,"Campagne ".$i_idCampagne);
+            $pdf->SetFont('Arial','',12);
+            if($Gauche){
+                $pdf->SetX(1);
+            }else{
+                $pdf->SetX(11);
+            }
+            $pdf->Write(2,"Nom : ".$userName);
+            if($Gauche){
+                $pdf->SetX(1);
+            }else{
+                $pdf->SetX(11);
+            }
+            $pdf->Write(3,"Prenom : ".$userSurname);
+
+            /*Titres des colonnes de l'étiquette*/
+            $header=array('Produit','Description','Quantite');
+            $pdf->SetFont('Arial','B',8);
+            $pdf->SetFillColor(96,96,96);
+            $pdf->SetTextColor(255,255,255);
+            if($Gauche){
+                $pdf->SetXY(1,$pdf->GetY()+2);
+            }else{
+                $pdf->SetXY(11,$pdf->GetY()+2);
+            }
+            for($i=0;$i<sizeof($header);$i++)
+                    $pdf->cell(3,1,$header[$i],1,0,'C',1);
+       
+
+            $pdf->SetFillColor(0xdd,0xdd,0xdd);
+            $pdf->SetTextColor(0,0,0);
+            $pdf->SetFont('Arial','',8);
+            if($Gauche){
+                $pdf->SetXY(1,$pdf->GetY()+1);
+            }else{
+                $pdf->SetXY(11,$pdf->GetY()+1);
+            }
+            
+            $fond=0;
+        
+            $pdf->cell(3,0.7,$o_article['nom'],1,0,'C',$fond);
+            $pdf->cell(3,0.7,$o_article['description_courte'],1,0,'C',$fond);
+            $pdf->cell(3,0.7,$o_article['quantite'],1,0,'C',$fond);
+            $fond=!$fond;
+            
+            /* 
+             * Il faut mettre une étiquette à gauche une à droite, et les unes en dessous des autres
+             * Voici le réglage :
+             * 
+             * Si c'est à gauche, on passe les curseurs à droite
+             * 
+             * Si c'est à droite, on passe le curseur à gauche et en dessous
+             * 
+             */
+            if ($Gauche==true){
+                $pdf->SetXY(11, $pdf->GetY()-3);
+                $Gauche=false;
+            }
+            else {
+                $pdf->SetXY(1, $pdf->GetY()+2);
+                $Gauche=true;
+            }
         }
        
         /*Fin PDF*/
