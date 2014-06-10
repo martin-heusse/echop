@@ -1,3 +1,5 @@
+
+
 (function() {
 
 	var items = document.querySelectorAll('.article li');
@@ -79,14 +81,13 @@
                         it2 = it2.substring(0,j);
                         
                         var it = it2 + '&id=' + order;
-                        //alert(it);
 			saveList(it);
 		});
 	}
 	function saveList(item) {
 		var request = new XMLHttpRequest();
                 //alert(item);
-		request.open('GET', 'http://localhost/~Nabil/echoppe/echoppe/js/save.php?'+item,true);
+		request.open('GET', 'save.php?'+item,true);
 		request.send();
 	}
 

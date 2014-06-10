@@ -139,7 +139,7 @@ if ($b_historique == 1) {
     echo "&idOldCampagne=".$i_idCampagne;
 }
 ?>
-"><img height="40" id="logo" src="<?php echo root ?>/Layouts/images/tag1.png" alt="<?php echo 'Générer les étiquettes' ?>"/></a></p>
+"><img height="60" id="logo" src="<?php echo root ?>/Layouts/images/multitag.png" alt="<?php echo 'Générer les étiquettes' ?>"/></a></p>
 <p><a class="action_navigation" href="<?php echo root ?>/utilisateurAyantCommandE.php/etiquettesUtilisateurPage?idUtilisateur=<?php echo $i_idUtilisateur?>
 <?php
 /* Si navigation dans l'historique */
@@ -147,7 +147,7 @@ if ($b_historique == 1) {
     echo "&idOldCampagne=".$i_idCampagne;
 }
 ?>
-"><img height="40" id="logo" src="<?php echo root ?>/Layouts/images/tag1.png" alt="<?php echo 'Générer les étiquettes (sur une même page)' ?>"/></a></p>
+"><img height="40" id="logo" src="<?php echo root ?>/Layouts/images/tag1" alt="<?php echo 'Générer les étiquettes (sur une même page)' ?>"/></a></p>
 
 <?php
 } else {
