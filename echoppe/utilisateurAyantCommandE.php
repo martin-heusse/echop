@@ -1,6 +1,8 @@
 <?php
 require_once('def.php');
+require_once('Util.php');
 require_once('FPDF/fpdf.php');
+require_once('Model/Export.php');
 require_once('Model/Commande.php');
 require_once('Model/Campagne.php');
 require_once('Model/Administrateur.php');
@@ -312,11 +314,11 @@ class UtilisateurAyantCommandEController extends Controller {
         $userLogin=Utilisateur::getLogin($i_idUtilisateur);
         $userName=Utilisateur::getNom($i_idUtilisateur);
         $userSurname=Utilisateur::getPrenom($i_idUtilisateur);
+ 
+        $database="BdEchoppe";        
         
-        // Connect database
-        $database="BdEchoppe";
-        mysql_connect(db_host, db_username,db_pwd);
-        mysql_select_db(db_name);
+        // Connexion BD
+        Export::connect();
 
         // la variable qui va contenir les données CSV
         $outputCsv = '';
@@ -330,56 +332,20 @@ class UtilisateurAyantCommandEController extends Controller {
             if($j == 0)
                 {
                     $requete = Commande::getExportCSVDatas($i_idUtilisateur, $i_idCampagne);
-                    $sql = mysql_query($requete);
                 
                 }else{
                     $requete= Commande::getExportCSVTotalTTC($i_idUtilisateur, $i_idCampagne);
-                    $sql = mysql_query($requete);
                 }
-        
-        if(mysql_num_rows($sql) > 0)
-        {
-            $i = 0;
-
-            while($Row = mysql_fetch_assoc($sql))
-            {
-                $i++;
-
-                // Si c'est la 1er boucle, on affiche le nom des champs pour avoir un titre pour chaque colonne
-                if($i == 1)
-                {
-                    foreach($Row as $clef => $valeur)
-                        $outputCsv .= trim($clef).';';
-
-                    $outputCsv = rtrim($outputCsv, ';');
-                    $outputCsv .= "\n";
-                }
-
-                // On parcours $Row et on ajout chaque valeur à cette ligne
-                foreach($Row as $clef => $valeur)
-                    $outputCsv .= trim($valeur).';';
-
-                // Suppression du ; qui traine à la fin
-                $outputCsv = rtrim($outputCsv, ';');
-
-                // Saut de ligne
-                $outputCsv .= "\n";
-
-            }
-        
-        }
-        else
-            exit('Aucune donnée à enregistrer.');
-        
-        $j=$j+1;
+                
+            // Ecriture dans la variable CSV de la requête (voir le système CSV)       
+            $outputCsv=Export::exportExcel($requete, $outputCsv);
+            
+            /*Passage à la requête suivante*/
+            $j=$j+1;
         }
         
-        header("Content-disposition: attachment; filename=".$fileName);
-        header("Content-Type: application/force-download");
-        header("Content-Transfer-Encoding: application/vnd.ms-excel\n");
-        header("Pragma: no-cache");
-        header("Cache-Control: must-revalidate, post-check=0, pre-check=0, public");
-        header("Expires: 0");
+        /*Formatage du fichier*/
+        Util::headerExcel($fileName);
 
         echo $outputCsv;
         exit();
