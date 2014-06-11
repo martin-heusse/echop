@@ -289,79 +289,8 @@ class ArticleController extends Controller {
             $this->render('adminRequired');
             return;
         }
-        /* liste de tous les rayons */
-        $to_rayon = Rayon::getAllObjects();
-        if (isset($_GET['i_erreur'])) {
-            $i_erreur = $_GET['i_erreur'];
-        } else {
-            $i_erreur = null;
-        }
-        /* Navigation dans l'historique ou non */
-        $b_historique = 0;
-        if (isset($_GET['idOldCampagne'])) {
-            $i_idCampagne = $_GET['idOldCampagne'];
-            $b_historique = 1;
-        } else {
-            $i_idCampagne = Campagne::getIdCampagneCourante();
-        }
-        if (!isset($_GET['i_idRayon'])) {
-            $s_message = "Choisissez votre rayon !";
-            $i_idRayon = null;
-            $to_fournisseur = null;
-            $to_descriptionArticle = null;
-            $to_tva = null;
-            $to_unite = null;
-        } else {
-            $s_message = null;
-            /* liste de toutes les descriptions d'un article d'un rayon de la campagne courante */
-            $i_idRayon = $_GET['i_idRayon'];
-            $marge = Rayon::getMarge($i_idRayon) * 100;
-            $to_descriptionArticle = GererArticle::descriptionArticle($i_idCampagne, $i_idRayon);
-            /* liste de tous les fournisseurs */
-            $to_fournisseur = GererArticle::fournisseurArticle($i_idCampagne, $i_idRayon);
-            $num_article = count($to_descriptionArticle);
-
-            $max_article = 2;
-
-            $i_pageTot = intval($num_article / $max_article) + 1;
-
-            if ($num_article > $max_article) {
-                if (!isset($_GET['i_pageNum'])) {
-                    $i_pageNum = -1;
-                } else {
-                    $i_pageNum = $_GET['i_pageNum'];
-                    $fin_pre = ($i_pageNum - 1) * $max_article;
-                    $to_descriptionArticle = array_slice($to_descriptionArticle, $fin_pre, $max_article);
-                }
-            } else {
-                $i_pageNum = 0;
-            }
-
-            foreach ($to_descriptionArticle as &$o_descriptionArticle) {
-                $i_idArticleCampagne = $o_descriptionArticle['id_article_campagne'];
-                foreach ($to_fournisseur as $o_fournisseur) {
-                    $i_idFournisseur = $o_fournisseur['id_fournisseur'];
-                    $o_articleFournisseur = ArticleFournisseur::getObjectByIdArticleCampagneIdFournisseur($i_idArticleCampagne, $i_idFournisseur);
-                    $o_descriptionArticle[$i_idFournisseur]['code'] = $o_articleFournisseur['code'];
-                    $o_descriptionArticle[$i_idFournisseur]['prix_fournisseur'] = $o_articleFournisseur['prix_ht'];
-                    $o_descriptionArticle[$i_idFournisseur]['prix_ttc_ht'] = $o_articleFournisseur['prix_ttc_ht'];
-                    $o_descriptionArticle[$i_idFournisseur]['vente_paquet_unite'] = $o_articleFournisseur['vente_paquet_unite'];
-                    $o_descriptionArticle[$i_idFournisseur]['prix_ttc'] = $o_articleFournisseur['prix_ttc'];
-                }
-            }
-            /* liste de toutes les tva */
-            $to_tva = Tva::getAllObjects();
-            /* liste de toutes les unités */
-            $to_unite = Unite::getAllObjects();
-            /* liste de toutes les catégories */
-            $to_categorie = Categorie::getAllObjects();
-
-            foreach ($to_categorie as &$o_categorie) {
-                $i_idCategorie = $o_categorie['id'];
-                $o_categorie['nom'] = Categorie::getNom($i_idCategorie);
-            }
-        }
-        $this->render('dnd', compact('to_rayon', 'marge', 'i_idRayon', 'to_fournisseur', 'to_descriptionArticle', 'to_tva', 'to_unite', 'to_categorie', 's_message', 'i_erreur', 'b_historique', 'i_idCampagne', 'i_pageNum', 'i_pageTot'));
+        
+        $this->render('dnd', compact('result'));
     }
 
     /*
