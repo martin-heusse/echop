@@ -3,6 +3,7 @@
 require_once('def.php');
 require_once('Model/ArticleOrdre.php');
 require_once('Model/Article.php');
+require_once('Model/Utilisateur.php');
 
 $commands = array(//
 //"DROP DATABASE IF EXISTS ".db_name.";",
@@ -165,5 +166,9 @@ echo "Fin de la creation des tables \n <br />";
 $to_result = Article::getAllObjects();
 foreach ($to_result as $o_descriptionArticle) {
     ArticleOrdre::create($o_descriptionArticle['id'],$o_descriptionArticle['id_categorie']);
+}
+$to_utilisateur = Utilisateur::getAllObjects();
+foreach ($to_utilisateur as $o_utilisateur){
+    Utilisateur::createNomPrenom("", "");   
 }
 ?>
