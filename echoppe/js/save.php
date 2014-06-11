@@ -36,5 +36,3 @@
         $sql_query = "REPLACE INTO article_ordre SET id = '$new_id', id_article = '$id_article', id_categorie = 
                             (SELECT a.id_categorie FROM article a WHERE a.id = '$id_article');";
 	mysql_query($sql_query);
-
-        echo "j'ai passe la requete";
