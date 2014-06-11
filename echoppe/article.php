@@ -269,17 +269,16 @@ class ArticleController extends Controller {
             $to_unite = Unite::getAllObjects();
             /* liste de toutes les catégories */
             $to_categorie = Categorie::getAllObjects();
-            
+
             foreach ($to_categorie as &$o_categorie) {
                 $i_idCategorie = $o_categorie['id'];
                 $o_categorie['nom'] = Categorie::getNom($i_idCategorie);
             }
-           
         }
-        $this->render('trierArticle', compact('to_rayon', 'marge', 'i_idRayon', 'to_fournisseur', 'to_descriptionAllArticle','to_descriptionArticle', 'to_tva', 'to_unite', 'to_categorie', 's_message', 'i_erreur', 'b_historique', 'i_idCampagne', 'i_pageNum', 'i_pageTot'));
+        $this->render('trierArticle', compact('to_rayon', 'marge', 'i_idRayon', 'to_fournisseur', 'to_descriptionAllArticle', 'to_descriptionArticle', 'to_tva', 'to_unite', 'to_categorie', 's_message', 'i_erreur', 'b_historique', 'i_idCampagne', 'i_pageNum', 'i_pageTot'));
     }
-    
-        public function insideCategorieTri() {
+
+    public function insideCategorieTri() {
         /* Authentication required */
         if (!Utilisateur::isLogged()) {
             $this->render('authenticationRequired');
@@ -356,12 +355,11 @@ class ArticleController extends Controller {
             $to_unite = Unite::getAllObjects();
             /* liste de toutes les catégories */
             $to_categorie = Categorie::getAllObjects();
-            
+
             foreach ($to_categorie as &$o_categorie) {
                 $i_idCategorie = $o_categorie['id'];
                 $o_categorie['nom'] = Categorie::getNom($i_idCategorie);
             }
-           
         }
         $this->render('dnd', compact('to_rayon', 'marge', 'i_idRayon', 'to_fournisseur', 'to_descriptionArticle', 'to_tva', 'to_unite', 'to_categorie', 's_message', 'i_erreur', 'b_historique', 'i_idCampagne', 'i_pageNum', 'i_pageTot'));
     }
@@ -944,14 +942,23 @@ class ArticleController extends Controller {
             GererArticle::setEnVenteByIdCampagneIdRayon(0, $i_idCampagne, $i_idRayon);
         }
         /* Récupération de la page */
-            $i_pageNum = $_GET['i_pageNum'];
-        
-        header('Location: ' . root . '/article.php/afficherArticle?i_idRayon=' . $i_idRayon. '&i_pageNum=' . $i_pageNum);
+        $i_pageNum = $_GET['i_pageNum'];
+
+        header('Location: ' . root . '/article.php/afficherArticle?i_idRayon=' . $i_idRayon . '&i_pageNum=' . $i_pageNum);
     }
 
     /*
      * Action par défaut de ce controlleur 
      */
+
+    public function updateBD() {
+        /* Insertion des nouvelles données */
+        $to_descriptionArticle = Article::getAllObjects();
+        foreach ($to_descriptionArticle as $o_descriptionArticle) {
+            ArticleOrdre::create($o_descriptionArticle['id'], $o_descriptionArticle['id_categorie']);
+        }        
+        header('Location: ' . root . '/accueil.php');
+    }
 
     public function defaultAction() {
         header('Location: ' . root . '/rayon.php/afficherRayon');

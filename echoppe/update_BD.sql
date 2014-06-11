@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS datasUtilisateur (
     id integer not null auto_increment,
     nom varchar(255),
     prenom varchar(255), 
-    desinscrit boolean,
+    desinscrit boolean default O,
 
     constraint fk_utilisateur foreign key(id) references utilisateur(id) on delete cascade
 ) ENGINE = INNODB;
@@ -145,15 +145,18 @@ CREATE TABLE IF NOT EXISTS article_fournisseur (
     references fournisseur(id) on delete cascade
 ) ENGINE = INNODB;
 
-CREATE TABLE IF NOT EXISTS article_ordre (
+CREATE TABLE article_ordre (
     id integer not null auto_increment,
     id_article integer not null,
+    id_categorie integer not null,
     
     constraint pk_article_ordre primary key(id),
 
     constraint fk_article_ordre foreign key(id_article)
-    references article(id) on delete cascade
-    
+    references article(id) on delete cascade,
+
+    constraint fk_article_ordre_2 foreign key(id_categorie)
+    references categorie(id) on delete cascade
 ) ENGINE = INNODB;
 
 CREATE TABLE IF NOT EXISTS commande (
