@@ -19,4 +19,14 @@ class Util {
 //            {echo "Echec de l'envoi à $s_destinataire <br/>";}
         echo "<br /> $s_contenu <br />" ;
     }
+    
+    public static function headerExcel($fileName) {
+        /* Fonction qui permet le formatage d'un fichier excel */
+        header("Content-disposition: attachment; filename=".$fileName);
+        header("Content-Type: application/force-download");
+        header("Content-Transfer-Encoding: application/vnd.ms-excel\n");
+        header("Pragma: no-cache");
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0, public");
+        header("Expires: 0");
+    }
 }?>
