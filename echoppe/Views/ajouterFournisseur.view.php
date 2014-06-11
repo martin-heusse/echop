@@ -29,14 +29,17 @@
         <input type="hidden" name="b_historique" value="<?php echo $b_historique ?>">
         <input type="hidden" name="i_pageNum" value="<?php echo $i_pageNum ?>">
         
+        
+        <p><h2> Fournisseur(s) actuels : </h2>
         <?php
-        echo ' <p><h2> Fournisseur(s) actuels : </h2> ';
         $i = 0;
         $i_idArticleCampagne = $o_descriptionArticle['id_article_campagne'];
-        $t_nom_fournisseur = array();
-        echo ' <h3> ';
-        foreach ($to_fournisseur as $o_fournisseur) {
-            // On récupère les fournisseurs existant pour cet article
+        $t_nom_fournisseur = array(); 
+        ?>
+        <h3>
+        <?php
+        /* On récupère les fournisseurs existant pour cet article */
+        foreach ($to_fournisseur as $o_fournisseur) {            
             $i_idFournisseur = $o_fournisseur['id_fournisseur'];
             $o_articleFournisseur = ArticleFournisseur::getObjectByIdArticleCampagneIdFournisseur($i_idArticleCampagne, $i_idFournisseur);
             $o_descriptionArticle[$i_idFournisseur]['code'] = $o_articleFournisseur['code'];
@@ -46,19 +49,22 @@
                     echo ',  ';
                 }
                 echo $o_fournisseur['nom_fournisseur'];
-                // On les ajoute dans un tableau
+                /* On les ajoute dans un tableau */
                 array_push($t_nom_fournisseur, $o_fournisseur['nom_fournisseur']);
                 $i++;
             }
         }
-        echo ' </h3></p> ';
-        foreach ($t_fournisseur as $fournisseur) {
-            // On propose tous les fournisseurs non existants (au tableau créé juste avant composé des fournisseurs existants)
-            if (!in_array($fournisseur['nom'], $t_nom_fournisseur)) {
-                /* Les identifiant fournisseur */
+        ?>
+        </h3>
+        <?php
+        /* Connaissant les fournissants existants, on ne propose que les non existants */
+        foreach ($t_fournisseur as $fournisseur) {      
+            /* On teste que le fournisseurs n'appartient pas au tableau créé constitué des fournisseurs existants */
+            if (!in_array($fournisseur['nom'], $t_nom_fournisseur)) {                
                 $i_idFournisseur = $fournisseur['id'];
                 ?>
                 <p>
+                    <!-- Les identifiant fournisseur -->
                     <input type="hidden" 
                            name="id_fournisseur_choisi" 
                            value="false"                                    
