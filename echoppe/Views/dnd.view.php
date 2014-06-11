@@ -12,6 +12,7 @@
 
 <?php
 
+        //require_once('../Model');
         $recup_categorie = $_GET['id_categ'];
         $recup_rayon = $_GET['id_ray'];
         //$offset = Article::getOffset(3);
@@ -24,23 +25,21 @@
 <?php
         
         //echo $offset;
-        $result = mysql_query("SELECT * FROM article_ordre ao, article a WHERE a.id_categorie = '$recup_categorie' AND " . 
-                                "ao.id_article = a.id AND " . 
-                                "a.id_rayon = '$recup_rayon' " .
-                                "ORDER BY ao.id");
-		echo "<ul class='article'>\n";
-		while ($row = mysql_fetch_array($result)) {
-			echo "<li>".$row['id_article']."<span></span>"."  ".$row['nom']."</li>\n";
-                        //echo $row['nom'];
-		}
-		echo "</ul>";
+//        $result2 = mysql_query("SELECT * FROM article_ordre ao, article a WHERE a.id_categorie = '$recup_categorie' AND " . 
+//                                "ao.id_article = a.id AND " . 
+//                                "a.id_rayon = '$recup_rayon' " .
+//                                "ORDER BY ao.id");
+
+            //$result2 = 
+            ArticleOrdre::afficheObjectsPourDNDByCategorieByRayon($recup_categorie, $recup_rayon);
+//		echo "<ul class='article'>\n";
+//		while ($row = mysql_fetch_array($result2)) {
+//			echo "<li>".$row['id_article']."<span></span>"."  ".$row['nom']."</li>\n";
+//                        //echo $row['nom'];
+//		}
+//		echo "</ul>";
 ?>
-<!--	<ul class="article">
-		<li>This is item #1</li>
-		<li>This is item #2</li>
-		<li>This is item #3</li>
-		<li>This is item #4</li>
-	</ul>-->
+
 
 <script type="text/javascript">
     (function() {
@@ -110,19 +109,18 @@
 
 	function listChange() {
                 
-		var tempItems = document.querySelectorAll('.article li');
+		//var tempItems = document.querySelectorAll('.article li');
+                var tempItems = document.querySelectorAll('.id');
 		[].forEach.call(tempItems, function(item, i) {
 			var order = i + 1;
                         var lecture = item.innerHTML;
                         var it2 = 'id_article=' + lecture; 
                         if (/<m(.+?)>/.test(it2)) {
                                 it2 = it2.replace(/<m(.+?)>/,"");
-                              }
-                              
-                        var j = (it2.indexOf("<span></span>")); //balise non sémantique pour ne pas récupérer le nom de l'article
-                        
-                        it2 = it2.substring(0,j);
-                        
+                              }            
+//                        var j = (it2.indexOf("<span></span>")); //balise non sémantique pour ne pas récupérer le nom de l'article
+//                        
+//                        it2 = it2.substring(0,j);
                         var it = it2 + '&id=' + order;
                         //alert(it);
 			saveList(it);
