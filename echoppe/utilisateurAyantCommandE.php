@@ -400,10 +400,14 @@ class UtilisateurAyantCommandEController extends Controller {
         $header=array('Produit','Description','Poids paquet fournisseur','Nombre paquet par colis','Prix TTC','Prix TTC unitaire',
             'Poids unit commande client','Quantite min commande','Quantite','Quantite totale commandee',
             'Total TTC');
+        
+        /* Réglage police, couleurs du fond et de la police et placement du curseur pour les titres colonnes */
         $pdf->SetFont('Arial','B',7);
         $pdf->SetFillColor(96,96,96);
         $pdf->SetTextColor(255,255,255);
         $pdf->SetXY(2,5);
+        
+        /* Création des cases contenant le titre des colonnes*/
         for($i=0;$i<sizeof($header);$i++)
                 $pdf->cell(3.5,1,$header[$i],1,0,'C',1);
         
@@ -450,13 +454,14 @@ class UtilisateurAyantCommandEController extends Controller {
             $o_article['total_ttc'] = number_format($o_article['total_ttc'], 2, '.', '');
             $f_montantTotal = number_format($f_montantTotal, 2, '.', '');
            
-
+            /* Réglage de la police des couleurs et placement du curseur pour les cases */
             $pdf->SetFillColor(0xdd,0xdd,0xdd);
             $pdf->SetTextColor(0,0,0);
             $pdf->SetFont('Arial','',10);
             $pdf->SetXY(2,$pdf->GetY()+1);
             $fond=0;
         
+            /* Ecriture dans les différentes cellules */
             $pdf->cell(3.5,0.7,$o_article['nom'],1,0,'C',$fond);
             $pdf->cell(3.5,0.7,$o_article['description_courte'],1,0,'C',$fond);
             $pdf->cell(3.5,0.7,$o_article['poids_paquet_fournisseur'],1,0,'C',$fond);
@@ -472,10 +477,12 @@ class UtilisateurAyantCommandEController extends Controller {
             $fond=!$fond;
         }
 
-        /*Montant total*/
+        /*Montant total, concaténation de la chaine de caractère, choix police couleurs et placement curseurs*/
         $Montant_Total="Total : ".$f_montantTotal." Euros";
         $pdf->SetFont('Arial','B',10);
         $pdf->SetXY(37,$pdf->GetY()+1);
+        
+        /*Ecriture du montant total dans sa case*/
         $pdf->cell(3.5,0.7,$Montant_Total,1,0,'C',$fond);
         
         /*Fin PDF*/
@@ -509,6 +516,7 @@ class UtilisateurAyantCommandEController extends Controller {
         } else {
             $i_idCampagne = Campagne::getIdCampagneCourante();
         }
+        
         /*Récupération Nom et Prénom Mail de l'Utilisateur*/
         $userName=Utilisateur::getNom($i_idUtilisateur);
         $userSurname=Utilisateur::getPrenom($i_idUtilisateur);
@@ -532,7 +540,7 @@ class UtilisateurAyantCommandEController extends Controller {
             $o_article['nom'] = Article::getNom($i_idArticle);
             $o_article['description_courte'] = Article::getDescriptionCourte($i_idArticle);
            
-            /*Titre de l'étiquette*/
+            /*Choix police, placement du curseur, écriture du num campagne, nom, prenom*/
             $pdf->SetFont('Arial','UB',14);
             $pdf->AddPage();
             $pdf->Write(1,"Campagne ".$i_idCampagne);
@@ -542,22 +550,25 @@ class UtilisateurAyantCommandEController extends Controller {
             $pdf->SetX(1);
             $pdf->Write(3,"Prenom : ".$userSurname);
 
-            /*Titres des colonnes de l'étiquette*/
+            /*Titres des colonnes de l'étiquette, choix de la police et des couleurs, placement curseur*/
             $header=array('Produit','Description','Quantite');
             $pdf->SetFont('Arial','B',8);
             $pdf->SetFillColor(96,96,96);
             $pdf->SetTextColor(255,255,255);
             $pdf->SetXY(1,4);
+            
+            /* Ecriture du titre des colonnes*/
             for($i=0;$i<sizeof($header);$i++)
                     $pdf->cell(4,1,$header[$i],1,0,'C',1);
        
-
+            /* Réglage police, placement curseur*/
             $pdf->SetFillColor(0xdd,0xdd,0xdd);
             $pdf->SetTextColor(0,0,0);
             $pdf->SetFont('Arial','',8);
             $pdf->SetXY(1,$pdf->GetY()+1);
             $fond=0;
         
+            /* Ecriture dans les cellules */
             $pdf->cell(4,0.7,$o_article['nom'],1,0,'C',$fond);
             $pdf->cell(4,0.7,$o_article['description_courte'],1,0,'C',$fond);
             $pdf->cell(4,0.7,$o_article['quantite'],1,0,'C',$fond);
@@ -628,14 +639,14 @@ class UtilisateurAyantCommandEController extends Controller {
             $o_article['nom'] = Article::getNom($i_idArticle);
             $o_article['description_courte'] = Article::getDescriptionCourte($i_idArticle);
             
-            /* Format impose 10 étiquettes par page max */
+            /* Le format impose 10 étiquettes par page max */
             
             if($numEtiquette==11) {
                 $pdf->AddPage();
                 $numEtiquette=1;
             }
             
-            /*Titre de l'étiquette*/
+            /*Réglage police, écriture du titre, placement du curseur si étiquette est à gauche ou droite */
             $pdf->SetFont('Arial','UB',14);
             $pdf->Write(1,"Campagne ".$i_idCampagne);
             $pdf->SetFont('Arial','',12);
@@ -654,6 +665,8 @@ class UtilisateurAyantCommandEController extends Controller {
 
             /*Titres des colonnes de l'étiquette*/
             $header=array('Produit','Description','Quantite');
+            
+            /*Réglage de la police et des couleurs, placement des curseurs (gauche/droite) pour les titres des colonnes*/
             $pdf->SetFont('Arial','B',8);
             $pdf->SetFillColor(96,96,96);
             $pdf->SetTextColor(255,255,255);
@@ -662,10 +675,12 @@ class UtilisateurAyantCommandEController extends Controller {
             }else{
                 $pdf->SetXY(11,$pdf->GetY()+2);
             }
+            
+            /* Ecriture du titre des colonnes*/
             for($i=0;$i<sizeof($header);$i++)
                     $pdf->cell(3,1,$header[$i],1,0,'C',1);
        
-
+            /* Réglage de la police et des couleurs, placement des curseurs*/
             $pdf->SetFillColor(0xdd,0xdd,0xdd);
             $pdf->SetTextColor(0,0,0);
             $pdf->SetFont('Arial','',8);
@@ -676,7 +691,8 @@ class UtilisateurAyantCommandEController extends Controller {
             }
             
             $fond=0;
-        
+            
+            /*Ecriture du contenu des cellules*/
             $pdf->cell(3,0.7,$o_article['nom'],1,0,'C',$fond);
             $pdf->cell(3,0.7,$o_article['description_courte'],1,0,'C',$fond);
             $pdf->cell(3,0.7,$o_article['quantite'],1,0,'C',$fond);
@@ -686,11 +702,12 @@ class UtilisateurAyantCommandEController extends Controller {
              * Il faut mettre une étiquette à gauche une à droite, et les unes en dessous des autres
              * Voici le réglage :
              * 
-             * Si c'est à gauche, on passe les curseurs à droite
+             * Si c'est à gauche, on passe les curseurs à droite pour la prochaine étiquette
              * 
-             * Si c'est à droite, on passe le curseur à gauche et en dessous
+             * Si c'est à droite, on passe le curseur à gauche et en dessous pour la prochaine étiquette
              * 
              */
+            
             if ($Gauche==true){
                 $pdf->SetXY(11, $pdf->GetY()-3);
                 $Gauche=false;
@@ -701,7 +718,7 @@ class UtilisateurAyantCommandEController extends Controller {
             }
         }
        
-        /*Fin PDF*/
+        /*Fin du PDF quand on a passé en revu toutes les étiquettes*/
         $pdf->output();
     }
     

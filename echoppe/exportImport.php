@@ -1,6 +1,7 @@
 <?php
 
 require_once('def.php');
+require_once('Model/Export.php');
 require_once('Model/Utilisateur.php');
 require_once('Model/Administrateur.php');
 require_once('Model/Article.php');
@@ -49,11 +50,11 @@ class ExportController extends Controller {
             $this->render('adminRequired');
             return;
         }
-       
-        // Connexion BD
+        
         $database="BdEchoppe";
-        mysql_connect(db_host, db_username,db_pwd);
-        mysql_select_db(db_name);
+        
+        // Connexion BD
+        Export::connect();
 
         // la variable qui va contenir les données CSV
         $outputCsv = '';
@@ -61,57 +62,22 @@ class ExportController extends Controller {
         // Nom du fichier qu'on initialise puis qu'on attribue
         $fileName = "Export".$database."_".date('d/m/Y').".csv";
 
-        $result = mysql_list_tables($database);
-        $num_rows = mysql_num_rows($result);
+        // On récupère la liste des tables de la BD $database
+        $result = Export::listeTables($database);
+        
+        // On récupère le nombre de résultat obtenu
+        $num_rows = Export::numResultat($result);
+        
+        // Pour chaque table, on exporte les données
         for ($j = 0; $j < $num_rows; $j++) {
-            $table=mysql_tablename($result, $j);
+            $table=Export::nomTable($result, $j);
+            $requete=Export::getAll($table);
             
-
-            $requete="Select * from $table";
-            $sql=  mysql_query($requete);
-            if(mysql_num_rows($sql) > 0)
-            {
-                $i = 0;
-
-                while($Row = mysql_fetch_assoc($sql))
-                {
-                    $i++;
-
-                    // Si c'est la 1er boucle, on affiche le nom de la table, et le nom des champs pour avoir un titre pour chaque colonne
-                    if($i == 1)
-                    {   
-                        $outputCsv .= trim($table).';';
-                        $outputCsv .= "\n";
-                        foreach($Row as $clef => $valeur)
-                            $outputCsv .= trim($clef).';';
-
-                        $outputCsv = rtrim($outputCsv, ';');
-                        $outputCsv .= "\n";
-                    }
-
-                    // On parcours $Row et on ajout chaque valeur à cette ligne
-                    foreach($Row as $clef => $valeur)
-                        $outputCsv .= trim($valeur).';';
-
-                    // Suppression du ; qui traine à la fin
-                    $outputCsv = rtrim($outputCsv, ';');
-
-                    // Saut de ligne
-                    $outputCsv .= "\n";
-
-                }
-        
-            }
-        else
-            exit('Aucune donnée à enregistrer.');
-                   
-        header("Content-disposition: attachment; filename=".$fileName);
-        header("Content-Type: application/force-download");
-        header("Content-Transfer-Encoding: application/vnd.ms-excel\n");
-        header("Pragma: no-cache");
-        header("Cache-Control: must-revalidate, post-check=0, pre-check=0, public");
-        header("Expires: 0");
-        
+            // Et on écrit dans l'excel en mettant les titres aux tables
+            $outputCsv=Export::exportExcelTitresTables($requete, $outputCsv, $table);
+          
+        //Formatage du fichier
+        Util::headerExcel($fileName);        
         
         }
         
@@ -130,11 +96,12 @@ class ExportController extends Controller {
             $this->render('adminRequired');
             return;
         }
-       
-        // Connexion BD
+        
+        // Nom BD
         $database="BdEchoppe";
-        mysql_connect(db_host, db_username,db_pwd);
-        mysql_select_db(db_name);
+        
+        // Connexion BD
+        Export::connect();        
 
         // la variable qui va contenir les données CSV
         $outputCsv = '';
@@ -144,48 +111,12 @@ class ExportController extends Controller {
         
         // La requête récupère tous les utilisateurs
         $requete = Utilisateur::getAllObjectsExportBD();
-        $sql = mysql_query($requete);
-                      
-        if(mysql_num_rows($sql) > 0)
-        {
-            $i = 0;
-
-            while($Row = mysql_fetch_assoc($sql))
-            {
-                $i++;
-
-                // Si c'est la 1er boucle, on affiche le nom des champs pour avoir un titre pour chaque colonne
-                if($i == 1)
-                {
-                    foreach($Row as $clef => $valeur)
-                        $outputCsv .= trim($clef).';';
-
-                    $outputCsv = rtrim($outputCsv, ';');
-                    $outputCsv .= "\n";
-                }
-
-                // On parcours $Row et on ajout chaque valeur à cette ligne
-                foreach($Row as $clef => $valeur)
-                    $outputCsv .= trim($valeur).';';
-
-                // Suppression du ; qui traine à la fin
-                $outputCsv = rtrim($outputCsv, ';');
-
-                // Saut de ligne
-                $outputCsv .= "\n";
-
-            }
+       
+        // Ecriture dans la variable CSV de la requête (voir le système CSV)
+        $outputCsv=  Export::exportExcel($requete, $outputCsv);        
         
-        }
-        else
-            exit('Aucune donnée à enregistrer.');
-                   
-        header("Content-disposition: attachment; filename=".$fileName);
-        header("Content-Type: application/force-download");
-        header("Content-Transfer-Encoding: application/vnd.ms-excel\n");
-        header("Pragma: no-cache");
-        header("Cache-Control: must-revalidate, post-check=0, pre-check=0, public");
-        header("Expires: 0");
+        // Formatage du document           
+        Util::headerExcel($fileName);
 
         echo $outputCsv;
         exit();
@@ -203,10 +134,11 @@ class ExportController extends Controller {
             return;
         }
        
-        // Connexion BD
+        
         $database="BdEchoppe";
-        mysql_connect(db_host, db_username,db_pwd);
-        mysql_select_db(db_name);
+        
+        // Connexion BD
+        Export::connect();
 
         // la variable qui va contenir les données CSV
         $outputCsv = '';
@@ -214,117 +146,19 @@ class ExportController extends Controller {
         // Nom du fichier qu'on initialise puis qu'on attribue
         $fileName = "ExportArticleBD_".date('d/m/Y').".csv";
         
-       
-
         // La requête récupère tous les articles
         $requete = Article::getAllObjectsExportBD();
-        $sql = mysql_query($requete);
-                      
-        if(mysql_num_rows($sql) > 0)
-        {
-            $i = 0;
-
-            while($Row = mysql_fetch_assoc($sql))
-            {
-                $i++;
-
-                // Si c'est la 1er boucle, on affiche le nom des champs pour avoir un titre pour chaque colonne
-                if($i == 1)
-                {
-                    foreach($Row as $clef => $valeur)
-                        $outputCsv .= trim($clef).';';
-
-                    $outputCsv = rtrim($outputCsv, ';');
-                    $outputCsv .= "\n";
-                }
-
-                // On parcours $Row et on ajout chaque valeur à cette ligne
-                foreach($Row as $clef => $valeur)
-                    $outputCsv .= trim($valeur).';';
-
-                // Suppression du ; qui traine à la fin
-                $outputCsv = rtrim($outputCsv, ';');
-
-                // Saut de ligne
-                $outputCsv .= "\n";
-
-            }
         
-        }
-        else
-            exit('Aucune donnée à enregistrer.');
-                   
-        header("Content-disposition: attachment; filename=".$fileName);
-        header("Content-Type: application/force-download");
-        header("Content-Transfer-Encoding: application/vnd.ms-excel\n");
-        header("Pragma: no-cache");
-        header("Cache-Control: must-revalidate, post-check=0, pre-check=0, public");
-        header("Expires: 0");
+        // Ecriture dans la variable CSV de la requête (voir le système CSV)
+        $outputCsv=Export::exportExcel($requete, $outputCsv);
+        
+        // Formatage du fichier         
+        Util::headerExcel($fileName);
 
         echo $outputCsv;
         exit();
     }
          
-//    public function importArticle() {
-//        /* Authentication required */
-//        if (!Utilisateur::isLogged()) {
-//            $this->render('authenticationRequired');
-//            return;
-//        }
-//        /* Doit être un administrateur */
-//        if (!$_SESSION['isAdministrateur']) {
-//            $this->render('adminRequired');
-//            return;
-//        }
-//
-//	if(isset($_FILES['csv']))
-//	{ 
-//		 $dossier = 'upload/';
-//		 $fichier = basename($_FILES['csv']['name']);
-//		 if(move_uploaded_file($_FILES['csv']['tmp_name'], $dossier . $fichier)) //Si la fonction renvoie TRUE, c'est que ça a fonctionné...
-//		 {
-//			  echo "Upload du fichier effectué avec succès !";
-//		 }
-//		 else //Sinon (la fonction renvoie FALSE).
-//		 {
-//			  echo "Echec de l\'upload !";
-//		 }
-//	}
-// 
-//	echo "<br>Chemin du fichier : upload/".$_FILES['csv']['name']."<br><br>Resultat Import SQL : <br>";
-// 
-//	mysql_connect('localhost', 'root', '');
-//	mysql_select_db('xls_db');
-//	mysql_query("SET NAMES UTF8");
-// 
-//	//Le chemin d'acces a ton fichier sur le serveur
-//	$fichier = fopen("upload/".$_FILES['csv']['name'], "r");
-// 
-//	//tant qu'on est pas a la fin du fichier :
-//	while (!feof($fichier))
-//	{
-//	// On recupere toute la ligne
-//	$uneLigne = addslashes(fgets($fichier));
-//	//On met dans un tableau les differentes valeurs trouvés (ici séparées par un ';')
-//	$tableauValeurs = explode(';', $uneLigne);
-//	// On crée la requete pour inserer les donner (ici il y a 12 champs donc de [0] a [11])
-//	$sql="INSERT IGNORE INTO histo VALUES ('".$tableauValeurs[0]."', '".$tableauValeurs[1]."', '".$tableauValeurs[2]."', '".$tableauValeurs[3]."', '".$tableauValeurs[4]."', '".$tableauValeurs[5]."', '".$tableauValeurs[6]."', '".$tableauValeurs[7]."')";
-// 
-//	$req=mysql_query($sql)or die (mysql_error());
-//	// la ligne est finie donc on passe a la ligne suivante (boucle)
-//	}
-//	//vérification et envoi d'une réponse à l'utilisateur
-//	if ($req)
-//	{
-//	echo "<h2>Ajout dans la base de données effectué avec succès</h2>";
-//	}
-//	else
-//	{
-//	echo "Echec dans l'ajout dans la base de données";
-//	}
-//        
-//    }
-    
     public function defaultAction() {
         header('Location: ' . root . '/utilisateur.php/listeUtilisateur');
         /*A changer*/

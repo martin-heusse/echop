@@ -371,10 +371,14 @@ class FournisseurController extends Controller {
         
         /*Titres des colonnes*/
         $header=array('Code Fournisseur','Article','Quantité','Prix unitaire','Prix Total');
+        
+        /* Réglage police, couleurs du fond et de la police et placement du curseur pour les titres colonnes */
         $pdf->SetFont('Arial','B',7);
         $pdf->SetFillColor(96,96,96);
         $pdf->SetTextColor(255,255,255);
         $pdf->SetXY(2,5);
+        
+        /* Création des cases contenant le titre des colonnes*/
         for($i=0;$i<sizeof($header);$i++)
                 $pdf->cell(3.5,1,$header[$i],1,0,'C',1);
         
@@ -440,14 +444,13 @@ class FournisseurController extends Controller {
             $o_article['prix_ttc_ht'] = ArticleFournisseur::getPrixTtcHt($i_idArticleFournisseur);
             $o_article['vente_paquet_unite'] = ArticleFournisseur::getVentePaquetUnite($i_idArticleFournisseur);
 
+            /* Réglage de la police des couleurs et placement du curseur pour les cases */
             $pdf->SetFillColor(0xdd,0xdd,0xdd);
             $pdf->SetTextColor(0,0,0);
             $pdf->SetFont('Arial','',10);
             $pdf->SetXY(2,$pdf->GetY()+1);
             $fond=0;
         
-            // Tests pour la colonne 4
-            
             // Prix HT ou TTC    
             if ($o_article['prix_ttc_ht']) {$prix=$o_article['prix_ht'];}
                                         else {$prix=$o_article['prix_ttc'];}
@@ -459,6 +462,7 @@ class FournisseurController extends Controller {
             if ($o_article['prix_ttc_ht']) {$ht_ttc="HT";}
                                         else {$ht_ttc="TTC";}
             
+            /* Ecriture dans les différentes cellules */
             $pdf->cell(3.5,0.7,$o_article['code'],1,0,'C',$fond);
             $pdf->cell(3.5,0.7,$o_article['nom'],1,0,'C',$fond);
             $pdf->cell(3.5,0.7,$o_article['quantite_totale'].$o_article['unite'].$o_article['quantite_totale_unites']." (".$o_article['quantite_totale_unites']." unites)",1,0,'C',$fond);
@@ -502,10 +506,12 @@ class FournisseurController extends Controller {
         $o_fournisseur['montant_total'] = number_format($o_fournisseur['montant_total'], 2, '.', ' ');
         $f_montantTtc=$o_fournisseur['montant_total'];
         
-        /*Montant total*/
+        /*Montant total, concaténation de la chaine de caractère, choix police couleurs et placement curseurs*/
         $Montant_Total="Total : ".$f_montantTtc." Euros";
         $pdf->SetFont('Arial','B',10);
         $pdf->SetXY(16,$pdf->GetY()+1);
+        
+        /*Ecriture du montant total dans sa case*/
         $pdf->cell(3.5,0.7,$Montant_Total,1,0,'C',$fond);
         
         /*Fin du PDF*/

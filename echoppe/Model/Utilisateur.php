@@ -170,7 +170,7 @@ class Utilisateur {
     }
     
     public static function getObjectsByValidite($b_validite) {
-        $sql_query = "select * from utilisateur where validite=$b_validite order by login";
+        $sql_query = "select u.id, u.login, u.email, du.nom, du.prenom from utilisateur u, datasUtilisateur du where u.id=du.id and u.validite=$b_validite order by login";
         $sql_tmp = mysql_query($sql_query);
         $to_result = null;
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
