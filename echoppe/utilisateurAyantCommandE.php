@@ -636,6 +636,153 @@ class UtilisateurAyantCommandEController extends Controller {
     
     public function etiquettesUtilisateurAll() 
             {
+        
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if (!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
+
+
+        /* Navigation dans l'historique ou non */
+        $b_historique = 0;
+        if (isset($_GET['idOldCampagne'])) {
+            $i_idCampagne = $_GET['idOldCampagne'];
+            $b_historique = 1;
+        } else {
+            $i_idCampagne = Campagne::getIdCampagneCourante();
+        }
+        
+        /* On récupère un tableau des utilisateurs du site */
+        $to_utilisateur=Utilisateur::getAllObjects();
+        
+        /*Titre de la page PDF qui se charge, apparait dans le titre de la page Web*/
+        $docTitle="Etiquettes de la campagne ".$i_idCampagne;
+        
+        /*Création du PDF format A4*/
+        $pdf=new FPDF('P','cm','A4');
+        $pdf->Open();
+        $pdf->SetTitle($docTitle);
+        
+        /*Première page*/
+        $pdf->AddPage();
+        
+        /*Compteurs - Curseurs*/
+        $numEtiquette=0; // numéro de l'étiquette
+        $Gauche=true; // Position de l'étiquette
+        
+        /* Pour chaque utilisateur */
+        foreach($to_utilisateur as $i_idUtilisateur){
+            
+            /* On recupère sa commande */
+            $to_commande = Commande::getObjectsByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur['id']);
+        
+            /* Si elle n'est pas nulle, on créé la page PDF et on la remplit*/
+            if ($to_commande!=NULL) {
+            
+                /*Récupération Nom et Prénom Mail de l'Utilisateur*/
+                $userName=Utilisateur::getNom($i_idUtilisateur['id']);
+                $userSurname=Utilisateur::getPrenom($i_idUtilisateur['id']);
+                $userMail=  Utilisateur::getEmail($i_idUtilisateur['id']);
+
+                /*Titre de la page PDF qui se charge, apparait dans le titre de la page Web*/
+                $docTitle="Commande de ".$userSurname." ".$userName." campagne ".$i_idCampagne;
+
+                /* Récupération de tous les attributs nécessaires d'un article */
+                foreach($to_commande as &$o_article) {
+                    $numEtiquette=$numEtiquette+1;
+
+                    /* Attributs dépendant de l'article */
+                    $i_idArticle = $o_article['id_article'];
+                    $o_article['nom'] = Article::getNom($i_idArticle);
+                    $o_article['description_courte'] = Article::getDescriptionCourte($i_idArticle);
+                    $o_article['poids_paquet_fournisseur'] = Article::getPoidsPaquetFournisseur($i_idArticle);
+                    /* Prix TTC, seuil min et poids paquet client */
+                    $o_article_campagne = ArticleCampagne::getObjectByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+                    $o_article['poids_paquet_client'] = $o_article_campagne['poids_paquet_client'];
+
+                    /* Calcul quantité totale */
+                    $o_article['quantite_totale'] = $o_article['quantite'] * $o_article['poids_paquet_client'];
+                    $o_article['quantite_totale'] = number_format($o_article['quantite_totale'], 2, '.', '');
+
+                    /* 
+                     * Si la quantité totale commandée n'est pas un multiple du poids_paquet_fournisseur créé pas l'étiquette 
+                     * On imprime une étiquette que si l'on sépare un paquet fournisseur en plusieurs paquets utilisateurs 
+                     * La multiplication et divison par 1000 évitent les problèmes de "division par zéro" considéré dès que le poids paquet fournisseur vaut 0.XXX            
+                     */
+
+                    if(1000*$o_article['quantite_totale'] % (1000*$o_article['poids_paquet_fournisseur']) !=0){
+
+
+                        /* Le format impose 25 étiquettes par page max */
+
+                        if($numEtiquette==25) {
+                            $pdf->AddPage();
+                            $numEtiquette=1;
+                        }
+
+                        /*Réglage police, écriture du titre, placement du curseur si étiquette est à gauche ou droite */
+                        $pdf->SetFont('Arial','',12);
+                        if($Gauche){
+                            $pdf->SetX(1);
+                        }else{
+                            $pdf->SetX(11);
+                        }
+                        $pdf->Write(1,$userName." ".$userSurname);
+                        if($Gauche){
+                            $pdf->SetX(1);
+                        }else{
+                            $pdf->SetX(11);
+                        }
+
+                        /* Réglage de la police et des couleurs, placement des curseurs*/
+                        $pdf->SetFillColor(0xdd,0xdd,0xdd);
+                        $pdf->SetTextColor(0,0,0);
+                        $pdf->SetFont('Arial','',8);
+                        if($Gauche){
+                            $pdf->SetXY(1,$pdf->GetY()+1);
+                        }else{
+                            $pdf->SetXY(11,$pdf->GetY()+1);
+                        }
+
+                        $fond=0;
+
+                        /*Ecriture du contenu des cellules : nom description et quantité totale (kg)*/
+                        $pdf->cell(3,0.7,$o_article['nom'],1,0,'C',$fond);
+                        $pdf->cell(3,0.7,$o_article['description_courte'],1,0,'C',$fond);
+                        $pdf->cell(3,0.7,$o_article['quantite_totale'],1,0,'C',$fond);
+                        $fond=!$fond;
+
+                        /* 
+                         * Il faut mettre une étiquette à gauche une à droite, et les unes en dessous des autres
+                         * Voici le réglage :
+                         * 
+                         * Si c'est à gauche, on passe les curseurs à droite pour la prochaine étiquette
+                         * 
+                         * Si c'est à droite, on passe le curseur à gauche et en dessous pour la prochaine étiquette
+                         * 
+                         */
+
+                        if ($Gauche==true){
+                            $pdf->SetXY(11, $pdf->GetY()-1);
+                            $Gauche=false;
+                        }
+                        else {
+                            $pdf->SetXY(1, $pdf->GetY()+1);
+                            $Gauche=true;
+                        }
+                    }
+                }
+            }
+        }
+        /*Fin du PDF quand on a passé en revu toutes les étiquettes*/
+        $pdf->output();
+        
     }
     
     public function etiquettesUtilisateur() {
@@ -688,6 +835,7 @@ class UtilisateurAyantCommandEController extends Controller {
             $i_idArticle = $o_article['id_article'];
             $o_article['nom'] = Article::getNom($i_idArticle);
             $o_article['description_courte'] = Article::getDescriptionCourte($i_idArticle);
+            $o_article['poids_paquet_fournisseur'] = Article::getPoidsPaquetFournisseur($i_idArticle);
             /* Prix TTC, seuil min et poids paquet client */
             $o_article_campagne = ArticleCampagne::getObjectByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
             $o_article['poids_paquet_client'] = $o_article_campagne['poids_paquet_client'];
@@ -695,24 +843,35 @@ class UtilisateurAyantCommandEController extends Controller {
             /* Calcul quantité totale */
             $o_article['quantite_totale'] = $o_article['quantite'] * $o_article['poids_paquet_client'];
             
-            /*Choix police, placement du curseur, écriture du num campagne, nom, prenom*/
-            $pdf->AddPage();
-            $pdf->SetFont('Arial','',12);
-            $pdf->Write(1,$userName." ".$userSurname);
+            /* 
+             * Si la quantité totale commandée n'est pas un multiple du poids_paquet_fournisseur créé pas l'étiquette 
+             * On imprime une étiquette que si l'on sépare un paquet fournisseur en plusieurs paquets utilisateurs 
+             * La multiplication et divison par 1000 évitent les problèmes de "division par zéro" considéré dès que le poids paquet fournisseur vaut 0.XXX            
+             */
+            
+            if(1000*$o_article['quantite_totale'] % (1000*$o_article['poids_paquet_fournisseur']) !=0){
+            
+            
+                /*Choix police, placement du curseur, écriture du num campagne, nom, prenom*/
+                $pdf->AddPage();
+                $pdf->SetFont('Arial','',12);
+                $pdf->Write(1,$userName." ".$userSurname);
 
-            /* Réglage police, placement curseur*/
-            $pdf->SetFillColor(0xdd,0xdd,0xdd);
-            $pdf->SetTextColor(0,0,0);
-            $pdf->SetFont('Arial','',8);
-            $pdf->SetXY(1,$pdf->GetY()+1);
-            $fond=0;
-        
-            /* Ecriture dans les cellules */
-            $pdf->cell(4,0.7,$o_article['nom'],1,0,'C',$fond);
-            $pdf->cell(4,0.7,$o_article['description_courte'],1,0,'C',$fond);
-            $pdf->cell(4,0.7,$o_article['quantite_totale'],1,0,'C',$fond);
-            $pdf->SetXY(1,$pdf->GetY()+0);
-            $fond=!$fond;
+                /* Réglage police, placement curseur*/
+                $pdf->SetFillColor(0xdd,0xdd,0xdd);
+                $pdf->SetTextColor(0,0,0);
+                $pdf->SetFont('Arial','',8);
+                $pdf->SetXY(1,$pdf->GetY()+1);
+                $fond=0;
+
+                /* Ecriture dans les cellules */
+                $pdf->cell(4,0.7,$o_article['nom'],1,0,'C',$fond);
+                $pdf->cell(4,0.7,$o_article['description_courte'],1,0,'C',$fond);
+                $pdf->cell(4,0.7,$o_article['quantite_totale'],1,0,'C',$fond);
+                $pdf->SetXY(1,$pdf->GetY()+0);
+                $fond=!$fond;
+            
+            }
         }
        
         /*Fin PDF*/
@@ -777,74 +936,83 @@ class UtilisateurAyantCommandEController extends Controller {
             $i_idArticle = $o_article['id_article'];
             $o_article['nom'] = Article::getNom($i_idArticle);
             $o_article['description_courte'] = Article::getDescriptionCourte($i_idArticle);
+            $o_article['poids_paquet_fournisseur'] = Article::getPoidsPaquetFournisseur($i_idArticle);
             /* Prix TTC, seuil min et poids paquet client */
             $o_article_campagne = ArticleCampagne::getObjectByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
             $o_article['poids_paquet_client'] = $o_article_campagne['poids_paquet_client'];
             
             /* Calcul quantité totale */
             $o_article['quantite_totale'] = $o_article['quantite'] * $o_article['poids_paquet_client'];
-            
-            /* Si la quantité totale commandée est un multiple du poids_paquet_fournisseur on ne créé pas d'étiquette */
-            
-            /* Le format impose 25 étiquettes par page max */
-            
-            if($numEtiquette==25) {
-                $pdf->AddPage();
-                $numEtiquette=1;
-            }
-            
-            /*Réglage police, écriture du titre, placement du curseur si étiquette est à gauche ou droite */
-            $pdf->SetFont('Arial','',12);
-            if($Gauche){
-                $pdf->SetX(1);
-            }else{
-                $pdf->SetX(11);
-            }
-            $pdf->Write(1,$userName." ".$userSurname);
-            if($Gauche){
-                $pdf->SetX(1);
-            }else{
-                $pdf->SetX(11);
-            }
+            $o_article['quantite_totale'] = number_format($o_article['quantite_totale'], 2, '.', '');
 
-            /* Réglage de la police et des couleurs, placement des curseurs*/
-            $pdf->SetFillColor(0xdd,0xdd,0xdd);
-            $pdf->SetTextColor(0,0,0);
-            $pdf->SetFont('Arial','',8);
-            if($Gauche){
-                $pdf->SetXY(1,$pdf->GetY()+1);
-            }else{
-                $pdf->SetXY(11,$pdf->GetY()+1);
-            }
-            
-            $fond=0;
-            
-            /*Ecriture du contenu des cellules : nom description et quantité totale (kg)*/
-            $pdf->cell(3,0.7,$o_article['nom'],1,0,'C',$fond);
-            $pdf->cell(3,0.7,$o_article['description_courte'],1,0,'C',$fond);
-            $pdf->cell(3,0.7,$o_article['quantite_totale'],1,0,'C',$fond);
-            $fond=!$fond;
-            
             /* 
-             * Il faut mettre une étiquette à gauche une à droite, et les unes en dessous des autres
-             * Voici le réglage :
-             * 
-             * Si c'est à gauche, on passe les curseurs à droite pour la prochaine étiquette
-             * 
-             * Si c'est à droite, on passe le curseur à gauche et en dessous pour la prochaine étiquette
-             * 
+             * Si la quantité totale commandée n'est pas un multiple du poids_paquet_fournisseur créé pas l'étiquette 
+             * On imprime une étiquette que si l'on sépare un paquet fournisseur en plusieurs paquets utilisateurs 
+             * La multiplication et divison par 1000 évitent les problèmes de "division par zéro" considéré dès que le poids paquet fournisseur vaut 0.XXX            
              */
             
-            if ($Gauche==true){
-                $pdf->SetXY(11, $pdf->GetY()-1);
-                $Gauche=false;
-            }
-            else {
-                $pdf->SetXY(1, $pdf->GetY()+1);
-                $Gauche=true;
+            if(1000*$o_article['quantite_totale'] % (1000*$o_article['poids_paquet_fournisseur']) !=0){
+                
+                        
+                /* Le format impose 25 étiquettes par page max */
+
+                if($numEtiquette==25) {
+                    $pdf->AddPage();
+                    $numEtiquette=1;
+                }
+
+                /*Réglage police, écriture du titre, placement du curseur si étiquette est à gauche ou droite */
+                $pdf->SetFont('Arial','',12);
+                if($Gauche){
+                    $pdf->SetX(1);
+                }else{
+                    $pdf->SetX(11);
+                }
+                $pdf->Write(1,$userName." ".$userSurname);
+                if($Gauche){
+                    $pdf->SetX(1);
+                }else{
+                    $pdf->SetX(11);
+                }
+
+                /* Réglage de la police et des couleurs, placement des curseurs*/
+                $pdf->SetFillColor(0xdd,0xdd,0xdd);
+                $pdf->SetTextColor(0,0,0);
+                $pdf->SetFont('Arial','',8);
+                if($Gauche){
+                    $pdf->SetXY(1,$pdf->GetY()+1);
+                }else{
+                    $pdf->SetXY(11,$pdf->GetY()+1);
+                }
+
+                $fond=0;
+
+                /*Ecriture du contenu des cellules : nom description et quantité totale (kg)*/
+                $pdf->cell(3,0.7,$o_article['nom'],1,0,'C',$fond);
+                $pdf->cell(3,0.7,$o_article['description_courte'],1,0,'C',$fond);
+                $pdf->cell(3,0.7,$o_article['quantite_totale'],1,0,'C',$fond);
+                $fond=!$fond;
+
+                /* 
+                 * Il faut mettre une étiquette à gauche une à droite, et les unes en dessous des autres
+                 * Voici le réglage :
+                 * 
+                 * Si c'est à gauche, on passe les curseurs à droite pour la prochaine étiquette
+                 * 
+                 * Si c'est à droite, on passe le curseur à gauche et en dessous pour la prochaine étiquette
+                 * 
+                 */
+
+                if ($Gauche==true){
+                    $pdf->SetXY(11, $pdf->GetY()-1);
+                    $Gauche=false;
+                }
+                else {
+                    $pdf->SetXY(1, $pdf->GetY()+1);
+                    $Gauche=true;
+                }
             }
         }
-       
         /*Fin du PDF quand on a passé en revu toutes les étiquettes*/
         $pdf->output();
     }
