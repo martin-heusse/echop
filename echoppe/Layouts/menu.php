@@ -34,10 +34,10 @@ require_once("Model/Campagne.php");
             <li><a href="<?php echo root ?>/articlesCommandEs.php/articlesCommandEs">Articles commandés</a></li>
             <li><a href="<?php echo root ?>/utilisateur.php/envoiMailAAdministrateur">Contacter les administrateurs</a></li>
             <?php
-            if (!Administrateur::isAdministrateur($_SESSION['idUtilisateur'])){
+            if (!Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
                 ?>
                 <li><a href="<?php echo root ?>/campagne.php/historiqueCampagne">Historique des commandes</a></li>
-                   <?php
+                <?php
             }
             ?>
         </ul>
@@ -56,7 +56,6 @@ require_once("Model/Campagne.php");
                 <li><a href="<?php echo root ?>/utilisateur.php/listeUtilisateurValide">Gestion des utilisateurs</a></li>
                 <li><a href="<?php echo root ?>/utilisateur.php/envoiMail">Contacter les utilisateurs</a></li>
                 <li><a href="<?php echo root ?>/exportImport.php/listeExport">Exporter les données</a></li>
-                <li><a href="<?php echo root ?>/article.php/updateBD"> Mettre à jour la base de données</a></li>
             </ul>
             <?php
         }
@@ -67,12 +66,12 @@ require_once("Model/Campagne.php");
             <li><a href="<?php echo root ?>/mesCommandes.php/mesCommandes">Mes commandes</a></li>
             <li><a href="<?php echo root ?>/commanderArticle.php/afficherRayon">Commander des articles</a></li>
             <li><a href="<?php echo root ?>/utilisateur.php/profil">Mon profil</a></li>
-            <?php if(!Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) 
-                {
-            ?>
-            <li><a href="<?php echo root ?>/inscription.php/desinscription">Me désinscrire</a></li>
-                <?php }
+            <?php
+            if (!Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
                 ?>
+                <li><a href="<?php echo root ?>/inscription.php/desinscription">Me désinscrire</a></li>
+            <?php }
+            ?>
         </ul>
         <?php
     } else {

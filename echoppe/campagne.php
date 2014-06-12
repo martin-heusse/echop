@@ -1,4 +1,5 @@
 <?php
+
 require_once('def.php');
 require_once('Model/Campagne.php');
 require_once('Model/Commande.php');
@@ -15,11 +16,12 @@ require_once('Util.php');
 /*
  * Gère les campagnes.
  */
-class CampagneController extends Controller {
 
+class CampagneController extends Controller {
     /*
      * Constructeur.
      */
+
     public function __construct() {
         parent::__construct();
     }
@@ -27,6 +29,7 @@ class CampagneController extends Controller {
     /*
      * Permet d'ouvrir, de fermer ou de changer de campagne courante.
      */
+
     public function gererCampagne() {
         /* Authentication required */
         if (!Utilisateur::isLogged()) {
@@ -34,7 +37,7 @@ class CampagneController extends Controller {
             return;
         }
         /* Doit être un administrateur */
-        if(!$_SESSION['isAdministrateur']) {
+        if (!$_SESSION['isAdministrateur']) {
             $this->render('adminRequired');
             return;
         }
@@ -58,6 +61,7 @@ class CampagneController extends Controller {
     /*
      * Archive la campagne courante et en ouvre une nouvelle.
      */
+
     public function nouvelleCampagne() {
         /* Authentication required */
         if (!Utilisateur::isLogged()) {
@@ -65,7 +69,7 @@ class CampagneController extends Controller {
             return;
         }
         /* Doit être un administrateur */
-        if(!$_SESSION['isAdministrateur']) {
+        if (!$_SESSION['isAdministrateur']) {
             $this->render('adminRequired');
             return;
         }
@@ -73,13 +77,13 @@ class CampagneController extends Controller {
         $b_etat = Campagne::getEtat($i_idCampagneCourante);
         /* La campagne courante doit être fermée */
         if ($b_etat == 1) {
-            header('Location: '.root.'/campagne.php/gererCampagne');
+            header('Location: ' . root . '/campagne.php/gererCampagne');
             return;
         }
         /* Désaffecte la campagne courante */
         Campagne::setCourant($i_idCampagneCourante, 0);
 
-        /* Récupération des données pour la réaffection */ 
+        /* Récupération des données pour la réaffection */
         $i_idOldCampagne = $i_idCampagneCourante;
         $to_article = ArticleCampagne::getObjectsByIdCampagne($i_idOldCampagne);
 
@@ -90,16 +94,7 @@ class CampagneController extends Controller {
         $b_courant = 1;
         $i_idCampagneCourante = Campagne::create($s_dateDebut, $b_etat, $b_courant);
 
-        /* envoi d'un mail à tous les utilisateurs */
-        $to_utilisateur = Utilisateur::getAllObjects();
-        $s_subject = "[L'Échoppe d'ici et d'ailleurs] Campagne ouverte";
-        $s_message = "Une campagne vient d'être ouverte, venez sur le site pour effectuer vos achats." ;
-        foreach($to_utilisateur as $o_utilisateur) {
-            if($o_utilisateur['validite'] == 1 ) {
-                $s_destinataire = $o_utilisateur['email'];
-            Util::sendEmail($s_destinataire, $s_subject, $s_message);   
-        }
-        }
+
         /* Réaffection des articles de la campagne précédente  */
         foreach ($to_article as $o_article) {
             $i_idArticle = $o_article['id_article'];
@@ -130,12 +125,44 @@ class CampagneController extends Controller {
                 ArticleFournisseur::create($i_idArticleCampagne, $i_idFournisseur, $f_prixHt, $f_prixTtc, $s_code, $b_prixTtcHt, $b_ventePaquetUnite);
             }
         }
-        header('Location: '.root.'/campagne.php/gererCampagne');
+        header('Location: ' . root . '/campagne.php/gererCampagne');
+    }
+
+    /*
+     * Avertir les utilisateurs du lancement de la nouvelle campagne par mail.
+     */
+
+    public function avertirUtilisateurNouvelleCampagne() {
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if (!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
+
+        /* envoi d'un mail à tous les utilisateurs */
+        $to_utilisateur = Utilisateur::getAllObjects();
+        $s_subject = "[L'Échoppe d'ici et d'ailleurs] Campagne ouverte";
+        $s_message = "Une campagne vient d'être ouverte, venez sur le site pour effectuer vos achats.";
+        foreach ($to_utilisateur as $o_utilisateur) {
+            $o_utilisateur['desinscrit'] = Utilisateur::getDesinscrit($o_utilisateur['id']);
+            if ($o_utilisateur['validite'] == 1 and $o_utilisateur['desinscrit'] == 0) {
+                $s_destinataire = $o_utilisateur['email'];
+                Util::sendEmail($s_destinataire, $s_subject, $s_message);
+            }
+
+            header('Location: ' . root . '/campagne.php/gererCampagne');
+        }
     }
 
     /*
      * Affiche l'historique des campagnes passées.
      */
+
     public function historiqueCampagne() {
         /* Authentication required */
         if (!Utilisateur::isLogged()) {
@@ -143,14 +170,14 @@ class CampagneController extends Controller {
             return;
         }
         /* Doit être un administrateur */
-        /*if(!$_SESSION['isAdministrateur']) {
-            $this->render('adminRequired');
-            return;
-        }*/
+        /* if(!$_SESSION['isAdministrateur']) {
+          $this->render('adminRequired');
+          return;
+          } */
         $to_campagne = Campagne::getObjectsByCourant(0);
         $this->render('historiqueCampagne', compact('to_campagne'));
     }
-    
+
     public function dnd() {
         /* Authentication required */
         if (!Utilisateur::isLogged()) {
@@ -158,10 +185,10 @@ class CampagneController extends Controller {
             return;
         }
         /* Doit être un administrateur */
-        /*if(!$_SESSION['isAdministrateur']) {
-            $this->render('adminRequired');
-            return;
-        }*/
+        /* if(!$_SESSION['isAdministrateur']) {
+          $this->render('adminRequired');
+          return;
+          } */
         $to_campagne = Campagne::getObjectsByCourant(0);
         $this->render('dnd', compact('to_campagne'));
     }
@@ -169,9 +196,12 @@ class CampagneController extends Controller {
     /*
      * Action par défaut.
      */
+
     public function defaultAction() {
-        header('Location: '.root.'/campagne.php/gererCampagne');
+        header('Location: ' . root . '/campagne.php/gererCampagne');
     }
+
 }
+
 new CampagneController();
 ?>
