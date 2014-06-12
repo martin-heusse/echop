@@ -716,7 +716,14 @@ class UtilisateurAyantCommandEController extends Controller {
                      * La multiplication et divison par 1000 évitent les problèmes de "division par zéro" considéré dès que le poids paquet fournisseur vaut 0.XXX            
                      */
 
-                    if(1000*$o_article['quantite_totale'] % (1000*$o_article['poids_paquet_fournisseur']) !=0){
+                    if(fmod($o_article['quantite_totale'],$o_article['poids_paquet_fournisseur']) !=0){
+                
+                        /* 
+                         * Si l'utilisateur ne commande pas un multiple exacte du produit, on n'imprime cependant des étiquettes que pour les
+                         * surplus. On prend le modulo pour calculer la quantite totale qu'on impose à l'étiquette.
+                         */    
+
+                        $o_article['quantite_totale']=fmod($o_article['quantite_totale'],$o_article['poids_paquet_fournisseur']);
 
 
                         /* Le format impose 25 étiquettes par page max */
@@ -849,8 +856,15 @@ class UtilisateurAyantCommandEController extends Controller {
              * La multiplication et divison par 1000 évitent les problèmes de "division par zéro" considéré dès que le poids paquet fournisseur vaut 0.XXX            
              */
             
-            if(1000*$o_article['quantite_totale'] % (1000*$o_article['poids_paquet_fournisseur']) !=0){
-            
+            if(fmod($o_article['quantite_totale'],$o_article['poids_paquet_fournisseur']) !=0){
+                
+                /* 
+                 * Si l'utilisateur ne commande pas un multiple exacte du produit, on n'imprime cependant des étiquettes que pour les
+                 * surplus. On prend le modulo pour calculer la quantite totale qu'on impose à l'étiquette.
+                 */    
+                
+                $o_article['quantite_totale']=fmod($o_article['quantite_totale'],$o_article['poids_paquet_fournisseur']);
+                            
             
                 /*Choix police, placement du curseur, écriture du num campagne, nom, prenom*/
                 $pdf->AddPage();
@@ -947,13 +961,19 @@ class UtilisateurAyantCommandEController extends Controller {
 
             /* 
              * Si la quantité totale commandée n'est pas un multiple du poids_paquet_fournisseur créé pas l'étiquette 
-             * On imprime une étiquette que si l'on sépare un paquet fournisseur en plusieurs paquets utilisateurs 
-             * La multiplication et divison par 1000 évitent les problèmes de "division par zéro" considéré dès que le poids paquet fournisseur vaut 0.XXX            
+             * On n'imprime une étiquette que si l'on sépare un paquet fournisseur en plusieurs paquets utilisateurs 
+             * fmod = float modulo. 
              */
             
-            if(1000*$o_article['quantite_totale'] % (1000*$o_article['poids_paquet_fournisseur']) !=0){
+            if(fmod($o_article['quantite_totale'],$o_article['poids_paquet_fournisseur']) !=0){
                 
-                        
+                /* 
+                 * Si l'utilisateur ne commande pas un multiple exacte du produit, on n'imprime cependant des étiquettes que pour les
+                 * surplus. On prend le modulo pour calculer la quantite totale qu'on impose à l'étiquette.
+                 */    
+                
+                $o_article['quantite_totale']=fmod($o_article['quantite_totale'],$o_article['poids_paquet_fournisseur']);
+                
                 /* Le format impose 25 étiquettes par page max */
 
                 if($numEtiquette==25) {
