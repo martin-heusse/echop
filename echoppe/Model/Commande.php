@@ -43,10 +43,19 @@ class Commande {
         return $to_result;
     }
     
-    public static function getCodeFournisseurByIdArticleIdCampagneIdFournisseur($i_idArticle, $i_idCampagne, $i_idFournisseur){
-        //$sql_query = "select "
-        $res = 3;
-        return $res;
+    public static function getCodeFournisseurByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur){
+        $sql_query = "select * from commande where id_article=$i_idArticle and id_campagne=$i_idCampagne and id_utilisateur=$i_idUtilisateur";
+        $sql_tmp = mysql_query($sql_query);
+        $to_result = array();
+        while ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité */
+            foreach ($o_row as &$column) {
+                $column = htmlentities($column, null,'UTF-8');
+            }
+            /* Création du résultat */
+            $to_result[] = $o_row;
+        }
+        return $to_result;
         
     }
 
@@ -324,6 +333,8 @@ class Commande {
     }        
 
     /* Setters */
+    
+    
 
     public static function set($i_id,$i_idArticle,
         $i_idCampagne, $i_idUtilisateur, $i_quantite) {
@@ -332,6 +343,8 @@ class Commande {
             $b_result =  mysql_query($sql_query);
             return $b_result;
         }
+        
+        
 
     public static function setIdArticle($i_id, $i_idArticle) {
         $sql_query = "update commande set id_article='$i_idArticle' 
@@ -358,6 +371,13 @@ class Commande {
 
     public static function setQuantite($i_id, $i_quantite) {
         $sql_query = "update commande set quantite='$i_quantite' 
+            where id=$i_id";
+        $b_result =  mysql_query($sql_query);
+        return $b_result;
+    }
+    
+    public static function setAjoutQuantite($i_id, $i_quantite) {
+        $sql_query = "update commande set quantite=quantite+'$i_quantite' 
             where id=$i_id";
         $b_result =  mysql_query($sql_query);
         return $b_result;

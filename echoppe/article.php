@@ -149,9 +149,9 @@ class ArticleController extends Controller {
             $to_unite = Unite::getAllObjects();
             /* liste de toutes les catégories */
                 /* Trié par ordre alphabétique */
-                $to_categorie = Categorie::getAllObjectsOrderByName();
+//                $to_categorie = Categorie::getAllObjectsOrderByName();
                 /* Pas de tri */
-//              $to_categorie = Categorie::getAllObjectsOrder();
+              $to_categorie = Categorie::getAllObjects();
             $changement_cat = true;
             $o_descriptionArticlePrecedent['id_categorie'] = 0;
             $t_categorieDebut = array();

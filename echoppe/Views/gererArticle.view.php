@@ -86,7 +86,7 @@ foreach ($to_rayon as $o_rayon) {
         if ($i_nbreArticleCategorie != 0 ) {
             /* Permet de sauter une ligne toutes les 5 catégories */
             if($i_nbreCategorie%5 == 0 and  $i_nbreCategorie > 0){
-               echo '<p>' ;
+               echo ' | <p>' ;
             }
             ?>
             <span style="font-size: 16px ; font-weight: bold; color:#666666">   |  <a href='afficherArticle?i_idRayon=<?php echo $i_idRayon ?>&i_pageNum=<?php echo $t_categorieDebut[$o_categorie['id']] ?>'> <?php echo $o_categorie['nom'] . ' (' . $t_categorieDebut[$o_categorie['id']] . '⇢)' ?> </a></span>
