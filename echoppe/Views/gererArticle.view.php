@@ -71,8 +71,10 @@ foreach ($to_rayon as $o_rayon) {
     }
     ?>
 <p> 
+    <!-- Affichage de la liste des catégorie -->
     <?php
-    foreach ($to_categorie as $o_categorie) {
+    $i_nbreCategorie = 0;
+    foreach ($to_categorie as $o_categorie) {        
         $i_nbreArticleCategorie = 0;
         foreach ($to_descriptionAllArticle as $o_descriptionAllArticle) {
             if ($o_descriptionAllArticle['id_categorie'] == $o_categorie['id']) {
@@ -80,18 +82,28 @@ foreach ($to_rayon as $o_rayon) {
                 $cat_vide = true;
             }
         }
-
-        if ($i_nbreArticleCategorie != 0) {
-            ?>       
-            <span style="font-size: 18px ; font-weight: bold; color:#666666">   |  <a href='afficherArticle?i_idRayon=<?php echo $i_idRayon ?>&i_pageNum=<?php echo $t_categorieDebut[$o_categorie['id']] ?>'> <?php echo $o_categorie['nom'] . ' (' . $t_categorieDebut[$o_categorie['id']] . '⇢)' ?> </a></span>
+        
+        if ($i_nbreArticleCategorie != 0 ) {
+            /* Permet de sauter une ligne toutes les 5 catégories */
+            if($i_nbreCategorie%5 == 0 and  $i_nbreCategorie > 0){
+               echo '<p>' ;
+            }
+            ?>
+            <span style="font-size: 16px ; font-weight: bold; color:#666666">   |  <a href='afficherArticle?i_idRayon=<?php echo $i_idRayon ?>&i_pageNum=<?php echo $t_categorieDebut[$o_categorie['id']] ?>'> <?php echo $o_categorie['nom'] . ' (' . $t_categorieDebut[$o_categorie['id']] . '⇢)' ?> </a></span>
             <?php
-        }
+        $i_nbreCategorie ++;
+            
+            }
+        
+        
+        
     }
     if ($cat_vide) {
         echo '|';
     }
     ?>
 </p>
+<!-- Affichage du numéro de page -->
 <?php
 if ($i_pageTot > 1) {
     echo "<p><b><font color='#666666'> Page : </font></b>";
