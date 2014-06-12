@@ -271,12 +271,12 @@ class Article {
 
     /* Deleters */
 
-//    public static function delete($i_id, $i_idRayon, $i_idCategorie, $s_nom, $f_poidsPaquetFournisseur,
-//                  $i_idUnite, $i_nbPaquetColis, $s_descriptionCourte, $s_descriptionLongue) {
-//        $sql_query = "delete from article where id=$i_id";
-//        $b_result =  mysql_query($sql_query);
-//        return $b_result;
-//    }
+    public static function deleteDetail($i_id, $i_idRayon, $i_idCategorie, $s_nom, $f_poidsPaquetFournisseur,
+                  $i_idUnite, $i_nbPaquetColis, $s_descriptionCourte, $s_descriptionLongue) {
+        $sql_query = "delete from article where id=$i_id";
+        $b_result =  mysql_query($sql_query);
+        return $b_result;
+    }
 
     public static function delete($i_id) {
         $sql_query = "delete from article where id=$i_id";

@@ -11,19 +11,24 @@ class ArticleOrdre {
         return $i_result;
     }
     
-    public static function getObjectsByCategorie($i_idCategorie) {
-        $sql_query = "select * from article_ordre where id_categorie='$i_idCategorie'";
+    public static function afficheObjectsPourDNDByCategorieByRayon($i_idCategorie, $i_idRayon) {
+        $sql_query = "SELECT * FROM article_ordre ao, article a WHERE a.id_categorie = '$i_idCategorie' AND " . 
+                                "ao.id_article = a.id AND " . 
+                                "a.id_rayon = '$i_idRayon' " .
+                                "ORDER BY ao.id";
         $sql_tmp = mysql_query($sql_query);
-        $to_result = array();
-        while ($o_row = mysql_fetch_assoc($sql_tmp)) {
-        /* Sécurité */
-            foreach ($o_row as &$column) {
-                $column = htmlentities($column, null,'UTF-8');
-            }
-        /* Création du résultat */
-        $to_result[] = $o_row;
-        }
-        return $to_result;
+//        echo "<ul class='article'>\n";
+//		while ($row = mysql_fetch_array($sql_tmp)) {
+//			echo "<li>".$row['id_article']."<span></span>"."  ".$row['nom']."</li>\n";
+//		}
+//		echo "</ul>";
+        echo "<ul class='article'>\n";
+		while ($row = mysql_fetch_array($sql_tmp)) {
+			//echo "<li>".$row['id_article']."<span></span>"."  ".$row['nom']."</li>\n";
+                        echo "<li><span class='id'>".$row['id_article']."</span>"."  ".$row['nom']."</li>\n";
+                }
+		echo "</ul>";
+        return;
     }
         
 }

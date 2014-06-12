@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS datasUtilisateur (
     id integer not null auto_increment,
     nom varchar(255),
     prenom varchar(255), 
-    desinscrit boolean default O,
+    desinscrit boolean,
 
     constraint fk_utilisateur foreign key(id) references utilisateur(id) on delete cascade
 ) ENGINE = INNODB;

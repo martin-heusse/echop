@@ -4,7 +4,6 @@ insert into utilisateur(login, mot_de_passe, email, validite) values('Aurore', '
 insert into utilisateur(login, mot_de_passe, email, validite) values('Gilles', 'gilles', 'gilles.legoux@ensimag.fr', true);
 insert into utilisateur(login, mot_de_passe, email, validite) values('Philippe', 'philippe', 'philippe.tran@ensimag.fr', true);
 insert into utilisateur(login, mot_de_passe, email, validite) values('Johann', 'johann', 'johann.yvetot@ensimag.fr', true);
-insert into utilisateur(login, mot_de_passe, email, validite) values('Paul', 'paul', 'paul@email.com', false);
 
 -- CREATION NOM UTILISATEURS
 insert into datasUtilisateur(nom, prenom, desinscrit) values ('Root', 'root', '0');

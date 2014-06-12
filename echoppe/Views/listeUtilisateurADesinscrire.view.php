@@ -33,7 +33,7 @@
     <?php
 } else {
     ?>
-    <p class="message"> Il n'y a aucun utilisateur à valider</p>
+    <p class="message"> Il n'y a aucune desinscription à valider</p>
     <?php
 }
 ?>
