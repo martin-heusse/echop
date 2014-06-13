@@ -2,10 +2,20 @@
 class ArticleOrdre {
     
     /*Creaters*/
-    public static function create($i_idArticle, $i_idCategorie) {
+    public static function create2($i_idArticle, $i_idCategorie) {
         //$i_idCategorie = Article::getIdCategorie($i_idArticle);
-        $sql_query = "insert into article_ordre(id_article, id_categorie)
-            values('$i_idArticle','$i_idCategorie')";
+        $sql_query = "select count(*) number from article_ordre where id_categorie ='$i_idCategorie'";
+        $sql_tmp = mysql_query($sql_query);
+        $new_ordre = 0;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité et création du résultat */
+            $new_ordre = htmlentities($o_row['number'], null,'UTF-8');
+        }
+        $new_ordre = $new_ordre +1;
+        
+        
+        $sql_query = "insert into article_ordre(id, id_article, id_categorie)
+            values('$new_ordre','$i_idArticle','$i_idCategorie')";
         mysql_query($sql_query);
         $i_result = mysql_insert_id();
         return $i_result;

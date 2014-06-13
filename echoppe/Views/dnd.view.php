@@ -161,7 +161,7 @@
          * */
         function saveList(item) {
 		var request = new XMLHttpRequest();
-		request.open("POST","<?php echo root ?>/js/save.php",false);
+		request.open("POST","<?php echo root ?>/save.php",false);
                 request.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
 		request.send(item);
 	}

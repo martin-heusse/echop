@@ -86,6 +86,24 @@ class Export {
             exit('Aucune donnée à enregistrer.');
     }
     
+    public static function excelWrite($outputCsv, $valeur){
+            // Ecrire la valeur dans la variable $outputCsv
+            $outputCsv .= trim($valeur).';';
+            return $outputCsv;
+    }
+    
+    public static function excelJump($outputCsv){
+            // Sauter une ligne
+            $outputCsv .= "\n";
+            return $outputCsv;
+    }
+    
+    public static function excelDeletePoint($outputCsv){
+            // Suppression du ; qui traine à la fin
+            $outputCsv = rtrim($outputCsv, ';');
+            return $outputCsv;
+    }
+    
     public static function connect(){
         /* Se connecte à la base de donnée*/
         mysql_connect(db_host, db_username,db_pwd);
