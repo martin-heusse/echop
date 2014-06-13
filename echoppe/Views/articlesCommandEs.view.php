@@ -238,6 +238,19 @@ if ($to_article == null or $to_article == array()) {
 
     <?php
 }
+?>
+    <p>
+    <a class="action_navigation" href="<?php echo root ?>/articlesCommandEs.php/exportCSV
+<?php
+/* Si navigation dans l'historique */
+if ($b_historique == 1) {
+    echo "?idOldCampagne=".$i_idCampagne;
+}
+?>
+"><img height="40" id="logo" src="<?php echo root ?>/Layouts/images/excel.png" alt="<?php echo $titre_page ?>" /></a></p>
+
+<?php
+
 foreach ($to_categorie as $o_categorie) {
     ?>
     <script type="text/javascript">
