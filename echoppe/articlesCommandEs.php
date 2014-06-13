@@ -1,6 +1,8 @@
 <?php
 
 require_once('def.php');
+require_once('Util.php');
+require_once('Model/Export.php');
 require_once('Model/Commande.php');
 require_once('Model/Campagne.php');
 require_once('Model/Administrateur.php');
@@ -426,6 +428,104 @@ class ArticlesCommandEsController extends Controller {
         $this->render('commandeUtilisateurPourCetArticle', compact('i_idArticle', 'o_commande', 'b_etat', 'i_idUtilisateur', 's_login', 'b_historique', 'i_idCampagne'));
     }
 
+     public function exportCSV() {
+         
+        /*
+         * Cette méthode va être écrite de manière différente des autres exports csv.
+         * Comme il y a pas mal de calcul, cette méthode ne se base pas sur des requêtes,
+         * mais bien sur les calculs sous php. Notamment le calcul du colisage qui appelle une fonction.
+         * L'écriture se fait "manuellement" grâce à des méthodes implémentées dans Export.php et qui pourront être réutilisables.
+         */ 
+         
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if (!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
+        
+        /* Récupération de l'Id campagne courante */
+        $i_idCampagne = Campagne::getIdCampagneCourante();
+        
+        // Nom BD
+        $database="BdEchoppe";
+        
+        // Connexion BD
+        Export::connect();
+
+        // la variable qui va contenir les données CSV
+        $outputCsv = '';
+        
+        // Nom du fichier qu'on initialise puis qu'on attribue
+        $fileName = "Export_Article_Commandes_Campagne".$i_idCampagne."_".date('d/m/Y').".csv";
+
+        // Titre des colonnes 
+        $outputCsv=  Export::excelWrite($outputCsv, "Article");
+        $outputCsv=  Export::excelWrite($outputCsv, "Quantite totale commandee");
+        $outputCsv=  Export::excelWrite($outputCsv, "Colisage");
+        $outputCsv=  Export::excelWrite($outputCsv, "Manque");
+        
+        // On enlève le ; parasite 
+        $outputCsv=  Export::excelDeletePoint($outputCsv);
+        
+        // On passe à la ligne avant remplissage des tables
+        $outputCsv=  Export::excelJump($outputCsv);
+        
+        /* On récupère tous les articles que l'on peut commander lors d'une 
+         * campagne */
+        $to_article = Commande::getIdArticleByIdCampagne($i_idCampagne);
+        
+        /* On récupère les attributs nécéssaires pour chaque article */
+        foreach ($to_article as &$o_row) {
+            $o_row['nom'] = Article::getNom($o_row['id_article']);
+            $i_idArticle = $o_row['id_article'];
+            $o_row['quantite_totale'] = 0;
+            $o_row['quantite_totale_unites'] = 0;
+            $i_idUnite = Article::getIdUnite($i_idArticle);
+            $o_row['unite'] = Unite::getUnite($i_idUnite);
+            $to_commande = Commande::getObjectsByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+            $i_idArticleCampagne = ArticleCampagne::getIdByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+            $i_poidsPaquetClient = ArticleCampagne::getPoidsPaquetClient($i_idArticleCampagne);
+            $i_poidsPaquetFournisseur = Article::getPoidsPaquetFournisseur($i_idArticle);
+            $i_nbrePaquetColis = Article::getNbPaquetColis($i_idArticle);
+            $o_row['colisage'] = $i_poidsPaquetFournisseur * $i_nbrePaquetColis;
+            /* on récupère la quantité totale commandée par le produit */
+            foreach ($to_commande as $o_commande) {
+                $i_quantite = $o_commande['quantite'] * $i_poidsPaquetClient;
+                $o_row['quantite_totale_unites'] += $o_commande['quantite'];
+                $o_commande['quantite'] = $i_quantite;
+                $o_row['quantite_totale'] += $i_quantite;
+            }
+            /* Calcul pour le colisage */
+
+            $o_row['manque'] = $this->calcManque($o_row['quantite_totale'], $i_poidsPaquetClient, $o_row['colisage']);
+            $o_row['manque_unite'] = $o_row['manque'] / $i_poidsPaquetClient;
+            
+            /*Une fois les infos récupérés pour un produit, on écrit dans l'excel*/
+            $outputCsv=  Export::excelWrite($outputCsv, $o_row['nom']);
+            $outputCsv=  Export::excelWrite($outputCsv, $o_row['quantite_totale'].$o_row['unite']. " (".$o_row['quantite_totale_unites']." unites)");
+            $outputCsv=  Export::excelWrite($outputCsv, "Multiple de ".$o_row['colisage'].$o_row['unite']);
+            $outputCsv=  Export::excelWrite($outputCsv, $o_row['manque_unite']." unite(s)"." (".$o_row['manque'].$o_row['unite'].")");
+            
+            /*On supprime le ; en trop*/
+            $outputCsv= Export::excelDeletePoint($outputCsv);
+            
+            /* On saute une ligne */
+            $outputCsv= Export::excelJump($outputCsv);
+        
+        }
+        //Formatage du fichier
+        Util::headerExcel($fileName);        
+        
+        /* On sort*/
+        echo $outputCsv;
+        exit();
+    }
+    
     /*
      * Action par défaut.
      */
