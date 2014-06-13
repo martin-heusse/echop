@@ -3,41 +3,27 @@
 <head>
 	<meta charset="utf-8"/>
         <link rel="stylesheet" href="../css/style.css"/>
-
-	<title>Drag & Drop</title>
 </head>
 <body>
 
-<h1>So drag & drop</h1>
-
 <?php
-
-        //require_once('../Model');
         $recup_categorie = $_GET['id_categ'];
-        $recup_rayon = $_GET['id_ray'];
-        //$offset = Article::getOffset(3);
-        
+        $recup_rayon = $_GET['id_ray'];        
         ?>
+
+    <h1>Tri des articles <?php echo Categorie::getNom($recup_categorie)?>, <?php echo Rayon::getNom($recup_rayon)?></h1>
+
 <div id="retour">
 <!-- interface de parcours d'historique des campagnes pour utilisateur -->
 <p><a class="action_navigation" href="<?php echo root ?>/article.php/choixCategorieTri?i_idRayon=<?php echo $recup_rayon; ?>">Retour au choix de la catégorie des articles à trier</a></p>
 </div>
-<?php
-        
-        //echo $offset;
-//        $result2 = mysql_query("SELECT * FROM article_ordre ao, article a WHERE a.id_categorie = '$recup_categorie' AND " . 
-//                                "ao.id_article = a.id AND " . 
-//                                "a.id_rayon = '$recup_rayon' " .
-//                                "ORDER BY ao.id");
 
-            //$result2 = 
+<h3>Pour trier, faites glisser les articles à l'endroit où vous voulez les placer</h3>
+<?php
+            /* Affichage de la liste des articles avec leur id (dans les bonnes classes)
+             * pour qu'on puisse y faire un d'n'd
+             */
             ArticleOrdre::afficheObjectsPourDNDByCategorieByRayon($recup_categorie, $recup_rayon);
-//		echo "<ul class='article'>\n";
-//		while ($row = mysql_fetch_array($result2)) {
-//			echo "<li>".$row['id_article']."<span></span>"."  ".$row['nom']."</li>\n";
-//                        //echo $row['nom'];
-//		}
-//		echo "</ul>";
 ?>
 
 
@@ -46,10 +32,7 @@
 
 	var items = document.querySelectorAll('.article li');
 	var el = null;
-
-	var ul = document.querySelector('ul');
-	var form = document.querySelector('form');
-
+        
 	function addListeners() {
 		[].forEach.call(items, function(item) {
 			item.setAttribute('draggable', 'true');
@@ -61,6 +44,34 @@
 			item.addEventListener('dragend', dragEnd, false);
 		});
 	}
+        
+        function isBelow(el1, el2) {
+        var parent = el1.parentNode;
+        if (el2.parentNode != parent) {
+            return false;
+        }
+
+        var cur = el1.previousSibling;
+        while (cur && cur.nodeType !== 9) {
+            if (cur === el2) {
+                return true;
+            }
+            cur = cur.previousSibling;
+        }
+        return false;
+    }
+
+        
+        function moveElementNextTo(element, elementToMoveNextTo) {
+        if (isBelow(element, elementToMoveNextTo)) {
+            // Insert element before to elementToMoveNextTo.
+            elementToMoveNextTo.parentNode.insertBefore(element, elementToMoveNextTo);
+        }
+        else {
+            // Insert element after to elementToMoveNextTo.
+            elementToMoveNextTo.parentNode.insertBefore(element, elementToMoveNextTo.nextSibling);
+        }
+    }
 
 
 	function dragStart(e) {
@@ -75,11 +86,13 @@
 			e.preventDefault();
 		}
 		e.dataTransfer.dropEffect = 'move';
+                
 		return false;
 	}
 
 	function dragEnter(e) {
 		this.classList.add('over');
+                moveElementNextTo(el, this);
 	}
 
 	function dragLeave(e) {
@@ -90,15 +103,13 @@
 		if (e.stopPropagation) {
 			e.stopPropagation();
 		}
+                listChange();
 		if (el != this) {
 			el.innerHTML = this.innerHTML;
 			this.innerHTML = e.dataTransfer.getData('text/html');
-			listChange();
 		}
 		return false;
 	}
-
-	
 
 	function dragEnd(e) {
 		this.style.opacity = '1';
@@ -107,43 +118,55 @@
 		});
 	}
 
-	function listChange() {
-                
-		//var tempItems = document.querySelectorAll('.article li');
+        function listChange() {
                 var tempItems = document.querySelectorAll('.id');
+                var data = null;
 		[].forEach.call(tempItems, function(item, i) {
 			var order = i + 1;
-                        var lecture = item.innerHTML;
-                        var it2 = 'id_article=' + lecture; 
-                        if (/<m(.+?)>/.test(it2)) {
-                                it2 = it2.replace(/<m(.+?)>/,"");
-                              }            
-//                        var j = (it2.indexOf("<span></span>")); //balise non sémantique pour ne pas récupérer le nom de l'article
-//                        
-//                        it2 = it2.substring(0,j);
-                        var it = it2 + '&id=' + order;
-                        //alert(it);
-			saveList(it);
-		});
+                        /* On récupère le contenu des balises de classe id, qui contiennent...l'id */
+                        var lecture = item.innerHTML; 
+                        
+                        /* Utilisation d'expressions regulieres pour supprimer les éventuelles balises <meta> qui apparaissent */
+                        if (/<m(.+?)>/.test(lecture)) {
+                                lecture = lecture.replace(/<m(.+?)>/,"");
+                              }
+                              
+                        /* Stratégie : dans les keys du post qu'on est en train de créer, 
+                         * plutôt que de stocker les informations id_article et l'ordre associé,
+                         * on ne stocke qu'une seule info : id_articleN où N est l'ordre (order) 
+                         * 
+                         * c'est faisable car on parcourt les classes .id dans l'ordre naturel
+                         * de lecture dans l'html, du coup le k-ème élément lu est d'ordre k.
+                         * */      
+                              
+                        /* Si c'est le premier id qu'on écrit, pas besoin de '&' */
+                        if (data == null) {
+                            data = 'id_article'+ order +'=' + lecture;
+                        }
+                        /* Sinon on met un '&'*/
+                        else {
+                            data = data + '&id_article'+ order +'=' + lecture;
+                        }
+		}
+                        );
+                saveList(data);
 	}
-	function saveList(item) {
+        
+        /* On n'appelle saveList qu'une fois par drag'n'drop, 
+         * en lui envoyant d'un bloc (POST) les infos pour faire n=nombre d'articles
+         * requêtes SQL de mise à jour de la base.
+         * 
+         *  Ceci est plus optimisé que d'envoyer n requêtes XMLHttp ne contenant chacune que l'info (GET)
+         *  sur un seul article et son ordre.
+         * */
+        function saveList(item) {
 		var request = new XMLHttpRequest();
-                //alert(item);
-		request.open('GET',"<?php echo root ?>/js/save.php?" +item,true);
-		request.send();
+		request.open("POST","<?php echo root ?>/js/save.php",false);
+                request.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
+		request.send(item);
 	}
-
-	
-
 	addListeners();
-
 })();
-
-    
-    
-
-<!--src="../js/scripts.js">-->
-
 
 </script>
 </body>
