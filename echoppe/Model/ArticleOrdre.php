@@ -30,6 +30,15 @@ class ArticleOrdre {
 		echo "</ul>";
         return;
     }
+    
+    public static function updateArticleOrdre($i_idOrdre, $i_idArticle) {
+        $sql_query = "REPLACE INTO article_ordre SET id = '$i_idOrdre', id_article = '$i_idArticle', id_categorie = 
+                                    (SELECT a.id_categorie FROM article a WHERE a.id = '$i_idArticle');";
+        mysql_query($sql_query);
+        
+        return;
+        
+    }
         
 }
    
