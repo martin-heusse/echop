@@ -294,6 +294,8 @@ class ArticlesCommandEsController extends Controller {
             }
         }
         /* Permet de recalculer le manque et donc de gérer les transactions */
+        //Cancel auto commit option in the database
+        Commande::autocommit();
         /* On récupère les commandes-utilisateurs qui contiennent ce produit */
         $i_idCampagne = Campagne::getIdCampagneCourante();
         $to_utilisateur = Commande::getObjectsByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
@@ -304,13 +306,13 @@ class ArticlesCommandEsController extends Controller {
         $i_colisage = $i_poidsPaquetFournisseur * $i_nbrePaquetColis;
         $i_quantiteTotale = 0;
         /* On récupère tous les utilisateurs qui ont commandé cet article */
-        foreach ($to_utilisateur as &$o_row) {            
+        foreach ($to_utilisateur as &$o_row) {
             $i_idUtilisateur = $o_row['id_utilisateur'];
             $i_quantite = Commande::getQuantiteByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
             $o_row['quantite'] = $i_quantite * $i_poidsPaquetClient;
             $i_quantiteTotale += $o_row['quantite'];
         }
-        $i_manque = $this->calcManque($i_quantiteTotale, $i_poidsPaquetClient, $i_colisage);
+        $i_manque = $this->calcManque($i_quantiteTotale, $i_poidsPaquetClient, $i_colisage);        
         if ($i_manque > 0) {
             /* Navigation dans l'historique ou non */
             $b_historique = 0;
@@ -332,16 +334,15 @@ class ArticlesCommandEsController extends Controller {
 
                     /* Si c'est le cas, on ajoute la quantité à la précédente commande */
                     if ($i_idCommande != NULL) {
-                        Commande::setAjoutQuantite($i_idCommande, $f_quantite);
+                        $sucess = Commande::setAjoutQuantite($i_idCommande, $f_quantite);
                     }
                     /* Sinon on en crée une nouvelle */ else {
-                        Commande::create($i_idArticle, $i_idCampagne, $f_utilisateur, $f_quantite);
+                        $sucess = Commande::create($i_idArticle, $i_idCampagne, $f_utilisateur, $f_quantite);
                     }
                 }
             }
         }
-
-
+        Commande::rollback($sucess);
         /* Redirection */
         if ($_SESSION['isAdministrateur']) {
             if ($i_idCampagne == Campagne::getIdCampagneCourante()) {

@@ -157,7 +157,7 @@ class CampagneController extends Controller {
 
             header('Location: ' . root . '/campagne.php/gererCampagne');
         }
-    }
+    }   
 
     /*
      * Affiche l'historique des campagnes passées.
