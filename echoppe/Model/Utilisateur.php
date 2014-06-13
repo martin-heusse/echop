@@ -97,6 +97,8 @@ class Utilisateur {
         }
         return $o_result;
     }
+    
+   
 
     public static function getObject($i_id) {
         $sql_query = "select * from utilisateur where id=$i_id";
@@ -164,6 +166,17 @@ class Utilisateur {
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
             $s_result = htmlentities($o_row['email'], null,'UTF-8');
+        }
+        return $s_result;
+    }
+    
+      public static function getDesinscrit($i_id) {
+        $sql_query = "select desinscrit from datasUtilisateur where id=$i_id";
+        $sql_tmp = mysql_query($sql_query);
+        $s_result = null;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité et création du résultat */
+            $s_result = htmlentities($o_row['desinscrit'], null,'UTF-8');
         }
         return $s_result;
     }

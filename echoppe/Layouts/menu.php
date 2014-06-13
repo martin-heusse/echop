@@ -30,20 +30,36 @@ require_once("Model/Campagne.php");
                 <li><a href="<?php echo root ?>/fournisseur.php/fournisseursChoisis">Commandes par fournisseur</a></li>
                 <?php
             }
+            ?><?php
+            if (!Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
+                $i_idCampagne = Campagne::getIdCampagneCourante();
+                if (Campagne::getEtat($i_idCampagne)) {
+                    ?>
+                    <li><a href="<?php echo root ?>/articlesCommandEs.php/articlesCommandEs">Articles commandés</a></li>
+                    <?php
+                } else {
+                    ?>
+                    <li><a href="<?php echo root ?>/articlesCommandEs.php/articlesCommandEs">Colisage</a></li>
+                    <?php
+                }
+            } else {
+                ?>
+                <li><a href="<?php echo root ?>/articlesCommandEs.php/articlesCommandEs">Articles commandés</a></li>
+                <?php
+            }
             ?>
-            <li><a href="<?php echo root ?>/articlesCommandEs.php/articlesCommandEs">Articles commandés</a></li>
-            <li><a href="<?php echo root ?>/utilisateur.php/envoiMailAAdministrateur">Contacter les administrateurs</a></li>
+            <li><a href = "<?php echo root ?>/utilisateur.php/envoiMailAAdministrateur">Contacter les administrateurs</a></li>
             <?php
-            if (!Administrateur::isAdministrateur($_SESSION['idUtilisateur'])){
+            if (!Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
                 ?>
                 <li><a href="<?php echo root ?>/campagne.php/historiqueCampagne">Historique des commandes</a></li>
-                   <?php
+                <?php
             }
             ?>
         </ul>
-        <?php
-        if (Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
-            ?>
+            <?php
+            if (Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
+                ?>
 
             <h2 class="titre_menu">Administration</h2>
             <ul>
@@ -56,32 +72,31 @@ require_once("Model/Campagne.php");
                 <li><a href="<?php echo root ?>/utilisateur.php/listeUtilisateurValide">Gestion des utilisateurs</a></li>
                 <li><a href="<?php echo root ?>/utilisateur.php/envoiMail">Contacter les utilisateurs</a></li>
                 <li><a href="<?php echo root ?>/exportImport.php/listeExport">Exporter les données</a></li>
-                <li><a href="<?php echo root ?>/article.php/updateBD"> Mettre à jour la base de données</a></li>
             </ul>
-            <?php
-        }
-        ?>
+        <?php
+    }
+    ?>
         <!-- Menu utilisateur -->
         <h2 class="titre_menu">Menu</h2>
         <ul>
             <li><a href="<?php echo root ?>/mesCommandes.php/mesCommandes">Mes commandes</a></li>
             <li><a href="<?php echo root ?>/commanderArticle.php/afficherRayon">Commander des articles</a></li>
-            <li><a href="<?php echo root ?>/utilisateur.php/profil">Mon profil</a></li>
-            <?php if(!Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) 
-                {
-            ?>
-            <li><a href="<?php echo root ?>/inscription.php/desinscription">Me désinscrire</a></li>
-                <?php }
-                ?>
-        </ul>
-        <?php
-    } else {
+            <li><a href="<?php echo root ?>/utilisateur.php/profil">Mon profil</a></li>            
+    <?php
+    if (!Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
         ?>
+                <li><a href="<?php echo root ?>/inscription.php/desinscription">Me désinscrire</a></li>
+            <?php }
+            ?>
+        </ul>
+            <?php
+        } else {
+            ?>
         <ul>
             <li><a href="<?php echo root ?>/index.php">Accueil</a></li>            
         </ul>
-        <?php
-    }
-    ?>
+    <?php
+}
+?>
 
 </div><!-- id="menu" -->

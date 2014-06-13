@@ -239,7 +239,7 @@ class MesCommandesController extends Controller {
         $i_idUtilisateur = $_SESSION['idUtilisateur'];
         /* Récupération de l'identifiant de la campagne courante */
         $i_idCampagne = $_GET['id_camp'];
-        //echo $i_idCampagne;
+
         /* Récupération de l'état de la campagne */
         $b_etat = Campagne::getEtat($i_idCampagne);
         
@@ -295,7 +295,7 @@ class MesCommandesController extends Controller {
         $i_idUtilisateur = $_SESSION['idUtilisateur'];
         /* Récupération de l'identifiant de la campagne courante */
         $i_idCampagne = $_GET['id_camp'];
-        //echo $i_idCampagne;
+
         /* Récupération de l'état de la campagne */
         $b_etat = Campagne::getEtat($i_idCampagne);
 

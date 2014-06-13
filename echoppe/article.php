@@ -103,7 +103,7 @@ class ArticleController extends Controller {
             $to_fournisseur = GererArticle::fournisseurArticle($i_idCampagne, $i_idRayon);
             $num_article = count($to_descriptionArticle);
 
-            $max_article = 5;
+            $max_article = 8;
 
             $i_pageTot = $num_article / $max_article;
             if ($i_pageTot != intval($i_pageTot)) {
@@ -130,21 +130,7 @@ class ArticleController extends Controller {
 
             $nbArticle = 0;
             $changement_cat = false;
-//            foreach($to_descriptionArticle as $o_descriptionArticle){
-//               $nbArticle++;
-//               if($o_descriptionArticle['id_categorie'] != $o_descriptionArticlePrecedent['id_categorie'] and $nbArticle > 1){
-//                   $changement_cat = true;
-//                   break;                   
-//               }
-//               $o_descriptionArticlePrecedent['id_categorie'] = $o_descriptionArticle['id_categorie'];
-//           }
-//           if($nbArticle < $max_article and $changement_cat){
-//               $to_descriptionArticle = GererArticle::descriptionArticle($i_idCampagne, $i_idRayon);
-//               $to_descriptionArticle = array_slice($to_descriptionArticle,$fin_pre, $nbArticle-1);
-//               /* calcul du prochain fin_pre si on a un changement de catégorie */               
-//               $fin_pre+=$nbArticle-1;
-//               $i_pageTot++;
-//           }
+
             foreach ($to_descriptionArticle as &$o_descriptionArticle) {
                 $i_idArticleCampagne = $o_descriptionArticle['id_article_campagne'];
                 foreach ($to_fournisseur as $o_fournisseur) {
@@ -162,8 +148,10 @@ class ArticleController extends Controller {
             /* liste de toutes les unités */
             $to_unite = Unite::getAllObjects();
             /* liste de toutes les catégories */
-            $to_categorie = Categorie::getAllObjects();
-
+                /* Trié par ordre alphabétique */
+//                $to_categorie = Categorie::getAllObjectsOrderByName();
+                /* Pas de tri */
+              $to_categorie = Categorie::getAllObjects();
             $changement_cat = true;
             $o_descriptionArticlePrecedent['id_categorie'] = 0;
             $t_categorieDebut = array();
@@ -289,7 +277,7 @@ class ArticleController extends Controller {
             $this->render('adminRequired');
             return;
         }
-        
+
         $this->render('dnd', compact('result'));
     }
 
@@ -439,7 +427,7 @@ class ArticleController extends Controller {
                             header('Location: ' . root . '/article.php/afficherAjouterFournisseur?i_erreur=' . $i_erreur . '&i_idRayon=' . $i_idRayon . '&i_pageNum=' . $i_pageNum . '&i_idCampagne=' . $i_idCampagne . '&id_article=' . $id_article . '&b_historique=' . $b_historique);
                             return;
                         }
-                        if (isset($_POST['supprimer_' . $i]) or isset($_POST['supprimer_' . $i .'_x'])) {
+                        if (isset($_POST['supprimer_' . $i]) or isset($_POST['supprimer_' . $i . '_x'])) {
                             $id_article = $i;
                             header('Location: ' . root . '/article.php/afficherSupprimerArticle?i_erreur=' . $i_erreur . '&i_idRayon=' . $i_idRayon . '&i_pageNum=' . $i_pageNum . '&i_idCampagne=' . $i_idCampagne . '&id_article=' . $id_article . '&b_historique=' . $b_historique);
                             return;
@@ -522,14 +510,11 @@ class ArticleController extends Controller {
         }
 
         /* récupération des variables à utiliser en cas d'erreur */
-        $b_historique = $_POST['b_historique'];
-        $i_idCampagne = $_POST['i_idCampagne'];
         $i_idRayon = $_POST['i_idRayon'];
         $i_pageNum = $_POST['i_pageNum'];
 
         if (isset($_POST['id_article']) and isset($_POST['confirm']) and $_POST['confirm'] == '1') {
             /* récupération des variables */
-
             $i_idArticle = $_POST['id_article'];
             ArticleCampagne::delete($i_idArticle);
             ArticleFournisseur::delete($i_idArticle);
@@ -890,7 +875,7 @@ class ArticleController extends Controller {
         $to_descriptionArticle = Article::getAllObjects();
         foreach ($to_descriptionArticle as $o_descriptionArticle) {
             ArticleOrdre::create($o_descriptionArticle['id'], $o_descriptionArticle['id_categorie']);
-        }        
+        }
         header('Location: ' . root . '/accueil.php');
     }
 
