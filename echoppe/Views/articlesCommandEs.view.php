@@ -90,11 +90,11 @@ if ($to_article == null or $to_article == array()) {
             <thead><!-- En tête du tableau -->
                 <tr class='tab_article'>
                     <th>Article</th>
-
+                    <th>Commandé <br/> par vous</th>
                     <?php
                     if (Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
                         ?>
-                        <th>Commandé <br/> par vous</th>
+
                         <th>Quantité totale commandée</th>
                         <th>Colisage</th>
                         <?php
@@ -103,10 +103,10 @@ if ($to_article == null or $to_article == array()) {
                     <th>Manque</th>
                     <?php
                     $i_idCampagne = Campagne::getIdCampagneCourante();
-                    if (!Administrateur::isAdministrateur($_SESSION['idUtilisateur']) and !Campagne::getEtat($i_idCampagne)) {
+                    if (!Administrateur::isAdministrateur($_SESSION['idUtilisateur']) and ! Campagne::getEtat($i_idCampagne)) {
                         ?>
-                    <th>Quantité</th>
-                    <th>Valider</th>
+                        <th>Quantité</th>
+                        <th>Valider</th>
                     <?php }
                     ?>
                 </tr>
@@ -164,15 +164,12 @@ if ($to_article == null or $to_article == array()) {
                                         ?>
                                     </td>
                                     <?php
-                                    if (Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
-                                        ?>
-                                        <td class="center">
-                                            <?php if ($o_article['commandeParUtilsateurCourant']) echo $o_article['commandeParUtilsateurCourant'] . " unité(s)"; ?> 
-                                        </td>
-                                        <?php
-                                    }
                                     ?>
-
+                                    <td class="center">
+                                        <?php if ($o_article['commandeParUtilsateurCourant']) echo $o_article['commandeParUtilsateurCourant'] . " unité(s)"; ?> 
+                                    </td>
+                                    <?php
+                                    ?>
                                     <?php
                                     if (Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
                                         ?>
@@ -196,17 +193,19 @@ if ($to_article == null or $to_article == array()) {
                                     </td>
                                     <?php
                                     $i_idCampagne = Campagne::getIdCampagneCourante();
-                                    if (!Administrateur::isAdministrateur($_SESSION['idUtilisateur']) and !Campagne::getEtat($i_idCampagne) ) {
-
-                                        if (!$o_article['manque_unite'] > 0) {
-                                            ?>
-                                            <td></td>
-                                            <td></td>
-                                        <?php } else {
-                                            ?>
-                                            <td><center>
+                                    if (!Administrateur::isAdministrateur($_SESSION['idUtilisateur']) and ! Campagne::getEtat($i_idCampagne)) {
+                                        ?>
+                               
+                                <?php
+                                if (!$o_article['manque_unite'] > 0) {
+                                    ?>
+                                    <td></td>
+                                    <td></td>
+                                <?php } else {
+                                    ?>
+                                    <td><center>
                                         <select name="forceQuantite_<?php echo $o_article['id_article'] ?>">
-                                            
+
                                             <?php
                                             $i = 0;
                                             while ($i < $o_article['manque_unite'] + 1) {

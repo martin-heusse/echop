@@ -267,7 +267,7 @@ class ArticlesCommandEsController extends Controller {
         $this->render('utilisateursAyantCommandECetArticle', compact('i_idArticle', 'to_utilisateur', 'not_utilisateur', 'i_colisage', 's_nomArticle', 'i_quantiteTotale', 's_unite', 'i_poidsPaquetClient', 'i_manque', 'b_historique', 'i_idCampagne'));
     }
 
-    public function forceUtilisateur() {        
+    public function forceUtilisateur() {
         /* Authentication required */
         if (!Utilisateur::isLogged()) {
             $this->render('authenticationRequired');
@@ -282,7 +282,7 @@ class ArticlesCommandEsController extends Controller {
                 return;
             }
             $i_idArticle = htmlentities($_GET['idArticle'], null, 'UTF-8');
-        } else {            
+        } else {
             /* Colisage de l'utilisateur */
             $i_nbArticle = count(Article::getAllObjects());
             for ($i_nbArticle = 0; $i_nbArticle < 100; $i_nbArticle++) {
@@ -292,33 +292,51 @@ class ArticlesCommandEsController extends Controller {
                     break;
                 }
             }
-        }       
-        
-        /* Navigation dans l'historique ou non */
-        $b_historique = 0;
-        if (isset($_GET['idCampagne'])) {
-            $i_idCampagne = $_GET['idCampagne'];
-            $b_historique = 1;
-        } else {
-            $i_idCampagne = Campagne::getIdCampagneCourante();
         }
-        /* Un select par ligne, donc une nom de variable dédié pour chaque ligne */
-        if (isset($_POST['forceQuantite_'.$i_nbArticle])) {
-            $f_quantite = $_POST['forceQuantite_'.$i_nbArticle];
-            if ($f_quantite > 0) {
-                $f_utilisateur = $_POST['forceUtilisateur'];
-                /* Quand tous les paramètres ont été récupérés, on vérifie si une commande 
-                 * pour le même utilisateur, le même article n'a pas déjà été fait lors de cette campagne
-                 */
-                $i_idCommande = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $f_utilisateur);
-                
-                /* Si c'est le cas, on ajoute la quantité à la précédente commande */
-                if ($i_idCommande != NULL) {
-                    Commande::setAjoutQuantite($i_idCommande, $f_quantite);
-                }
-                /* Sinon on en crée une nouvelle */
-                else {
-                    Commande::create($i_idArticle, $i_idCampagne, $f_utilisateur, $f_quantite);
+        /* Permet de recalculer le manque et donc de gérer les transactions */
+        /* On récupère les commandes-utilisateurs qui contiennent ce produit */
+        $i_idCampagne = Campagne::getIdCampagneCourante();
+        $to_utilisateur = Commande::getObjectsByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+        $i_idArticleCampagne = ArticleCampagne::getIdByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
+        $i_poidsPaquetClient = ArticleCampagne::getPoidsPaquetClient($i_idArticleCampagne);
+        $i_poidsPaquetFournisseur = Article::getPoidsPaquetFournisseur($i_idArticle);
+        $i_nbrePaquetColis = Article::getNbPaquetColis($i_idArticle);
+        $i_colisage = $i_poidsPaquetFournisseur * $i_nbrePaquetColis;
+        $i_quantiteTotale = 0;
+        /* On récupère tous les utilisateurs qui ont commandé cet article */
+        foreach ($to_utilisateur as &$o_row) {            
+            $i_idUtilisateur = $o_row['id_utilisateur'];
+            $i_quantite = Commande::getQuantiteByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);
+            $o_row['quantite'] = $i_quantite * $i_poidsPaquetClient;
+            $i_quantiteTotale += $o_row['quantite'];
+        }
+        $i_manque = $this->calcManque($i_quantiteTotale, $i_poidsPaquetClient, $i_colisage);
+        if ($i_manque > 0) {
+            /* Navigation dans l'historique ou non */
+            $b_historique = 0;
+            if (isset($_GET['idCampagne'])) {
+                $i_idCampagne = $_GET['idCampagne'];
+                $b_historique = 1;
+            } else {
+                $i_idCampagne = Campagne::getIdCampagneCourante();
+            }
+            /* Un select par ligne, donc une nom de variable dédié pour chaque ligne */
+            if (isset($_POST['forceQuantite_' . $i_nbArticle])) {
+                $f_quantite = $_POST['forceQuantite_' . $i_nbArticle];
+                if ($f_quantite > 0) {
+                    $f_utilisateur = $_POST['forceUtilisateur'];
+                    /* Quand tous les paramètres ont été récupérés, on vérifie si une commande 
+                     * pour le même utilisateur, le même article n'a pas déjà été fait lors de cette campagne
+                     */
+                    $i_idCommande = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $f_utilisateur);
+
+                    /* Si c'est le cas, on ajoute la quantité à la précédente commande */
+                    if ($i_idCommande != NULL) {
+                        Commande::setAjoutQuantite($i_idCommande, $f_quantite);
+                    }
+                    /* Sinon on en crée une nouvelle */ else {
+                        Commande::create($i_idArticle, $i_idCampagne, $f_utilisateur, $f_quantite);
+                    }
                 }
             }
         }
