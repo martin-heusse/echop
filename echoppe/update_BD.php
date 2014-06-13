@@ -120,12 +120,12 @@ $commands = array(//
     constraint fk_article_fournisseur_2 foreign key(id_fournisseur) 
     references fournisseur(id) on delete cascade
 ) ENGINE = INNODB;",
-    "CREATE TABLE article_ordre (
-    id integer not null auto_increment,
+    "CREATE TABLE IF NOT EXISTS article_ordre (
+    id integer not null,
     id_article integer not null,
     id_categorie integer not null,
     
-    constraint pk_article_ordre primary key(id),
+    constraint pk_article_ordre primary key(id,id_categorie),
 
     constraint fk_article_ordre foreign key(id_article)
     references article(id) on delete cascade,
@@ -165,7 +165,9 @@ echo "Fin de la creation des tables \n <br />";
 /* Insertion des nouvelles données */
 $to_result = Article::getAllObjects();
 foreach ($to_result as $o_descriptionArticle) {
-    ArticleOrdre::create($o_descriptionArticle['id'],$o_descriptionArticle['id_categorie']);
+    //ArticleOrdre::create($o_descriptionArticle['id'],$o_descriptionArticle['id_categorie']);
+    ArticleOrdre::create2($o_descriptionArticle['id'],$o_descriptionArticle['id_categorie']);
+
 }
 $to_utilisateur = Utilisateur::getAllObjects();
 foreach ($to_utilisateur as $o_utilisateur){

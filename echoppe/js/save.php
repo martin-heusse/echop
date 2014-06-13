@@ -16,9 +16,10 @@
 	   echo "Donnees reçues en POST:"; 
 	   foreach($_POST as $k => $v){
                 $id_categorie = Article::getIdCategorie($v);
-                $offset = Article::getOffset($id_categorie);
+                //$offset = Article::getOffset($id_categorie);
                 
-                $new_id = $compteur + $offset;
+                //$new_id = $compteur + $offset;
+                $new_id = $compteur;
                 ArticleOrdre::updateArticleOrdre($new_id, $v);
                
                $compteur = $compteur +1;

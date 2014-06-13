@@ -135,12 +135,12 @@ CREATE TABLE article_fournisseur (
     references fournisseur(id) on delete cascade
 ) ENGINE = INNODB;
 
-CREATE TABLE article_ordre (
-    id integer not null auto_increment,
+CREATE TABLE IF NOT EXISTS article_ordre (
+    id integer not null,
     id_article integer not null,
     id_categorie integer not null,
     
-    constraint pk_article_ordre primary key(id),
+    constraint pk_article_ordre primary key(id,id_categorie),
 
     constraint fk_article_ordre foreign key(id_article)
     references article(id) on delete cascade,
