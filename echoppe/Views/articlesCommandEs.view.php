@@ -195,15 +195,15 @@ if ($to_article == null or $to_article == array()) {
                                     $i_idCampagne = Campagne::getIdCampagneCourante();
                                     if (!Administrateur::isAdministrateur($_SESSION['idUtilisateur']) and ! Campagne::getEtat($i_idCampagne)) {
                                         ?>
-                               
-                                <?php
-                                if (!$o_article['manque_unite'] > 0) {
-                                    ?>
-                                    <td></td>
-                                    <td></td>
-                                <?php } else {
-                                    ?>
-                                    <td><center>
+
+                                        <?php
+                                        if (!$o_article['manque_unite'] > 0) {
+                                            ?>
+                                            <td></td>
+                                            <td></td>
+                                        <?php } else {
+                                            ?>
+                                            <td><center>
                                         <select name="forceQuantite_<?php echo $o_article['id_article'] ?>">
 
                                             <?php
@@ -219,10 +219,10 @@ if ($to_article == null or $to_article == array()) {
                                     </center>
                                     </td> 
                                     <td><center><input type="submit" name="idArticle_<?php echo $o_article['id_article'] ?>" value="✓" style="color: green; font-weight: bold"/></center></td>
-                                        <?php
-                                    }
+                                    <?php
                                 }
-                                ?>
+                            }
+                            ?>
                             </tr>
                             <?php
                             $i_numLigne = ($i_numLigne + 1) % 2;
@@ -238,18 +238,21 @@ if ($to_article == null or $to_article == array()) {
 
     <?php
 }
-?>
+?><?php
+if (Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
+    ?>
     <p>
-    <a class="action_navigation" href="<?php echo root ?>/articlesCommandEs.php/exportCSV
-<?php
-/* Si navigation dans l'historique */
-if ($b_historique == 1) {
-    echo "?idOldCampagne=".$i_idCampagne;
-}
-?>
-"><img height="40" id="logo" src="<?php echo root ?>/Layouts/images/excel.png" alt="<?php echo $titre_page ?>" /></a></p>
+        <a class="action_navigation" href="<?php echo root ?>/articlesCommandEs.php/exportCSV
+        <?php
+        /* Si navigation dans l'historique */
+        if ($b_historique == 1) {
+            echo "?idOldCampagne=" . $i_idCampagne;
+        }
+        ?>
+           "><img height="40" id="logo" src="<?php echo root ?>/Layouts/images/excel.png" alt="<?php echo $titre_page ?>" /></a></p>
 
-<?php
+    <?php
+}
 
 foreach ($to_categorie as $o_categorie) {
     ?>
