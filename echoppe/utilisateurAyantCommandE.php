@@ -723,10 +723,10 @@ class UtilisateurAyantCommandEController extends Controller {
                          * surplus. On prend le modulo pour calculer la quantite totale qu'on impose à l'étiquette.
                          */    
 
-                        $o_article['quantite_totale']=fmod($o_article['quantite_totale'],$o_article['poids_paquet_fournisseur']);
+                        $o_article['quantite_totale_mod']=fmod($o_article['quantite_totale'],$o_article['poids_paquet_fournisseur']);
 
 
-                        /* Le format impose 25 étiquettes par page max */
+                        /* Le format impose 24 étiquettes par page max */
 
                         if($numEtiquette==25) {
                             $pdf->AddPage();
@@ -762,7 +762,7 @@ class UtilisateurAyantCommandEController extends Controller {
                         /*Ecriture du contenu des cellules : nom description et quantité totale (kg)*/
                         $pdf->cell(3,0.7,$o_article['nom'],1,0,'C',$fond);
                         $pdf->cell(3,0.7,$o_article['description_courte'],1,0,'C',$fond);
-                        $pdf->cell(3,0.7,$o_article['quantite_totale'],1,0,'C',$fond);
+                        $pdf->cell(3,0.7,$o_article['quantite_totale_mod']." (total ".$o_article['quantite_totale'].")",1,0,'C',$fond);
                         $fond=!$fond;
 
                         /* 
@@ -863,7 +863,7 @@ class UtilisateurAyantCommandEController extends Controller {
                  * surplus. On prend le modulo pour calculer la quantite totale qu'on impose à l'étiquette.
                  */    
                 
-                $o_article['quantite_totale']=fmod($o_article['quantite_totale'],$o_article['poids_paquet_fournisseur']);
+                $o_article['quantite_totale_mod']=fmod($o_article['quantite_totale'],$o_article['poids_paquet_fournisseur']);
                             
             
                 /*Choix police, placement du curseur, écriture du num campagne, nom, prenom*/
@@ -881,7 +881,7 @@ class UtilisateurAyantCommandEController extends Controller {
                 /* Ecriture dans les cellules */
                 $pdf->cell(4,0.7,$o_article['nom'],1,0,'C',$fond);
                 $pdf->cell(4,0.7,$o_article['description_courte'],1,0,'C',$fond);
-                $pdf->cell(4,0.7,$o_article['quantite_totale'],1,0,'C',$fond);
+                $pdf->cell(4,0.7,$o_article['quantite_totale_mod']." (total ".$o_article['quantite_totale'].")",1,0,'C',$fond);
                 $pdf->SetXY(1,$pdf->GetY()+0);
                 $fond=!$fond;
             
@@ -972,9 +972,9 @@ class UtilisateurAyantCommandEController extends Controller {
                  * surplus. On prend le modulo pour calculer la quantite totale qu'on impose à l'étiquette.
                  */    
                 
-                $o_article['quantite_totale']=fmod($o_article['quantite_totale'],$o_article['poids_paquet_fournisseur']);
+                $o_article['quantite_totale_mod']=fmod($o_article['quantite_totale'],$o_article['poids_paquet_fournisseur']);
                 
-                /* Le format impose 25 étiquettes par page max */
+                /* Le format impose 24 étiquettes par page max */
 
                 if($numEtiquette==25) {
                     $pdf->AddPage();
@@ -1010,7 +1010,7 @@ class UtilisateurAyantCommandEController extends Controller {
                 /*Ecriture du contenu des cellules : nom description et quantité totale (kg)*/
                 $pdf->cell(3,0.7,$o_article['nom'],1,0,'C',$fond);
                 $pdf->cell(3,0.7,$o_article['description_courte'],1,0,'C',$fond);
-                $pdf->cell(3,0.7,$o_article['quantite_totale'],1,0,'C',$fond);
+                $pdf->cell(3,0.7,$o_article['quantite_totale_mod']." (total ".$o_article['quantite_totale'].")",1,0,'C',$fond);
                 $fond=!$fond;
 
                 /* 
