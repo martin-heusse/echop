@@ -169,28 +169,8 @@ class CampagneController extends Controller {
             $this->render('authenticationRequired');
             return;
         }
-        /* Doit être un administrateur */
-        /* if(!$_SESSION['isAdministrateur']) {
-          $this->render('adminRequired');
-          return;
-          } */
         $to_campagne = Campagne::getObjectsByCourant(0);
         $this->render('historiqueCampagne', compact('to_campagne'));
-    }
-
-    public function dnd() {
-        /* Authentication required */
-        if (!Utilisateur::isLogged()) {
-            $this->render('authenticationRequired');
-            return;
-        }
-        /* Doit être un administrateur */
-        /* if(!$_SESSION['isAdministrateur']) {
-          $this->render('adminRequired');
-          return;
-          } */
-        $to_campagne = Campagne::getObjectsByCourant(0);
-        $this->render('dnd', compact('to_campagne'));
     }
 
     /*
