@@ -26,10 +26,8 @@
             ArticleOrdre::afficheObjectsPourDNDByCategorieByRayon($recup_categorie, $recup_rayon);
 ?>
 
-
 <script type="text/javascript">
     (function() {
-
 	var items = document.querySelectorAll('.article li');
 	var el = null;
         
@@ -61,7 +59,6 @@
         return false;
     }
 
-        
         function moveElementNextTo(element, elementToMoveNextTo) {
         if (isBelow(element, elementToMoveNextTo)) {
             // Insert element before to elementToMoveNextTo.
@@ -72,7 +69,6 @@
             elementToMoveNextTo.parentNode.insertBefore(element, elementToMoveNextTo.nextSibling);
         }
     }
-
 
 	function dragStart(e) {
 		this.style.opacity = '0.4';
