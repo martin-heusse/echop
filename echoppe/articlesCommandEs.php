@@ -297,7 +297,7 @@ class ArticlesCommandEsController extends Controller {
         }
         /* Permet de recalculer le manque et donc de gérer les transactions */
         //Cancel auto commit option in the database
-        Commande::autocommit();
+        Commande::beginTransaction();
         /* On récupère les commandes-utilisateurs qui contiennent ce produit */
         $i_idCampagne = Campagne::getIdCampagneCourante();
         $to_utilisateur = Commande::getObjectsByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
@@ -344,7 +344,12 @@ class ArticlesCommandEsController extends Controller {
                 }
             }
         }
-        Commande::rollback($sucess);
+        if($sucess){
+            Commande::commit();
+        }
+        else{
+        Commande::rollback();
+        }
         /* Redirection */
         if ($_SESSION['isAdministrateur']) {
             if ($i_idCampagne == Campagne::getIdCampagneCourante()) {

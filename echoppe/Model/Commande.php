@@ -394,16 +394,22 @@ class Commande {
      * Gestion des transactions 
      */
 
-    public static function autocommit(){
-        mysqli_autocommit(connect, FALSE);
+    public static function beginTransaction(){
+        $sql_query = "START TRANSACTION";
+        $b_result = mysql_query($sql_query);
+        return $b_result;
     }
     
-    public static function rollback($sucess) {
-        if (!$sucess) {
-            mysqli_rollback($con);
-        } else {
-            mysqli_commit($con);
-        }
+    public static function commit() {
+        $sql_query = "COMMIT";
+        $b_result = mysql_query($sql_query);
+        return $b_result;
+    }
+    
+    public static function rollback() {
+        $sql_query = "ROLLBACK";
+        $b_result = mysql_query($sql_query);
+        return $b_result;
     }
     
     
