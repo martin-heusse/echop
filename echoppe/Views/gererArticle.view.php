@@ -14,9 +14,7 @@
     ?>
 
 
-    <?php if ($i_idRayon != null) { ?>
-        <p><a class="action_navigation" href="<?php echo root ?>/article.php/choixCategorieTri?i_idRayon=<?php echo $i_idRayon; ?>">Trier les articles</a></p>
-    <?php } ?>
+    
 </div>
 <?php
 /* Si navigation dans l'historique */
@@ -103,6 +101,10 @@ foreach ($to_rayon as $o_rayon) {
     }
     ?>
 </p>
+
+<?php if ($i_idRayon != null) { ?>
+        <p><span style="font-size: 16px ; font-weight: bold; color:#666666"><a class="action_navigation" href="<?php echo root ?>/article.php/choixCategorieTri?i_idRayon=<?php echo $i_idRayon; ?>">Trier les articles</a></p>
+    <?php } ?>
 <!-- Affichage du numéro de page -->
 <?php
 if ($i_pageTot > 1) {
