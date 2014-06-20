@@ -370,11 +370,12 @@ class ArticleController extends Controller {
                         }
                     }
                     /* la boucle suivante permet de détecter quelle ligne a été choisi en submit puisque les boutons submit
-                     * de chaque ligne ont un 'name' propre à leur ligne */
-                    for ($i = 1; $i <= Article::getMaxId(); $i++) {
+                     * de chaque ligne ont un 'name' propre à leur ligne */                    
+                    for ($i = Article::getMinId($i_idCampagne); $i <= Article::getMaxId($i_idCampagne); $i++) {
                         /* Pour les deux tests suivants, on doit traiter deux cas éventuels liés aux navigateurs : 
                          * - Google Chrome récupère le 'name' fourni directement
                          * - Mozilla Firefox ne récupère pas le 'name' mais 'name_x' et 'name_y' pour les input de type image SUBMIT */
+                        echo $i;
                         if (isset($_POST['ajout_fournisseur_' . $i]) or isset($_POST['ajout_fournisseur_' . $i . '_x'])) {
                             $id_article = $i;
                             header('Location: ' . root . '/article.php/afficherAjouterFournisseur?i_erreur=' . $i_erreur . '&i_idRayon=' . $i_idRayon . '&i_pageNum=' . $i_pageNum . '&i_idCampagne=' . $i_idCampagne . '&id_article=' . $id_article . '&b_historique=' . $b_historique);
@@ -386,7 +387,6 @@ class ArticleController extends Controller {
                             return;
                         }
                     }
-
                     $i_erreur = 0;
                 }
             }

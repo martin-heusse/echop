@@ -49,13 +49,24 @@ class Article {
         return $o_result;
     }
 
-    public static function getMaxId() {
-        $sql_query = "select max(id) from article";
+    public static function getMaxId($i_idCampagne) {
+        $sql_query = "select max(id) from article_campagne where id_campagne=$i_idCampagne";
         $sql_tmp = mysql_query($sql_query);
         $s_result = null;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
             /* Sécurité et création du résultat */
             $s_result = htmlentities($o_row['max(id)'], null, 'UTF-8');
+        }
+        return $s_result;
+    }
+    
+     public static function getMinId($i_idCampagne) {
+        $sql_query = "select min(id) from article_campagne where id_campagne=$i_idCampagne";
+        $sql_tmp = mysql_query($sql_query);
+        $s_result = null;
+        if ($o_row = mysql_fetch_assoc($sql_tmp)) {
+            /* Sécurité et création du résultat */
+            $s_result = htmlentities($o_row['min(id)'], null, 'UTF-8');
         }
         return $s_result;
     }

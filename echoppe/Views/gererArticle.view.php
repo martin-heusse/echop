@@ -613,8 +613,8 @@ if ($i_pageNum > 0) {
                             <?php
                             $nbmax_fournisseurs_article = count(Fournisseur::getAllObjects());
                             if ($nb_fournisseurs_article < $nbmax_fournisseurs_article) {
-                                ?>                                 
-                            <center><input type="image" id="SUBMIT" src="../Layouts/images/plus.png" height="60"name="ajout_fournisseur_<?php echo $i_idArticleCampagne ?>" 
+                                ?>     
+                            <center><input type="image" id="SUBMIT" src="../Layouts/images/plus.png" height="60" name="ajout_fournisseur_<?php echo $i_idArticleCampagne ?>" 
                                            value="Ajouter"></center>   
                                 <?php
                             }
