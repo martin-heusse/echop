@@ -209,7 +209,6 @@ if ($i_pageNum > 0) {
 
     <!-- En variable cachée id_rayon -->
     <input type="hidden" name="i_idRayon" value="<?php echo $i_idRayon ?>"/>
-    <input type="hidden" name="id_Fournisseur_rayon[]" value="<?php echo $o_fournisseur['id_fournisseur']; ?>"/>
     <input type="hidden" name="fin_pre" value="<?php echo $fin_pre; ?>" />
     <input align="right" type="submit"  value="Mettre à jour les articles"/>
 
@@ -239,6 +238,7 @@ if ($i_pageNum > 0) {
                     ?>
                     <th><?php echo $o_fournisseur['nom_fournisseur']; ?></th>
                     <!-- En variable cachée id_fournisseur -->
+    <input type="hidden" name="id_Fournisseur_rayon[]" value="<?php echo $o_fournisseur['id_fournisseur']; ?>"/>
 
                     <?php
                 }
