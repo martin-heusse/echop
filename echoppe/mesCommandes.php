@@ -313,12 +313,12 @@ class MesCommandesController extends Controller {
         $pdf->SetTitle($docTitle);
         
         /*Titre du document*/
-        $pdf->SetFont('Arial','UB',14);
+        $pdf->SetFont('Arial','UB',12);
         $pdf->AddPage();
         $pdf->Write(5,$docTitle);
         
         /*Titres des colonnes*/
-        $header=array('Produit','Description','Code fournisseur', 'Poids paquet fournisseur','Nombre paquet par colis','Prix TTC','Prix TTC unitaire',
+        $header=array('Produit'/*,'Description'*/,'Code fournisseur', 'Poids paquet fournisseur','Nombre paquet par colis','Prix TTC','Prix TTC unitaire',
         'Quantite min commande','Quantite','Quantite totale commandee',
             'Total TTC');
         
@@ -330,7 +330,7 @@ class MesCommandesController extends Controller {
         
         /* Création des cases contenant le titre des colonnes*/
         for($i=0;$i<sizeof($header);$i++)
-                $pdf->cell(3.5,1,$header[$i],1,0,'C',1);
+                $pdf->cell($i==0?7:3.5,1,$header[$i],1,0,'C',1);
         
         /* On recupère la commande d'un utilisateur */
         $to_commande = Commande::getObjectsByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur);
@@ -386,13 +386,13 @@ class MesCommandesController extends Controller {
             /* Réglage de la police des couleurs et placement du curseur pour les cases */
             $pdf->SetFillColor(0xdd,0xdd,0xdd);
             $pdf->SetTextColor(0,0,0);
-            $pdf->SetFont('Arial','',10);
+            $pdf->SetFont('Arial','',8);
             $pdf->SetXY(2,$pdf->GetY()+1);
             $fond=0;
         
             /* Ecriture dans les différentes cellules */
-            $pdf->cell(3.5,0.7,$o_article['nom'],1,0,'C',$fond);
-            $pdf->cell(3.5,0.7,$o_article['description_courte'],1,0,'C',$fond);
+            $pdf->cell(7,0.7,$o_article['nom'],1,0,'C',$fond);
+            //$pdf->cell(3.5,0.7,$o_article['description_courte'],1,0,'C',$fond);
             $pdf->cell(3.5,0.7,$o_article['code'],1,0,'C',$fond);
             $pdf->cell(3.5,0.7,$o_article['poids_paquet_fournisseur'],1,0,'C',$fond);
             $pdf->cell(3.5,0.7,$o_article['nb_paquet_colis'],1,0,'C',$fond);
@@ -408,7 +408,7 @@ class MesCommandesController extends Controller {
         
         /*Montant total, concaténation de la chaine de caractère, choix police couleurs et placement curseurs*/
         $Montant_Total="Total : ".$f_montantTotal." Euros";
-        $pdf->SetFont('Arial','B',10);
+        $pdf->SetFont('Arial','B',8);
         $pdf->SetXY(37,$pdf->GetY()+1);
         
         /*Ecriture du montant total dans sa case*/

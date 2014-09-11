@@ -373,7 +373,7 @@ class FournisseurController extends Controller {
         $header=array('Code Fournisseur','Article','Quantité','Prix unitaire','Prix Total');
         
         /* Réglage police, couleurs du fond et de la police et placement du curseur pour les titres colonnes */
-        $pdf->SetFont('Arial','B',7);
+        $pdf->SetFont('Arial','B',6);
         $pdf->SetFillColor(96,96,96);
         $pdf->SetTextColor(255,255,255);
         $pdf->SetXY(2,5);
@@ -447,7 +447,7 @@ class FournisseurController extends Controller {
             /* Réglage de la police des couleurs et placement du curseur pour les cases */
             $pdf->SetFillColor(0xdd,0xdd,0xdd);
             $pdf->SetTextColor(0,0,0);
-            $pdf->SetFont('Arial','',10);
+            $pdf->SetFont('Arial','',6);
             $pdf->SetXY(2,$pdf->GetY()+1);
             $fond=0;
         
@@ -508,7 +508,7 @@ class FournisseurController extends Controller {
         
         /*Montant total, concaténation de la chaine de caractère, choix police couleurs et placement curseurs*/
         $Montant_Total="Total : ".$f_montantTtc." Euros";
-        $pdf->SetFont('Arial','B',10);
+        $pdf->SetFont('Arial','B',8);
         $pdf->SetXY(16,$pdf->GetY()+1);
         
         /*Ecriture du montant total dans sa case*/

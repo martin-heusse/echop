@@ -398,7 +398,7 @@ class UtilisateurAyantCommandEController extends Controller {
         $pdf->Write(5,$docTitle);
         
         /*Titres des colonnes*/
-        $header=array('Produit','Description','Poids paquet fournisseur','Nombre paquet par colis','Prix TTC','Prix TTC unitaire',
+        $header=array('Produit',/*'Description',*/'Poids paquet fournisseur','Nombre paquet par colis','Prix TTC','Prix TTC unitaire',
             'Poids unit commande client','Quantite min commande','Quantite','Quantite totale commandee',
             'Total TTC');
         
@@ -410,7 +410,7 @@ class UtilisateurAyantCommandEController extends Controller {
         
         /* Création des cases contenant le titre des colonnes*/
         for($i=0;$i<sizeof($header);$i++)
-                $pdf->cell(3.5,1,$header[$i],1,0,'C',1);
+                $pdf->cell($i==0?7:3.5,1,$header[$i],1,0,'C',1);
         
         /* On recupère la commande d'un utilisateur */
         $to_commande = Commande::getObjectsByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur);
@@ -463,8 +463,8 @@ class UtilisateurAyantCommandEController extends Controller {
             $fond=0;
         
             /* Ecriture dans les différentes cellules */
-            $pdf->cell(3.5,0.7,$o_article['nom'],1,0,'C',$fond);
-            $pdf->cell(3.5,0.7,$o_article['description_courte'],1,0,'C',$fond);
+            $pdf->cell(7,0.7,html_entity_decode($o_article['nom'],ENT_COMPAT,"ISO-8859-1"),1,0,'C',$fond);
+            //$pdf->cell(3.5,0.7,$o_article['description_courte'],1,0,'C',$fond);
             $pdf->cell(3.5,0.7,$o_article['poids_paquet_fournisseur'],1,0,'C',$fond);
             $pdf->cell(3.5,0.7,$o_article['nb_paquet_colis'],1,0,'C',$fond);
             $pdf->cell(3.5,0.7,$o_article['prix_ttc'],1,0,'C',$fond);
@@ -536,7 +536,7 @@ class UtilisateurAyantCommandEController extends Controller {
                 $pdf->Write(5,$docTitle);
 
                 /*Titres des colonnes*/
-                $header=array('Produit','Description','Code fournisseur', 'Poids paquet fournisseur','Nombre paquet par colis','Prix TTC','Prix TTC unitaire',
+                $header=array('Produit',/*'Description',*/'Code fournisseur', 'Poids paquet fournisseur','Nombre paquet par colis','Prix TTC','Prix TTC unitaire',
                 'Quantite min commande','Quantite','Quantite totale commandee',
                     'Total TTC');
 
@@ -548,7 +548,7 @@ class UtilisateurAyantCommandEController extends Controller {
 
                 /* Création des cases contenant le titre des colonnes*/
                 for($i=0;$i<sizeof($header);$i++)
-                        $pdf->cell(3.5,1,$header[$i],1,0,'C',1);
+                        $pdf->cell($i==0?7:3.5,1,$header[$i],1,0,'C',1);
 
                 /* Montant total */
                 $f_montantTotal = 0;
@@ -606,8 +606,8 @@ class UtilisateurAyantCommandEController extends Controller {
                     $fond=0;
 
                     /* Ecriture dans les différentes cellules */
-                    $pdf->cell(3.5,0.7,$o_article['nom'],1,0,'C',$fond);
-                    $pdf->cell(3.5,0.7,$o_article['description_courte'],1,0,'C',$fond);
+                    $pdf->cell(7,0.7,html_entity_decode($o_article['nom'],ENT_COMPAT,"ISO-8859-1"),1,0,'C',$fond);
+                    //$pdf->cell(3.5,0.7,$o_article['description_courte'],1,0,'C',$fond);
                     $pdf->cell(3.5,0.7,$o_article['code'],1,0,'C',$fond);
                     $pdf->cell(3.5,0.7,$o_article['poids_paquet_fournisseur'],1,0,'C',$fond);
                     $pdf->cell(3.5,0.7,$o_article['nb_paquet_colis'],1,0,'C',$fond);
