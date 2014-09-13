@@ -121,7 +121,7 @@ where ac.id_article=c.id_article and ac.id_campagne=c.id_campagne and c.id_campa
     
 
     public static function getObjectsByIdCampagne($i_idCampagne) {
-        $sql_query = "select * from article_campagne where id_campagne=$i_idCampagne";
+        $sql_query = "select ac.* , a.id_rayon from article_campagne ac, article a  where ac.id_campagne=$i_idCampagne and ac.id_article=a.id ";
         $sql_tmp = mysql_query($sql_query);
         $to_result = array();
         if($sql_tmp==null) return $to_result;
