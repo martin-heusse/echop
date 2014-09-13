@@ -761,7 +761,7 @@ class UtilisateurAyantCommandEController extends Controller {
 
                         /*Ecriture du contenu des cellules : nom description et quantité totale (kg)*/
                         $pdf->cell(3,0.7,$o_article['nom'],1,0,'C',$fond);
-                        $pdf->cell(3,0.7,$o_article['description_courte'],1,0,'C',$fond);
+                        //$pdf->cell(3,0.7,$o_article['description_courte'],1,0,'C',$fond);
                         $pdf->cell(3,0.7,$o_article['quantite_totale_mod']." (total ".$o_article['quantite_totale'].")",1,0,'C',$fond);
                         $fond=!$fond;
 
@@ -880,7 +880,7 @@ class UtilisateurAyantCommandEController extends Controller {
 
                 /* Ecriture dans les cellules */
                 $pdf->cell(4,0.7,$o_article['nom'],1,0,'C',$fond);
-                $pdf->cell(4,0.7,$o_article['description_courte'],1,0,'C',$fond);
+                //$pdf->cell(4,0.7,$o_article['description_courte'],1,0,'C',$fond);
                 $pdf->cell(4,0.7,$o_article['quantite_totale_mod']." (total ".$o_article['quantite_totale'].")",1,0,'C',$fond);
                 $pdf->SetXY(1,$pdf->GetY()+0);
                 $fond=!$fond;
@@ -1009,7 +1009,7 @@ class UtilisateurAyantCommandEController extends Controller {
 
                 /*Ecriture du contenu des cellules : nom description et quantité totale (kg)*/
                 $pdf->cell(3,0.7,$o_article['nom'],1,0,'C',$fond);
-                $pdf->cell(3,0.7,$o_article['description_courte'],1,0,'C',$fond);
+                //$pdf->cell(3,0.7,$o_article['description_courte'],1,0,'C',$fond);
                 $pdf->cell(3,0.7,$o_article['quantite_totale_mod']." (total ".$o_article['quantite_totale'].")",1,0,'C',$fond);
                 $fond=!$fond;
 
