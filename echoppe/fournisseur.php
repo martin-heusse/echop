@@ -100,6 +100,8 @@ class FournisseurController extends Controller {
                 $i_idArticleCampagne = ArticleCampagne::getIdByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
                 $f_prixTtcArticle = ArticleFournisseur::getPrixTtcByIdArticleCampagneIdFournisseur($i_idArticleCampagne, $i_idFournisseur);
                 $i_poidsPaquetFournisseur = Article::getPoidsPaquetFournisseur($i_idArticle);
+                if($i_poidsPaquetFournisseur==0)
+                  $i_poidsPaquetFournisseur=1;
                 $f_prixTotaleArticle = $i_quantiteTotaleArticleReelle * $f_prixTtcArticle / $i_poidsPaquetFournisseur;
                 $f_montantTtc += $f_prixTotaleArticle;
             }
