@@ -77,7 +77,8 @@ class ArticleCampagne {
     }
 
     public static function getObjectsByIdCampagneIdFournisseur($i_idCampagne, $i_idFournisseur) {
-        $sql_query = "select * from article_campagne where id_campagne=$i_idCampagne and id_fournisseur=$i_idFournisseur";
+        //$sql_query = "select ac.*, sum() from article_campagne ac where id_campagne=$i_idCampagne and id_fournisseur=$i_idFournisseur";
+        $sql_query = "select  f.nom as nom_fournisseur, af.code , af.vente_paquet_unite, af.prix_ttc_ht, af.prix_ttc ,ac.id_article ,ac.poids_paquet_client, sum(quantite)  as quantite_totale_unites , sum(quantite) * ac.poids_paquet_client as quantite_totale , sum(quantite)*af.prix_ttc as montant_total, article.nom, unite.valeur as unite, af.prix_ttc/poids_paquet_client as prix_unitaire from fournisseur f, article_fournisseur af, commande c, article_campagne ac , article , unite where ac.id_campagne=$i_idCampagne and ac.id_fournisseur=$i_idFournisseur and c.id_campagne=ac.id_campagne and c.id_article=ac.id_article and article.id=c.id_article and article.id_unite=unite.id and af.id_article_campagne = ac.id and af.id_fournisseur=ac.id_fournisseur and f.id=ac.id_fournisseur group by c.id_article ";
         $sql_tmp = mysql_query($sql_query);
         $to_result = array();
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
@@ -89,6 +90,15 @@ class ArticleCampagne {
             $to_result[] = $o_row;
         }
         return $to_result;
+    }
+
+    public static function getNbArticlesByIdCampagneIdFournisseur($i_idCampagne, $i_idFournisseur) {
+        $sql_query = "select count(*) from article_campagne where id_campagne=$i_idCampagne and id_fournisseur=$i_idFournisseur";
+        $sql_tmp = mysql_query($sql_query);
+        $to_result = array();
+        $to_result=mysql_fetch_assoc($sql_tmp);
+        foreach ($to_result as $name=>$nb)
+          return $nb;
     }
     
         public static function getObjectsCommandByIdCampagneIdFournisseur($i_idCampagne, $i_idFournisseur) {
