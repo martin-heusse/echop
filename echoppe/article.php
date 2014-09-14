@@ -288,7 +288,6 @@ class ArticleController extends Controller {
                 header('Location: ' . root . '/article.php/afficherArticle?i_erreur=' . $i_erreur . '&idOldCampagne=' . $i_idCampagne);
             }
         } else {
-
             /* si toutes les variables sont définies on les récupère */
             $i_idRayon = $_POST['i_idRayon'];
             $ti_idArticleCampagne = $_POST['id_article_campagne'];
@@ -369,24 +368,24 @@ class ArticleController extends Controller {
                             ArticleCampagne::setPrixTtc($i_idArticleCampagne, $f_prixTtcEchoppe);
                         }
                     }
-                    /* la boucle suivante permet de détecter quelle ligne a été choisi en submit puisque les boutons submit
-                     * de chaque ligne ont un 'name' propre à leur ligne */                    
-                    for ($i = Article::getMinId($i_idCampagne); $i <= Article::getMaxId($i_idCampagne); $i++) {
-                        /* Pour les deux tests suivants, on doit traiter deux cas éventuels liés aux navigateurs : 
-                         * - Google Chrome récupère le 'name' fourni directement
-                         * - Mozilla Firefox ne récupère pas le 'name' mais 'name_x' et 'name_y' pour les input de type image SUBMIT */
-                        if (isset($_POST['ajout_fournisseur_' . $i]) or isset($_POST['ajout_fournisseur_' . $i . '_x'])) {
-                            $id_article = $i;
-                            header('Location: ' . root . '/article.php/afficherAjouterFournisseur?i_erreur=' . $i_erreur . '&i_idRayon=' . $i_idRayon . '&i_pageNum=' . $i_pageNum . '&i_idCampagne=' . $i_idCampagne . '&id_article=' . $id_article . '&b_historique=' . $b_historique);
-                            return;
-                        }
-                        if (isset($_POST['supprimer_' . $i]) or isset($_POST['supprimer_' . $i . '_x'])) {
-                            $id_article = $i;
-                            header('Location: ' . root . '/article.php/afficherSupprimerArticle?i_erreur=' . $i_erreur . '&i_idRayon=' . $i_idRayon . '&i_pageNum=' . $i_pageNum . '&i_idCampagne=' . $i_idCampagne . '&id_article=' . $id_article . '&b_historique=' . $b_historique);
-                            return;
-                        }
-                    }
+                }
+            }
+/* la boucle suivante permet de détecter quelle ligne a été choisi en submit puisque les boutons submit de chaque ligne ont un 'name' propre à leur ligne */
+            for ($j = Article::getMinId($i_idCampagne); $j <= Article::getMaxId($i_idCampagne); $j++) {
+                /* Pour les deux tests suivants, on doit traiter deux cas éventuels liés aux navigateurs : 
+                 * - Google Chrome récupère le 'name' fourni directement
+                 * - Mozilla Firefox ne récupère pas le 'name' mais 'name_x' et 'name_y' pour les input de type image SUBMIT */
+                if (isset($_POST['ajout_fournisseur_' . $j]) or isset($_POST['ajout_fournisseur_' . $j . '_x'])) {
+                    $id_article = $j;
                     $i_erreur = 0;
+                    header('Location: ' . root . '/article.php/afficherAjouterFournisseur?i_erreur=' . $i_erreur . '&i_idRayon=' . $i_idRayon . '&i_pageNum=' . $i_pageNum . '&i_idCampagne=' . $i_idCampagne . '&id_article=' . $id_article . '&b_historique=' . $b_historique);
+                    return;
+                }
+                if (isset($_POST['supprimer_' . $j]) or isset($_POST['supprimer_' . $j . '_x'])) {
+                    $id_article = $j;
+                    $i_erreur = 0;
+                    header('Location: ' . root . '/article.php/afficherSupprimerArticle?i_erreur=' . $i_erreur . '&i_idRayon=' . $i_idRayon . '&i_pageNum=' . $i_pageNum . '&i_idCampagne=' . $i_idCampagne . '&id_article=' . $id_article . '&b_historique=' . $b_historique);
+                    return;
                 }
             }
         }
