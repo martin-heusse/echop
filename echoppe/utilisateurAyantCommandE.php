@@ -760,7 +760,7 @@ class UtilisateurAyantCommandEController extends Controller {
                         $fond=0;
 
                         /*Ecriture du contenu des cellules : nom description et quantité totale (kg)*/
-                        $pdf->cell(3,0.7,$o_article['nom'],1,0,'C',$fond);
+                        $pdf->cell(6,0.7,html_entity_decode($o_article['nom'],ENT_COMPAT,"ISO-8859-1"),1,0,'C',$fond);
                         //$pdf->cell(3,0.7,$o_article['description_courte'],1,0,'C',$fond);
                         $pdf->cell(3,0.7,$o_article['quantite_totale_mod']." (total ".$o_article['quantite_totale'].")",1,0,'C',$fond);
                         $fond=!$fond;
@@ -874,12 +874,12 @@ class UtilisateurAyantCommandEController extends Controller {
                 /* Réglage police, placement curseur*/
                 $pdf->SetFillColor(0xdd,0xdd,0xdd);
                 $pdf->SetTextColor(0,0,0);
-                $pdf->SetFont('Arial','',8);
+                $pdf->SetFont('Arial','',6);
                 $pdf->SetXY(1,$pdf->GetY()+1);
                 $fond=0;
 
                 /* Ecriture dans les cellules */
-                $pdf->cell(4,0.7,$o_article['nom'],1,0,'C',$fond);
+                $pdf->cell(8,0.7,html_entity_decode($o_article['nom'],ENT_COMPAT,"ISO-8859-1"),1,0,'C',$fond);
                 //$pdf->cell(4,0.7,$o_article['description_courte'],1,0,'C',$fond);
                 $pdf->cell(4,0.7,$o_article['quantite_totale_mod']." (total ".$o_article['quantite_totale'].")",1,0,'C',$fond);
                 $pdf->SetXY(1,$pdf->GetY()+0);
