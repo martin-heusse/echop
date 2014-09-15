@@ -286,7 +286,7 @@ class FournisseurController extends Controller {
         $pdf->Write(5,$docTitle);
         
         /*Titres des colonnes*/
-        $header=array('Code Fournisseur','Article','Quantité','Prix unitaire','Prix Total');
+        $header=array('Code Fournisseur','Article','Quantite','Prix unitaire','Prix Total');
         
         /* Réglage police, couleurs du fond et de la police et placement du curseur pour les titres colonnes */
         $pdf->SetFont('Arial','B',6);
@@ -379,8 +379,8 @@ class FournisseurController extends Controller {
                                         else {$ht_ttc="TTC";}
             
             /* Ecriture dans les différentes cellules */
-            $pdf->cell(3.5,0.7,$o_article['code'],1,0,'C',$fond);
-            $pdf->cell(3.5,0.7,$o_article['nom'],1,0,'C',$fond);
+            $pdf->cell(2.5,0.7,$o_article['code'],1,0,'C',$fond);
+            $pdf->cell(4.5,0.7,html_entity_decode($o_article['nom'],ENT_COMPAT,"ISO-8859-1"),1,0,'C',$fond);
             $pdf->cell(3.5,0.7,$o_article['quantite_totale'].$o_article['unite'].$o_article['quantite_totale_unites']." (".$o_article['quantite_totale_unites']." unites)",1,0,'C',$fond);
             $pdf->cell(3.5,0.7,$prix." euros/".$paq_unit.$ht_ttc,1,0,'C',$fond);
             $pdf->cell(3.5,0.7,$o_article['montant_total'],1,0,'C',$fond);
