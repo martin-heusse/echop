@@ -52,7 +52,7 @@ if ($b_historique == 1) {
 }
 ?>
 ">
-        <?php echo $o_utilisateur['login_utilisateur'] ?> : <?php echo $o_utilisateur['nom'] ?> <?php echo $o_utilisateur['prenom'] ?></a></td>
+        <?php echo $o_utilisateur['nom'] ?> <?php echo $o_utilisateur['prenom'] ?> <small>(<?php echo $o_utilisateur['login_utilisateur'] ?>)</small></a></td>
         <td class="centrer"><?php echo $o_utilisateur['montant_total'] ?>&euro;</td>
 <?php
 if ($o_utilisateur['tout_livre'] == 1) {
