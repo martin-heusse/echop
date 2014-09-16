@@ -28,4 +28,8 @@ class Util {
         header("Cache-Control: must-revalidate, post-check=0, pre-check=0, public");
         header("Expires: 0");
     }
+
+    public static function trim_str($in_str){
+        return substr(html_entity_decode($in_str,ENT_COMPAT,"ISO-8859-1"),0,29);
+    }
 }?>

@@ -463,7 +463,7 @@ class UtilisateurAyantCommandEController extends Controller {
             $fond=0;
         
             /* Ecriture dans les différentes cellules */
-            $pdf->cell(7,0.7,html_entity_decode($o_article['nom'],ENT_COMPAT,"ISO-8859-1"),1,0,'C',$fond);
+            $pdf->cell(7,0.7,Util::trim_str($o_article['nom']),1,0,'C',$fond);
             //$pdf->cell(3.5,0.7,$o_article['description_courte'],1,0,'C',$fond);
             $pdf->cell(3.5,0.7,$o_article['poids_paquet_fournisseur'],1,0,'C',$fond);
             $pdf->cell(3.5,0.7,$o_article['nb_paquet_colis'],1,0,'C',$fond);
@@ -606,7 +606,7 @@ class UtilisateurAyantCommandEController extends Controller {
                     $fond=0;
 
                     /* Ecriture dans les différentes cellules */
-                    $pdf->cell(7,0.7,html_entity_decode($o_article['nom'],ENT_COMPAT,"ISO-8859-1"),1,0,'C',$fond);
+                    $pdf->cell(7,0.7,Util::trim_str($o_article['nom']),1,0,'C',$fond);
                     //$pdf->cell(3.5,0.7,$o_article['description_courte'],1,0,'C',$fond);
                     $pdf->cell(3.5,0.7,$o_article['code'],1,0,'C',$fond);
                     $pdf->cell(3.5,0.7,$o_article['poids_paquet_fournisseur'],1,0,'C',$fond);
@@ -760,7 +760,7 @@ class UtilisateurAyantCommandEController extends Controller {
                         $fond=0;
 
                         /*Ecriture du contenu des cellules : nom description et quantité totale (kg)*/
-                        $pdf->cell(6,0.7,html_entity_decode($o_article['nom'],ENT_COMPAT,"ISO-8859-1"),1,0,'C',$fond);
+                        $pdf->cell(6,0.7,Util::trim_str($o_article['nom']),1,0,'C',$fond);
                         //$pdf->cell(3,0.7,$o_article['description_courte'],1,0,'C',$fond);
                         $pdf->cell(3,0.7,$o_article['quantite_totale_mod']." (total ".$o_article['quantite_totale'].")",1,0,'C',$fond);
                         $fond=!$fond;
@@ -879,7 +879,7 @@ class UtilisateurAyantCommandEController extends Controller {
                 $fond=0;
 
                 /* Ecriture dans les cellules */
-                $pdf->cell(8,0.7,html_entity_decode($o_article['nom'],ENT_COMPAT,"ISO-8859-1"),1,0,'C',$fond);
+                $pdf->cell(8,0.7,Util::trim_str($o_article['nom']),1,0,'C',$fond);
                 //$pdf->cell(4,0.7,$o_article['description_courte'],1,0,'C',$fond);
                 $pdf->cell(4,0.7,$o_article['quantite_totale_mod']." (total ".$o_article['quantite_totale'].")",1,0,'C',$fond);
                 $pdf->SetXY(1,$pdf->GetY()+0);
@@ -1008,7 +1008,7 @@ class UtilisateurAyantCommandEController extends Controller {
                 $fond=0;
 
                 /*Ecriture du contenu des cellules : nom description et quantité totale (kg)*/
-                $pdf->cell(3,0.7,html_entity_decode($o_article['nom'],ENT_COMPAT,"ISO-8859-1"),1,0,'C',$fond);
+                $pdf->cell(3,0.7,Util::trim_str($o_article['nom']),1,0,'C',$fond);
                 //$pdf->cell(3,0.7,$o_article['description_courte'],1,0,'C',$fond);
                 $pdf->cell(3,0.7,$o_article['quantite_totale_mod']." (total ".$o_article['quantite_totale'].")",1,0,'C',$fond);
                 $fond=!$fond;

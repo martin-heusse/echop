@@ -380,7 +380,7 @@ class FournisseurController extends Controller {
             
             /* Ecriture dans les différentes cellules */
             $pdf->cell(2.5,0.7,$o_article['code'],1,0,'C',$fond);
-            $pdf->cell(4.5,0.7,html_entity_decode($o_article['nom'],ENT_COMPAT,"ISO-8859-1"),1,0,'C',$fond);
+            $pdf->cell(4.5,0.7,Util::trim_str($o_article['nom']),1,0,'C',$fond);
             $pdf->cell(3.5,0.7,$o_article['quantite_totale'].$o_article['unite'].$o_article['quantite_totale_unites']." (".$o_article['quantite_totale_unites']." unites)",1,0,'C',$fond);
             $pdf->cell(3.5,0.7,$prix." euros/".$paq_unit.$ht_ttc,1,0,'C',$fond);
             $pdf->cell(3.5,0.7,$o_article['montant_total'],1,0,'C',$fond);
