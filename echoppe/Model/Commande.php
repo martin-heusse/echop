@@ -189,7 +189,7 @@ class Commande {
     }
 
     public static function getObjectsByIdCampagneIdUtilisateur($i_idCampagne, $i_idUtilisateur) {
-        $sql_query = "select com.*, r.nom as nom_rayon from commande com, rayon r , article a  where com.id_campagne=$i_idCampagne and com.id_utilisateur=$i_idUtilisateur and com.id_article=a.id and r.id=a.id_rayon order by a.id_rayon";
+        $sql_query = "select com.*, r.nom as nom_rayon from commande com, rayon r , article a  where com.id_campagne=$i_idCampagne and com.id_utilisateur=$i_idUtilisateur and com.id_article=a.id and r.id=a.id_rayon order by a.id_rayon, a.id";
         $sql_tmp = mysql_query($sql_query);
         $to_result = array();
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
