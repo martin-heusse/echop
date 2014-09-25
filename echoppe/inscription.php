@@ -43,7 +43,10 @@ class InscriptionController extends Controller {
             } else {
                 $b_valide = 0;
                 Utilisateur::create($s_login, $s_passwd, $s_email, $b_valide);
-                Utilisateur::createNomPrenom($s_nom, $s_prenom);
+                $o_utilisateur = Utilisateur::getObjectByLogin($s_login);
+                $i_idUtilisateur = $o_utilisateur['id'];
+
+                Utilisateur::createNomPrenom($i_idUtilisateur,$s_nom, $s_prenom);
                 $i_errReg = 0;
                 /* Envoie du mail pour avertir les administrateurs */
                 // récupérer les mails des admins

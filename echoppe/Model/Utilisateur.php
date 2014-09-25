@@ -26,8 +26,8 @@ class Utilisateur {
         return $i_result;
     }
     
-    public static function createNomPrenom($s_nom, $s_prenom) {
-        $sql_query = "insert into datasUtilisateur (nom, prenom, desinscrit) values('$s_nom', '$s_prenom','0')";
+    public static function createNomPrenom($id,$s_nom, $s_prenom) {
+        $sql_query = "insert into datasUtilisateur (id,nom, prenom, desinscrit) values($id,'$s_nom', '$s_prenom','0')";
         mysql_query($sql_query);
         $i_result = mysql_insert_id();
         return $i_result;

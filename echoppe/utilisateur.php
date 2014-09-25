@@ -106,7 +106,11 @@ class UtilisateurController extends Controller {
                 $b_valide = 0;
                 //Ajout dans la base de donnée
                 Utilisateur::create($s_login, $s_passwd, $s_email, $b_valide);
-                Utilisateur::createNomPrenom($s_nom, $s_prenom);
+                // Recup id
+                $o_utilisateur = Utilisateur::getObjectByLogin($s_login);
+                $i_idUtilisateur = $o_utilisateur['id'];
+
+                Utilisateur::createNomPrenom($i_idUtilisateur,$s_nom, $s_prenom);
                 $i_errReg = 0;
                 // Validation directement car c'est l'administrateur qui ajoute ici
                 $o_utilisateur = Utilisateur::getObjectByLogin($s_login);
