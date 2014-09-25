@@ -1,7 +1,5 @@
 <!-- Affiche les commandes pour chaque utilisateur -->
-<div id="retour"><p><a class="action_navigation" href="<?php echo root ?>/utilisateurAyantCommandE.php/utilisateurAyantCommandE
-
-    <?php
+<div id="retour"><p><a class="action_navigation" href="<?php echo root ?>/utilisateurAyantCommandE.php/utilisateurAyantCommandE<?php
 /* Si navigation dans l'historique */
 if ($b_historique == 1) {
     echo "?idOldCampagne=".$i_idCampagne;
