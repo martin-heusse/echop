@@ -17,6 +17,7 @@
 <?php
 /* Si navigation dans l'historique */
 if ($b_historique == 1) {
+    $i_idOldCampagne=$i_idCampagne;
     ?>
     <span class="historique">[Historique de la campagne n°<?php echo $i_idCampagne ?>]</span>
     <?php
@@ -147,11 +148,10 @@ if ($to_article == null or $to_article == array()) {
                                         <?php
                                         if (Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
                                             ?>
-                                            <a href="<?php echo root ?>/articlesCommandEs.php/utilisateursAyantCommandECetArticle?idArticle=<?php echo $o_article['id_article'] ?>
-                                            <?php
+                                            <a href="<?php echo root ?>/articlesCommandEs.php/utilisateursAyantCommandECetArticle?idArticle=<?php echo $o_article['id_article'] ?><?php
                                             /* Si navigation dans l'historique */
                                             if ($b_historique == 1) {
-                                                echo "&idOldCampagne=" . $i_idCampagne;
+                                                echo "&idOldCampagne=" . $i_idOldCampagne;
                                             }
                                             ?>
                                                ">
@@ -242,11 +242,10 @@ if ($to_article == null or $to_article == array()) {
 if (Administrateur::isAdministrateur($_SESSION['idUtilisateur'])) {
     ?>
     <p>
-        <a class="action_navigation" href="<?php echo root ?>/articlesCommandEs.php/exportCSV
-        <?php
+        <a class="action_navigation" href="<?php echo root ?>/articlesCommandEs.php/exportCSV<?php
         /* Si navigation dans l'historique */
         if ($b_historique == 1) {
-            echo "?idOldCampagne=" . $i_idCampagne;
+            echo "?idOldCampagne=" . $i_idOldCampagne;
         }
         ?>
            "><img height="40" id="logo" src="<?php echo root ?>/Layouts/images/excel.png" alt="<?php echo $titre_page ?>" /></a></p>
