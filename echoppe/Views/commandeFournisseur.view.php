@@ -55,7 +55,7 @@ if($i_nbreArticle != 0) {
                                         else {echo "TTC";} ?>
                                 
         </td>
-        <td class="centrer"><?php echo $o_article['montant_total'] ?>&euro;</td>
+        <td class="centrer"><?php echo number_format($o_article['montant_total'], 2, '.', '') ?>&euro;</td>
          </div>
 <?php
         }
@@ -69,7 +69,7 @@ if($i_nbreArticle != 0) {
 <td></td>
 <td></td>
 <td class="centrer"><b><?php echo 'Montant total'?></b></td>
-<td class="centrer"><b><?php echo $f_montantTtc ?>&euro;</b></td>
+<td class="centrer"><b><?php echo number_format($f_montantTtc, 2, '.', '') ?>&euro;</b></td>
 
 
 </table>
