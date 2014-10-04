@@ -325,8 +325,8 @@ class ArticlesCommandEsController extends Controller {
                 $i_idCampagne = Campagne::getIdCampagneCourante();
             }
             /* Un select par ligne, donc une nom de variable dédié pour chaque ligne */
-            if (isset($_POST['forceQuantite_' . $i_nbArticle])) {
-                $f_quantite = $_POST['forceQuantite_' . $i_nbArticle];
+            if (isset($_POST['forceQuantite'])) {
+                $f_quantite = $_POST['forceQuantite'];
                 if ($f_quantite > 0) {
                     $f_utilisateur = $_POST['forceUtilisateur'];
                     /* Quand tous les paramètres ont été récupérés, on vérifie si une commande 
