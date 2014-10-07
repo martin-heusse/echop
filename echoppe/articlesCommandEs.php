@@ -295,11 +295,19 @@ class ArticlesCommandEsController extends Controller {
                 }
             }
         }
+        /* Navigation dans l'historique ou non */
+        $b_historique = 0;
+        if (isset($_GET['idOldCampagne'])) {
+            $i_idCampagne = $_GET['idOldCampagne'];
+            $b_historique = 1;
+        } else {
+            $i_idCampagne = Campagne::getIdCampagneCourante();
+        }
+
         /* Permet de recalculer le manque et donc de gérer les transactions */
         //Cancel auto commit option in the database
         Commande::beginTransaction();
         /* On récupère les commandes-utilisateurs qui contiennent ce produit */
-        $i_idCampagne = Campagne::getIdCampagneCourante();
         $to_utilisateur = Commande::getObjectsByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
         $i_idArticleCampagne = ArticleCampagne::getIdByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
         $i_poidsPaquetClient = ArticleCampagne::getPoidsPaquetClient($i_idArticleCampagne);
@@ -315,16 +323,9 @@ class ArticlesCommandEsController extends Controller {
             $i_quantiteTotale += $o_row['quantite'];
         }
         $i_manque = $this->calcManque($i_quantiteTotale, $i_poidsPaquetClient, $i_colisage);        
-        if ($i_manque > 0) {
-            /* Navigation dans l'historique ou non */
-            $b_historique = 0;
-            if (isset($_GET['idCampagne'])) {
-                $i_idCampagne = $_GET['idCampagne'];
-                $b_historique = 1;
-            } else {
-                $i_idCampagne = Campagne::getIdCampagneCourante();
-            }
+//         if ($i_manque > 0) {
             /* Un select par ligne, donc une nom de variable dédié pour chaque ligne */
+//             nl2br(print_r($_POST));
             if (isset($_POST['forceQuantite'])) {
                 $f_quantite = $_POST['forceQuantite'];
                 if ($f_quantite > 0) {
@@ -343,7 +344,7 @@ class ArticlesCommandEsController extends Controller {
                     }
                 }
             }
-        }
+//         }
         if($sucess){
             Commande::commit();
         }

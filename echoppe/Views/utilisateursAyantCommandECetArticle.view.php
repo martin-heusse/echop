@@ -74,7 +74,7 @@ if ($b_historique == 1) {
     ?>
 
     <tr>
-        <form method="post" action="articlesCommandEs.php/forceUtilisateur?idArticle=<?php echo $i_idArticle ?>&idCampagne=<?php echo $i_idCampagne ?>"
+        <form method="post" action="articlesCommandEs.php/forceUtilisateur?idArticle=<?php echo $i_idArticle ?>&idOldCampagne=<?php echo $i_idCampagne ?>"
         >
         
         <td><select name="forceUtilisateur">
