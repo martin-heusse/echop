@@ -57,8 +57,7 @@ foreach ($to_rayon as $o_rayon) {
         echo "style=\"font-size: 20px;\"";
     }
     ?> 
-        href="<?php echo root; ?>/article.php/afficherArticle?i_pageNum=1&i_idRayon=<?php echo $o_rayon['id']; ?>
-        <?php
+        href="<?php echo root; ?>/article.php/afficherArticle?i_pageNum=1&i_idRayon=<?php echo $o_rayon['id'];
         /* Si navigation dans l'historique */
         if ($b_historique == 1) {
             echo "&idOldCampagne=" . $i_idCampagne;
@@ -87,7 +86,7 @@ foreach ($to_rayon as $o_rayon) {
                echo ' | <p>' ;
             }
             ?>
-            <span style="font-size: 16px ; font-weight: bold; color:#666666">   |  <a href='afficherArticle?i_idRayon=<?php echo $i_idRayon ?>&i_pageNum=<?php echo $t_categorieDebut[$o_categorie['id']] ?>'> <?php echo $o_categorie['nom'] . ' (' . $t_categorieDebut[$o_categorie['id']] . '⇢)' ?> </a></span>
+            <span style="font-size: 16px ; font-weight: bold; color:#666666">   |  <a href='afficherArticle?i_idRayon=<?php echo $i_idRayon ?>&i_pageNum=<?php echo $t_categorieDebut[$o_categorie['id']]; if ($b_historique == 1) {echo "&idOldCampagne=" . $i_idCampagne;}?>'> <?php echo $o_categorie['nom'] . ' (' . $t_categorieDebut[$o_categorie['id']] . '⇢)' ?> </a></span>
             <?php
         $i_nbreCategorie ++;
             
@@ -111,7 +110,11 @@ if ($i_pageTot > 1) {
     echo "<p><b><font color='#666666'> Page : </font></b>";
     for ($i = 1; $i <= $i_pageTot; $i++) {
 
-        echo "<a href='afficherArticle?i_idRayon=$i_idRayon&i_pageNum=$i'&i_categorie=>";
+        echo "<a href='afficherArticle?i_idRayon=$i_idRayon&i_pageNum=$i";
+        if ($b_historique == 1) {
+            echo "&idOldCampagne=" . $i_idCampagne;
+        }
+        echo"'>";
         if ($i == $i_pageNum) {
             echo '<b> <font size="+2">';
         }
@@ -204,8 +207,7 @@ if ($i_pageNum > 0) {
     }
     echo "i_pageNum=" . $i_pageNum;
 }
-?>
-      ">
+?>">
 
     <!-- En variable cachée id_rayon -->
     <input type="hidden" name="i_idRayon" value="<?php echo $i_idRayon ?>"/>
