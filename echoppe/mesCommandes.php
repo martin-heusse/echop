@@ -391,7 +391,7 @@ class MesCommandesController extends Controller {
             $fond=0;
         
             /* Ecriture dans les différentes cellules */
-            $pdf->cell(7,0.7,$o_article['nom'],1,0,'C',$fond);
+            $pdf->cell(7,0.7,Util::trim_str($o_article['nom']),1,0,'C',$fond);
             //$pdf->cell(3.5,0.7,$o_article['description_courte'],1,0,'C',$fond);
             $pdf->cell(3.5,0.7,$o_article['code'],1,0,'C',$fond);
             $pdf->cell(3.5,0.7,$o_article['poids_paquet_fournisseur'],1,0,'C',$fond);
