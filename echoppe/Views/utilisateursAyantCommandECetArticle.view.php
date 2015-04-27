@@ -79,7 +79,7 @@ if ($b_historique == 1) {
         
         <td><select name="forceUtilisateur">
         <?php foreach($not_utilisateur as $o_utilisateur) { ?>
-        <option value=<?php echo $o_utilisateur['id']?>><?php echo $o_utilisateur['login']?> : <?php echo $o_utilisateur['prenom']?> <?php echo $o_utilisateur['nom']?></option>
+        <option value=<?php echo $o_utilisateur['id']?>> <?php echo $o_utilisateur['nom']?>  <?php echo $o_utilisateur['prenom']?> (<?php echo $o_utilisateur['login']?>)</option>
         <?php }?>
         </select></td>
         <td class="centrer"><input class="input_quantite" type="text" name="forceQuantite" value="0"/>
