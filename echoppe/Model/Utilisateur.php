@@ -2,7 +2,7 @@
 class Utilisateur {
 
     public static function authentication($s_login, $s_motDePasse) {
-        $sql_query = "select u.id from utilisateur u ,datasUtilisateur du where lower(u.login)=lower('$s_login') and u.mot_de_passe='$s_motDePasse' and u.validite=1 and du.desinscrit=0 and du.id=u.id";
+        $sql_query = "select u.id from utilisateur u ,datasUtilisateur du where (lower(u.login)=lower('$s_login') or lower(u.email)=lower('$s_login')) and u.mot_de_passe='$s_motDePasse' and u.validite=1 and du.desinscrit=0 and du.id=u.id";
         $sql_tmp = mysql_query($sql_query);
         $i_result = false;
         if ($o_row = mysql_fetch_assoc($sql_tmp)) {
