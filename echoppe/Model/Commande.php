@@ -219,7 +219,7 @@ class Commande {
     }
 
     public static function getIdUtilisateurUniqueByIdCampagne($i_idCampagne) {
-        $sql_query = "select distinct c.id_utilisateur from commande c  ,utilisateur u where c.id_campagne=$i_idCampagne and c.id_utilisateur=u.id order by u.login";
+        $sql_query = "select distinct c.id_utilisateur from commande c  ,utilisateur u, datasUtilisateur dat where c.id_campagne=$i_idCampagne and c.id_utilisateur=u.id and dat.id=u.id order by dat.nom,dat.prenom";
         $sql_tmp = mysql_query($sql_query);
         $to_result = array();
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
