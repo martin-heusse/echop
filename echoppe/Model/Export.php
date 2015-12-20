@@ -29,7 +29,7 @@ class Export {
 
                 // On parcours $Row et on ajout chaque valeur à cette ligne
                 foreach($Row as $clef => $valeur)
-                    $outputCsv .= trim($valeur).';';
+                    $outputCsv .=  utf8_decode(str_replace(".",",",html_entity_decode(trim($valeur)))).';';
 
                 // Suppression du ; qui traine à la fin
                 $outputCsv = rtrim($outputCsv, ';');
