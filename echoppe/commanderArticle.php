@@ -102,12 +102,24 @@ class CommanderArticleController extends Controller {
                 $o_article['quantite'] = Commande::getQuantite($i_idCommande); 
 
                 /* Valeurs calculées */
-                /* Calcul poids unitaire */
-                $o_article['prix_unitaire'] = $o_article['prix_ttc'] / $o_article['poids_paquet_fournisseur'];
                 /* Calcul quantité totale */
-                $o_article['quantite_totale'] = $o_article['quantite'] * $o_article['poids_paquet_client'];
-                /* Calcul total TTC */
-                $o_article['total_ttc'] = $o_article['quantite_totale'] * $o_article['prix_ttc'] / $o_article['poids_paquet_fournisseur'];
+                if($o_article['poids_paquet_client']>0){
+                  $o_article['quantite_totale'] = $o_article['quantite'] * $o_article['poids_paquet_client'];
+                }
+                else{
+                  $o_article['quantite_totale'] = $o_article['quantite'];
+                }
+
+                if ($o_article['poids_paquet_fournisseur']>0){
+                  /* Calcul poids unitaire */
+                  $o_article['prix_unitaire'] = $o_article['prix_ttc'] / $o_article['poids_paquet_fournisseur'];
+                  /* Calcul total TTC */
+                  $o_article['total_ttc'] = $o_article['quantite_totale'] * $o_article['prix_ttc'] / $o_article['poids_paquet_fournisseur'];
+                 }
+                else{
+                  $o_article['prix_unitaire']=$o_article['prix_ttc'];
+                  $o_article['total_ttc']=$o_article['quantite_totale'] * $o_article['prix_ttc'] ;
+                }
                 /* Calcul du montant total */
                 $f_montantTotal += $o_article['total_ttc'];
                 /* Formattage des nombres */
