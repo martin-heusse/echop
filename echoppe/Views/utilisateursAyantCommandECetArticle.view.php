@@ -49,7 +49,7 @@ if ($b_historique == 1) {
     echo "&idOldCampagne=".$i_idCampagne;
 }
 ?>
-"><?php echo $o_utilisateur['login'] ?></a></td>
+"><?php echo $o_utilisateur['nom']; echo " " ; echo $o_utilisateur['prenom'] ; echo " (" ; echo $o_utilisateur['login'] ; echo ")" ; ?></a></td>
         <td class="centrer"><?php echo $o_utilisateur['quantite'].$s_unite ?> (<?php $nbr_unites = $o_utilisateur['quantite']/$i_poidsPaquetClient ; echo $nbr_unites ?> Unités)</td>
     </tr>
 <?php

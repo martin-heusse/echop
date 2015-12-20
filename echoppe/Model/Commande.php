@@ -103,7 +103,7 @@ class Commande {
     }
 
     public static function getObjectsByIdArticleIdCampagne($i_idArticle, $i_idCampagne) {
-        $sql_query = "select c.* from commande c, utilisateur u where c.id_article=$i_idArticle and c.id_campagne=$i_idCampagne and c.id_utilisateur=u.id order by u.login";
+        $sql_query = "select c.*, du.nom, du.prenom from commande c, utilisateur u, datasUtilisateur du where u.id=du.id  and c.id_article=$i_idArticle and c.id_campagne=$i_idCampagne and c.id_utilisateur=u.id order by  du.nom,du.prenom";
         $sql_tmp = mysql_query($sql_query);
         $to_result = array();
         while ($o_row = mysql_fetch_assoc($sql_tmp)) {
