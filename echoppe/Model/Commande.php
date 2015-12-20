@@ -307,6 +307,13 @@ class Commande {
         return $sql_query;
     }
 
+    public static function getExportCSVDatasAll($i_idCampagne) {
+        $sql_query = "select a.nom, a.description_courte, aF.code as Code_Fournisseur, a.poids_paquet_fournisseur, a.nb_paquet_colis, aC.prix_ttc,(aC.prix_ttc/a.poids_paquet_fournisseur) as Prix_TTC_Unitaire, aC.seuil_min, c.quantite, (c.quantite*aC.poids_paquet_client) as Quantite_Totale_Commandee,(c.quantite*aC.poids_paquet_client*aC.prix_ttc/a.poids_paquet_fournisseur) as Prix_Total_TTC, du.nom as nom_utilisateur, du.prenom, u.login, r.nom as Nom_rayon
+                        from article a, article_campagne aC, commande c, utilisateur u, datasUtilisateur du, article_fournisseur aF, rayon r
+                        where a.id=aC.id_article and aC.id_article=c.id_article and aF.id_article_campagne=aC.id and aF.id_fournisseur=aC.id_fournisseur and aC.id_campagne=c.id_campagne and c.id_campagne=$i_idCampagne and c.id_utilisateur=u.id and du.id=u.id and r.id=a.id_rayon";
+        return $sql_query;
+    }
+
     public static function getExportCSVTotalTTC($i_idUtilisateur, $i_idCampagne) {
         $sql_query = "select sum(c.quantite*aC.poids_paquet_client*aC.prix_ttc/a.poids_paquet_fournisseur) as Prix_Total_TTC
                         from article a, article_campagne aC, commande c, utilisateur u

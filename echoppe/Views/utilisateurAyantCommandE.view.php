@@ -74,7 +74,8 @@ if ($o_utilisateur['tout_livre'] == 1) {
     <tr> <th colspan=<?php echo $i_colspan ?> class="right">Montant Total = </th>
         <td class="center"><?php echo $montantTotal ?> €</td></tr>
 </table>
-<p><a class="action_navigation" href="<?php echo root ?>/utilisateurAyantCommandE.php/exportPDFAll<?php echo "?id_camp=".$i_idCampagne;?>"><img height="40" id="logo" src="<?php echo root ?>/Layouts/images/pdf.png" alt="<?php echo $titre_page ?>" /></a></p>
+<p><a class="action_navigation" href="<?php echo root ?>/utilisateurAyantCommandE.php/exportCSVAll<?php echo "?idOldCampagne=".$i_idCampagne;?>"><img height="40" id="logo" src="<?php echo root ?>/Layouts/images/excel.png" alt="<?php echo $titre_page ?>" /></a></p>
+<p><a class="action_navigation" href="<?php echo root ?>/utilisateurAyantCommandE.php/exportPDFAll<?php echo "?idOldCampagne=".$i_idCampagne;?>"><img height="40" id="logo" src="<?php echo root ?>/Layouts/images/pdf.png" alt="<?php echo $titre_page ?>" /></a></p>
 <p><a class="action_navigation" href="<?php echo root ?>/utilisateurAyantCommandE.php/etiquettesUtilisateurAll<?php
 /* Si navigation dans l'historique */
 if ($b_historique == 1) {

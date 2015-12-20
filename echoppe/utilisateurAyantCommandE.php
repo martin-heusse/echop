@@ -310,14 +310,14 @@ class UtilisateurAyantCommandEController extends Controller {
         } else {
             $i_idCampagne = Campagne::getIdCampagneCourante();
         }
-        
+
         /*Récupération Nom et Prénom de l'Utilisateur*/
         $userLogin=Utilisateur::getLogin($i_idUtilisateur);
         $userName=Utilisateur::getNom($i_idUtilisateur);
         $userSurname=Utilisateur::getPrenom($i_idUtilisateur);
  
-        $database="BdEchoppe";        
-        
+        $database="BdEchoppe";
+
         // Connexion BD
         Export::connect();
 
@@ -337,21 +337,67 @@ class UtilisateurAyantCommandEController extends Controller {
                 }else{
                     $requete= Commande::getExportCSVTotalTTC($i_idUtilisateur, $i_idCampagne);
                 }
-                
+
             // Ecriture dans la variable CSV de la requête (voir le système CSV)       
             $outputCsv=Export::exportExcel($requete, $outputCsv);
             
             /*Passage à la requête suivante*/
             $j=$j+1;
         }
-        
+
         /*Formatage du fichier*/
         Util::headerExcel($fileName);
 
         echo $outputCsv;
         exit();
     }
-    
+    public function exportCSVAll() {
+        /* Authentication required */
+        if (!Utilisateur::isLogged()) {
+            $this->render('authenticationRequired');
+            return;
+        }
+        /* Doit être un administrateur */
+        if (!$_SESSION['isAdministrateur']) {
+            $this->render('adminRequired');
+            return;
+        }
+
+
+        /* Navigation dans l'historique ou non */
+        $b_historique = 0;
+        if (isset($_GET['idOldCampagne'])) {
+            $i_idCampagne = $_GET['idOldCampagne'];
+            $b_historique = 1;
+        } else {
+            $i_idCampagne = Campagne::getIdCampagneCourante();
+        }
+
+
+        $database="BdEchoppe";
+
+        // Connexion BD
+        Export::connect();
+
+        // la variable qui va contenir les données CSV
+        $outputCsv = '';
+
+        // Nom du fichier qu'on initialise puis qu'on attribue
+        $fileName = "Commande_Tout_vraiment_tout_campagne".$i_idCampagne.".csv";
+
+        // Deux requêtes : une qui exporte les données de la commande, l'autre le total TTC
+        $requete = Commande::getExportCSVDatasAll($i_idCampagne);
+
+        // Ecriture dans la variable CSV de la requête (voir le système CSV)
+        $outputCsv=Export::exportExcel($requete, $outputCsv);
+
+        /*Formatage du fichier*/
+        Util::headerExcel($fileName);
+
+        echo $outputCsv;
+        exit();
+    }
+
     public function exportPDF() {
         
         /* Authentication required */
@@ -499,7 +545,7 @@ class UtilisateurAyantCommandEController extends Controller {
         }
         
         /* Récupération de l'identifiant de la campagne courante */
-        $i_idCampagne = $_GET['id_camp'];
+        $i_idCampagne = $_GET['idOldCampagne'];
         
         /* Récupération de l'état de la campagne */
         $b_etat = Campagne::getEtat($i_idCampagne);
