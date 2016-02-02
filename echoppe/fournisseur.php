@@ -103,6 +103,10 @@ class FournisseurController extends Controller {
                 if($i_poidsPaquetFournisseur==0)
                   $i_poidsPaquetFournisseur=1;
                 $f_prixTotaleArticle = $i_quantiteTotaleArticleReelle * $f_prixTtcArticle / $i_poidsPaquetFournisseur;
+                /* Si on a du stock, le prix est négatif, on le compte pas !*/
+                if($f_prixTotaleArticle <0){
+                  $f_prixTotaleArticle = 0 ;
+                }
                 $f_montantTtc += $f_prixTotaleArticle;
             }
             /* Montant du aux fournisseurs */
@@ -360,6 +364,9 @@ class FournisseurController extends Controller {
             $o_article['prix_ttc_ht'] = ArticleFournisseur::getPrixTtcHt($i_idArticleFournisseur);
             $o_article['vente_paquet_unite'] = ArticleFournisseur::getVentePaquetUnite($i_idArticleFournisseur);
 
+            if($o_article['montant_total']<0)
+              continue;
+
             /* Réglage de la police des couleurs et placement du curseur pour les cases */
             $pdf->SetFillColor(0xdd,0xdd,0xdd);
             $pdf->SetTextColor(0,0,0);
@@ -414,6 +421,9 @@ class FournisseurController extends Controller {
             $f_prixTtcArticle = ArticleFournisseur::getPrixTtcByIdArticleCampagneIdFournisseur($i_idArticleCampagne, $i_idFournisseur);
             $i_poidsPaquetFournisseur = Article::getPoidsPaquetFournisseur($i_idArticle);
             $f_prixTotaleArticle = $i_quantiteTotaleArticleReelle * $f_prixTtcArticle / $i_poidsPaquetFournisseur;
+            if($f_prixTotaleArticle <0){
+              $f_prixTotaleArticle = 0 ;
+            }
             $f_montantTtc += $f_prixTotaleArticle;
         }
         /* Montant du aux fournisseurs */

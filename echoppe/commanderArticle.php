@@ -184,7 +184,7 @@ class CommanderArticleController extends Controller {
                         $i_seuilMin = ArticleCampagne::getSeuilMinByIdArticleIdCampagne($i_idArticle, $i_idCampagne);
                         /* Si la quantité est supérieur au seuil min et non nulle, on 
                          * actualise, sinon on ne fait rien */
-                        if ($i_quantite >= $i_seuilMin) {
+                        if ($i_quantite >= $i_seuilMin || $i_idUtilisateur == 1) {
                             /* Vérifie si l'article dont la quantité a été modifié est déjà présent dans la commande 
                              * sinon crée la commande */
                             $i_idCommande = Commande::getIdByIdArticleIdCampagneIdUtilisateur($i_idArticle, $i_idCampagne, $i_idUtilisateur);

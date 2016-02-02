@@ -325,7 +325,7 @@ class Commande {
         $sql_query = "select af.code, a.nom as Nom, SUM(c.quantite) as Quantite, u.valeur as Unite, af.prix_ht as Prix_HT_Paquet, SUM(c.quantite)*ac.poids_paquet_client*af.prix_ttc/a.poids_paquet_fournisseur as Prix_Total_TTC
                         from article_fournisseur af, article a, commande c, article_campagne ac, unite u, campagne ca
                         where a.id=ac.id_article and af.id_article_campagne=ac.id and u.id=a.id_unite and ca.id=ac.id_campagne and ac.id_fournisseur=af.id_fournisseur and c.id_article=a.id and c.id_campagne=ca.id and ac.id_fournisseur=$i_idFournisseur and ca.id=$i_idCampagne
-                        group by a.nom, a.poids_paquet_fournisseur";
+                        group by a.nom, a.poids_paquet_fournisseur HAVING Prix_Total_TTC>0";
         return $sql_query;
     }
 
@@ -334,7 +334,7 @@ class Commande {
                             From (select SUM(c.quantite)*ac.poids_paquet_client*af.prix_ttc/a.poids_paquet_fournisseur as Prix_TTC
                                      from article_fournisseur af, article a, commande c, article_campagne ac, unite u, campagne ca
                                      where a.id=ac.id_article and af.id_article_campagne=ac.id and u.id=a.id_unite and ca.id=ac.id_campagne and ac.id_fournisseur=af.id_fournisseur and c.id_article=a.id and c.id_campagne=ca.id and ac.id_fournisseur=$i_idFournisseur and ca.id=$i_idCampagne
-                                     group by a.nom, a.poids_paquet_fournisseur) Prix_Total_TTC";
+                                     group by a.nom, a.poids_paquet_fournisseur HAVING Prix_TTC>0) Prix_Total_TTC";
         return $sql_query;
     }
 
